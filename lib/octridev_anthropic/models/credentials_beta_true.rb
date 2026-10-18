@@ -5,595 +5,600 @@
 
 # credentials_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata
-  FIELDS = {
-    auth: "auth",
-    display_name: "display_name",
-    metadata: "metadata",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    auth
-  ].freeze
-  DECODERS = {
-    auth: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCredentialCreateAuth.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsCreateCredentialRequestBody.
-# Typed representation of the `BetaManagedAgentsCreateCredentialRequestBody` API schema.
-class BetaManagedAgentsCreateCredentialRequestBody
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::DECODERS
-
-  # @return [BetaManagedAgentsCredentialCreateAuth] Authentication configuration for the credential.
-  attr_reader :auth
-  # @return [String] Human-readable name for the credential. Up to 255 characters.
-  attr_reader :display_name
-  # @return [Hash] Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-  attr_reader :metadata
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata
+    FIELDS = {
+      auth: 'auth',
+      display_name: 'display_name',
+      metadata: 'metadata'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      auth
+    ].freeze
+    DECODERS = {
+      auth: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCredentialCreateAuth.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsCreateCredentialRequestBody.
+  # Typed representation of the `BetaManagedAgentsCreateCredentialRequestBody` API schema.
+  class BetaManagedAgentsCreateCredentialRequestBody
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsCreateCredentialRequestBodyMetadata::DECODERS
+
+    # @return [BetaManagedAgentsCredentialCreateAuth] Authentication configuration for the credential.
+    attr_reader :auth
+    # @return [String] Human-readable name for the credential. Up to 255 characters.
+    attr_reader :display_name
+    # @return [Hash] Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    attr_reader :metadata
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsCredentialCreateAuth SDK namespace.
+  module BetaManagedAgentsCredentialCreateAuth
+    DISCRIMINATOR_MAPPING = {
+      'mcp_oauth' => -> { BetaManagedAgentsMcpOauthCreateParams },
+      'static_bearer' => -> { BetaManagedAgentsStaticBearerCreateParams },
+      'environment_variable' => -> { BetaManagedAgentsEnvironmentVariableCreateParams }
+    }.freeze
 
-# Defines the BetaManagedAgentsCredentialCreateAuth SDK namespace.
-module BetaManagedAgentsCredentialCreateAuth
-  DISCRIMINATOR_MAPPING = {
-    "mcp_oauth" => -> { BetaManagedAgentsMcpOauthCreateParams },
-    "static_bearer" => -> { BetaManagedAgentsStaticBearerCreateParams },
-    "environment_variable" => -> { BetaManagedAgentsEnvironmentVariableCreateParams },
-  }.freeze
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-    raise SdkValidationError.new('BetaManagedAgentsCredentialCreateAuth', 'variant', "Unknown BetaManagedAgentsCredentialCreateAuth discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata
-  FIELDS = {
-    type: "type",
-    secret_name: "secret_name",
-    secret_value: "secret_value",
-    networking: "networking",
-    injection_location: "injection_location",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    secret_name
-    secret_value
-    networking
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEnvironmentVariableCreateParamsType.from_value(value)
-    end,
-    networking: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCredentialNetworkingParams.from_hash(value)
-    end,
-    injection_location: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsInjectionLocationParams.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEnvironmentVariableCreateParams.
-# Parameters for creating an environment variable credential.
-class BetaManagedAgentsEnvironmentVariableCreateParams
-  include BetaManagedAgentsCredentialCreateAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEnvironmentVariableCreateParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Name of the environment variable. Immutable after create.
-  attr_reader :secret_name
-  # @return [String] Secret value. Write-only; never returned in responses.
-  attr_reader :secret_value
-  # @return [BetaManagedAgentsCredentialNetworkingParams] Outbound hosts the secret value is substituted on.
-  attr_reader :networking
-  # @return [BetaManagedAgentsInjectionLocationParams] Where in the outbound request the secret value may be substituted.
-  attr_reader :injection_location
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsCredentialCreateAuth', 'variant', "Unknown BetaManagedAgentsCredentialCreateAuth discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata
+    FIELDS = {
+      type: 'type',
+      secret_name: 'secret_name',
+      secret_value: 'secret_value',
+      networking: 'networking',
+      injection_location: 'injection_location'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      secret_name
+      secret_value
+      networking
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEnvironmentVariableCreateParamsType.from_value(value)
+      end,
+      networking: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCredentialNetworkingParams.from_hash(value)
+      end,
+      injection_location: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsInjectionLocationParams.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsEnvironmentVariableCreateParams.
+  # Parameters for creating an environment variable credential.
+  class BetaManagedAgentsEnvironmentVariableCreateParams
+    include BetaManagedAgentsCredentialCreateAuth
 
-# Defines the BetaManagedAgentsEnvironmentVariableCreateParamsType SDK namespace.
-module BetaManagedAgentsEnvironmentVariableCreateParamsType
-  ENVIRONMENT_VARIABLE = 'environment_variable'
-  VALUES = ['environment_variable'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEnvironmentVariableCreateParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsEnvironmentVariableCreateParamsType', 'enum', "Unknown BetaManagedAgentsEnvironmentVariableCreateParamsType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsEnvironmentVariableCreateParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Name of the environment variable. Immutable after create.
+    attr_reader :secret_name
+    # @return [String] Secret value. Write-only; never returned in responses.
+    attr_reader :secret_value
+    # @return [BetaManagedAgentsCredentialNetworkingParams] Outbound hosts the secret value is substituted on.
+    attr_reader :networking
+    # @return [BetaManagedAgentsInjectionLocationParams] Where in the outbound request the secret value may be substituted.
+    attr_reader :injection_location
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata
-  FIELDS = {
-    header: "header",
-    body: "body",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsInjectionLocationParams.
-# Where in the outbound request the secret value may be substituted.
-class BetaManagedAgentsInjectionLocationParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [Boolean] Substitute when the placeholder appears in a request header value.
-  attr_reader :header
-  # @return [Boolean] Substitute when the placeholder appears in the request body.
-  attr_reader :body
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsEnvironmentVariableCreateParamsType SDK namespace.
+  module BetaManagedAgentsEnvironmentVariableCreateParamsType
+    ENVIRONMENT_VARIABLE = 'environment_variable'
+    VALUES = ['environment_variable'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsEnvironmentVariableCreateParamsType', 'enum', "Unknown BetaManagedAgentsEnvironmentVariableCreateParamsType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsListCredentialsResponseMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsCredential.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsListCredentialsResponse.
-# Response containing a paginated list of credentials.
-class BetaManagedAgentsListCredentialsResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsCredential] List of credentials.
-  attr_reader :data
-  # @return [String] Pagination token for the next page, or null if no more results.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata
+    FIELDS = {
+      header: 'header',
+      body: 'body'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsInjectionLocationParams.
+  # Where in the outbound request the secret value may be substituted.
+  class BetaManagedAgentsInjectionLocationParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsInjectionLocationParamsMetadata::DECODERS
+
+    # @return [Boolean] Substitute when the placeholder appears in a request header value.
+    attr_reader :header
+    # @return [Boolean] Substitute when the placeholder appears in the request body.
+    attr_reader :body
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata
-  FIELDS = {
-    type: "type",
-    mcp_server_url: "mcp_server_url",
-    access_token: "access_token",
-    expires_at: "expires_at",
-    refresh: "refresh",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    mcp_server_url
-    access_token
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthCreateParamsType.from_value(value)
-    end,
-    expires_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    refresh: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshParams.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpOauthCreateParams.
-# Parameters for creating an MCP OAuth credential.
-class BetaManagedAgentsMcpOauthCreateParams
-  include BetaManagedAgentsCredentialCreateAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpOauthCreateParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] URL of the MCP server this credential authenticates against.
-  attr_reader :mcp_server_url
-  # @return [String] OAuth access token.
-  attr_reader :access_token
-  # @return [BetaTimestamp] Optional API value serialized in the `expires_at` wire field.
-  attr_reader :expires_at
-  # @return [BetaManagedAgentsMcpOauthRefreshParams] Refresh token configuration, if the credential supports token refresh.
-  attr_reader :refresh
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsListCredentialsResponseMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsCredential.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsListCredentialsResponse.
+  # Response containing a paginated list of credentials.
+  class BetaManagedAgentsListCredentialsResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsListCredentialsResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsCredential] List of credentials.
+    attr_reader :data
+    # @return [String] Pagination token for the next page, or null if no more results.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsMcpOauthCreateParamsType SDK namespace.
-module BetaManagedAgentsMcpOauthCreateParamsType
-  MCP_OAUTH = 'mcp_oauth'
-  VALUES = ['mcp_oauth'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpOauthCreateParamsType', 'enum', "Unknown BetaManagedAgentsMcpOauthCreateParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata
-  FIELDS = {
-    refresh_token: "refresh_token",
-    token_endpoint: "token_endpoint",
-    client_id: "client_id",
-    scope: "scope",
-    resource: "resource",
-    token_endpoint_auth: "token_endpoint_auth",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    refresh_token
-    token_endpoint
-    client_id
-    token_endpoint_auth
-  ].freeze
-  DECODERS = {
-    token_endpoint_auth: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpOauthRefreshParams.
-# OAuth refresh token parameters for creating a credential with refresh support.
-class BetaManagedAgentsMcpOauthRefreshParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::DECODERS
-
-  # @return [String] OAuth refresh token.
-  attr_reader :refresh_token
-  # @return [String] Token endpoint URL used to refresh the access token.
-  attr_reader :token_endpoint
-  # @return [String] OAuth client ID.
-  attr_reader :client_id
-  # @return [String] OAuth scope for the refresh request.
-  attr_reader :scope
-  # @return [String] OAuth resource indicator.
-  attr_reader :resource
-  # @return [BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth] Required object value serialized in the `token_endpoint_auth` wire field.
-  attr_reader :token_endpoint_auth
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata
+    FIELDS = {
+      type: 'type',
+      mcp_server_url: 'mcp_server_url',
+      access_token: 'access_token',
+      expires_at: 'expires_at',
+      refresh: 'refresh'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      mcp_server_url
+      access_token
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthCreateParamsType.from_value(value)
+      end,
+      expires_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      refresh: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshParams.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMcpOauthCreateParams.
+  # Parameters for creating an MCP OAuth credential.
+  class BetaManagedAgentsMcpOauthCreateParams
+    include BetaManagedAgentsCredentialCreateAuth
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpOauthCreateParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpOauthCreateParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] URL of the MCP server this credential authenticates against.
+    attr_reader :mcp_server_url
+    # @return [String] OAuth access token.
+    attr_reader :access_token
+    # @return [BetaTimestamp] Optional API value serialized in the `expires_at` wire field.
+    attr_reader :expires_at
+    # @return [BetaManagedAgentsMcpOauthRefreshParams] Refresh token configuration, if the credential supports token refresh.
+    attr_reader :refresh
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsMcpOauthCreateParamsType SDK namespace.
+  module BetaManagedAgentsMcpOauthCreateParamsType
+    MCP_OAUTH = 'mcp_oauth'
+    VALUES = ['mcp_oauth'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth SDK namespace.
-module BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
-  DISCRIMINATOR_MAPPING = {
-    "none" => -> { BetaManagedAgentsTokenEndpointAuthNoneParam },
-    "client_secret_basic" => -> { BetaManagedAgentsTokenEndpointAuthBasicParam },
-    "client_secret_post" => -> { BetaManagedAgentsTokenEndpointAuthPostParam },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth', 'variant', "Unknown BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata
-  FIELDS = {
-    type: "type",
-    token: "token",
-    mcp_server_url: "mcp_server_url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    token
-    mcp_server_url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsStaticBearerCreateParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsStaticBearerCreateParams.
-# Parameters for creating a static bearer token credential.
-class BetaManagedAgentsStaticBearerCreateParams
-  include BetaManagedAgentsCredentialCreateAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsStaticBearerCreateParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Static bearer token value.
-  attr_reader :token
-  # @return [String] URL of the MCP server this credential authenticates against.
-  attr_reader :mcp_server_url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpOauthCreateParamsType', 'enum', "Unknown BetaManagedAgentsMcpOauthCreateParamsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata
+    FIELDS = {
+      refresh_token: 'refresh_token',
+      token_endpoint: 'token_endpoint',
+      client_id: 'client_id',
+      scope: 'scope',
+      resource: 'resource',
+      token_endpoint_auth: 'token_endpoint_auth'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      refresh_token
+      token_endpoint
+      client_id
+      token_endpoint_auth
+    ].freeze
+    DECODERS = {
+      token_endpoint_auth: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsMcpOauthRefreshParams.
+  # OAuth refresh token parameters for creating a credential with refresh support.
+  class BetaManagedAgentsMcpOauthRefreshParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpOauthRefreshParamsMetadata::DECODERS
 
-# Defines the BetaManagedAgentsStaticBearerCreateParamsType SDK namespace.
-module BetaManagedAgentsStaticBearerCreateParamsType
-  STATIC_BEARER = 'static_bearer'
-  VALUES = ['static_bearer'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] OAuth refresh token.
+    attr_reader :refresh_token
+    # @return [String] Token endpoint URL used to refresh the access token.
+    attr_reader :token_endpoint
+    # @return [String] OAuth client ID.
+    attr_reader :client_id
+    # @return [String] OAuth scope for the refresh request.
+    attr_reader :scope
+    # @return [String] OAuth resource indicator.
+    attr_reader :resource
+    # @return [BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth] Required object value serialized in the `token_endpoint_auth` wire field.
+    attr_reader :token_endpoint_auth
 
-    raise SdkValidationError.new('BetaManagedAgentsStaticBearerCreateParamsType', 'enum', "Unknown BetaManagedAgentsStaticBearerCreateParamsType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata
-  FIELDS = {
-    type: "type",
-    client_secret: "client_secret",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    client_secret
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthBasicParamType.from_value(value)
-    end,
-  }.freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for BetaManagedAgentsTokenEndpointAuthBasicParam.
-# Token endpoint uses HTTP Basic authentication with client credentials.
-class BetaManagedAgentsTokenEndpointAuthBasicParam
-  include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::DECODERS
-
-  # @return [BetaManagedAgentsTokenEndpointAuthBasicParamType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] OAuth client secret.
-  attr_reader :client_secret
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth SDK namespace.
+  module BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
+    DISCRIMINATOR_MAPPING = {
+      'none' => -> { BetaManagedAgentsTokenEndpointAuthNoneParam },
+      'client_secret_basic' => -> { BetaManagedAgentsTokenEndpointAuthBasicParam },
+      'client_secret_post' => -> { BetaManagedAgentsTokenEndpointAuthPostParam }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth', 'variant', "Unknown BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsTokenEndpointAuthBasicParamType SDK namespace.
-module BetaManagedAgentsTokenEndpointAuthBasicParamType
-  CLIENT_SECRET_BASIC = 'client_secret_basic'
-  VALUES = ['client_secret_basic'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthBasicParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthBasicParamType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthNoneParamType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsTokenEndpointAuthNoneParam.
-# Token endpoint requires no client authentication.
-class BetaManagedAgentsTokenEndpointAuthNoneParam
-  include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::DECODERS
-
-  # @return [BetaManagedAgentsTokenEndpointAuthNoneParamType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata
+    FIELDS = {
+      type: 'type',
+      token: 'token',
+      mcp_server_url: 'mcp_server_url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      token
+      mcp_server_url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsStaticBearerCreateParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsStaticBearerCreateParams.
+  # Parameters for creating a static bearer token credential.
+  class BetaManagedAgentsStaticBearerCreateParams
+    include BetaManagedAgentsCredentialCreateAuth
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsStaticBearerCreateParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsStaticBearerCreateParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Static bearer token value.
+    attr_reader :token
+    # @return [String] URL of the MCP server this credential authenticates against.
+    attr_reader :mcp_server_url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsStaticBearerCreateParamsType SDK namespace.
+  module BetaManagedAgentsStaticBearerCreateParamsType
+    STATIC_BEARER = 'static_bearer'
+    VALUES = ['static_bearer'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsTokenEndpointAuthNoneParamType SDK namespace.
-module BetaManagedAgentsTokenEndpointAuthNoneParamType
-  NONE = 'none'
-  VALUES = ['none'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthNoneParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthNoneParamType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata
-  FIELDS = {
-    type: "type",
-    client_secret: "client_secret",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    client_secret
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthPostParamType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsTokenEndpointAuthPostParam.
-# Token endpoint uses POST body authentication with client credentials.
-class BetaManagedAgentsTokenEndpointAuthPostParam
-  include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::DECODERS
-
-  # @return [BetaManagedAgentsTokenEndpointAuthPostParamType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] OAuth client secret.
-  attr_reader :client_secret
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsStaticBearerCreateParamsType', 'enum', "Unknown BetaManagedAgentsStaticBearerCreateParamsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata
+    FIELDS = {
+      type: 'type',
+      client_secret: 'client_secret'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      client_secret
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthBasicParamType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsTokenEndpointAuthBasicParam.
+  # Token endpoint uses HTTP Basic authentication with client credentials.
+  class BetaManagedAgentsTokenEndpointAuthBasicParam
+    include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
 
-# Defines the BetaManagedAgentsTokenEndpointAuthPostParamType SDK namespace.
-module BetaManagedAgentsTokenEndpointAuthPostParamType
-  CLIENT_SECRET_POST = 'client_secret_post'
-  VALUES = ['client_secret_post'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthBasicParamMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthPostParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthPostParamType: #{value}")
+    # @return [BetaManagedAgentsTokenEndpointAuthBasicParamType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] OAuth client secret.
+    attr_reader :client_secret
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the BetaManagedAgentsTokenEndpointAuthBasicParamType SDK namespace.
+  module BetaManagedAgentsTokenEndpointAuthBasicParamType
+    CLIENT_SECRET_BASIC = 'client_secret_basic'
+    VALUES = ['client_secret_basic'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthBasicParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthBasicParamType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthNoneParamType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsTokenEndpointAuthNoneParam.
+  # Token endpoint requires no client authentication.
+  class BetaManagedAgentsTokenEndpointAuthNoneParam
+    include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthNoneParamMetadata::DECODERS
+
+    # @return [BetaManagedAgentsTokenEndpointAuthNoneParamType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsTokenEndpointAuthNoneParamType SDK namespace.
+  module BetaManagedAgentsTokenEndpointAuthNoneParamType
+    NONE = 'none'
+    VALUES = ['none'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthNoneParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthNoneParamType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata
+    FIELDS = {
+      type: 'type',
+      client_secret: 'client_secret'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      client_secret
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsTokenEndpointAuthPostParamType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsTokenEndpointAuthPostParam.
+  # Token endpoint uses POST body authentication with client credentials.
+  class BetaManagedAgentsTokenEndpointAuthPostParam
+    include BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsTokenEndpointAuthPostParamMetadata::DECODERS
+
+    # @return [BetaManagedAgentsTokenEndpointAuthPostParamType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] OAuth client secret.
+    attr_reader :client_secret
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsTokenEndpointAuthPostParamType SDK namespace.
+  module BetaManagedAgentsTokenEndpointAuthPostParamType
+    CLIENT_SECRET_POST = 'client_secret_post'
+    VALUES = ['client_secret_post'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsTokenEndpointAuthPostParamType', 'enum', "Unknown BetaManagedAgentsTokenEndpointAuthPostParamType: #{value}")
+    end
+  end
 end

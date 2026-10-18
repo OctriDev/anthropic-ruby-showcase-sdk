@@ -5,378 +5,381 @@
 
 # shared_beta_spend domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaSpendLimitMetadata
-  FIELDS = {
-    amount: "amount",
-    created_at: "created_at",
-    currency: "currency",
-    id: "id",
-    period: "period",
-    scope: "scope",
-    type: "type",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    amount
-    created_at
-    currency
-    id
-    period
-    scope
-    type
-    updated_at
-  ].freeze
-  DECODERS = {
-    period: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitPeriod.from_value(value)
-    end,
-    scope: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitScope.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    amount
-  ].freeze
-end
-
-# API model for BetaSpendLimit.
-# A configured spend limit: a cap on metered spend for one scope and period.
-class BetaSpendLimit
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSpendLimitMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSpendLimitMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSpendLimitMetadata::DECODERS
-
-  # @return [String] Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
-  attr_reader :amount
-  # @return [String] RFC 3339 datetime at which the spend limit was created.
-  attr_reader :created_at
-  # @return [String] ISO 4217 code of the organization's billing currency; the unit for `amount`.
-  attr_reader :currency
-  # @return [String] Unique tagged ID of the spend limit (`spl_...`).
-  attr_reader :id
-  # @return [BetaSpendLimitPeriod] Length of the window the limit resets over. `amount` caps spend within each period.
-  attr_reader :period
-  # @return [BetaSpendLimitScope] What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
-  attr_reader :scope
-  # @return [BetaSpendLimitType] Object type. Always `spend_limit`.
-  attr_reader :type
-  # @return [String] RFC 3339 datetime at which the spend limit was last modified.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaSpendLimitMetadata
+    FIELDS = {
+      amount: 'amount',
+      created_at: 'created_at',
+      currency: 'currency',
+      id: 'id',
+      period: 'period',
+      scope: 'scope',
+      type: 'type',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      amount
+      created_at
+      currency
+      id
+      period
+      scope
+      type
+      updated_at
+    ].freeze
+    DECODERS = {
+      period: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitPeriod.from_value(value)
+      end,
+      scope: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitScope.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      amount
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendLimitMetadata::NULLABLE_FIELDS)
+  # API model for BetaSpendLimit.
+  # A configured spend limit: a cap on metered spend for one scope and period.
+  class BetaSpendLimit
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSpendLimitMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSpendLimitMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSpendLimitMetadata::DECODERS
+
+    # @return [String] Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+    attr_reader :amount
+    # @return [String] RFC 3339 datetime at which the spend limit was created.
+    attr_reader :created_at
+    # @return [String] ISO 4217 code of the organization's billing currency; the unit for `amount`.
+    attr_reader :currency
+    # @return [String] Unique tagged ID of the spend limit (`spl_...`).
+    attr_reader :id
+    # @return [BetaSpendLimitPeriod] Length of the window the limit resets over. `amount` caps spend within each period.
+    attr_reader :period
+    # @return [BetaSpendLimitScope] What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+    attr_reader :scope
+    # @return [BetaSpendLimitType] Object type. Always `spend_limit`.
+    attr_reader :type
+    # @return [String] RFC 3339 datetime at which the spend limit was last modified.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendLimitMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaSpendLimitPeriod SDK namespace.
-module BetaSpendLimitPeriod
-  DAILY = 'daily'
-  MONTHLY = 'monthly'
-  WEEKLY = 'weekly'
-  VALUES = ['daily', 'monthly', 'weekly'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaSpendLimitType SDK namespace.
-module BetaSpendLimitType
-  SPEND_LIMIT = 'spend_limit'
-  VALUES = ['spend_limit'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaSpendLimitType', 'enum', "Unknown BetaSpendLimitType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata
-  FIELDS = {
-    actor: "actor",
-    created_at: "created_at",
-    id: "id",
-    period: "period",
-    resolved_at: "resolved_at",
-    resolved_by: "resolved_by",
-    spend_summary: "spend_summary",
-    status: "status",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    actor
-    created_at
-    id
-    period
-    resolved_at
-    resolved_by
-    spend_summary
-    status
-    type
-  ].freeze
-  DECODERS = {
-    actor: lambda do |value|
-      ::OctridevAnthropic::BetaUserActorSchema.from_hash(value)
-    end,
-    period: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaPeriod.from_value(value)
-    end,
-    resolved_by: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaResolvedBy.from_hash(value)
-    end,
-    spend_summary: lambda do |value|
-      ::OctridevAnthropic::BetaSpendSummary.from_hash(value)
-    end,
-    status: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaStatus.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    resolved_at
-    resolved_by
-    spend_summary
-  ].freeze
-end
-
-# API model for BetaSpendLimitIncreaseRequestSchema.
-# Typed representation of the `BetaSpendLimitIncreaseRequestSchema` API schema.
-class BetaSpendLimitIncreaseRequestSchema
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::DECODERS
-
-  # @return [BetaUserActorSchema] A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
-  attr_reader :actor
-  # @return [String] Required `date-time`-formatted value serialized in the `created_at` wire field.
-  attr_reader :created_at
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [BetaSpendLimitIncreaseRequestSchemaPeriod] Required enumerated value serialized in the `period` wire field.
-  attr_reader :period
-  # @return [String] Required API value serialized in the `resolved_at` wire field.
-  attr_reader :resolved_at
-  # @return [BetaSpendLimitIncreaseRequestSchemaResolvedBy] Required API value serialized in the `resolved_by` wire field.
-  attr_reader :resolved_by
-  # @return [BetaSpendSummary] Required API value serialized in the `spend_summary` wire field.
-  attr_reader :spend_summary
-  # @return [BetaSpendLimitIncreaseRequestSchemaStatus] Required enumerated value serialized in the `status` wire field.
-  attr_reader :status
-  # @return [BetaSpendLimitIncreaseRequestSchemaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaSpendLimitPeriod SDK namespace.
+  module BetaSpendLimitPeriod
+    DAILY = 'daily'
+    MONTHLY = 'monthly'
+    WEEKLY = 'weekly'
+    VALUES = %w[daily monthly weekly].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::NULLABLE_FIELDS)
+  # Defines the BetaSpendLimitType SDK namespace.
+  module BetaSpendLimitType
+    SPEND_LIMIT = 'spend_limit'
+    VALUES = ['spend_limit'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaSpendLimitType', 'enum', "Unknown BetaSpendLimitType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaSpendLimitIncreaseRequestSchemaPeriod SDK namespace.
-module BetaSpendLimitIncreaseRequestSchemaPeriod
-  DAILY = 'daily'
-  MONTHLY = 'monthly'
-  WEEKLY = 'weekly'
-  VALUES = ['daily', 'monthly', 'weekly'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaSpendLimitIncreaseRequestSchemaStatus SDK namespace.
-module BetaSpendLimitIncreaseRequestSchemaStatus
-  APPROVED = 'approved'
-  DENIED = 'denied'
-  PENDING = 'pending'
-  VALUES = ['approved', 'denied', 'pending'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaSpendLimitIncreaseRequestSchemaType SDK namespace.
-module BetaSpendLimitIncreaseRequestSchemaType
-  SPEND_LIMIT_INCREASE_REQUEST = 'spend_limit_increase_request'
-  VALUES = ['spend_limit_increase_request'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaSpendLimitIncreaseRequestSchemaType', 'enum', "Unknown BetaSpendLimitIncreaseRequestSchemaType: #{value}")
-  end
-end
-
-# Defines the BetaSpendLimitIncreaseRequestSchemaResolvedBy SDK namespace.
-module BetaSpendLimitIncreaseRequestSchemaResolvedBy
-  DISCRIMINATOR_MAPPING = {
-    "scoped_api_key_actor" => -> { BetaScopedApiKeyActorSchema },
-    "user_actor" => -> { BetaUserActorSchema },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaSpendLimitIncreaseRequestSchemaResolvedBy', 'variant', "Unknown BetaSpendLimitIncreaseRequestSchemaResolvedBy discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaSpendLimitScope SDK namespace.
-module BetaSpendLimitScope
-  DISCRIMINATOR_MAPPING = {
-    "organization" => -> { BetaOrganizationScope },
-    "organization_service" => -> { BetaOrgServiceScope },
-    "rbac_group" => -> { BetaRbacGroupScope },
-    "seat_tier" => -> { BetaSeatTierScope },
-    "user" => -> { BetaUserScope },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaSpendLimitScope', 'variant', "Unknown BetaSpendLimitScope discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaSpendSummaryMetadata
-  FIELDS = {
-    actor: "actor",
-    amount: "amount",
-    currency: "currency",
-    period: "period",
-    period_to_date_spend: "period_to_date_spend",
-    scope: "scope",
-    source: "source",
-    spend_limit_id: "spend_limit_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    actor
-    amount
-    currency
-    period
-    period_to_date_spend
-    scope
-    source
-    spend_limit_id
-  ].freeze
-  DECODERS = {
-    actor: lambda do |value|
-      ::OctridevAnthropic::BetaUserActorSchema.from_hash(value)
-    end,
-    period: lambda do |value|
-      ::OctridevAnthropic::BetaSpendSummaryPeriod.from_value(value)
-    end,
-    scope: lambda do |value|
-      ::OctridevAnthropic::BetaUserScope.from_hash(value)
-    end,
-    source: lambda do |value|
-      ::OctridevAnthropic::BetaSpendSummarySource.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    amount
-  ].freeze
-end
-
-# API model for BetaSpendSummary.
-# Per-member effective-limit report row (`GET /spend_limits/effective`).
-class BetaSpendSummary
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSpendSummaryMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSpendSummaryMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSpendSummaryMetadata::DECODERS
-
-  # @return [BetaUserActorSchema] A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
-  attr_reader :actor
-  # @return [String] Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
-  attr_reader :amount
-  # @return [String] ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
-  attr_reader :currency
-  # @return [BetaSpendSummaryPeriod] Period this row's effective limit and spend are reported for.
-  attr_reader :period
-  # @return [String] The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
-  attr_reader :period_to_date_spend
-  # @return [BetaUserScope] Scope selecting a single member of the organization.
-  attr_reader :scope
-  # @return [BetaSpendSummarySource] Required API value serialized in the `source` wire field.
-  attr_reader :source
-  # @return [String] Required `string` value serialized in the `spend_limit_id` wire field.
-  attr_reader :spend_limit_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata
+    FIELDS = {
+      actor: 'actor',
+      created_at: 'created_at',
+      id: 'id',
+      period: 'period',
+      resolved_at: 'resolved_at',
+      resolved_by: 'resolved_by',
+      spend_summary: 'spend_summary',
+      status: 'status',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      actor
+      created_at
+      id
+      period
+      resolved_at
+      resolved_by
+      spend_summary
+      status
+      type
+    ].freeze
+    DECODERS = {
+      actor: lambda do |value|
+        ::OctridevAnthropic::BetaUserActorSchema.from_hash(value)
+      end,
+      period: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaPeriod.from_value(value)
+      end,
+      resolved_by: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaResolvedBy.from_hash(value)
+      end,
+      spend_summary: lambda do |value|
+        ::OctridevAnthropic::BetaSpendSummary.from_hash(value)
+      end,
+      status: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaStatus.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaSpendLimitIncreaseRequestSchemaType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      resolved_at
+      resolved_by
+      spend_summary
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendSummaryMetadata::NULLABLE_FIELDS)
+  # API model for BetaSpendLimitIncreaseRequestSchema.
+  # Typed representation of the `BetaSpendLimitIncreaseRequestSchema` API schema.
+  class BetaSpendLimitIncreaseRequestSchema
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::DECODERS
+
+    # @return [BetaUserActorSchema] A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
+    attr_reader :actor
+    # @return [String] Required `date-time`-formatted value serialized in the `created_at` wire field.
+    attr_reader :created_at
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [BetaSpendLimitIncreaseRequestSchemaPeriod] Required enumerated value serialized in the `period` wire field.
+    attr_reader :period
+    # @return [String] Required API value serialized in the `resolved_at` wire field.
+    attr_reader :resolved_at
+    # @return [BetaSpendLimitIncreaseRequestSchemaResolvedBy] Required API value serialized in the `resolved_by` wire field.
+    attr_reader :resolved_by
+    # @return [BetaSpendSummary] Required API value serialized in the `spend_summary` wire field.
+    attr_reader :spend_summary
+    # @return [BetaSpendLimitIncreaseRequestSchemaStatus] Required enumerated value serialized in the `status` wire field.
+    attr_reader :status
+    # @return [BetaSpendLimitIncreaseRequestSchemaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendLimitIncreaseRequestSchemaMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaSpendLimitIncreaseRequestSchemaPeriod SDK namespace.
+  module BetaSpendLimitIncreaseRequestSchemaPeriod
+    DAILY = 'daily'
+    MONTHLY = 'monthly'
+    WEEKLY = 'weekly'
+    VALUES = %w[daily monthly weekly].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaSpendSummaryPeriod SDK namespace.
-module BetaSpendSummaryPeriod
-  DAILY = 'daily'
-  MONTHLY = 'monthly'
-  WEEKLY = 'weekly'
-  VALUES = ['daily', 'monthly', 'weekly'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaSpendLimitIncreaseRequestSchemaStatus SDK namespace.
+  module BetaSpendLimitIncreaseRequestSchemaStatus
+    APPROVED = 'approved'
+    DENIED = 'denied'
+    PENDING = 'pending'
+    VALUES = %w[approved denied pending].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaSpendSummarySource SDK namespace.
-module BetaSpendSummarySource
-  DISCRIMINATOR_MAPPING = {
-    "organization" => -> { BetaOrganizationScope },
-    "organization_service" => -> { BetaOrgServiceScope },
-    "rbac_group" => -> { BetaRbacGroupScope },
-    "seat_tier" => -> { BetaSeatTierScope },
-    "user" => -> { BetaUserScope },
-  }.freeze
+  # Defines the BetaSpendLimitIncreaseRequestSchemaType SDK namespace.
+  module BetaSpendLimitIncreaseRequestSchemaType
+    SPEND_LIMIT_INCREASE_REQUEST = 'spend_limit_increase_request'
+    VALUES = ['spend_limit_increase_request'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaSpendSummarySource', 'variant', "Unknown BetaSpendSummarySource discriminator: #{hash["type"].inspect}")
+      raise SdkValidationError.new('BetaSpendLimitIncreaseRequestSchemaType', 'enum', "Unknown BetaSpendLimitIncreaseRequestSchemaType: #{value}")
+    end
   end
-end
+
+  # Defines the BetaSpendLimitIncreaseRequestSchemaResolvedBy SDK namespace.
+  module BetaSpendLimitIncreaseRequestSchemaResolvedBy
+    DISCRIMINATOR_MAPPING = {
+      'scoped_api_key_actor' => -> { BetaScopedApiKeyActorSchema },
+      'user_actor' => -> { BetaUserActorSchema }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaSpendLimitIncreaseRequestSchemaResolvedBy', 'variant', "Unknown BetaSpendLimitIncreaseRequestSchemaResolvedBy discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Defines the BetaSpendLimitScope SDK namespace.
+  module BetaSpendLimitScope
+    DISCRIMINATOR_MAPPING = {
+      'organization' => -> { BetaOrganizationScope },
+      'organization_service' => -> { BetaOrgServiceScope },
+      'rbac_group' => -> { BetaRbacGroupScope },
+      'seat_tier' => -> { BetaSeatTierScope },
+      'user' => -> { BetaUserScope }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaSpendLimitScope', 'variant', "Unknown BetaSpendLimitScope discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaSpendSummaryMetadata
+    FIELDS = {
+      actor: 'actor',
+      amount: 'amount',
+      currency: 'currency',
+      period: 'period',
+      period_to_date_spend: 'period_to_date_spend',
+      scope: 'scope',
+      source: 'source',
+      spend_limit_id: 'spend_limit_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      actor
+      amount
+      currency
+      period
+      period_to_date_spend
+      scope
+      source
+      spend_limit_id
+    ].freeze
+    DECODERS = {
+      actor: lambda do |value|
+        ::OctridevAnthropic::BetaUserActorSchema.from_hash(value)
+      end,
+      period: lambda do |value|
+        ::OctridevAnthropic::BetaSpendSummaryPeriod.from_value(value)
+      end,
+      scope: lambda do |value|
+        ::OctridevAnthropic::BetaUserScope.from_hash(value)
+      end,
+      source: lambda do |value|
+        ::OctridevAnthropic::BetaSpendSummarySource.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      amount
+    ].freeze
+  end
+
+  # API model for BetaSpendSummary.
+  # Per-member effective-limit report row (`GET /spend_limits/effective`).
+  class BetaSpendSummary
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSpendSummaryMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSpendSummaryMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSpendSummaryMetadata::DECODERS
+
+    # @return [BetaUserActorSchema] A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
+    attr_reader :actor
+    # @return [String] Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+    attr_reader :amount
+    # @return [String] ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+    attr_reader :currency
+    # @return [BetaSpendSummaryPeriod] Period this row's effective limit and spend are reported for.
+    attr_reader :period
+    # @return [String] The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+    attr_reader :period_to_date_spend
+    # @return [BetaUserScope] Scope selecting a single member of the organization.
+    attr_reader :scope
+    # @return [BetaSpendSummarySource] Required API value serialized in the `source` wire field.
+    attr_reader :source
+    # @return [String] Required `string` value serialized in the `spend_limit_id` wire field.
+    attr_reader :spend_limit_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSpendSummaryMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaSpendSummaryPeriod SDK namespace.
+  module BetaSpendSummaryPeriod
+    DAILY = 'daily'
+    MONTHLY = 'monthly'
+    WEEKLY = 'weekly'
+    VALUES = %w[daily monthly weekly].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the BetaSpendSummarySource SDK namespace.
+  module BetaSpendSummarySource
+    DISCRIMINATOR_MAPPING = {
+      'organization' => -> { BetaOrganizationScope },
+      'organization_service' => -> { BetaOrgServiceScope },
+      'rbac_group' => -> { BetaRbacGroupScope },
+      'seat_tier' => -> { BetaSeatTierScope },
+      'user' => -> { BetaUserScope }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaSpendSummarySource', 'variant', "Unknown BetaSpendSummarySource discriminator: #{hash['type'].inspect}")
+    end
+  end
 end

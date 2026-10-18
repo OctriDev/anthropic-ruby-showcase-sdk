@@ -5,485 +5,485 @@
 
 # cost_report_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsCostBucketedResponseMetadata
-  FIELDS = {
-    data: "data",
-    data_refreshed_at: "data_refreshed_at",
-    has_more: "has_more",
-    next_page: "next_page",
-    organization_id: "organization_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    data_refreshed_at
-    has_more
-    next_page
-    organization_id
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsCostReportTimeBucket.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    data_refreshed_at
-    next_page
-  ].freeze
-end
-
-# API model for BetaAnalyticsCostBucketedResponse.
-# Typed representation of the `BetaAnalyticsCostBucketedResponse` API schema.
-class BetaAnalyticsCostBucketedResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaAnalyticsCostReportTimeBucket] Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
-  attr_reader :data
-  # @return [String] RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
-  attr_reader :data_refreshed_at
-  # @return [Boolean] Whether another page is available. When true, pass `next_page` as the `page` parameter to fetch it.
-  attr_reader :has_more
-  # @return [String] Opaque cursor for the next page, or null when `has_more` is false. Pass it as the `page` parameter, keeping the other parameters unchanged. A cursor can expire after the underlying data refreshes; the request then returns HTTP 410 and pagination must restart from the first page.
-  attr_reader :next_page
-  # @return [String] ID of the Organization.
-  attr_reader :organization_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsCostBucketedResponseMetadata
+    FIELDS = {
+      data: 'data',
+      data_refreshed_at: 'data_refreshed_at',
+      has_more: 'has_more',
+      next_page: 'next_page',
+      organization_id: 'organization_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      data_refreshed_at
+      has_more
+      next_page
+      organization_id
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsCostReportTimeBucket.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      data_refreshed_at
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsCostBucketedResponseMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsCostBucketedResponse.
+  # Typed representation of the `BetaAnalyticsCostBucketedResponse` API schema.
+  class BetaAnalyticsCostBucketedResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsCostBucketedResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaAnalyticsCostReportTimeBucket] Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
+    attr_reader :data
+    # @return [String] RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+    attr_reader :data_refreshed_at
+    # @return [Boolean] Whether another page is available. When true, pass `next_page` as the `page` parameter to fetch it.
+    attr_reader :has_more
+    # @return [String] Opaque cursor for the next page, or null when `has_more` is false. Pass it as the `page` parameter, keeping the other parameters unchanged. A cursor can expire after the underlying data refreshes; the request then returns HTTP 410 and pagination must restart from the first page.
+    attr_reader :next_page
+    # @return [String] ID of the Organization.
+    attr_reader :organization_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsCostBucketedResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaAnalyticsCostBucketedResultSpeedVariant0 SDK namespace.
-module BetaAnalyticsCostBucketedResultSpeedVariant0
-  FAST = 'fast'
-  STANDARD = 'standard'
-  VALUES = ['fast', 'standard'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsCostBucketedResultMetadata
-  FIELDS = {
-    amount: "amount",
-    context_window: "context_window",
-    cost_type: "cost_type",
-    currency: "currency",
-    inference_geo: "inference_geo",
-    list_amount: "list_amount",
-    model: "model",
-    product: "product",
-    rbac_group_id: "rbac_group_id",
-    requests: "requests",
-    slack_channel_id: "slack_channel_id",
-    speed: "speed",
-    token_type: "token_type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    amount
-    context_window
-    cost_type
-    currency
-    inference_geo
-    list_amount
-    model
-    product
-    rbac_group_id
-    requests
-    slack_channel_id
-    speed
-    token_type
-  ].freeze
-  DECODERS = {
-    context_window: lambda do |value|
-      ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
-    end,
-    cost_type: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsCostType.from_value(value)
-    end,
-    currency: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsCostBucketedResultCurrency.from_value(value)
-    end,
-    inference_geo: lambda do |value|
-      ::OctridevAnthropic::BetaInferenceGeo.from_value(value)
-    end,
-    speed: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsCostBucketedResultSpeedVariant0.from_value(value)
-    end,
-    token_type: lambda do |value|
-      ::OctridevAnthropic::BetaCostReportTokenType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    context_window
-    cost_type
-    inference_geo
-    model
-    product
-    rbac_group_id
-    requests
-    slack_channel_id
-    speed
-    token_type
-  ].freeze
-end
-
-# API model for BetaAnalyticsCostBucketedResult.
-# Typed representation of the `BetaAnalyticsCostBucketedResult` API schema.
-class BetaAnalyticsCostBucketedResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::DECODERS
-
-  # @return [String] Amount (post-discount, pre-credit) in fractional cents.
-  attr_reader :amount
-  # @return [BetaMessagesUsageReportContextWindow] Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
-  attr_reader :context_window
-  # @return [BetaAnalyticsCostType] Cost component when `group_by[]=cost_type`; null otherwise (amount is the combined total).
-  attr_reader :cost_type
-  # @return [BetaAnalyticsCostBucketedResultCurrency] Currency code for the cost amount. Currently always `"USD"`.
-  attr_reader :currency
-  # @return [BetaInferenceGeo] Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
-  attr_reader :inference_geo
-  # @return [String] List-price amount (pre-discount) in fractional cents.
-  attr_reader :list_amount
-  # @return [String] Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
-  attr_reader :model
-  # @return [String] Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
-  attr_reader :product
-  # @return [String] RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can…
-  attr_reader :rbac_group_id
-  # @return [Integer] Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
-  attr_reader :requests
-  # @return [String] Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
-  attr_reader :slack_channel_id
-  # @return [BetaAnalyticsCostBucketedResultSpeedVariant0] Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
-  attr_reader :speed
-  # @return [BetaCostReportTokenType] Token type when `group_by[]=token_type` and `cost_type=tokens`; null otherwise.
-  attr_reader :token_type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaAnalyticsCostBucketedResultSpeedVariant0 SDK namespace.
+  module BetaAnalyticsCostBucketedResultSpeedVariant0
+    FAST = 'fast'
+    STANDARD = 'standard'
+    VALUES = %w[fast standard].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsCostBucketedResultMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsCostBucketedResultMetadata
+    FIELDS = {
+      amount: 'amount',
+      context_window: 'context_window',
+      cost_type: 'cost_type',
+      currency: 'currency',
+      inference_geo: 'inference_geo',
+      list_amount: 'list_amount',
+      model: 'model',
+      product: 'product',
+      rbac_group_id: 'rbac_group_id',
+      requests: 'requests',
+      slack_channel_id: 'slack_channel_id',
+      speed: 'speed',
+      token_type: 'token_type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      amount
+      context_window
+      cost_type
+      currency
+      inference_geo
+      list_amount
+      model
+      product
+      rbac_group_id
+      requests
+      slack_channel_id
+      speed
+      token_type
+    ].freeze
+    DECODERS = {
+      context_window: lambda do |value|
+        ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
+      end,
+      cost_type: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsCostType.from_value(value)
+      end,
+      currency: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsCostBucketedResultCurrency.from_value(value)
+      end,
+      inference_geo: lambda do |value|
+        ::OctridevAnthropic::BetaInferenceGeo.from_value(value)
+      end,
+      speed: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsCostBucketedResultSpeedVariant0.from_value(value)
+      end,
+      token_type: lambda do |value|
+        ::OctridevAnthropic::BetaCostReportTokenType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      context_window
+      cost_type
+      inference_geo
+      model
+      product
+      rbac_group_id
+      requests
+      slack_channel_id
+      speed
+      token_type
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaAnalyticsCostBucketedResult.
+  # Typed representation of the `BetaAnalyticsCostBucketedResult` API schema.
+  class BetaAnalyticsCostBucketedResult
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsCostBucketedResultMetadata::DECODERS
 
-# Defines the BetaAnalyticsCostBucketedResultCurrency SDK namespace.
-module BetaAnalyticsCostBucketedResultCurrency
-  USD = 'USD'
-  VALUES = ['USD'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Amount (post-discount, pre-credit) in fractional cents.
+    attr_reader :amount
+    # @return [BetaMessagesUsageReportContextWindow] Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+    attr_reader :context_window
+    # @return [BetaAnalyticsCostType] Cost component when `group_by[]=cost_type`; null otherwise (amount is the combined total).
+    attr_reader :cost_type
+    # @return [BetaAnalyticsCostBucketedResultCurrency] Currency code for the cost amount. Currently always `"USD"`.
+    attr_reader :currency
+    # @return [BetaInferenceGeo] Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+    attr_reader :inference_geo
+    # @return [String] List-price amount (pre-discount) in fractional cents.
+    attr_reader :list_amount
+    # @return [String] Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    attr_reader :model
+    # @return [String] Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+    attr_reader :product
+    # @return [String] RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can…
+    attr_reader :rbac_group_id
+    # @return [Integer] Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+    attr_reader :requests
+    # @return [String] Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+    attr_reader :slack_channel_id
+    # @return [BetaAnalyticsCostBucketedResultSpeedVariant0] Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+    attr_reader :speed
+    # @return [BetaCostReportTokenType] Token type when `group_by[]=token_type` and `cost_type=tokens`; null otherwise.
+    attr_reader :token_type
 
-    raise SdkValidationError.new('BetaAnalyticsCostBucketedResultCurrency', 'enum', "Unknown BetaAnalyticsCostBucketedResultCurrency: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsCostReportTimeBucketMetadata
-  FIELDS = {
-    ending_at: "ending_at",
-    results: "results",
-    starting_at: "starting_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    ending_at
-    results
-    starting_at
-  ].freeze
-  DECODERS = {
-    results: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsCostBucketedResult.from_hash(item) }
-    end,
-  }.freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsCostBucketedResultMetadata::NULLABLE_FIELDS)
+    end
 
-# API model for BetaAnalyticsCostReportTimeBucket.
-# Typed representation of the `BetaAnalyticsCostReportTimeBucket` API schema.
-class BetaAnalyticsCostReportTimeBucket
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::DECODERS
-
-  # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
-  attr_reader :ending_at
-  # @return [Array_of_BetaAnalyticsCostBucketedResult] Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
-  attr_reader :results
-  # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
-  attr_reader :starting_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaAnalyticsCostBucketedResultCurrency SDK namespace.
+  module BetaAnalyticsCostBucketedResultCurrency
+    USD = 'USD'
+    VALUES = ['USD'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaAnalyticsCostBucketedResultCurrency', 'enum', "Unknown BetaAnalyticsCostBucketedResultCurrency: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaCostReportGroupBy SDK namespace.
-module BetaCostReportGroupBy
-  DESCRIPTION = 'description'
-  WORKSPACE_ID = 'workspace_id'
-  VALUES = ['description', 'workspace_id'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaCostReportItemMetadata
-  FIELDS = {
-    currency: "currency",
-    amount: "amount",
-    workspace_id: "workspace_id",
-    description: "description",
-    cost_type: "cost_type",
-    context_window: "context_window",
-    model: "model",
-    service_tier: "service_tier",
-    token_type: "token_type",
-    inference_geo: "inference_geo",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    currency
-    amount
-    workspace_id
-    description
-    cost_type
-    context_window
-    model
-    service_tier
-    token_type
-    inference_geo
-  ].freeze
-  DECODERS = {
-    cost_type: lambda do |value|
-      ::OctridevAnthropic::BetaCostType.from_value(value)
-    end,
-    context_window: lambda do |value|
-      ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
-    end,
-    service_tier: lambda do |value|
-      ::OctridevAnthropic::BetaCostReportServiceTier.from_value(value)
-    end,
-    token_type: lambda do |value|
-      ::OctridevAnthropic::BetaCostReportTokenType.from_value(value)
-    end,
-    inference_geo: lambda do |value|
-      ::OctridevAnthropic::BetaInferenceGeoFilter.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    workspace_id
-    description
-    cost_type
-    context_window
-    model
-    service_tier
-    token_type
-    inference_geo
-  ].freeze
-end
-
-# API model for BetaCostReportItem.
-# Typed representation of the `BetaCostReportItem` API schema.
-class BetaCostReportItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaCostReportItemMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaCostReportItemMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaCostReportItemMetadata::DECODERS
-
-  # @return [String] Currency code for the cost amount. Currently always `"USD"`.
-  attr_reader :currency
-  # @return [String] Cost amount in lowest currency units (e.g. cents) as a decimal string. For example, `"123.45"` in `"USD"` represents `$1.23`.
-  attr_reader :amount
-  # @return [String] ID of the Workspace this cost is associated with. `null` if not grouping by workspace or for the default workspace.
-  attr_reader :workspace_id
-  # @return [String] Description of the cost item. `null` if not grouping by description.
-  attr_reader :description
-  # @return [BetaCostType] Type of cost. `null` if not grouping by description.
-  attr_reader :cost_type
-  # @return [BetaMessagesUsageReportContextWindow] Input context window used. `null` if not grouping by description or for non-token costs.
-  attr_reader :context_window
-  # @return [String] Model name used. `null` if not grouping by description or for non-token costs.
-  attr_reader :model
-  # @return [BetaCostReportServiceTier] Service tier used. `null` if not grouping by description or for non-token costs.
-  attr_reader :service_tier
-  # @return [BetaCostReportTokenType] Type of token. `null` if not grouping by description or for non-token costs.
-  attr_reader :token_type
-  # @return [BetaInferenceGeoFilter] Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`. For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
-  attr_reader :inference_geo
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsCostReportTimeBucketMetadata
+    FIELDS = {
+      ending_at: 'ending_at',
+      results: 'results',
+      starting_at: 'starting_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      ending_at
+      results
+      starting_at
+    ].freeze
+    DECODERS = {
+      results: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsCostBucketedResult.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaCostReportItemMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsCostReportTimeBucket.
+  # Typed representation of the `BetaAnalyticsCostReportTimeBucket` API schema.
+  class BetaAnalyticsCostReportTimeBucket
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsCostReportTimeBucketMetadata::DECODERS
+
+    # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
+    attr_reader :ending_at
+    # @return [Array_of_BetaAnalyticsCostBucketedResult] Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+    attr_reader :results
+    # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
+    attr_reader :starting_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaCostReportServiceTier SDK namespace.
-module BetaCostReportServiceTier
-  BATCH = 'batch'
-  STANDARD = 'standard'
-  VALUES = ['batch', 'standard'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaCostReportTimeBucketMetadata
-  FIELDS = {
-    starting_at: "starting_at",
-    ending_at: "ending_at",
-    results: "results",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    starting_at
-    ending_at
-    results
-  ].freeze
-  DECODERS = {
-    results: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaCostReportItem.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaCostReportTimeBucket.
-# Typed representation of the `BetaCostReportTimeBucket` API schema.
-class BetaCostReportTimeBucket
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaCostReportTimeBucketMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaCostReportTimeBucketMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaCostReportTimeBucketMetadata::DECODERS
-
-  # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
-  attr_reader :starting_at
-  # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
-  attr_reader :ending_at
-  # @return [Array_of_BetaCostReportItem] List of cost items for this time bucket. There may be multiple items if one or more `group_by[]` parameters are specified.
-  attr_reader :results
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaCostReportGroupBy SDK namespace.
+  module BetaCostReportGroupBy
+    DESCRIPTION = 'description'
+    WORKSPACE_ID = 'workspace_id'
+    VALUES = %w[description workspace_id].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaCostReportItemMetadata
+    FIELDS = {
+      currency: 'currency',
+      amount: 'amount',
+      workspace_id: 'workspace_id',
+      description: 'description',
+      cost_type: 'cost_type',
+      context_window: 'context_window',
+      model: 'model',
+      service_tier: 'service_tier',
+      token_type: 'token_type',
+      inference_geo: 'inference_geo'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      currency
+      amount
+      workspace_id
+      description
+      cost_type
+      context_window
+      model
+      service_tier
+      token_type
+      inference_geo
+    ].freeze
+    DECODERS = {
+      cost_type: lambda do |value|
+        ::OctridevAnthropic::BetaCostType.from_value(value)
+      end,
+      context_window: lambda do |value|
+        ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
+      end,
+      service_tier: lambda do |value|
+        ::OctridevAnthropic::BetaCostReportServiceTier.from_value(value)
+      end,
+      token_type: lambda do |value|
+        ::OctridevAnthropic::BetaCostReportTokenType.from_value(value)
+      end,
+      inference_geo: lambda do |value|
+        ::OctridevAnthropic::BetaInferenceGeoFilter.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      workspace_id
+      description
+      cost_type
+      context_window
+      model
+      service_tier
+      token_type
+      inference_geo
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaCostReportItem.
+  # Typed representation of the `BetaCostReportItem` API schema.
+  class BetaCostReportItem
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaCostReportItemMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaCostReportItemMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaCostReportItemMetadata::DECODERS
 
-# Defines the BetaCostReportTimeBucketWidth SDK namespace.
-module BetaCostReportTimeBucketWidth
-  V_1_D = '1d'
-  VALUES = ['1d'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [String] Currency code for the cost amount. Currently always `"USD"`.
+    attr_reader :currency
+    # @return [String] Cost amount in lowest currency units (e.g. cents) as a decimal string. For example, `"123.45"` in `"USD"` represents `$1.23`.
+    attr_reader :amount
+    # @return [String] ID of the Workspace this cost is associated with. `null` if not grouping by workspace or for the default workspace.
+    attr_reader :workspace_id
+    # @return [String] Description of the cost item. `null` if not grouping by description.
+    attr_reader :description
+    # @return [BetaCostType] Type of cost. `null` if not grouping by description.
+    attr_reader :cost_type
+    # @return [BetaMessagesUsageReportContextWindow] Input context window used. `null` if not grouping by description or for non-token costs.
+    attr_reader :context_window
+    # @return [String] Model name used. `null` if not grouping by description or for non-token costs.
+    attr_reader :model
+    # @return [BetaCostReportServiceTier] Service tier used. `null` if not grouping by description or for non-token costs.
+    attr_reader :service_tier
+    # @return [BetaCostReportTokenType] Type of token. `null` if not grouping by description or for non-token costs.
+    attr_reader :token_type
+    # @return [BetaInferenceGeoFilter] Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`. For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
+    attr_reader :inference_geo
 
-# Defines the BetaCostType SDK namespace.
-module BetaCostType
-  CODE_EXECUTION = 'code_execution'
-  SESSION_USAGE = 'session_usage'
-  TOKENS = 'tokens'
-  WEB_SEARCH = 'web_search'
-  VALUES = ['code_execution', 'session_usage', 'tokens', 'web_search'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaGetCostReportResponseMetadata
-  FIELDS = {
-    data: "data",
-    has_more: "has_more",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    has_more
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaCostReportTimeBucket.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaCostReportItemMetadata::NULLABLE_FIELDS)
+    end
 
-# API model for BetaGetCostReportResponse.
-# Typed representation of the `BetaGetCostReportResponse` API schema.
-class BetaGetCostReportResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaGetCostReportResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaGetCostReportResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaGetCostReportResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaCostReportTimeBucket] List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no costs (their `results` list is empty). A page holds at most `limit` buckets.
-  attr_reader :data
-  # @return [Boolean] Indicates if there are more results.
-  attr_reader :has_more
-  # @return [String] Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaGetCostReportResponseMetadata::NULLABLE_FIELDS)
+  # Defines the BetaCostReportServiceTier SDK namespace.
+  module BetaCostReportServiceTier
+    BATCH = 'batch'
+    STANDARD = 'standard'
+    VALUES = %w[batch standard].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaCostReportTimeBucketMetadata
+    FIELDS = {
+      starting_at: 'starting_at',
+      ending_at: 'ending_at',
+      results: 'results'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      starting_at
+      ending_at
+      results
+    ].freeze
+    DECODERS = {
+      results: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaCostReportItem.from_hash(item) }
+      end
+    }.freeze
   end
-end
+
+  # API model for BetaCostReportTimeBucket.
+  # Typed representation of the `BetaCostReportTimeBucket` API schema.
+  class BetaCostReportTimeBucket
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaCostReportTimeBucketMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaCostReportTimeBucketMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaCostReportTimeBucketMetadata::DECODERS
+
+    # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
+    attr_reader :starting_at
+    # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
+    attr_reader :ending_at
+    # @return [Array_of_BetaCostReportItem] List of cost items for this time bucket. There may be multiple items if one or more `group_by[]` parameters are specified.
+    attr_reader :results
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaCostReportTimeBucketWidth SDK namespace.
+  module BetaCostReportTimeBucketWidth
+    V_1_D = '1d'
+    VALUES = ['1d'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the BetaCostType SDK namespace.
+  module BetaCostType
+    CODE_EXECUTION = 'code_execution'
+    SESSION_USAGE = 'session_usage'
+    TOKENS = 'tokens'
+    WEB_SEARCH = 'web_search'
+    VALUES = %w[code_execution session_usage tokens web_search].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaGetCostReportResponseMetadata
+    FIELDS = {
+      data: 'data',
+      has_more: 'has_more',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      has_more
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaCostReportTimeBucket.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
+  end
+
+  # API model for BetaGetCostReportResponse.
+  # Typed representation of the `BetaGetCostReportResponse` API schema.
+  class BetaGetCostReportResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaGetCostReportResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaGetCostReportResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaGetCostReportResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaCostReportTimeBucket] List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no costs (their `results` list is empty). A page holds at most `limit` buckets.
+    attr_reader :data
+    # @return [Boolean] Indicates if there are more results.
+    attr_reader :has_more
+    # @return [String] Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaGetCostReportResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

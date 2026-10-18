@@ -5,83 +5,85 @@
 
 # citations_delta domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalCitationsDeltaMetadata
-  FIELDS = {
-    citation: "citation",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    citation
-    type
-  ].freeze
-  DECODERS = {
-    citation: lambda do |value|
-      ::OctridevAnthropic::CitationsDeltaCitation.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::CitationsDeltaType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for CitationsDelta.
-# Typed representation of the `CitationsDelta` API schema.
-class CitationsDelta
-  include ContentBlockDeltaEventDelta
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCitationsDeltaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCitationsDeltaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCitationsDeltaMetadata::DECODERS
-
-  # @return [CitationsDeltaCitation] Required API value serialized in the `citation` wire field.
-  attr_reader :citation
-  # @return [CitationsDeltaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCitationsDeltaMetadata
+    FIELDS = {
+      citation: 'citation',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      citation
+      type
+    ].freeze
+    DECODERS = {
+      citation: lambda do |value|
+        ::OctridevAnthropic::CitationsDeltaCitation.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::CitationsDeltaType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CitationsDelta.
+  # Typed representation of the `CitationsDelta` API schema.
+  class CitationsDelta
+    include ContentBlockDeltaEventDelta
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCitationsDeltaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCitationsDeltaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCitationsDeltaMetadata::DECODERS
+
+    # @return [CitationsDeltaCitation] Required API value serialized in the `citation` wire field.
+    attr_reader :citation
+    # @return [CitationsDeltaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the CitationsDeltaType SDK namespace.
+  module CitationsDeltaType
+    CITATIONS_DELTA = 'citations_delta'
+    VALUES = ['citations_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('CitationsDeltaType', 'enum', "Unknown CitationsDeltaType: #{value}")
+    end
   end
-end
 
-# Defines the CitationsDeltaType SDK namespace.
-module CitationsDeltaType
-  CITATIONS_DELTA = 'citations_delta'
-  VALUES = ['citations_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the CitationsDeltaCitation SDK namespace.
+  module CitationsDeltaCitation
+    DISCRIMINATOR_MAPPING = {
+      'char_location' => -> { ResponseCharLocationCitation },
+      'content_block_location' => -> { ResponseContentBlockLocationCitation },
+      'page_location' => -> { ResponsePageLocationCitation },
+      'search_result_location' => -> { ResponseSearchResultLocationCitation },
+      'web_search_result_location' => -> { ResponseWebSearchResultLocationCitation }
+    }.freeze
 
-    raise SdkValidationError.new('CitationsDeltaType', 'enum', "Unknown CitationsDeltaType: #{value}")
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('CitationsDeltaCitation', 'variant', "Unknown CitationsDeltaCitation discriminator: #{hash['type'].inspect}")
+    end
   end
-end
-
-# Defines the CitationsDeltaCitation SDK namespace.
-module CitationsDeltaCitation
-  DISCRIMINATOR_MAPPING = {
-    "char_location" => -> { ResponseCharLocationCitation },
-    "content_block_location" => -> { ResponseContentBlockLocationCitation },
-    "page_location" => -> { ResponsePageLocationCitation },
-    "search_result_location" => -> { ResponseSearchResultLocationCitation },
-    "web_search_result_location" => -> { ResponseWebSearchResultLocationCitation },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('CitationsDeltaCitation', 'variant', "Unknown CitationsDeltaCitation discriminator: #{hash["type"].inspect}")
-  end
-end
 end

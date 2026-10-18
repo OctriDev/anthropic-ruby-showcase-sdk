@@ -5,289 +5,294 @@
 
 # results domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalCanceledResultMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::CanceledResultType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for CanceledResult.
-# Typed representation of the `CanceledResult` API schema.
-class CanceledResult
-  include MessageBatchIndividualResponseResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalCanceledResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalCanceledResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalCanceledResultMetadata::DECODERS
-
-  # @return [CanceledResultType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalCanceledResultMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::CanceledResultType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for CanceledResult.
+  # Typed representation of the `CanceledResult` API schema.
+  class CanceledResult
+    include MessageBatchIndividualResponseResult
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalCanceledResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalCanceledResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalCanceledResultMetadata::DECODERS
+
+    # @return [CanceledResultType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the CanceledResultType SDK namespace.
+  module CanceledResultType
+    CANCELED = 'canceled'
+    VALUES = ['canceled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the CanceledResultType SDK namespace.
-module CanceledResultType
-  CANCELED = 'canceled'
-  VALUES = ['canceled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('CanceledResultType', 'enum', "Unknown CanceledResultType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalErroredResultMetadata
-  FIELDS = {
-    error: "error",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error
-    type
-  ].freeze
-  DECODERS = {
-    error: lambda do |value|
-      ::OctridevAnthropic::ErrorResponse.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ErroredResultType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ErroredResult.
-# Typed representation of the `ErroredResult` API schema.
-class ErroredResult
-  include MessageBatchIndividualResponseResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalErroredResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalErroredResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalErroredResultMetadata::DECODERS
-
-  # @return [ErrorResponse] Required object value serialized in the `error` wire field.
-  attr_reader :error
-  # @return [ErroredResultType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('CanceledResultType', 'enum', "Unknown CanceledResultType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalErroredResultMetadata
+    FIELDS = {
+      error: 'error',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error
+      type
+    ].freeze
+    DECODERS = {
+      error: lambda do |value|
+        ::OctridevAnthropic::ErrorResponse.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ErroredResultType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for ErroredResult.
+  # Typed representation of the `ErroredResult` API schema.
+  class ErroredResult
+    include MessageBatchIndividualResponseResult
 
-# Defines the ErroredResultType SDK namespace.
-module ErroredResultType
-  ERRORED = 'errored'
-  VALUES = ['errored'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalErroredResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalErroredResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalErroredResultMetadata::DECODERS
 
-    raise SdkValidationError.new('ErroredResultType', 'enum', "Unknown ErroredResultType: #{value}")
-  end
-end
+    # @return [ErrorResponse] Required object value serialized in the `error` wire field.
+    attr_reader :error
+    # @return [ErroredResultType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalExpiredResultMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ExpiredResultType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for ExpiredResult.
-# Typed representation of the `ExpiredResult` API schema.
-class ExpiredResult
-  include MessageBatchIndividualResponseResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalExpiredResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalExpiredResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalExpiredResultMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [ExpiredResultType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the ErroredResultType SDK namespace.
+  module ErroredResultType
+    ERRORED = 'errored'
+    VALUES = ['errored'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ErroredResultType', 'enum', "Unknown ErroredResultType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the ExpiredResultType SDK namespace.
-module ExpiredResultType
-  EXPIRED = 'expired'
-  VALUES = ['expired'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ExpiredResultType', 'enum', "Unknown ExpiredResultType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalMessageBatchIndividualResponseMetadata
-  FIELDS = {
-    custom_id: "custom_id",
-    result: "result",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    custom_id
-    result
-  ].freeze
-  DECODERS = {
-    result: lambda do |value|
-      ::OctridevAnthropic::MessageBatchIndividualResponseResult.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for MessageBatchIndividualResponse.
-# This is a single line in the response `.jsonl` file and does not represent the response as a whole.
-class MessageBatchIndividualResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMessageBatchIndividualResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMessageBatchIndividualResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMessageBatchIndividualResponseMetadata::DECODERS
-
-  # @return [String] Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order. Must be unique for each request within the Message Batch.
-  attr_reader :custom_id
-  # @return [MessageBatchIndividualResponseResult] Processing result for this request. Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-  attr_reader :result
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalExpiredResultMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ExpiredResultType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for ExpiredResult.
+  # Typed representation of the `ExpiredResult` API schema.
+  class ExpiredResult
+    include MessageBatchIndividualResponseResult
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalExpiredResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalExpiredResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalExpiredResultMetadata::DECODERS
+
+    # @return [ExpiredResultType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ExpiredResultType SDK namespace.
+  module ExpiredResultType
+    EXPIRED = 'expired'
+    VALUES = ['expired'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the MessageBatchIndividualResponseResult SDK namespace.
-module MessageBatchIndividualResponseResult
-  DISCRIMINATOR_MAPPING = {
-    "canceled" => -> { CanceledResult },
-    "errored" => -> { ErroredResult },
-    "expired" => -> { ExpiredResult },
-    "succeeded" => -> { SucceededResult },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('MessageBatchIndividualResponseResult', 'variant', "Unknown MessageBatchIndividualResponseResult discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSucceededResultMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    message: lambda do |value|
-      ::OctridevAnthropic::Message.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::SucceededResultType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for SucceededResult.
-# Typed representation of the `SucceededResult` API schema.
-class SucceededResult
-  include MessageBatchIndividualResponseResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSucceededResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSucceededResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSucceededResultMetadata::DECODERS
-
-  # @return [Message] Required object value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [SucceededResultType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ExpiredResultType', 'enum', "Unknown ExpiredResultType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalMessageBatchIndividualResponseMetadata
+    FIELDS = {
+      custom_id: 'custom_id',
+      result: 'result'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      custom_id
+      result
+    ].freeze
+    DECODERS = {
+      result: lambda do |value|
+        ::OctridevAnthropic::MessageBatchIndividualResponseResult.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for MessageBatchIndividualResponse.
+  # This is a single line in the response `.jsonl` file and does not represent the response as a whole.
+  class MessageBatchIndividualResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMessageBatchIndividualResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMessageBatchIndividualResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMessageBatchIndividualResponseMetadata::DECODERS
 
-# Defines the SucceededResultType SDK namespace.
-module SucceededResultType
-  SUCCEEDED = 'succeeded'
-  VALUES = ['succeeded'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order. Must be unique for each request within the Message Batch.
+    attr_reader :custom_id
+    # @return [MessageBatchIndividualResponseResult] Processing result for this request. Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
+    attr_reader :result
 
-    raise SdkValidationError.new('SucceededResultType', 'enum', "Unknown SucceededResultType: #{value}")
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the MessageBatchIndividualResponseResult SDK namespace.
+  module MessageBatchIndividualResponseResult
+    DISCRIMINATOR_MAPPING = {
+      'canceled' => -> { CanceledResult },
+      'errored' => -> { ErroredResult },
+      'expired' => -> { ExpiredResult },
+      'succeeded' => -> { SucceededResult }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('MessageBatchIndividualResponseResult', 'variant', "Unknown MessageBatchIndividualResponseResult discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalSucceededResultMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      message: lambda do |value|
+        ::OctridevAnthropic::Message.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::SucceededResultType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for SucceededResult.
+  # Typed representation of the `SucceededResult` API schema.
+  class SucceededResult
+    include MessageBatchIndividualResponseResult
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSucceededResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSucceededResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSucceededResultMetadata::DECODERS
+
+    # @return [Message] Required object value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [SucceededResultType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the SucceededResultType SDK namespace.
+  module SucceededResultType
+    SUCCEEDED = 'succeeded'
+    VALUES = ['succeeded'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('SucceededResultType', 'enum', "Unknown SucceededResultType: #{value}")
+    end
+  end
 end

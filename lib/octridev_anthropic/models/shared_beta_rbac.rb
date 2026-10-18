@@ -5,218 +5,219 @@
 
 # shared_beta_rbac domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaRbacGroupMetadata
-  FIELDS = {
-    created_at: "created_at",
-    id: "id",
-    name: "name",
-    roles: "roles",
-    source_type: "source_type",
-    type: "type",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    created_at
-    id
-    name
-    roles
-    source_type
-    type
-    updated_at
-  ].freeze
-  DECODERS = {
-    source_type: lambda do |value|
-      ::OctridevAnthropic::BetaRbacGroupSourceType.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRbacGroupType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    roles
-  ].freeze
-end
-
-# API model for BetaRbacGroup.
-# Typed representation of the `BetaRbacGroup` API schema.
-class BetaRbacGroup
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRbacGroupMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRbacGroupMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRbacGroupMetadata::DECODERS
-
-  # @return [String] RFC 3339 timestamp of when the RBAC Group was created.
-  attr_reader :created_at
-  # @return [String] ID of the RBAC Group.
-  attr_reader :id
-  # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
-  attr_reader :name
-  # @return [Array_of_String] RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
-  attr_reader :roles
-  # @return [BetaRbacGroupSourceType] How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
-  attr_reader :source_type
-  # @return [BetaRbacGroupType] Object type. For RBAC Groups, this is always `"rbac_group"`.
-  attr_reader :type
-  # @return [String] RFC 3339 timestamp of when the RBAC Group was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRbacGroupMetadata
+    FIELDS = {
+      created_at: 'created_at',
+      id: 'id',
+      name: 'name',
+      roles: 'roles',
+      source_type: 'source_type',
+      type: 'type',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      created_at
+      id
+      name
+      roles
+      source_type
+      type
+      updated_at
+    ].freeze
+    DECODERS = {
+      source_type: lambda do |value|
+        ::OctridevAnthropic::BetaRbacGroupSourceType.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRbacGroupType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      roles
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupMetadata::NULLABLE_FIELDS)
+  # API model for BetaRbacGroup.
+  # Typed representation of the `BetaRbacGroup` API schema.
+  class BetaRbacGroup
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRbacGroupMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRbacGroupMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRbacGroupMetadata::DECODERS
+
+    # @return [String] RFC 3339 timestamp of when the RBAC Group was created.
+    attr_reader :created_at
+    # @return [String] ID of the RBAC Group.
+    attr_reader :id
+    # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
+    attr_reader :name
+    # @return [Array_of_String] RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+    attr_reader :roles
+    # @return [BetaRbacGroupSourceType] How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+    attr_reader :source_type
+    # @return [BetaRbacGroupType] Object type. For RBAC Groups, this is always `"rbac_group"`.
+    attr_reader :type
+    # @return [String] RFC 3339 timestamp of when the RBAC Group was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaRbacGroupSourceType SDK namespace.
-module BetaRbacGroupSourceType
-  DIRECT = 'direct'
-  SCIM = 'scim'
-  VALUES = ['direct', 'scim'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaRbacGroupType SDK namespace.
-module BetaRbacGroupType
-  RBAC_GROUP = 'rbac_group'
-  VALUES = ['rbac_group'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRbacGroupType', 'enum', "Unknown BetaRbacGroupType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRbacGroupScopeMetadata
-  FIELDS = {
-    rbac_group_id: "rbac_group_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    rbac_group_id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRbacGroupScopeType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRbacGroupScope.
-# Typed representation of the `BetaRbacGroupScope` API schema.
-class BetaRbacGroupScope
-  include BetaSpendLimitScope
-  include BetaSpendSummarySource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRbacGroupScopeMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRbacGroupScopeMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRbacGroupScopeMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `rbac_group_id` wire field.
-  attr_reader :rbac_group_id
-  # @return [BetaRbacGroupScopeType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaRbacGroupSourceType SDK namespace.
+  module BetaRbacGroupSourceType
+    DIRECT = 'direct'
+    SCIM = 'scim'
+    VALUES = %w[direct scim].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRbacGroupType SDK namespace.
+  module BetaRbacGroupType
+    RBAC_GROUP = 'rbac_group'
+    VALUES = ['rbac_group'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRbacGroupType', 'enum', "Unknown BetaRbacGroupType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaRbacGroupScopeType SDK namespace.
-module BetaRbacGroupScopeType
-  RBAC_GROUP = 'rbac_group'
-  VALUES = ['rbac_group'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRbacGroupScopeType', 'enum', "Unknown BetaRbacGroupScopeType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRbacRoleMetadata
-  FIELDS = {
-    created_at: "created_at",
-    id: "id",
-    name: "name",
-    type: "type",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    created_at
-    id
-    name
-    type
-    updated_at
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRbacRoleType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRbacRole.
-# Typed representation of the `BetaRbacRole` API schema.
-class BetaRbacRole
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRbacRoleMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRbacRoleMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRbacRoleMetadata::DECODERS
-
-  # @return [String] RFC 3339 datetime string indicating when the RBAC Role was created.
-  attr_reader :created_at
-  # @return [String] ID of the RBAC Role.
-  attr_reader :id
-  # @return [String] Name of the RBAC Role.
-  attr_reader :name
-  # @return [BetaRbacRoleType] Object type. For RBAC Roles, this is always `"rbac_role"`.
-  attr_reader :type
-  # @return [String] RFC 3339 datetime string indicating when the RBAC Role was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRbacGroupScopeMetadata
+    FIELDS = {
+      rbac_group_id: 'rbac_group_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      rbac_group_id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRbacGroupScopeType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRbacGroupScope.
+  # Typed representation of the `BetaRbacGroupScope` API schema.
+  class BetaRbacGroupScope
+    include BetaSpendLimitScope
+    include BetaSpendSummarySource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRbacGroupScopeMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRbacGroupScopeMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRbacGroupScopeMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `rbac_group_id` wire field.
+    attr_reader :rbac_group_id
+    # @return [BetaRbacGroupScopeType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaRbacGroupScopeType SDK namespace.
+  module BetaRbacGroupScopeType
+    RBAC_GROUP = 'rbac_group'
+    VALUES = ['rbac_group'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaRbacRoleType SDK namespace.
-module BetaRbacRoleType
-  RBAC_ROLE = 'rbac_role'
-  VALUES = ['rbac_role'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRbacRoleType', 'enum', "Unknown BetaRbacRoleType: #{value}")
+      raise SdkValidationError.new('BetaRbacGroupScopeType', 'enum', "Unknown BetaRbacGroupScopeType: #{value}")
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaRbacRoleMetadata
+    FIELDS = {
+      created_at: 'created_at',
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      created_at
+      id
+      name
+      type
+      updated_at
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRbacRoleType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaRbacRole.
+  # Typed representation of the `BetaRbacRole` API schema.
+  class BetaRbacRole
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRbacRoleMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRbacRoleMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRbacRoleMetadata::DECODERS
+
+    # @return [String] RFC 3339 datetime string indicating when the RBAC Role was created.
+    attr_reader :created_at
+    # @return [String] ID of the RBAC Role.
+    attr_reader :id
+    # @return [String] Name of the RBAC Role.
+    attr_reader :name
+    # @return [BetaRbacRoleType] Object type. For RBAC Roles, this is always `"rbac_role"`.
+    attr_reader :type
+    # @return [String] RFC 3339 datetime string indicating when the RBAC Role was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaRbacRoleType SDK namespace.
+  module BetaRbacRoleType
+    RBAC_ROLE = 'rbac_role'
+    VALUES = ['rbac_role'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRbacRoleType', 'enum', "Unknown BetaRbacRoleType: #{value}")
+    end
+  end
 end

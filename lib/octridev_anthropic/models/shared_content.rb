@@ -5,101 +5,104 @@
 
 # shared_content domain models
 module OctridevAnthropic
-# Defines the ContentBlock SDK namespace.
-module ContentBlock
-  DISCRIMINATOR_MAPPING = {
-    "bash_code_execution_tool_result" => -> { ResponseBashCodeExecutionToolResultBlock },
-    "code_execution_tool_result" => -> { ResponseCodeExecutionToolResultBlock },
-    "container_upload" => -> { ResponseContainerUploadBlock },
-    "redacted_thinking" => -> { ResponseRedactedThinkingBlock },
-    "server_tool_use" => -> { ResponseServerToolUseBlock },
-    "text" => -> { ResponseTextBlock },
-    "text_editor_code_execution_tool_result" => -> { ResponseTextEditorCodeExecutionToolResultBlock },
-    "thinking" => -> { ResponseThinkingBlock },
-    "tool_search_tool_result" => -> { ResponseToolSearchToolResultBlock },
-    "tool_use" => -> { ResponseToolUseBlock },
-    "web_fetch_tool_result" => -> { ResponseWebFetchToolResultBlock },
-    "web_search_tool_result" => -> { ResponseWebSearchToolResultBlock },
-  }.freeze
+  # Defines the ContentBlock SDK namespace.
+  module ContentBlock
+    DISCRIMINATOR_MAPPING = {
+      'bash_code_execution_tool_result' => -> { ResponseBashCodeExecutionToolResultBlock },
+      'code_execution_tool_result' => -> { ResponseCodeExecutionToolResultBlock },
+      'container_upload' => -> { ResponseContainerUploadBlock },
+      'redacted_thinking' => -> { ResponseRedactedThinkingBlock },
+      'server_tool_use' => -> { ResponseServerToolUseBlock },
+      'text' => -> { ResponseTextBlock },
+      'text_editor_code_execution_tool_result' => -> { ResponseTextEditorCodeExecutionToolResultBlock },
+      'thinking' => -> { ResponseThinkingBlock },
+      'tool_search_tool_result' => -> { ResponseToolSearchToolResultBlock },
+      'tool_use' => -> { ResponseToolUseBlock },
+      'web_fetch_tool_result' => -> { ResponseWebFetchToolResultBlock },
+      'web_search_tool_result' => -> { ResponseWebSearchToolResultBlock }
+    }.freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('ContentBlock', 'variant', "Unknown ContentBlock discriminator: #{hash["type"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalContentBlockSourceMetadata
-  FIELDS = {
-    content: "content",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ContentBlockSourceType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ContentBlockSource.
-# Typed representation of the `ContentBlockSource` API schema.
-class ContentBlockSource
-  include RequestDocumentBlockSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalContentBlockSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalContentBlockSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalContentBlockSourceMetadata::DECODERS
-
-  # @return [Object] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [ContentBlockSourceType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ContentBlock', 'variant', "Unknown ContentBlock discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalContentBlockSourceMetadata
+    FIELDS = {
+      content: 'content',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ContentBlockSourceType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for ContentBlockSource.
+  # Typed representation of the `ContentBlockSource` API schema.
+  class ContentBlockSource
+    include RequestDocumentBlockSource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalContentBlockSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalContentBlockSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalContentBlockSourceMetadata::DECODERS
+
+    # @return [Object] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [ContentBlockSourceType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the ContentBlockSourceType SDK namespace.
-module ContentBlockSourceType
-  CONTENT = 'content'
-  VALUES = ['content'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the ContentBlockSourceType SDK namespace.
+  module ContentBlockSourceType
+    CONTENT = 'content'
+    VALUES = ['content'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('ContentBlockSourceType', 'enum', "Unknown ContentBlockSourceType: #{value}")
+      raise SdkValidationError.new('ContentBlockSourceType', 'enum', "Unknown ContentBlockSourceType: #{value}")
+    end
   end
-end
 
-# Defines the ContentBlockSourceContentItem SDK namespace.
-module ContentBlockSourceContentItem
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "image" => RequestImageBlock, "text" => RequestTextBlock }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
+  # Defines the ContentBlockSourceContentItem SDK namespace.
+  module ContentBlockSourceContentItem
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      mapping = { 'image' => RequestImageBlock, 'text' => RequestTextBlock }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('ContentBlockSourceContentItem', 'variant', "Unknown ContentBlockSourceContentItem discriminator: #{hash["type"].inspect}")
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('ContentBlockSourceContentItem', 'variant', "Unknown ContentBlockSourceContentItem discriminator: #{hash['type'].inspect}")
+    end
   end
-end
 end

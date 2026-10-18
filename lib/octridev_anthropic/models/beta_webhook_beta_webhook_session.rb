@@ -5,664 +5,674 @@
 
 # beta_webhook_beta_webhook_session domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionArchivedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionArchivedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionArchivedEventData.
-# Typed representation of the `BetaWebhookSessionArchivedEventData` API schema.
-class BetaWebhookSessionArchivedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionArchivedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionArchivedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionArchivedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookSessionArchivedEventData.
+  # Typed representation of the `BetaWebhookSessionArchivedEventData` API schema.
+  class BetaWebhookSessionArchivedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionArchivedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionArchivedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookSessionArchivedEventDataType SDK namespace.
+  module BetaWebhookSessionArchivedEventDataType
+    SESSION_ARCHIVED = 'session.archived'
+    VALUES = ['session.archived'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookSessionArchivedEventDataType SDK namespace.
-module BetaWebhookSessionArchivedEventDataType
-  SESSION_ARCHIVED = 'session.archived'
-  VALUES = ['session.archived'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionArchivedEventDataType', 'enum', "Unknown BetaWebhookSessionArchivedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionBudgetReachedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionBudgetReachedEventData.
-# Typed representation of the `BetaWebhookSessionBudgetReachedEventData` API schema.
-class BetaWebhookSessionBudgetReachedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionBudgetReachedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaWebhookSessionArchivedEventDataType', 'enum', "Unknown BetaWebhookSessionArchivedEventDataType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionBudgetReachedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaWebhookSessionBudgetReachedEventData.
+  # Typed representation of the `BetaWebhookSessionBudgetReachedEventData` API schema.
+  class BetaWebhookSessionBudgetReachedEventData
+    include BetaWebhookEventData
 
-# Defines the BetaWebhookSessionBudgetReachedEventDataType SDK namespace.
-module BetaWebhookSessionBudgetReachedEventDataType
-  SESSION_BUDGET_REACHED = 'session.budget_reached'
-  VALUES = ['session.budget_reached'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionBudgetReachedEventDataMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaWebhookSessionBudgetReachedEventDataType', 'enum', "Unknown BetaWebhookSessionBudgetReachedEventDataType: #{value}")
-  end
-end
+    # @return [BetaWebhookSessionBudgetReachedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionCreatedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionCreatedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaWebhookSessionCreatedEventData.
-# Typed representation of the `BetaWebhookSessionCreatedEventData` API schema.
-class BetaWebhookSessionCreatedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaWebhookSessionCreatedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaWebhookSessionBudgetReachedEventDataType SDK namespace.
+  module BetaWebhookSessionBudgetReachedEventDataType
+    SESSION_BUDGET_REACHED = 'session.budget_reached'
+    VALUES = ['session.budget_reached'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionBudgetReachedEventDataType', 'enum', "Unknown BetaWebhookSessionBudgetReachedEventDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaWebhookSessionCreatedEventDataType SDK namespace.
-module BetaWebhookSessionCreatedEventDataType
-  SESSION_CREATED = 'session.created'
-  VALUES = ['session.created'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionCreatedEventDataType', 'enum', "Unknown BetaWebhookSessionCreatedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionDeletedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionDeletedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionDeletedEventData.
-# Typed representation of the `BetaWebhookSessionDeletedEventData` API schema.
-class BetaWebhookSessionDeletedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionDeletedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionCreatedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionCreatedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookSessionCreatedEventData.
+  # Typed representation of the `BetaWebhookSessionCreatedEventData` API schema.
+  class BetaWebhookSessionCreatedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionCreatedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionCreatedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookSessionCreatedEventDataType SDK namespace.
+  module BetaWebhookSessionCreatedEventDataType
+    SESSION_CREATED = 'session.created'
+    VALUES = ['session.created'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookSessionDeletedEventDataType SDK namespace.
-module BetaWebhookSessionDeletedEventDataType
-  SESSION_DELETED = 'session.deleted'
-  VALUES = ['session.deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionDeletedEventDataType', 'enum', "Unknown BetaWebhookSessionDeletedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionIdledEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionIdledEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionIdledEventData.
-# Typed representation of the `BetaWebhookSessionIdledEventData` API schema.
-class BetaWebhookSessionIdledEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionIdledEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaWebhookSessionCreatedEventDataType', 'enum', "Unknown BetaWebhookSessionCreatedEventDataType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionDeletedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionDeletedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaWebhookSessionDeletedEventData.
+  # Typed representation of the `BetaWebhookSessionDeletedEventData` API schema.
+  class BetaWebhookSessionDeletedEventData
+    include BetaWebhookEventData
 
-# Defines the BetaWebhookSessionIdledEventDataType SDK namespace.
-module BetaWebhookSessionIdledEventDataType
-  SESSION_IDLED = 'session.idled'
-  VALUES = ['session.idled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionDeletedEventDataMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaWebhookSessionIdledEventDataType', 'enum', "Unknown BetaWebhookSessionIdledEventDataType: #{value}")
-  end
-end
+    # @return [BetaWebhookSessionDeletedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionOutcomeEvaluationEndedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaWebhookSessionOutcomeEvaluationEndedEventData.
-# Typed representation of the `BetaWebhookSessionOutcomeEvaluationEndedEventData` API schema.
-class BetaWebhookSessionOutcomeEvaluationEndedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaWebhookSessionOutcomeEvaluationEndedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaWebhookSessionDeletedEventDataType SDK namespace.
+  module BetaWebhookSessionDeletedEventDataType
+    SESSION_DELETED = 'session.deleted'
+    VALUES = ['session.deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionDeletedEventDataType', 'enum', "Unknown BetaWebhookSessionDeletedEventDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaWebhookSessionOutcomeEvaluationEndedEventDataType SDK namespace.
-module BetaWebhookSessionOutcomeEvaluationEndedEventDataType
-  SESSION_OUTCOME_EVALUATION_ENDED = 'session.outcome_evaluation_ended'
-  VALUES = ['session.outcome_evaluation_ended'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionOutcomeEvaluationEndedEventDataType', 'enum', "Unknown BetaWebhookSessionOutcomeEvaluationEndedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionPendingEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionPendingEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionPendingEventData.
-# Typed representation of the `BetaWebhookSessionPendingEventData` API schema.
-class BetaWebhookSessionPendingEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionPendingEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionIdledEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionIdledEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookSessionIdledEventData.
+  # Typed representation of the `BetaWebhookSessionIdledEventData` API schema.
+  class BetaWebhookSessionIdledEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionIdledEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionIdledEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookSessionIdledEventDataType SDK namespace.
+  module BetaWebhookSessionIdledEventDataType
+    SESSION_IDLED = 'session.idled'
+    VALUES = ['session.idled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookSessionPendingEventDataType SDK namespace.
-module BetaWebhookSessionPendingEventDataType
-  SESSION_PENDING = 'session.pending'
-  VALUES = ['session.pending'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionPendingEventDataType', 'enum', "Unknown BetaWebhookSessionPendingEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionRequiresActionEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionRequiresActionEventData.
-# Typed representation of the `BetaWebhookSessionRequiresActionEventData` API schema.
-class BetaWebhookSessionRequiresActionEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionRequiresActionEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaWebhookSessionIdledEventDataType', 'enum', "Unknown BetaWebhookSessionIdledEventDataType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionOutcomeEvaluationEndedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaWebhookSessionOutcomeEvaluationEndedEventData.
+  # Typed representation of the `BetaWebhookSessionOutcomeEvaluationEndedEventData` API schema.
+  class BetaWebhookSessionOutcomeEvaluationEndedEventData
+    include BetaWebhookEventData
 
-# Defines the BetaWebhookSessionRequiresActionEventDataType SDK namespace.
-module BetaWebhookSessionRequiresActionEventDataType
-  SESSION_REQUIRES_ACTION = 'session.requires_action'
-  VALUES = ['session.requires_action'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionOutcomeEvaluationEndedEventDataMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaWebhookSessionRequiresActionEventDataType', 'enum', "Unknown BetaWebhookSessionRequiresActionEventDataType: #{value}")
-  end
-end
+    # @return [BetaWebhookSessionOutcomeEvaluationEndedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionRunningEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionRunningEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaWebhookSessionRunningEventData.
-# Typed representation of the `BetaWebhookSessionRunningEventData` API schema.
-class BetaWebhookSessionRunningEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaWebhookSessionRunningEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaWebhookSessionOutcomeEvaluationEndedEventDataType SDK namespace.
+  module BetaWebhookSessionOutcomeEvaluationEndedEventDataType
+    SESSION_OUTCOME_EVALUATION_ENDED = 'session.outcome_evaluation_ended'
+    VALUES = ['session.outcome_evaluation_ended'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionOutcomeEvaluationEndedEventDataType', 'enum', "Unknown BetaWebhookSessionOutcomeEvaluationEndedEventDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaWebhookSessionRunningEventDataType SDK namespace.
-module BetaWebhookSessionRunningEventDataType
-  SESSION_RUNNING = 'session.running'
-  VALUES = ['session.running'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionRunningEventDataType', 'enum', "Unknown BetaWebhookSessionRunningEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionStatusIdledEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookSessionStatusIdledEventData.
-# Typed representation of the `BetaWebhookSessionStatusIdledEventData` API schema.
-class BetaWebhookSessionStatusIdledEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookSessionStatusIdledEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the session that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionPendingEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionPendingEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookSessionPendingEventData.
+  # Typed representation of the `BetaWebhookSessionPendingEventData` API schema.
+  class BetaWebhookSessionPendingEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionPendingEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionPendingEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaWebhookSessionPendingEventDataType SDK namespace.
+  module BetaWebhookSessionPendingEventDataType
+    SESSION_PENDING = 'session.pending'
+    VALUES = ['session.pending'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionPendingEventDataType', 'enum', "Unknown BetaWebhookSessionPendingEventDataType: #{value}")
+    end
   end
-end
 
-# Defines the BetaWebhookSessionStatusIdledEventDataType SDK namespace.
-module BetaWebhookSessionStatusIdledEventDataType
-  SESSION_STATUS_IDLED = 'session.status_idled'
-  VALUES = ['session.status_idled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookSessionStatusIdledEventDataType', 'enum', "Unknown BetaWebhookSessionStatusIdledEventDataType: #{value}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionRequiresActionEventDataType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookSessionStatusRescheduledEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookSessionStatusRescheduledEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+  # API model for BetaWebhookSessionRequiresActionEventData.
+  # Typed representation of the `BetaWebhookSessionRequiresActionEventData` API schema.
+  class BetaWebhookSessionRequiresActionEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionRequiresActionEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionRequiresActionEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaWebhookSessionRequiresActionEventDataType SDK namespace.
+  module BetaWebhookSessionRequiresActionEventDataType
+    SESSION_REQUIRES_ACTION = 'session.requires_action'
+    VALUES = ['session.requires_action'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionRequiresActionEventDataType', 'enum', "Unknown BetaWebhookSessionRequiresActionEventDataType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionRunningEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionRunningEventDataType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaWebhookSessionRunningEventData.
+  # Typed representation of the `BetaWebhookSessionRunningEventData` API schema.
+  class BetaWebhookSessionRunningEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionRunningEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionRunningEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaWebhookSessionRunningEventDataType SDK namespace.
+  module BetaWebhookSessionRunningEventDataType
+    SESSION_RUNNING = 'session.running'
+    VALUES = ['session.running'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionRunningEventDataType', 'enum', "Unknown BetaWebhookSessionRunningEventDataType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionStatusIdledEventDataType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaWebhookSessionStatusIdledEventData.
+  # Typed representation of the `BetaWebhookSessionStatusIdledEventData` API schema.
+  class BetaWebhookSessionStatusIdledEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookSessionStatusIdledEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookSessionStatusIdledEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the session that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaWebhookSessionStatusIdledEventDataType SDK namespace.
+  module BetaWebhookSessionStatusIdledEventDataType
+    SESSION_STATUS_IDLED = 'session.status_idled'
+    VALUES = ['session.status_idled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookSessionStatusIdledEventDataType', 'enum', "Unknown BetaWebhookSessionStatusIdledEventDataType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookSessionStatusRescheduledEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookSessionStatusRescheduledEventDataType.from_value(value)
+      end
+    }.freeze
+  end
 end

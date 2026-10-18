@@ -5,471 +5,463 @@
 
 # shared_browser domain models (part 3)
 module OctridevAnthropic
-# API model for BrowserSwitchTabConfig.
-# ``switch_tab``'s config overrides.
-class BrowserSwitchTabConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserSwitchTabConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserSwitchTabConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserSwitchTabConfigMetadata::DECODERS
+  # API model for BrowserSwitchTabConfig.
+  # ``switch_tab``'s config overrides.
+  class BrowserSwitchTabConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserSwitchTabConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserSwitchTabConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserSwitchTabConfigMetadata::DECODERS
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBrowserToolset20260801Metadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      configs: 'configs',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      configs: lambda do |value|
+        ::OctridevAnthropic::BrowserToolsetConfigs.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BrowserToolset20260801Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BrowserToolset20260801.
+  # The browser toolset: a single ``tools[]`` entry (carrying no ``name``) that declares the browser tool family. The model is served the family's tool with any members disabled via ``configs`` removed from its schema.
+  class BrowserToolset20260801
+    include CountMessageTokensParamsToolsItem
+    include CreateMessageParamsToolsItem
+    include CreateMessageParamsWithoutStreamToolsItem
 
-# Internal model hydration metadata.
-class SdkInternalBrowserToolset20260801Metadata
-  FIELDS = {
-    cache_control: "cache_control",
-    configs: "configs",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    configs: lambda do |value|
-      ::OctridevAnthropic::BrowserToolsetConfigs.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BrowserToolset20260801Type.from_value(value)
-    end,
-  }.freeze
-end
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserToolset20260801Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserToolset20260801Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserToolset20260801Metadata::DECODERS
 
-# API model for BrowserToolset20260801.
-# The browser toolset: a single ``tools[]`` entry (carrying no ``name``) that declares the browser tool family. The model is served the family's tool with any members disabled via ``configs`` removed from its schema.
-class BrowserToolset20260801
-  include CountMessageTokensParamsToolsItem
-  include CreateMessageParamsToolsItem
-  include CreateMessageParamsWithoutStreamToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserToolset20260801Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserToolset20260801Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserToolset20260801Metadata::DECODERS
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [BrowserToolsetConfigs] Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
+    attr_reader :configs
+    # @return [BrowserToolset20260801Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [BrowserToolsetConfigs] Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
-  attr_reader :configs
-  # @return [BrowserToolset20260801Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BrowserToolset20260801Type SDK namespace.
+  module BrowserToolset20260801Type
+    BROWSER_TOOLSET_20260801 = 'browser_toolset_20260801'
+    VALUES = ['browser_toolset_20260801'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BrowserToolset20260801Type', 'enum', "Unknown BrowserToolset20260801Type: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BrowserToolset20260801Type SDK namespace.
-module BrowserToolset20260801Type
-  BROWSER_TOOLSET_20260801 = 'browser_toolset_20260801'
-  VALUES = ['browser_toolset_20260801'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BrowserToolset20260801Type', 'enum', "Unknown BrowserToolset20260801Type: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBrowserToolsetConfigsMetadata
-  FIELDS = {
-    close_tab: "close_tab",
-    double_click: "double_click",
-    file_upload: "file_upload",
-    find: "find",
-    form_input: "form_input",
-    get_page_text: "get_page_text",
-    hold_key: "hold_key",
-    hover: "hover",
-    javascript_exec: "javascript_exec",
-    key: "key",
-    left_click: "left_click",
-    left_click_drag: "left_click_drag",
-    left_mouse_down: "left_mouse_down",
-    left_mouse_up: "left_mouse_up",
-    list_tabs: "list_tabs",
-    middle_click: "middle_click",
-    mouse_move: "mouse_move",
-    navigate: "navigate",
-    new_tab: "new_tab",
-    read_console: "read_console",
-    read_network: "read_network",
-    read_page: "read_page",
-    right_click: "right_click",
-    screenshot: "screenshot",
-    scroll: "scroll",
-    scroll_to: "scroll_to",
-    switch_tab: "switch_tab",
-    triple_click: "triple_click",
-    type: "type",
-    wait: "wait",
-    zoom: "zoom",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    close_tab: lambda do |value|
-      ::OctridevAnthropic::BrowserCloseTabConfig.from_hash(value)
-    end,
-    double_click: lambda do |value|
-      ::OctridevAnthropic::BrowserDoubleClickConfig.from_hash(value)
-    end,
-    file_upload: lambda do |value|
-      ::OctridevAnthropic::BrowserFileUploadConfig.from_hash(value)
-    end,
-    find: lambda do |value|
-      ::OctridevAnthropic::BrowserFindConfig.from_hash(value)
-    end,
-    form_input: lambda do |value|
-      ::OctridevAnthropic::BrowserFormInputConfig.from_hash(value)
-    end,
-    get_page_text: lambda do |value|
-      ::OctridevAnthropic::BrowserGetPageTextConfig.from_hash(value)
-    end,
-    hold_key: lambda do |value|
-      ::OctridevAnthropic::BrowserHoldKeyConfig.from_hash(value)
-    end,
-    hover: lambda do |value|
-      ::OctridevAnthropic::BrowserHoverConfig.from_hash(value)
-    end,
-    javascript_exec: lambda do |value|
-      ::OctridevAnthropic::BrowserJavascriptExecConfig.from_hash(value)
-    end,
-    key: lambda do |value|
-      ::OctridevAnthropic::BrowserKeyConfig.from_hash(value)
-    end,
-    left_click: lambda do |value|
-      ::OctridevAnthropic::BrowserLeftClickConfig.from_hash(value)
-    end,
-    left_click_drag: lambda do |value|
-      ::OctridevAnthropic::BrowserLeftClickDragConfig.from_hash(value)
-    end,
-    left_mouse_down: lambda do |value|
-      ::OctridevAnthropic::BrowserLeftMouseDownConfig.from_hash(value)
-    end,
-    left_mouse_up: lambda do |value|
-      ::OctridevAnthropic::BrowserLeftMouseUpConfig.from_hash(value)
-    end,
-    list_tabs: lambda do |value|
-      ::OctridevAnthropic::BrowserListTabsConfig.from_hash(value)
-    end,
-    middle_click: lambda do |value|
-      ::OctridevAnthropic::BrowserMiddleClickConfig.from_hash(value)
-    end,
-    mouse_move: lambda do |value|
-      ::OctridevAnthropic::BrowserMouseMoveConfig.from_hash(value)
-    end,
-    navigate: lambda do |value|
-      ::OctridevAnthropic::BrowserNavigateConfig.from_hash(value)
-    end,
-    new_tab: lambda do |value|
-      ::OctridevAnthropic::BrowserNewTabConfig.from_hash(value)
-    end,
-    read_console: lambda do |value|
-      ::OctridevAnthropic::BrowserReadConsoleConfig.from_hash(value)
-    end,
-    read_network: lambda do |value|
-      ::OctridevAnthropic::BrowserReadNetworkConfig.from_hash(value)
-    end,
-    read_page: lambda do |value|
-      ::OctridevAnthropic::BrowserReadPageConfig.from_hash(value)
-    end,
-    right_click: lambda do |value|
-      ::OctridevAnthropic::BrowserRightClickConfig.from_hash(value)
-    end,
-    screenshot: lambda do |value|
-      ::OctridevAnthropic::BrowserScreenshotConfig.from_hash(value)
-    end,
-    scroll: lambda do |value|
-      ::OctridevAnthropic::BrowserScrollConfig.from_hash(value)
-    end,
-    scroll_to: lambda do |value|
-      ::OctridevAnthropic::BrowserScrollToConfig.from_hash(value)
-    end,
-    switch_tab: lambda do |value|
-      ::OctridevAnthropic::BrowserSwitchTabConfig.from_hash(value)
-    end,
-    triple_click: lambda do |value|
-      ::OctridevAnthropic::BrowserTripleClickConfig.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BrowserTypeConfig.from_hash(value)
-    end,
-    wait: lambda do |value|
-      ::OctridevAnthropic::BrowserWaitConfig.from_hash(value)
-    end,
-    zoom: lambda do |value|
-      ::OctridevAnthropic::BrowserZoomConfig.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BrowserToolsetConfigs.
-# Per-member configuration for ``browser_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
-class BrowserToolsetConfigs
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserToolsetConfigsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserToolsetConfigsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserToolsetConfigsMetadata::DECODERS
-
-  # @return [BrowserCloseTabConfig] Optional API value serialized in the `close_tab` wire field.
-  attr_reader :close_tab
-  # @return [BrowserDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
-  attr_reader :double_click
-  # @return [BrowserFileUploadConfig] Optional API value serialized in the `file_upload` wire field.
-  attr_reader :file_upload
-  # @return [BrowserFindConfig] Optional API value serialized in the `find` wire field.
-  attr_reader :find
-  # @return [BrowserFormInputConfig] Optional API value serialized in the `form_input` wire field.
-  attr_reader :form_input
-  # @return [BrowserGetPageTextConfig] Optional API value serialized in the `get_page_text` wire field.
-  attr_reader :get_page_text
-  # @return [BrowserHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
-  attr_reader :hold_key
-  # @return [BrowserHoverConfig] Optional API value serialized in the `hover` wire field.
-  attr_reader :hover
-  # @return [BrowserJavascriptExecConfig] Optional API value serialized in the `javascript_exec` wire field.
-  attr_reader :javascript_exec
-  # @return [BrowserKeyConfig] Optional API value serialized in the `key` wire field.
-  attr_reader :key
-  # @return [BrowserLeftClickConfig] Optional API value serialized in the `left_click` wire field.
-  attr_reader :left_click
-  # @return [BrowserLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
-  attr_reader :left_click_drag
-  # @return [BrowserLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
-  attr_reader :left_mouse_down
-  # @return [BrowserLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
-  attr_reader :left_mouse_up
-  # @return [BrowserListTabsConfig] Optional API value serialized in the `list_tabs` wire field.
-  attr_reader :list_tabs
-  # @return [BrowserMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
-  attr_reader :middle_click
-  # @return [BrowserMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
-  attr_reader :mouse_move
-  # @return [BrowserNavigateConfig] Optional API value serialized in the `navigate` wire field.
-  attr_reader :navigate
-  # @return [BrowserNewTabConfig] Optional API value serialized in the `new_tab` wire field.
-  attr_reader :new_tab
-  # @return [BrowserReadConsoleConfig] Optional API value serialized in the `read_console` wire field.
-  attr_reader :read_console
-  # @return [BrowserReadNetworkConfig] Optional API value serialized in the `read_network` wire field.
-  attr_reader :read_network
-  # @return [BrowserReadPageConfig] Optional API value serialized in the `read_page` wire field.
-  attr_reader :read_page
-  # @return [BrowserRightClickConfig] Optional API value serialized in the `right_click` wire field.
-  attr_reader :right_click
-  # @return [BrowserScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
-  attr_reader :screenshot
-  # @return [BrowserScrollConfig] Optional API value serialized in the `scroll` wire field.
-  attr_reader :scroll
-  # @return [BrowserScrollToConfig] Optional API value serialized in the `scroll_to` wire field.
-  attr_reader :scroll_to
-  # @return [BrowserSwitchTabConfig] Optional API value serialized in the `switch_tab` wire field.
-  attr_reader :switch_tab
-  # @return [BrowserTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
-  attr_reader :triple_click
-  # @return [BrowserTypeConfig] Optional API value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BrowserWaitConfig] Optional API value serialized in the `wait` wire field.
-  attr_reader :wait
-  # @return [BrowserZoomConfig] Optional API value serialized in the `zoom` wire field.
-  attr_reader :zoom
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBrowserToolsetConfigsMetadata
+    FIELDS = {
+      close_tab: 'close_tab',
+      double_click: 'double_click',
+      file_upload: 'file_upload',
+      find: 'find',
+      form_input: 'form_input',
+      get_page_text: 'get_page_text',
+      hold_key: 'hold_key',
+      hover: 'hover',
+      javascript_exec: 'javascript_exec',
+      key: 'key',
+      left_click: 'left_click',
+      left_click_drag: 'left_click_drag',
+      left_mouse_down: 'left_mouse_down',
+      left_mouse_up: 'left_mouse_up',
+      list_tabs: 'list_tabs',
+      middle_click: 'middle_click',
+      mouse_move: 'mouse_move',
+      navigate: 'navigate',
+      new_tab: 'new_tab',
+      read_console: 'read_console',
+      read_network: 'read_network',
+      read_page: 'read_page',
+      right_click: 'right_click',
+      screenshot: 'screenshot',
+      scroll: 'scroll',
+      scroll_to: 'scroll_to',
+      switch_tab: 'switch_tab',
+      triple_click: 'triple_click',
+      type: 'type',
+      wait: 'wait',
+      zoom: 'zoom'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      close_tab: lambda do |value|
+        ::OctridevAnthropic::BrowserCloseTabConfig.from_hash(value)
+      end,
+      double_click: lambda do |value|
+        ::OctridevAnthropic::BrowserDoubleClickConfig.from_hash(value)
+      end,
+      file_upload: lambda do |value|
+        ::OctridevAnthropic::BrowserFileUploadConfig.from_hash(value)
+      end,
+      find: lambda do |value|
+        ::OctridevAnthropic::BrowserFindConfig.from_hash(value)
+      end,
+      form_input: lambda do |value|
+        ::OctridevAnthropic::BrowserFormInputConfig.from_hash(value)
+      end,
+      get_page_text: lambda do |value|
+        ::OctridevAnthropic::BrowserGetPageTextConfig.from_hash(value)
+      end,
+      hold_key: lambda do |value|
+        ::OctridevAnthropic::BrowserHoldKeyConfig.from_hash(value)
+      end,
+      hover: lambda do |value|
+        ::OctridevAnthropic::BrowserHoverConfig.from_hash(value)
+      end,
+      javascript_exec: lambda do |value|
+        ::OctridevAnthropic::BrowserJavascriptExecConfig.from_hash(value)
+      end,
+      key: lambda do |value|
+        ::OctridevAnthropic::BrowserKeyConfig.from_hash(value)
+      end,
+      left_click: lambda do |value|
+        ::OctridevAnthropic::BrowserLeftClickConfig.from_hash(value)
+      end,
+      left_click_drag: lambda do |value|
+        ::OctridevAnthropic::BrowserLeftClickDragConfig.from_hash(value)
+      end,
+      left_mouse_down: lambda do |value|
+        ::OctridevAnthropic::BrowserLeftMouseDownConfig.from_hash(value)
+      end,
+      left_mouse_up: lambda do |value|
+        ::OctridevAnthropic::BrowserLeftMouseUpConfig.from_hash(value)
+      end,
+      list_tabs: lambda do |value|
+        ::OctridevAnthropic::BrowserListTabsConfig.from_hash(value)
+      end,
+      middle_click: lambda do |value|
+        ::OctridevAnthropic::BrowserMiddleClickConfig.from_hash(value)
+      end,
+      mouse_move: lambda do |value|
+        ::OctridevAnthropic::BrowserMouseMoveConfig.from_hash(value)
+      end,
+      navigate: lambda do |value|
+        ::OctridevAnthropic::BrowserNavigateConfig.from_hash(value)
+      end,
+      new_tab: lambda do |value|
+        ::OctridevAnthropic::BrowserNewTabConfig.from_hash(value)
+      end,
+      read_console: lambda do |value|
+        ::OctridevAnthropic::BrowserReadConsoleConfig.from_hash(value)
+      end,
+      read_network: lambda do |value|
+        ::OctridevAnthropic::BrowserReadNetworkConfig.from_hash(value)
+      end,
+      read_page: lambda do |value|
+        ::OctridevAnthropic::BrowserReadPageConfig.from_hash(value)
+      end,
+      right_click: lambda do |value|
+        ::OctridevAnthropic::BrowserRightClickConfig.from_hash(value)
+      end,
+      screenshot: lambda do |value|
+        ::OctridevAnthropic::BrowserScreenshotConfig.from_hash(value)
+      end,
+      scroll: lambda do |value|
+        ::OctridevAnthropic::BrowserScrollConfig.from_hash(value)
+      end,
+      scroll_to: lambda do |value|
+        ::OctridevAnthropic::BrowserScrollToConfig.from_hash(value)
+      end,
+      switch_tab: lambda do |value|
+        ::OctridevAnthropic::BrowserSwitchTabConfig.from_hash(value)
+      end,
+      triple_click: lambda do |value|
+        ::OctridevAnthropic::BrowserTripleClickConfig.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BrowserTypeConfig.from_hash(value)
+      end,
+      wait: lambda do |value|
+        ::OctridevAnthropic::BrowserWaitConfig.from_hash(value)
+      end,
+      zoom: lambda do |value|
+        ::OctridevAnthropic::BrowserZoomConfig.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BrowserToolsetConfigs.
+  # Per-member configuration for ``browser_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
+  class BrowserToolsetConfigs
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserToolsetConfigsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserToolsetConfigsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserToolsetConfigsMetadata::DECODERS
+
+    # @return [BrowserCloseTabConfig] Optional API value serialized in the `close_tab` wire field.
+    attr_reader :close_tab
+    # @return [BrowserDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
+    attr_reader :double_click
+    # @return [BrowserFileUploadConfig] Optional API value serialized in the `file_upload` wire field.
+    attr_reader :file_upload
+    # @return [BrowserFindConfig] Optional API value serialized in the `find` wire field.
+    attr_reader :find
+    # @return [BrowserFormInputConfig] Optional API value serialized in the `form_input` wire field.
+    attr_reader :form_input
+    # @return [BrowserGetPageTextConfig] Optional API value serialized in the `get_page_text` wire field.
+    attr_reader :get_page_text
+    # @return [BrowserHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
+    attr_reader :hold_key
+    # @return [BrowserHoverConfig] Optional API value serialized in the `hover` wire field.
+    attr_reader :hover
+    # @return [BrowserJavascriptExecConfig] Optional API value serialized in the `javascript_exec` wire field.
+    attr_reader :javascript_exec
+    # @return [BrowserKeyConfig] Optional API value serialized in the `key` wire field.
+    attr_reader :key
+    # @return [BrowserLeftClickConfig] Optional API value serialized in the `left_click` wire field.
+    attr_reader :left_click
+    # @return [BrowserLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
+    attr_reader :left_click_drag
+    # @return [BrowserLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
+    attr_reader :left_mouse_down
+    # @return [BrowserLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
+    attr_reader :left_mouse_up
+    # @return [BrowserListTabsConfig] Optional API value serialized in the `list_tabs` wire field.
+    attr_reader :list_tabs
+    # @return [BrowserMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
+    attr_reader :middle_click
+    # @return [BrowserMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
+    attr_reader :mouse_move
+    # @return [BrowserNavigateConfig] Optional API value serialized in the `navigate` wire field.
+    attr_reader :navigate
+    # @return [BrowserNewTabConfig] Optional API value serialized in the `new_tab` wire field.
+    attr_reader :new_tab
+    # @return [BrowserReadConsoleConfig] Optional API value serialized in the `read_console` wire field.
+    attr_reader :read_console
+    # @return [BrowserReadNetworkConfig] Optional API value serialized in the `read_network` wire field.
+    attr_reader :read_network
+    # @return [BrowserReadPageConfig] Optional API value serialized in the `read_page` wire field.
+    attr_reader :read_page
+    # @return [BrowserRightClickConfig] Optional API value serialized in the `right_click` wire field.
+    attr_reader :right_click
+    # @return [BrowserScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
+    attr_reader :screenshot
+    # @return [BrowserScrollConfig] Optional API value serialized in the `scroll` wire field.
+    attr_reader :scroll
+    # @return [BrowserScrollToConfig] Optional API value serialized in the `scroll_to` wire field.
+    attr_reader :scroll_to
+    # @return [BrowserSwitchTabConfig] Optional API value serialized in the `switch_tab` wire field.
+    attr_reader :switch_tab
+    # @return [BrowserTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
+    attr_reader :triple_click
+    # @return [BrowserTypeConfig] Optional API value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BrowserWaitConfig] Optional API value serialized in the `wait` wire field.
+    attr_reader :wait
+    # @return [BrowserZoomConfig] Optional API value serialized in the `zoom` wire field.
+    attr_reader :zoom
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBrowserTripleClickConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BrowserTripleClickConfig.
-# ``triple_click``'s config overrides.
-class BrowserTripleClickConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserTripleClickConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserTripleClickConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserTripleClickConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBrowserTripleClickConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BrowserTripleClickConfig.
+  # ``triple_click``'s config overrides.
+  class BrowserTripleClickConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserTripleClickConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserTripleClickConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserTripleClickConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBrowserTypeConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BrowserTypeConfig.
-# ``type``'s config overrides.
-class BrowserTypeConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserTypeConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserTypeConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserTypeConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBrowserTypeConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BrowserTypeConfig.
+  # ``type``'s config overrides.
+  class BrowserTypeConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserTypeConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserTypeConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserTypeConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBrowserWaitConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BrowserWaitConfig.
-# ``wait``'s config overrides.
-class BrowserWaitConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserWaitConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserWaitConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserWaitConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBrowserWaitConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BrowserWaitConfig.
+  # ``wait``'s config overrides.
+  class BrowserWaitConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserWaitConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserWaitConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserWaitConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBrowserZoomConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BrowserZoomConfig.
-# ``zoom``'s config overrides.
-class BrowserZoomConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBrowserZoomConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBrowserZoomConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBrowserZoomConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBrowserZoomConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BrowserZoomConfig.
+  # ``zoom``'s config overrides.
+  class BrowserZoomConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBrowserZoomConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBrowserZoomConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBrowserZoomConfigMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end
