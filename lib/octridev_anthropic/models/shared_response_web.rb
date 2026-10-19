@@ -5,530 +5,538 @@
 
 # shared_response_web domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalResponseWebFetchResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    retrieved_at: "retrieved_at",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    retrieved_at
-    type
-    url
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      ::OctridevAnthropic::ResponseDocumentBlock.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebFetchResultBlockType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    retrieved_at
-  ].freeze
-end
-
-# API model for ResponseWebFetchResultBlock.
-# Typed representation of the `ResponseWebFetchResultBlock` API schema.
-class ResponseWebFetchResultBlock
-  include ResponseWebFetchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebFetchResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebFetchResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebFetchResultBlockMetadata::DECODERS
-
-  # @return [ResponseDocumentBlock] Required object value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] ISO 8601 timestamp when the content was retrieved
-  attr_reader :retrieved_at
-  # @return [ResponseWebFetchResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Fetched content URL
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebFetchResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      retrieved_at: 'retrieved_at',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      retrieved_at
+      type
+      url
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        ::OctridevAnthropic::ResponseDocumentBlock.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebFetchResultBlockType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      retrieved_at
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebFetchResultBlockMetadata::NULLABLE_FIELDS)
+  # API model for ResponseWebFetchResultBlock.
+  # Typed representation of the `ResponseWebFetchResultBlock` API schema.
+  class ResponseWebFetchResultBlock
+    include ResponseWebFetchToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebFetchResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebFetchResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebFetchResultBlockMetadata::DECODERS
+
+    # @return [ResponseDocumentBlock] Required object value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] ISO 8601 timestamp when the content was retrieved
+    attr_reader :retrieved_at
+    # @return [ResponseWebFetchResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Fetched content URL
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebFetchResultBlockMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ResponseWebFetchResultBlockType SDK namespace.
+  module ResponseWebFetchResultBlockType
+    WEB_FETCH_RESULT = 'web_fetch_result'
+    VALUES = ['web_fetch_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the ResponseWebFetchResultBlockType SDK namespace.
-module ResponseWebFetchResultBlockType
-  WEB_FETCH_RESULT = 'web_fetch_result'
-  VALUES = ['web_fetch_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseWebFetchResultBlockType', 'enum', "Unknown ResponseWebFetchResultBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseWebFetchToolResultBlockMetadata
-  FIELDS = {
-    caller: "caller",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    caller
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    caller: lambda do |value|
-      ::OctridevAnthropic::ResponseWebFetchToolResultBlockCaller.from_hash(value)
-    end,
-    content: lambda do |value|
-      ::OctridevAnthropic::ResponseWebFetchToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebFetchToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseWebFetchToolResultBlock.
-# Typed representation of the `ResponseWebFetchToolResultBlock` API schema.
-class ResponseWebFetchToolResultBlock
-  include ContentBlock
-  include ContentBlockStartEventContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebFetchToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebFetchToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebFetchToolResultBlockMetadata::DECODERS
-
-  # @return [ResponseWebFetchToolResultBlockCaller] Required API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [ResponseWebFetchToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [ResponseWebFetchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ResponseWebFetchResultBlockType', 'enum', "Unknown ResponseWebFetchResultBlockType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebFetchToolResultBlockMetadata
+    FIELDS = {
+      caller: 'caller',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      caller
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      caller: lambda do |value|
+        ::OctridevAnthropic::ResponseWebFetchToolResultBlockCaller.from_hash(value)
+      end,
+      content: lambda do |value|
+        ::OctridevAnthropic::ResponseWebFetchToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebFetchToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for ResponseWebFetchToolResultBlock.
+  # Typed representation of the `ResponseWebFetchToolResultBlock` API schema.
+  class ResponseWebFetchToolResultBlock
+    include ContentBlock
+    include ContentBlockStartEventContentBlock
 
-# Defines the ResponseWebFetchToolResultBlockType SDK namespace.
-module ResponseWebFetchToolResultBlockType
-  WEB_FETCH_TOOL_RESULT = 'web_fetch_tool_result'
-  VALUES = ['web_fetch_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebFetchToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebFetchToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebFetchToolResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('ResponseWebFetchToolResultBlockType', 'enum', "Unknown ResponseWebFetchToolResultBlockType: #{value}")
-  end
-end
+    # @return [ResponseWebFetchToolResultBlockCaller] Required API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [ResponseWebFetchToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [ResponseWebFetchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Defines the ResponseWebFetchToolResultBlockCaller SDK namespace.
-module ResponseWebFetchToolResultBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { ServerToolCaller },
-    "code_execution_20260120" => -> { ServerToolCaller20260120 },
-    "direct" => -> { DirectCaller },
-  }.freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('ResponseWebFetchToolResultBlockCaller', 'variant', "Unknown ResponseWebFetchToolResultBlockCaller discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the ResponseWebFetchToolResultBlockContent SDK namespace.
-module ResponseWebFetchToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "web_fetch_tool_result_error" => -> { ResponseWebFetchToolResultError },
-    "web_fetch_result" => -> { ResponseWebFetchResultBlock },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('ResponseWebFetchToolResultBlockContent', 'variant', "Unknown ResponseWebFetchToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseWebFetchToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::WebFetchToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebFetchToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseWebFetchToolResultError.
-# Typed representation of the `ResponseWebFetchToolResultError` API schema.
-class ResponseWebFetchToolResultError
-  include ResponseWebFetchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebFetchToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebFetchToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebFetchToolResultErrorMetadata::DECODERS
-
-  # @return [WebFetchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [ResponseWebFetchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the ResponseWebFetchToolResultBlockType SDK namespace.
+  module ResponseWebFetchToolResultBlockType
+    WEB_FETCH_TOOL_RESULT = 'web_fetch_tool_result'
+    VALUES = ['web_fetch_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseWebFetchToolResultBlockType', 'enum', "Unknown ResponseWebFetchToolResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ResponseWebFetchToolResultBlockCaller SDK namespace.
+  module ResponseWebFetchToolResultBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { ServerToolCaller },
+      'code_execution_20260120' => -> { ServerToolCaller20260120 },
+      'direct' => -> { DirectCaller }
+    }.freeze
 
-# Defines the ResponseWebFetchToolResultErrorType SDK namespace.
-module ResponseWebFetchToolResultErrorType
-  WEB_FETCH_TOOL_RESULT_ERROR = 'web_fetch_tool_result_error'
-  VALUES = ['web_fetch_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    raise SdkValidationError.new('ResponseWebFetchToolResultErrorType', 'enum', "Unknown ResponseWebFetchToolResultErrorType: #{value}")
-  end
-end
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-# Internal model hydration metadata.
-class SdkInternalResponseWebSearchResultBlockMetadata
-  FIELDS = {
-    encrypted_content: "encrypted_content",
-    page_age: "page_age",
-    title: "title",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    encrypted_content
-    page_age
-    title
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebSearchResultBlockType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    page_age
-  ].freeze
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# API model for ResponseWebSearchResultBlock.
-# Typed representation of the `ResponseWebSearchResultBlock` API schema.
-class ResponseWebSearchResultBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebSearchResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebSearchResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebSearchResultBlockMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `encrypted_content` wire field.
-  attr_reader :encrypted_content
-  # @return [String] Required `string` value serialized in the `page_age` wire field.
-  attr_reader :page_age
-  # @return [String] Required `string` value serialized in the `title` wire field.
-  attr_reader :title
-  # @return [ResponseWebSearchResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ResponseWebFetchToolResultBlockCaller', 'variant', "Unknown ResponseWebFetchToolResultBlockCaller discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebSearchResultBlockMetadata::NULLABLE_FIELDS)
+  # Defines the ResponseWebFetchToolResultBlockContent SDK namespace.
+  module ResponseWebFetchToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'web_fetch_tool_result_error' => -> { ResponseWebFetchToolResultError },
+      'web_fetch_result' => -> { ResponseWebFetchResultBlock }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('ResponseWebFetchToolResultBlockContent', 'variant', "Unknown ResponseWebFetchToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the ResponseWebSearchResultBlockType SDK namespace.
-module ResponseWebSearchResultBlockType
-  WEB_SEARCH_RESULT = 'web_search_result'
-  VALUES = ['web_search_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseWebSearchResultBlockType', 'enum', "Unknown ResponseWebSearchResultBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseWebSearchResultLocationCitationMetadata
-  FIELDS = {
-    cited_text: "cited_text",
-    encrypted_index: "encrypted_index",
-    title: "title",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cited_text
-    encrypted_index
-    title
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebSearchResultLocationCitationType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    title
-  ].freeze
-end
-
-# API model for ResponseWebSearchResultLocationCitation.
-# Typed representation of the `ResponseWebSearchResultLocationCitation` API schema.
-class ResponseWebSearchResultLocationCitation
-  include CitationsDeltaCitation
-  include ResponseTextBlockCitationsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebSearchResultLocationCitationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebSearchResultLocationCitationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebSearchResultLocationCitationMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `cited_text` wire field.
-  attr_reader :cited_text
-  # @return [String] Required `string` value serialized in the `encrypted_index` wire field.
-  attr_reader :encrypted_index
-  # @return [String] Required API value serialized in the `title` wire field.
-  attr_reader :title
-  # @return [ResponseWebSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebFetchToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::WebFetchToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebFetchToolResultErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
+  # API model for ResponseWebFetchToolResultError.
+  # Typed representation of the `ResponseWebFetchToolResultError` API schema.
+  class ResponseWebFetchToolResultError
+    include ResponseWebFetchToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebFetchToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebFetchToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebFetchToolResultErrorMetadata::DECODERS
+
+    # @return [WebFetchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [ResponseWebFetchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ResponseWebFetchToolResultErrorType SDK namespace.
+  module ResponseWebFetchToolResultErrorType
+    WEB_FETCH_TOOL_RESULT_ERROR = 'web_fetch_tool_result_error'
+    VALUES = ['web_fetch_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the ResponseWebSearchResultLocationCitationType SDK namespace.
-module ResponseWebSearchResultLocationCitationType
-  WEB_SEARCH_RESULT_LOCATION = 'web_search_result_location'
-  VALUES = ['web_search_result_location'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseWebSearchResultLocationCitationType', 'enum', "Unknown ResponseWebSearchResultLocationCitationType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseWebSearchToolResultBlockMetadata
-  FIELDS = {
-    caller: "caller",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    caller
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    caller: lambda do |value|
-      ::OctridevAnthropic::ResponseWebSearchToolResultBlockCaller.from_hash(value)
-    end,
-    content: lambda do |value|
-      SdkModel.union_branch(value, [::OctridevAnthropic::ResponseWebSearchToolResultError])
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebSearchToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseWebSearchToolResultBlock.
-# Typed representation of the `ResponseWebSearchToolResultBlock` API schema.
-class ResponseWebSearchToolResultBlock
-  include ContentBlock
-  include ContentBlockStartEventContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebSearchToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebSearchToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebSearchToolResultBlockMetadata::DECODERS
-
-  # @return [ResponseWebSearchToolResultBlockCaller] Required API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [Object] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [ResponseWebSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ResponseWebFetchToolResultErrorType', 'enum', "Unknown ResponseWebFetchToolResultErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebSearchResultBlockMetadata
+    FIELDS = {
+      encrypted_content: 'encrypted_content',
+      page_age: 'page_age',
+      title: 'title',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      encrypted_content
+      page_age
+      title
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebSearchResultBlockType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      page_age
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for ResponseWebSearchResultBlock.
+  # Typed representation of the `ResponseWebSearchResultBlock` API schema.
+  class ResponseWebSearchResultBlock
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebSearchResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebSearchResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebSearchResultBlockMetadata::DECODERS
 
-# Defines the ResponseWebSearchToolResultBlockType SDK namespace.
-module ResponseWebSearchToolResultBlockType
-  WEB_SEARCH_TOOL_RESULT = 'web_search_tool_result'
-  VALUES = ['web_search_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Required `string` value serialized in the `encrypted_content` wire field.
+    attr_reader :encrypted_content
+    # @return [String] Required `string` value serialized in the `page_age` wire field.
+    attr_reader :page_age
+    # @return [String] Required `string` value serialized in the `title` wire field.
+    attr_reader :title
+    # @return [ResponseWebSearchResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
 
-    raise SdkValidationError.new('ResponseWebSearchToolResultBlockType', 'enum', "Unknown ResponseWebSearchToolResultBlockType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Defines the ResponseWebSearchToolResultBlockCaller SDK namespace.
-module ResponseWebSearchToolResultBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { ServerToolCaller },
-    "code_execution_20260120" => -> { ServerToolCaller20260120 },
-    "direct" => -> { DirectCaller },
-  }.freeze
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebSearchResultBlockMetadata::NULLABLE_FIELDS)
+    end
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('ResponseWebSearchToolResultBlockCaller', 'variant', "Unknown ResponseWebSearchToolResultBlockCaller discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseWebSearchToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::WebSearchToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseWebSearchToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseWebSearchToolResultError.
-# Typed representation of the `ResponseWebSearchToolResultError` API schema.
-class ResponseWebSearchToolResultError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseWebSearchToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseWebSearchToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseWebSearchToolResultErrorMetadata::DECODERS
-
-  # @return [WebSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [ResponseWebSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the ResponseWebSearchResultBlockType SDK namespace.
+  module ResponseWebSearchResultBlockType
+    WEB_SEARCH_RESULT = 'web_search_result'
+    VALUES = ['web_search_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseWebSearchResultBlockType', 'enum', "Unknown ResponseWebSearchResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebSearchResultLocationCitationMetadata
+    FIELDS = {
+      cited_text: 'cited_text',
+      encrypted_index: 'encrypted_index',
+      title: 'title',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cited_text
+      encrypted_index
+      title
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebSearchResultLocationCitationType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      title
+    ].freeze
   end
-end
 
-# Defines the ResponseWebSearchToolResultErrorType SDK namespace.
-module ResponseWebSearchToolResultErrorType
-  WEB_SEARCH_TOOL_RESULT_ERROR = 'web_search_tool_result_error'
-  VALUES = ['web_search_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # API model for ResponseWebSearchResultLocationCitation.
+  # Typed representation of the `ResponseWebSearchResultLocationCitation` API schema.
+  class ResponseWebSearchResultLocationCitation
+    include CitationsDeltaCitation
+    include ResponseTextBlockCitationsItem
 
-    raise SdkValidationError.new('ResponseWebSearchToolResultErrorType', 'enum', "Unknown ResponseWebSearchToolResultErrorType: #{value}")
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebSearchResultLocationCitationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebSearchResultLocationCitationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebSearchResultLocationCitationMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `cited_text` wire field.
+    attr_reader :cited_text
+    # @return [String] Required `string` value serialized in the `encrypted_index` wire field.
+    attr_reader :encrypted_index
+    # @return [String] Required API value serialized in the `title` wire field.
+    attr_reader :title
+    # @return [ResponseWebSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseWebSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the ResponseWebSearchResultLocationCitationType SDK namespace.
+  module ResponseWebSearchResultLocationCitationType
+    WEB_SEARCH_RESULT_LOCATION = 'web_search_result_location'
+    VALUES = ['web_search_result_location'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseWebSearchResultLocationCitationType', 'enum', "Unknown ResponseWebSearchResultLocationCitationType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebSearchToolResultBlockMetadata
+    FIELDS = {
+      caller: 'caller',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      caller
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      caller: lambda do |value|
+        ::OctridevAnthropic::ResponseWebSearchToolResultBlockCaller.from_hash(value)
+      end,
+      content: lambda do |value|
+        SdkModel.union_branch(value, [::OctridevAnthropic::ResponseWebSearchToolResultError])
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebSearchToolResultBlockType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for ResponseWebSearchToolResultBlock.
+  # Typed representation of the `ResponseWebSearchToolResultBlock` API schema.
+  class ResponseWebSearchToolResultBlock
+    include ContentBlock
+    include ContentBlockStartEventContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebSearchToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebSearchToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebSearchToolResultBlockMetadata::DECODERS
+
+    # @return [ResponseWebSearchToolResultBlockCaller] Required API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [Object] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [ResponseWebSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the ResponseWebSearchToolResultBlockType SDK namespace.
+  module ResponseWebSearchToolResultBlockType
+    WEB_SEARCH_TOOL_RESULT = 'web_search_tool_result'
+    VALUES = ['web_search_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseWebSearchToolResultBlockType', 'enum', "Unknown ResponseWebSearchToolResultBlockType: #{value}")
+    end
+  end
+
+  # Defines the ResponseWebSearchToolResultBlockCaller SDK namespace.
+  module ResponseWebSearchToolResultBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { ServerToolCaller },
+      'code_execution_20260120' => -> { ServerToolCaller20260120 },
+      'direct' => -> { DirectCaller }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('ResponseWebSearchToolResultBlockCaller', 'variant', "Unknown ResponseWebSearchToolResultBlockCaller discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalResponseWebSearchToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::WebSearchToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseWebSearchToolResultErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for ResponseWebSearchToolResultError.
+  # Typed representation of the `ResponseWebSearchToolResultError` API schema.
+  class ResponseWebSearchToolResultError
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseWebSearchToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseWebSearchToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseWebSearchToolResultErrorMetadata::DECODERS
+
+    # @return [WebSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [ResponseWebSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the ResponseWebSearchToolResultErrorType SDK namespace.
+  module ResponseWebSearchToolResultErrorType
+    WEB_SEARCH_TOOL_RESULT_ERROR = 'web_search_tool_result_error'
+    VALUES = ['web_search_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseWebSearchToolResultErrorType', 'enum', "Unknown ResponseWebSearchToolResultErrorType: #{value}")
+    end
+  end
 end

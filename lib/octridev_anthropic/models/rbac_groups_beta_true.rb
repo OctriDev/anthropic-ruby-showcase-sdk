@@ -5,91 +5,90 @@
 
 # rbac_groups_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaCreateRbacGroupParamsMetadata
-  FIELDS = {
-    name: "name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaCreateRbacGroupParams.
-# Typed representation of the `BetaCreateRbacGroupParams` API schema.
-class BetaCreateRbacGroupParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaCreateRbacGroupParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaCreateRbacGroupParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaCreateRbacGroupParamsMetadata::DECODERS
-
-  # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
-  attr_reader :name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaCreateRbacGroupParamsMetadata
+    FIELDS = {
+      name: 'name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaCreateRbacGroupParams.
+  # Typed representation of the `BetaCreateRbacGroupParams` API schema.
+  class BetaCreateRbacGroupParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaCreateRbacGroupParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaCreateRbacGroupParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaCreateRbacGroupParamsMetadata::DECODERS
+
+    # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
+    attr_reader :name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRbacGroupListMetadata
-  FIELDS = {
-    data: "data",
-    has_more: "has_more",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    has_more
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaRbacGroup.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
-
-# API model for BetaRbacGroupList.
-# Typed representation of the `BetaRbacGroupList` API schema.
-class BetaRbacGroupList
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRbacGroupListMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRbacGroupListMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRbacGroupListMetadata::DECODERS
-
-  # @return [Array_of_BetaRbacGroup] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [Boolean] Indicates if there are more results in the requested page direction.
-  attr_reader :has_more
-  # @return [String] Token to provide in as `page` in the subsequent request to retrieve the next page of data.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRbacGroupListMetadata
+    FIELDS = {
+      data: 'data',
+      has_more: 'has_more',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      has_more
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaRbacGroup.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupListMetadata::NULLABLE_FIELDS)
-  end
+  # API model for BetaRbacGroupList.
+  # Typed representation of the `BetaRbacGroupList` API schema.
+  class BetaRbacGroupList
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRbacGroupListMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRbacGroupListMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRbacGroupListMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Array_of_BetaRbacGroup] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [Boolean] Indicates if there are more results in the requested page direction.
+    attr_reader :has_more
+    # @return [String] Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupListMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

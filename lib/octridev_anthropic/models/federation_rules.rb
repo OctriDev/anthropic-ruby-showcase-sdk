@@ -5,69 +5,68 @@
 
 # federation_rules domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaFederationRuleUpdateParamsMetadata
-  FIELDS = {
-    applies_to_all_workspaces: "applies_to_all_workspaces",
-    attributes: "attributes",
-    description: "description",
-    match: "match",
-    name: "name",
-    oauth_scope: "oauth_scope",
-    target: "target",
-    token_lifetime_seconds: "token_lifetime_seconds",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    match: lambda do |value|
-      ::OctridevAnthropic::BetaRuleMatch.from_hash(value)
-    end,
-    target: lambda do |value|
-      ::OctridevAnthropic::BetaServiceAccountTarget.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaFederationRuleUpdateParams.
-# Partial update. Set fields are applied; omitted fields are unchanged. `issuer_id` is immutable. `match` and `target` are replaced as whole objects when set. Explicit `null` clears `description` and `attributes`; other fields can only be replaced, not cleared.
-class BetaFederationRuleUpdateParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaFederationRuleUpdateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaFederationRuleUpdateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaFederationRuleUpdateParamsMetadata::DECODERS
-
-  # @return [Boolean] When true, enables this rule for every workspace in the org (including workspaces created later). Setting `false` is rejected with 400 if no workspace would remain enabled; a rule with only a legacy `workspace_id` binding continues to mint.
-  attr_reader :applies_to_all_workspaces
-  # @return [Hash] Replaces the CEL expressions `{name: expr}` extracting named values from claims. Send null to clear them. Not yet supported; any non-empty value is rejected with 400.
-  attr_reader :attributes
-  # @return [String] Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
-  attr_reader :description
-  # @return [BetaRuleMatch] Replaces the entire match object. All populated matcher fields must pass.
-  attr_reader :match
-  # @return [String] Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
-  attr_reader :name
-  # @return [String] Replaces the space-separated OAuth scopes granted on minted tokens. OAuth callers may only set `workspace:developer` or `workspace:inference`; other scopes (such as `org:admin`) require a Console session.
-  attr_reader :oauth_scope
-  # @return [BetaServiceAccountTarget] Replaces the entire target object. Currently always a `service_account` target.
-  attr_reader :target
-  # @return [Integer] Replaces the lifetime in seconds for access tokens minted via this rule (60-86400). Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-  attr_reader :token_lifetime_seconds
-  # @return [String] Replaces the existing single workspace enablement (the previous one is removed). Rejected with 400 if the rule is enabled for more than one workspace; use the `/federation_rules/{federation_rule_id}/workspaces` sub-resource instead.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaFederationRuleUpdateParamsMetadata
+    FIELDS = {
+      applies_to_all_workspaces: 'applies_to_all_workspaces',
+      attributes: 'attributes',
+      description: 'description',
+      match: 'match',
+      name: 'name',
+      oauth_scope: 'oauth_scope',
+      target: 'target',
+      token_lifetime_seconds: 'token_lifetime_seconds',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      match: lambda do |value|
+        ::OctridevAnthropic::BetaRuleMatch.from_hash(value)
+      end,
+      target: lambda do |value|
+        ::OctridevAnthropic::BetaServiceAccountTarget.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BetaFederationRuleUpdateParams.
+  # Partial update. Set fields are applied; omitted fields are unchanged. `issuer_id` is immutable. `match` and `target` are replaced as whole objects when set. Explicit `null` clears `description` and `attributes`; other fields can only be replaced, not cleared.
+  class BetaFederationRuleUpdateParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaFederationRuleUpdateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaFederationRuleUpdateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaFederationRuleUpdateParamsMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Boolean] When true, enables this rule for every workspace in the org (including workspaces created later). Setting `false` is rejected with 400 if no workspace would remain enabled; a rule with only a legacy `workspace_id` binding continues to mint.
+    attr_reader :applies_to_all_workspaces
+    # @return [Hash] Replaces the CEL expressions `{name: expr}` extracting named values from claims. Send null to clear them. Not yet supported; any non-empty value is rejected with 400.
+    attr_reader :attributes
+    # @return [String] Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
+    attr_reader :description
+    # @return [BetaRuleMatch] Replaces the entire match object. All populated matcher fields must pass.
+    attr_reader :match
+    # @return [String] Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+    attr_reader :name
+    # @return [String] Replaces the space-separated OAuth scopes granted on minted tokens. OAuth callers may only set `workspace:developer` or `workspace:inference`; other scopes (such as `org:admin`) require a Console session.
+    attr_reader :oauth_scope
+    # @return [BetaServiceAccountTarget] Replaces the entire target object. Currently always a `service_account` target.
+    attr_reader :target
+    # @return [Integer] Replaces the lifetime in seconds for access tokens minted via this rule (60-86400). Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+    attr_reader :token_lifetime_seconds
+    # @return [String] Replaces the existing single workspace enablement (the previous one is removed). Rejected with 400 if the rule is enabled for more than one workspace; use the `/federation_rules/{federation_rule_id}/workspaces` sub-resource instead.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

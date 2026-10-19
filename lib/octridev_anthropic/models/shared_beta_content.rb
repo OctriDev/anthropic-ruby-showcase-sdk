@@ -5,106 +5,109 @@
 
 # shared_beta_content domain models
 module OctridevAnthropic
-# Defines the BetaContentBlock SDK namespace.
-module BetaContentBlock
-  DISCRIMINATOR_MAPPING = {
-    "advisor_tool_result" => -> { BetaResponseAdvisorToolResultBlock },
-    "bash_code_execution_tool_result" => -> { BetaResponseBashCodeExecutionToolResultBlock },
-    "code_execution_tool_result" => -> { BetaResponseCodeExecutionToolResultBlock },
-    "compaction" => -> { BetaResponseCompactionBlock },
-    "container_upload" => -> { BetaResponseContainerUploadBlock },
-    "fallback" => -> { BetaResponseFallbackBlock },
-    "mcp_tool_result" => -> { BetaResponseMCPToolResultBlock },
-    "mcp_tool_use" => -> { BetaResponseMCPToolUseBlock },
-    "redacted_thinking" => -> { BetaResponseRedactedThinkingBlock },
-    "server_tool_use" => -> { BetaResponseServerToolUseBlock },
-    "text" => -> { BetaResponseTextBlock },
-    "text_editor_code_execution_tool_result" => -> { BetaResponseTextEditorCodeExecutionToolResultBlock },
-    "thinking" => -> { BetaResponseThinkingBlock },
-    "tool_search_tool_result" => -> { BetaResponseToolSearchToolResultBlock },
-    "tool_use" => -> { BetaResponseToolUseBlock },
-    "web_fetch_tool_result" => -> { BetaResponseWebFetchToolResultBlock },
-    "web_search_tool_result" => -> { BetaResponseWebSearchToolResultBlock },
-  }.freeze
+  # Defines the BetaContentBlock SDK namespace.
+  module BetaContentBlock
+    DISCRIMINATOR_MAPPING = {
+      'advisor_tool_result' => -> { BetaResponseAdvisorToolResultBlock },
+      'bash_code_execution_tool_result' => -> { BetaResponseBashCodeExecutionToolResultBlock },
+      'code_execution_tool_result' => -> { BetaResponseCodeExecutionToolResultBlock },
+      'compaction' => -> { BetaResponseCompactionBlock },
+      'container_upload' => -> { BetaResponseContainerUploadBlock },
+      'fallback' => -> { BetaResponseFallbackBlock },
+      'mcp_tool_result' => -> { BetaResponseMCPToolResultBlock },
+      'mcp_tool_use' => -> { BetaResponseMCPToolUseBlock },
+      'redacted_thinking' => -> { BetaResponseRedactedThinkingBlock },
+      'server_tool_use' => -> { BetaResponseServerToolUseBlock },
+      'text' => -> { BetaResponseTextBlock },
+      'text_editor_code_execution_tool_result' => -> { BetaResponseTextEditorCodeExecutionToolResultBlock },
+      'thinking' => -> { BetaResponseThinkingBlock },
+      'tool_search_tool_result' => -> { BetaResponseToolSearchToolResultBlock },
+      'tool_use' => -> { BetaResponseToolUseBlock },
+      'web_fetch_tool_result' => -> { BetaResponseWebFetchToolResultBlock },
+      'web_search_tool_result' => -> { BetaResponseWebSearchToolResultBlock }
+    }.freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaContentBlock', 'variant', "Unknown BetaContentBlock discriminator: #{hash["type"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalBetaContentBlockSourceMetadata
-  FIELDS = {
-    content: "content",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaContentBlockSourceType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaContentBlockSource.
-# Typed representation of the `BetaContentBlockSource` API schema.
-class BetaContentBlockSource
-  include BetaRequestDocumentBlockSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaContentBlockSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaContentBlockSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaContentBlockSourceMetadata::DECODERS
-
-  # @return [Object] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [BetaContentBlockSourceType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaContentBlock', 'variant', "Unknown BetaContentBlock discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaContentBlockSourceMetadata
+    FIELDS = {
+      content: 'content',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaContentBlockSourceType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaContentBlockSource.
+  # Typed representation of the `BetaContentBlockSource` API schema.
+  class BetaContentBlockSource
+    include BetaRequestDocumentBlockSource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaContentBlockSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaContentBlockSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaContentBlockSourceMetadata::DECODERS
+
+    # @return [Object] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [BetaContentBlockSourceType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the BetaContentBlockSourceType SDK namespace.
-module BetaContentBlockSourceType
-  CONTENT = 'content'
-  VALUES = ['content'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the BetaContentBlockSourceType SDK namespace.
+  module BetaContentBlockSourceType
+    CONTENT = 'content'
+    VALUES = ['content'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('BetaContentBlockSourceType', 'enum', "Unknown BetaContentBlockSourceType: #{value}")
+      raise SdkValidationError.new('BetaContentBlockSourceType', 'enum', "Unknown BetaContentBlockSourceType: #{value}")
+    end
   end
-end
 
-# Defines the BetaContentBlockSourceContentItem SDK namespace.
-module BetaContentBlockSourceContentItem
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "image" => BetaRequestImageBlock, "text" => BetaRequestTextBlock }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
+  # Defines the BetaContentBlockSourceContentItem SDK namespace.
+  module BetaContentBlockSourceContentItem
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      mapping = { 'image' => BetaRequestImageBlock, 'text' => BetaRequestTextBlock }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaContentBlockSourceContentItem', 'variant', "Unknown BetaContentBlockSourceContentItem discriminator: #{hash["type"].inspect}")
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaContentBlockSourceContentItem', 'variant', "Unknown BetaContentBlockSourceContentItem discriminator: #{hash['type'].inspect}")
+    end
   end
-end
 end

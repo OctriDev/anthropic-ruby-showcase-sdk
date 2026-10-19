@@ -26,7 +26,6 @@ module OctridevAnthropic
         anthropic_version: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_pattern('starting_at', starting_at, '^\\d{4}-\\d{2}-\\d{2}$')
         Validation.validate_date('starting_at', starting_at)
 
@@ -34,25 +33,25 @@ module OctridevAnthropic
 
         SdkClient.request(
           'GET',
-          "/v1/organizations/usage_report/claude_code?beta=true",
+          '/v1/organizations/usage_report/claude_code?beta=true',
           config: config,
           query: {
             'starting_at' => QueryValue.new(starting_at, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'page' => QueryValue.new(page, style: 'form', explode: true),
+            'page' => QueryValue.new(page, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaGetClaudeCodeUsageReportResponse,
           decoder: :json,
           operation_id: 'retrieve_beta_organizations_usage_report_claude_code',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
         ).data
       end
 
-    RetrieveBetaOrganizationsUsageReportClaudeCodePage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      RetrieveBetaOrganizationsUsageReportClaudeCodePage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Retrieve daily aggregated usage metrics for Claude Code users. Enables organizations to analyze developer productivity and build custom dashboards.
       #
@@ -84,10 +83,13 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             break unless page.has_more
+
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -114,10 +116,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = page.has_more && !next_cursor.nil?
             y << RetrieveBetaOrganizationsUsageReportClaudeCodePage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end

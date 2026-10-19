@@ -5,82 +5,82 @@
 
 # shared_refusal domain models
 module OctridevAnthropic
-# Defines the RefusalCategory SDK namespace.
-module RefusalCategory
-  CYBER = 'cyber'
-  BIO = 'bio'
-  FRONTIER_LLM = 'frontier_llm'
-  REASONING_EXTRACTION = 'reasoning_extraction'
-  GENERAL_HARMS = 'general_harms'
-  VALUES = ['cyber', 'bio', 'frontier_llm', 'reasoning_extraction', 'general_harms'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRefusalStopDetailsMetadata
-  FIELDS = {
-    category: "category",
-    explanation: "explanation",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    category
-    explanation
-    type
-  ].freeze
-  DECODERS = {
-    category: lambda do |value|
-      ::OctridevAnthropic::RefusalCategory.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RefusalStopDetailsType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    category
-    explanation
-  ].freeze
-end
-
-# API model for RefusalStopDetails.
-# Structured information about a refusal.
-class RefusalStopDetails
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRefusalStopDetailsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRefusalStopDetailsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRefusalStopDetailsMetadata::DECODERS
-
-  # @return [RefusalCategory] The policy category that triggered the refusal. `null` when the refusal doesn't map to a named category.
-  attr_reader :category
-  # @return [String] Human-readable explanation of the refusal. This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-  attr_reader :explanation
-  # @return [RefusalStopDetailsType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the RefusalCategory SDK namespace.
+  module RefusalCategory
+    CYBER = 'cyber'
+    BIO = 'bio'
+    FRONTIER_LLM = 'frontier_llm'
+    REASONING_EXTRACTION = 'reasoning_extraction'
+    GENERAL_HARMS = 'general_harms'
+    VALUES = %w[cyber bio frontier_llm reasoning_extraction general_harms].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRefusalStopDetailsMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalRefusalStopDetailsMetadata
+    FIELDS = {
+      category: 'category',
+      explanation: 'explanation',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      category
+      explanation
+      type
+    ].freeze
+    DECODERS = {
+      category: lambda do |value|
+        ::OctridevAnthropic::RefusalCategory.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RefusalStopDetailsType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      category
+      explanation
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RefusalStopDetails.
+  # Structured information about a refusal.
+  class RefusalStopDetails
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRefusalStopDetailsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRefusalStopDetailsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRefusalStopDetailsMetadata::DECODERS
 
-# Defines the RefusalStopDetailsType SDK namespace.
-module RefusalStopDetailsType
-  REFUSAL = 'refusal'
-  VALUES = ['refusal'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [RefusalCategory] The policy category that triggered the refusal. `null` when the refusal doesn't map to a named category.
+    attr_reader :category
+    # @return [String] Human-readable explanation of the refusal. This text is not guaranteed to be stable. `null` when no explanation is available for the category.
+    attr_reader :explanation
+    # @return [RefusalStopDetailsType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-    raise SdkValidationError.new('RefusalStopDetailsType', 'enum', "Unknown RefusalStopDetailsType: #{value}")
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRefusalStopDetailsMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the RefusalStopDetailsType SDK namespace.
+  module RefusalStopDetailsType
+    REFUSAL = 'refusal'
+    VALUES = ['refusal'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RefusalStopDetailsType', 'enum', "Unknown RefusalStopDetailsType: #{value}")
+    end
+  end
 end

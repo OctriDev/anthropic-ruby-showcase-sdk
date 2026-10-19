@@ -5,389 +5,395 @@
 
 # stream_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEventDeltaEventMetadata
-  FIELDS = {
-    type: "type",
-    event_id: "event_id",
-    delta: "delta",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    event_id
-    delta
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventType.from_value(value)
-    end,
-    delta: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventDelta.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEventDeltaEvent.
-# An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
-class BetaManagedAgentsEventDeltaEvent
-  include BetaManagedAgentsStreamSessionEvents
-  include BetaManagedAgentsStreamSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEventDeltaEventType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
-  attr_reader :event_id
-  # @return [BetaManagedAgentsEventDeltaEventDelta] One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
-  attr_reader :delta
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEventDeltaEventMetadata
+    FIELDS = {
+      type: 'type',
+      event_id: 'event_id',
+      delta: 'delta'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      event_id
+      delta
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventType.from_value(value)
+      end,
+      delta: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventDelta.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsEventDeltaEvent.
+  # An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+  class BetaManagedAgentsEventDeltaEvent
+    include BetaManagedAgentsStreamSessionEvents
+    include BetaManagedAgentsStreamSessionThreadEvents
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEventDeltaEventMetadata::DECODERS
+
+    # @return [BetaManagedAgentsEventDeltaEventType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+    attr_reader :event_id
+    # @return [BetaManagedAgentsEventDeltaEventDelta] One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+    attr_reader :delta
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsEventDeltaEventType SDK namespace.
+  module BetaManagedAgentsEventDeltaEventType
+    EVENT_DELTA = 'event_delta'
+    VALUES = ['event_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsEventDeltaEventType SDK namespace.
-module BetaManagedAgentsEventDeltaEventType
-  EVENT_DELTA = 'event_delta'
-  VALUES = ['event_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventType', 'enum', "Unknown BetaManagedAgentsEventDeltaEventType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata
-  FIELDS = {
-    type: "type",
-    index: "index",
-    content: "content",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    content
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventContentDeltaType.from_value(value)
-    end,
-    content: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsTextBlock.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEventDeltaEventContentDelta.
-# Typed representation of the `BetaManagedAgentsEventDeltaEvent_ContentDelta` API schema.
-class BetaManagedAgentsEventDeltaEventContentDelta
-  include BetaManagedAgentsEventDeltaEventDelta
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEventDeltaEventContentDeltaType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Integer] Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-  attr_reader :index
-  # @return [BetaManagedAgentsTextBlock] A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
-  attr_reader :content
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventType', 'enum', "Unknown BetaManagedAgentsEventDeltaEventType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata
+    FIELDS = {
+      type: 'type',
+      index: 'index',
+      content: 'content'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      content
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventDeltaEventContentDeltaType.from_value(value)
+      end,
+      content: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsTextBlock.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsEventDeltaEventContentDelta.
+  # Typed representation of the `BetaManagedAgentsEventDeltaEvent_ContentDelta` API schema.
+  class BetaManagedAgentsEventDeltaEventContentDelta
+    include BetaManagedAgentsEventDeltaEventDelta
 
-# Defines the BetaManagedAgentsEventDeltaEventContentDeltaType SDK namespace.
-module BetaManagedAgentsEventDeltaEventContentDeltaType
-  CONTENT_DELTA = 'content_delta'
-  VALUES = ['content_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEventDeltaEventContentDeltaMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventContentDeltaType', 'enum', "Unknown BetaManagedAgentsEventDeltaEventContentDeltaType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsEventDeltaEventContentDeltaType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Integer] Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+    attr_reader :index
+    # @return [BetaManagedAgentsTextBlock] A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
+    attr_reader :content
 
-# Defines the BetaManagedAgentsEventDeltaEventDelta SDK namespace.
-module BetaManagedAgentsEventDeltaEventDelta
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "content_delta" => BetaManagedAgentsEventDeltaEventContentDelta }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventDelta', 'variant', "Unknown BetaManagedAgentsEventDeltaEventDelta discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsEventDeltaType SDK namespace.
-module BetaManagedAgentsEventDeltaType
-  AGENT_MESSAGE = 'agent.message'
-  AGENT_THINKING = 'agent.thinking'
-  VALUES = ['agent.message', 'agent.thinking'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEventStartEventMetadata
-  FIELDS = {
-    type: "type",
-    event: "event",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    event
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventStartEventType.from_value(value)
-    end,
-    event: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventStartEventEvent.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEventStartEvent.
-# Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
-class BetaManagedAgentsEventStartEvent
-  include BetaManagedAgentsStreamSessionEvents
-  include BetaManagedAgentsStreamSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEventStartEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEventStartEventMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEventStartEventType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsEventStartEventEvent] The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
-  attr_reader :event
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsEventDeltaEventContentDeltaType SDK namespace.
+  module BetaManagedAgentsEventDeltaEventContentDeltaType
+    CONTENT_DELTA = 'content_delta'
+    VALUES = ['content_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventContentDeltaType', 'enum', "Unknown BetaManagedAgentsEventDeltaEventContentDeltaType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsEventDeltaEventDelta SDK namespace.
+  module BetaManagedAgentsEventDeltaEventDelta
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-# Defines the BetaManagedAgentsEventStartEventType SDK namespace.
-module BetaManagedAgentsEventStartEventType
-  EVENT_START = 'event_start'
-  VALUES = ['event_start'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+      mapping = { 'content_delta' => BetaManagedAgentsEventDeltaEventContentDelta }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsEventStartEventType', 'enum', "Unknown BetaManagedAgentsEventStartEventType: #{value}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventStartEventAgentMessagePreviewType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEventStartEventAgentMessagePreview.
-# Typed representation of the `BetaManagedAgentsEventStartEvent_AgentMessagePreview` API schema.
-class BetaManagedAgentsEventStartEventAgentMessagePreview
-  include BetaManagedAgentsEventStartEventEvent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEventStartEventAgentMessagePreviewType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
-  attr_reader :id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsEventDeltaEventDelta', 'variant', "Unknown BetaManagedAgentsEventDeltaEventDelta discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsEventDeltaType SDK namespace.
+  module BetaManagedAgentsEventDeltaType
+    AGENT_MESSAGE = 'agent.message'
+    AGENT_THINKING = 'agent.thinking'
+    VALUES = ['agent.message', 'agent.thinking'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsEventStartEventAgentMessagePreviewType SDK namespace.
-module BetaManagedAgentsEventStartEventAgentMessagePreviewType
-  AGENT_MESSAGE = 'agent.message'
-  VALUES = ['agent.message'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsEventStartEventAgentMessagePreviewType', 'enum', "Unknown BetaManagedAgentsEventStartEventAgentMessagePreviewType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEventStartEventAgentThinkingPreviewType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsEventStartEventAgentThinkingPreview.
-# Typed representation of the `BetaManagedAgentsEventStartEvent_AgentThinkingPreview` API schema.
-class BetaManagedAgentsEventStartEventAgentThinkingPreview
-  include BetaManagedAgentsEventStartEventEvent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::DECODERS
-
-  # @return [BetaManagedAgentsEventStartEventAgentThinkingPreviewType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
-  attr_reader :id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEventStartEventMetadata
+    FIELDS = {
+      type: 'type',
+      event: 'event'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      event
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventStartEventType.from_value(value)
+      end,
+      event: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventStartEventEvent.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsEventStartEvent.
+  # Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+  class BetaManagedAgentsEventStartEvent
+    include BetaManagedAgentsStreamSessionEvents
+    include BetaManagedAgentsStreamSessionThreadEvents
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEventStartEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEventStartEventMetadata::DECODERS
+
+    # @return [BetaManagedAgentsEventStartEventType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsEventStartEventEvent] The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+    attr_reader :event
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsEventStartEventType SDK namespace.
+  module BetaManagedAgentsEventStartEventType
+    EVENT_START = 'event_start'
+    VALUES = ['event_start'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsEventStartEventType', 'enum', "Unknown BetaManagedAgentsEventStartEventType: #{value}")
+    end
   end
-end
 
-# Defines the BetaManagedAgentsEventStartEventAgentThinkingPreviewType SDK namespace.
-module BetaManagedAgentsEventStartEventAgentThinkingPreviewType
-  AGENT_THINKING = 'agent.thinking'
-  VALUES = ['agent.thinking'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsEventStartEventAgentThinkingPreviewType', 'enum', "Unknown BetaManagedAgentsEventStartEventAgentThinkingPreviewType: #{value}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventStartEventAgentMessagePreviewType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Defines the BetaManagedAgentsEventStartEventEvent SDK namespace.
-module BetaManagedAgentsEventStartEventEvent
-  DISCRIMINATOR_MAPPING = {
-    "agent.message" => -> { BetaManagedAgentsEventStartEventAgentMessagePreview },
-    "agent.thinking" => -> { BetaManagedAgentsEventStartEventAgentThinkingPreview },
-  }.freeze
+  # API model for BetaManagedAgentsEventStartEventAgentMessagePreview.
+  # Typed representation of the `BetaManagedAgentsEventStartEvent_AgentMessagePreview` API schema.
+  class BetaManagedAgentsEventStartEventAgentMessagePreview
+    include BetaManagedAgentsEventStartEventEvent
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEventStartEventAgentMessagePreviewMetadata::DECODERS
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+    # @return [BetaManagedAgentsEventStartEventAgentMessagePreviewType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+    attr_reader :id
 
-    raise SdkValidationError.new('BetaManagedAgentsEventStartEventEvent', 'variant', "Unknown BetaManagedAgentsEventStartEventEvent discriminator: #{hash["type"].inspect}")
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the BetaManagedAgentsStreamSessionEvents SDK namespace.
-module BetaManagedAgentsStreamSessionEvents
-  DISCRIMINATOR_MAPPING = {
-    "user.message" => -> { BetaManagedAgentsUserMessageEvent },
-    "user.interrupt" => -> { BetaManagedAgentsUserInterruptEvent },
-    "user.tool_confirmation" => -> { BetaManagedAgentsUserToolConfirmationEvent },
-    "user.custom_tool_result" => -> { BetaManagedAgentsUserCustomToolResultEvent },
-    "agent.custom_tool_use" => -> { BetaManagedAgentsAgentCustomToolUseEvent },
-    "agent.message" => -> { BetaManagedAgentsAgentMessageEvent },
-    "agent.thinking" => -> { BetaManagedAgentsAgentThinkingEvent },
-    "agent.mcp_tool_use" => -> { BetaManagedAgentsAgentMcpToolUseEvent },
-    "agent.mcp_tool_result" => -> { BetaManagedAgentsAgentMcpToolResultEvent },
-    "agent.tool_use" => -> { BetaManagedAgentsAgentToolUseEvent },
-    "agent.tool_result" => -> { BetaManagedAgentsAgentToolResultEvent },
-    "agent.thread_message_received" => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
-    "agent.thread_message_sent" => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
-    "agent.thread_context_compacted" => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
-    "session.error" => -> { BetaManagedAgentsSessionErrorEvent },
-    "session.status_rescheduled" => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
-    "session.status_running" => -> { BetaManagedAgentsSessionStatusRunningEvent },
-    "session.status_idle" => -> { BetaManagedAgentsSessionStatusIdleEvent },
-    "session.status_terminated" => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
-    "session.thread_created" => -> { BetaManagedAgentsSessionThreadCreatedEvent },
-    "span.outcome_evaluation_start" => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
-    "span.outcome_evaluation_end" => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
-    "span.model_request_start" => -> { BetaManagedAgentsSpanModelRequestStartEvent },
-    "span.model_request_end" => -> { BetaManagedAgentsSpanModelRequestEndEvent },
-    "span.outcome_evaluation_ongoing" => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
-    "user.define_outcome" => -> { BetaManagedAgentsUserDefineOutcomeEvent },
-    "session.deleted" => -> { BetaManagedAgentsSessionDeletedEvent },
-    "session.thread_status_running" => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
-    "session.thread_status_idle" => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
-    "session.thread_status_terminated" => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
-    "user.tool_result" => -> { BetaManagedAgentsUserToolResultEvent },
-    "session.thread_status_rescheduled" => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
-    "session.updated" => -> { BetaManagedAgentsSessionUpdatedEvent },
-    "event_start" => -> { BetaManagedAgentsEventStartEvent },
-    "event_delta" => -> { BetaManagedAgentsEventDeltaEvent },
-    "system.message" => -> { BetaManagedAgentsSystemMessageEvent },
-    "session.usage" => -> { BetaManagedAgentsSessionUsageEvent },
-  }.freeze
-  UNDECIDED_VARIANTS = (
-    [
+  # Defines the BetaManagedAgentsEventStartEventAgentMessagePreviewType SDK namespace.
+  module BetaManagedAgentsEventStartEventAgentMessagePreviewType
+    AGENT_MESSAGE = 'agent.message'
+    VALUES = ['agent.message'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsEventStartEventAgentMessagePreviewType', 'enum', "Unknown BetaManagedAgentsEventStartEventAgentMessagePreviewType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEventStartEventAgentThinkingPreviewType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsEventStartEventAgentThinkingPreview.
+  # Typed representation of the `BetaManagedAgentsEventStartEvent_AgentThinkingPreview` API schema.
+  class BetaManagedAgentsEventStartEventAgentThinkingPreview
+    include BetaManagedAgentsEventStartEventEvent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsEventStartEventAgentThinkingPreviewMetadata::DECODERS
+
+    # @return [BetaManagedAgentsEventStartEventAgentThinkingPreviewType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+    attr_reader :id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsEventStartEventAgentThinkingPreviewType SDK namespace.
+  module BetaManagedAgentsEventStartEventAgentThinkingPreviewType
+    AGENT_THINKING = 'agent.thinking'
+    VALUES = ['agent.thinking'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsEventStartEventAgentThinkingPreviewType', 'enum', "Unknown BetaManagedAgentsEventStartEventAgentThinkingPreviewType: #{value}")
+    end
+  end
+
+  # Defines the BetaManagedAgentsEventStartEventEvent SDK namespace.
+  module BetaManagedAgentsEventStartEventEvent
+    DISCRIMINATOR_MAPPING = {
+      'agent.message' => -> { BetaManagedAgentsEventStartEventAgentMessagePreview },
+      'agent.thinking' => -> { BetaManagedAgentsEventStartEventAgentThinkingPreview }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsEventStartEventEvent', 'variant', "Unknown BetaManagedAgentsEventStartEventEvent discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Defines the BetaManagedAgentsStreamSessionEvents SDK namespace.
+  module BetaManagedAgentsStreamSessionEvents
+    DISCRIMINATOR_MAPPING = {
+      'user.message' => -> { BetaManagedAgentsUserMessageEvent },
+      'user.interrupt' => -> { BetaManagedAgentsUserInterruptEvent },
+      'user.tool_confirmation' => -> { BetaManagedAgentsUserToolConfirmationEvent },
+      'user.custom_tool_result' => -> { BetaManagedAgentsUserCustomToolResultEvent },
+      'agent.custom_tool_use' => -> { BetaManagedAgentsAgentCustomToolUseEvent },
+      'agent.message' => -> { BetaManagedAgentsAgentMessageEvent },
+      'agent.thinking' => -> { BetaManagedAgentsAgentThinkingEvent },
+      'agent.mcp_tool_use' => -> { BetaManagedAgentsAgentMcpToolUseEvent },
+      'agent.mcp_tool_result' => -> { BetaManagedAgentsAgentMcpToolResultEvent },
+      'agent.tool_use' => -> { BetaManagedAgentsAgentToolUseEvent },
+      'agent.tool_result' => -> { BetaManagedAgentsAgentToolResultEvent },
+      'agent.thread_message_received' => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
+      'agent.thread_message_sent' => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
+      'agent.thread_context_compacted' => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
+      'session.error' => -> { BetaManagedAgentsSessionErrorEvent },
+      'session.status_rescheduled' => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
+      'session.status_running' => -> { BetaManagedAgentsSessionStatusRunningEvent },
+      'session.status_idle' => -> { BetaManagedAgentsSessionStatusIdleEvent },
+      'session.status_terminated' => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
+      'session.thread_created' => -> { BetaManagedAgentsSessionThreadCreatedEvent },
+      'span.outcome_evaluation_start' => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
+      'span.outcome_evaluation_end' => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
+      'span.model_request_start' => -> { BetaManagedAgentsSpanModelRequestStartEvent },
+      'span.model_request_end' => -> { BetaManagedAgentsSpanModelRequestEndEvent },
+      'span.outcome_evaluation_ongoing' => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
+      'user.define_outcome' => -> { BetaManagedAgentsUserDefineOutcomeEvent },
+      'session.deleted' => -> { BetaManagedAgentsSessionDeletedEvent },
+      'session.thread_status_running' => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
+      'session.thread_status_idle' => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
+      'session.thread_status_terminated' => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
+      'user.tool_result' => -> { BetaManagedAgentsUserToolResultEvent },
+      'session.thread_status_rescheduled' => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
+      'session.updated' => -> { BetaManagedAgentsSessionUpdatedEvent },
+      'event_start' => -> { BetaManagedAgentsEventStartEvent },
+      'event_delta' => -> { BetaManagedAgentsEventDeltaEvent },
+      'system.message' => -> { BetaManagedAgentsSystemMessageEvent },
+      'session.usage' => -> { BetaManagedAgentsSessionUsageEvent }
+    }.freeze
+    UNDECIDED_VARIANTS = [
       -> { BetaManagedAgentsUserMessageEvent },
       -> { BetaManagedAgentsUserInterruptEvent },
       -> { BetaManagedAgentsUserToolConfirmationEvent },
@@ -413,64 +419,63 @@ module BetaManagedAgentsStreamSessionEvents
       -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
       -> { BetaManagedAgentsSessionUpdatedEvent },
       -> { BetaManagedAgentsSystemMessageEvent },
-      -> { BetaManagedAgentsSessionUsageEvent },
-    ]
-  ).freeze
+      -> { BetaManagedAgentsSessionUsageEvent }
+    ].freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsStreamSessionEvents', 'variant', "Unknown BetaManagedAgentsStreamSessionEvents discriminator: #{hash["type"].inspect}")
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsStreamSessionEvents', 'variant', "Unknown BetaManagedAgentsStreamSessionEvents discriminator: #{hash['type'].inspect}")
+    end
   end
-end
 
-# Defines the BetaManagedAgentsStreamSessionThreadEvents SDK namespace.
-module BetaManagedAgentsStreamSessionThreadEvents
-  DISCRIMINATOR_MAPPING = {
-    "user.message" => -> { BetaManagedAgentsUserMessageEvent },
-    "user.interrupt" => -> { BetaManagedAgentsUserInterruptEvent },
-    "user.tool_confirmation" => -> { BetaManagedAgentsUserToolConfirmationEvent },
-    "user.custom_tool_result" => -> { BetaManagedAgentsUserCustomToolResultEvent },
-    "agent.custom_tool_use" => -> { BetaManagedAgentsAgentCustomToolUseEvent },
-    "agent.message" => -> { BetaManagedAgentsAgentMessageEvent },
-    "agent.thinking" => -> { BetaManagedAgentsAgentThinkingEvent },
-    "agent.mcp_tool_use" => -> { BetaManagedAgentsAgentMcpToolUseEvent },
-    "agent.mcp_tool_result" => -> { BetaManagedAgentsAgentMcpToolResultEvent },
-    "agent.tool_use" => -> { BetaManagedAgentsAgentToolUseEvent },
-    "agent.tool_result" => -> { BetaManagedAgentsAgentToolResultEvent },
-    "agent.thread_message_received" => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
-    "agent.thread_message_sent" => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
-    "agent.thread_context_compacted" => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
-    "session.error" => -> { BetaManagedAgentsSessionErrorEvent },
-    "session.status_rescheduled" => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
-    "session.status_running" => -> { BetaManagedAgentsSessionStatusRunningEvent },
-    "session.status_idle" => -> { BetaManagedAgentsSessionStatusIdleEvent },
-    "session.status_terminated" => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
-    "session.thread_created" => -> { BetaManagedAgentsSessionThreadCreatedEvent },
-    "span.outcome_evaluation_start" => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
-    "span.outcome_evaluation_end" => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
-    "span.model_request_start" => -> { BetaManagedAgentsSpanModelRequestStartEvent },
-    "span.model_request_end" => -> { BetaManagedAgentsSpanModelRequestEndEvent },
-    "span.outcome_evaluation_ongoing" => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
-    "user.define_outcome" => -> { BetaManagedAgentsUserDefineOutcomeEvent },
-    "session.deleted" => -> { BetaManagedAgentsSessionDeletedEvent },
-    "session.thread_status_running" => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
-    "session.thread_status_idle" => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
-    "session.thread_status_terminated" => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
-    "user.tool_result" => -> { BetaManagedAgentsUserToolResultEvent },
-    "session.thread_status_rescheduled" => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
-    "session.updated" => -> { BetaManagedAgentsSessionUpdatedEvent },
-    "event_start" => -> { BetaManagedAgentsEventStartEvent },
-    "event_delta" => -> { BetaManagedAgentsEventDeltaEvent },
-    "system.message" => -> { BetaManagedAgentsSystemMessageEvent },
-    "session.usage" => -> { BetaManagedAgentsSessionUsageEvent },
-  }.freeze
-  UNDECIDED_VARIANTS = (
-    [
+  # Defines the BetaManagedAgentsStreamSessionThreadEvents SDK namespace.
+  module BetaManagedAgentsStreamSessionThreadEvents
+    DISCRIMINATOR_MAPPING = {
+      'user.message' => -> { BetaManagedAgentsUserMessageEvent },
+      'user.interrupt' => -> { BetaManagedAgentsUserInterruptEvent },
+      'user.tool_confirmation' => -> { BetaManagedAgentsUserToolConfirmationEvent },
+      'user.custom_tool_result' => -> { BetaManagedAgentsUserCustomToolResultEvent },
+      'agent.custom_tool_use' => -> { BetaManagedAgentsAgentCustomToolUseEvent },
+      'agent.message' => -> { BetaManagedAgentsAgentMessageEvent },
+      'agent.thinking' => -> { BetaManagedAgentsAgentThinkingEvent },
+      'agent.mcp_tool_use' => -> { BetaManagedAgentsAgentMcpToolUseEvent },
+      'agent.mcp_tool_result' => -> { BetaManagedAgentsAgentMcpToolResultEvent },
+      'agent.tool_use' => -> { BetaManagedAgentsAgentToolUseEvent },
+      'agent.tool_result' => -> { BetaManagedAgentsAgentToolResultEvent },
+      'agent.thread_message_received' => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
+      'agent.thread_message_sent' => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
+      'agent.thread_context_compacted' => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
+      'session.error' => -> { BetaManagedAgentsSessionErrorEvent },
+      'session.status_rescheduled' => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
+      'session.status_running' => -> { BetaManagedAgentsSessionStatusRunningEvent },
+      'session.status_idle' => -> { BetaManagedAgentsSessionStatusIdleEvent },
+      'session.status_terminated' => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
+      'session.thread_created' => -> { BetaManagedAgentsSessionThreadCreatedEvent },
+      'span.outcome_evaluation_start' => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
+      'span.outcome_evaluation_end' => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
+      'span.model_request_start' => -> { BetaManagedAgentsSpanModelRequestStartEvent },
+      'span.model_request_end' => -> { BetaManagedAgentsSpanModelRequestEndEvent },
+      'span.outcome_evaluation_ongoing' => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
+      'user.define_outcome' => -> { BetaManagedAgentsUserDefineOutcomeEvent },
+      'session.deleted' => -> { BetaManagedAgentsSessionDeletedEvent },
+      'session.thread_status_running' => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
+      'session.thread_status_idle' => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
+      'session.thread_status_terminated' => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
+      'user.tool_result' => -> { BetaManagedAgentsUserToolResultEvent },
+      'session.thread_status_rescheduled' => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
+      'session.updated' => -> { BetaManagedAgentsSessionUpdatedEvent },
+      'event_start' => -> { BetaManagedAgentsEventStartEvent },
+      'event_delta' => -> { BetaManagedAgentsEventDeltaEvent },
+      'system.message' => -> { BetaManagedAgentsSystemMessageEvent },
+      'session.usage' => -> { BetaManagedAgentsSessionUsageEvent }
+    }.freeze
+    UNDECIDED_VARIANTS = [
       -> { BetaManagedAgentsUserMessageEvent },
       -> { BetaManagedAgentsUserInterruptEvent },
       -> { BetaManagedAgentsUserToolConfirmationEvent },
@@ -496,18 +501,18 @@ module BetaManagedAgentsStreamSessionThreadEvents
       -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
       -> { BetaManagedAgentsSessionUpdatedEvent },
       -> { BetaManagedAgentsSystemMessageEvent },
-      -> { BetaManagedAgentsSessionUsageEvent },
-    ]
-  ).freeze
+      -> { BetaManagedAgentsSessionUsageEvent }
+    ].freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsStreamSessionThreadEvents', 'variant', "Unknown BetaManagedAgentsStreamSessionThreadEvents discriminator: #{hash["type"].inspect}")
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsStreamSessionThreadEvents', 'variant', "Unknown BetaManagedAgentsStreamSessionThreadEvents discriminator: #{hash['type'].inspect}")
+    end
   end
-end
 end

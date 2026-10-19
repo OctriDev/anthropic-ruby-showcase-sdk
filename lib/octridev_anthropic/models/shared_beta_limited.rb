@@ -5,128 +5,130 @@
 
 # shared_beta_limited domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaLimitedNetworkMetadata
-  FIELDS = {
-    allow_mcp_servers: "allow_mcp_servers",
-    allow_package_managers: "allow_package_managers",
-    allowed_hosts: "allowed_hosts",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    allow_mcp_servers
-    allow_package_managers
-    allowed_hosts
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaLimitedNetworkType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaLimitedNetwork.
-# Limited network access.
-class BetaLimitedNetwork
-  include BetaCloudConfigNetworking
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaLimitedNetworkMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaLimitedNetworkMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaLimitedNetworkMetadata::DECODERS
-
-  # @return [Boolean] Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
-  attr_reader :allow_mcp_servers
-  # @return [Boolean] Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array.
-  attr_reader :allow_package_managers
-  # @return [Array_of_String] Specifies domains the container can reach.
-  attr_reader :allowed_hosts
-  # @return [BetaLimitedNetworkType] Network policy type
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaLimitedNetworkMetadata
+    FIELDS = {
+      allow_mcp_servers: 'allow_mcp_servers',
+      allow_package_managers: 'allow_package_managers',
+      allowed_hosts: 'allowed_hosts',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      allow_mcp_servers
+      allow_package_managers
+      allowed_hosts
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaLimitedNetworkType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaLimitedNetwork.
+  # Limited network access.
+  class BetaLimitedNetwork
+    include BetaCloudConfigNetworking
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaLimitedNetworkMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaLimitedNetworkMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaLimitedNetworkMetadata::DECODERS
+
+    # @return [Boolean] Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
+    attr_reader :allow_mcp_servers
+    # @return [Boolean] Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array.
+    attr_reader :allow_package_managers
+    # @return [Array_of_String] Specifies domains the container can reach.
+    attr_reader :allowed_hosts
+    # @return [BetaLimitedNetworkType] Network policy type
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaLimitedNetworkType SDK namespace.
+  module BetaLimitedNetworkType
+    LIMITED = 'limited'
+    VALUES = ['limited'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaLimitedNetworkType SDK namespace.
-module BetaLimitedNetworkType
-  LIMITED = 'limited'
-  VALUES = ['limited'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaLimitedNetworkType', 'enum', "Unknown BetaLimitedNetworkType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaLimitedNetworkParamsMetadata
-  FIELDS = {
-    allow_mcp_servers: "allow_mcp_servers",
-    allow_package_managers: "allow_package_managers",
-    allowed_hosts: "allowed_hosts",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaLimitedNetworkParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaLimitedNetworkParams.
-# Limited network request params. Fields default to null; on update, omitted fields preserve the existing value.
-class BetaLimitedNetworkParams
-  include BetaCloudConfigParamsNetworking
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaLimitedNetworkParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaLimitedNetworkParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaLimitedNetworkParamsMetadata::DECODERS
-
-  # @return [Boolean] Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
-  attr_reader :allow_mcp_servers
-  # @return [Boolean] Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
-  attr_reader :allow_package_managers
-  # @return [Array_of_String] Specifies domains the container can reach.
-  attr_reader :allowed_hosts
-  # @return [BetaLimitedNetworkParamsType] Network policy type
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaLimitedNetworkType', 'enum', "Unknown BetaLimitedNetworkType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaLimitedNetworkParamsMetadata
+    FIELDS = {
+      allow_mcp_servers: 'allow_mcp_servers',
+      allow_package_managers: 'allow_package_managers',
+      allowed_hosts: 'allowed_hosts',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaLimitedNetworkParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaLimitedNetworkParams.
+  # Limited network request params. Fields default to null; on update, omitted fields preserve the existing value.
+  class BetaLimitedNetworkParams
+    include BetaCloudConfigParamsNetworking
 
-# Defines the BetaLimitedNetworkParamsType SDK namespace.
-module BetaLimitedNetworkParamsType
-  LIMITED = 'limited'
-  VALUES = ['limited'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaLimitedNetworkParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaLimitedNetworkParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaLimitedNetworkParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaLimitedNetworkParamsType', 'enum', "Unknown BetaLimitedNetworkParamsType: #{value}")
+    # @return [Boolean] Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
+    attr_reader :allow_mcp_servers
+    # @return [Boolean] Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
+    attr_reader :allow_package_managers
+    # @return [Array_of_String] Specifies domains the container can reach.
+    attr_reader :allowed_hosts
+    # @return [BetaLimitedNetworkParamsType] Network policy type
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the BetaLimitedNetworkParamsType SDK namespace.
+  module BetaLimitedNetworkParamsType
+    LIMITED = 'limited'
+    VALUES = ['limited'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaLimitedNetworkParamsType', 'enum', "Unknown BetaLimitedNetworkParamsType: #{value}")
+    end
+  end
 end

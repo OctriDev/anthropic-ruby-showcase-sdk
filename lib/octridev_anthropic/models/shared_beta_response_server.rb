@@ -5,115 +5,117 @@
 
 # shared_beta_response_server domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaResponseServerToolUseBlockMetadata
-  FIELDS = {
-    caller: "caller",
-    id: "id",
-    input: "input",
-    name: "name",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    input
-    name
-    type
-  ].freeze
-  DECODERS = {
-    caller: lambda do |value|
-      ::OctridevAnthropic::BetaResponseServerToolUseBlockCaller.from_hash(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaResponseServerToolUseBlockName.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaResponseServerToolUseBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaResponseServerToolUseBlock.
-# Typed representation of the `BetaResponseServerToolUseBlock` API schema.
-class BetaResponseServerToolUseBlock
-  include BetaContentBlock
-  include BetaContentBlockStartEventContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaResponseServerToolUseBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaResponseServerToolUseBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaResponseServerToolUseBlockMetadata::DECODERS
-
-  # @return [BetaResponseServerToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [Hash] Required object value serialized in the `input` wire field.
-  attr_reader :input
-  # @return [BetaResponseServerToolUseBlockName] Required enumerated value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [BetaResponseServerToolUseBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaResponseServerToolUseBlockMetadata
+    FIELDS = {
+      caller: 'caller',
+      id: 'id',
+      input: 'input',
+      name: 'name',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      input
+      name
+      type
+    ].freeze
+    DECODERS = {
+      caller: lambda do |value|
+        ::OctridevAnthropic::BetaResponseServerToolUseBlockCaller.from_hash(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaResponseServerToolUseBlockName.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaResponseServerToolUseBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaResponseServerToolUseBlock.
+  # Typed representation of the `BetaResponseServerToolUseBlock` API schema.
+  class BetaResponseServerToolUseBlock
+    include BetaContentBlock
+    include BetaContentBlockStartEventContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaResponseServerToolUseBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaResponseServerToolUseBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaResponseServerToolUseBlockMetadata::DECODERS
+
+    # @return [BetaResponseServerToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [Hash] Required object value serialized in the `input` wire field.
+    attr_reader :input
+    # @return [BetaResponseServerToolUseBlockName] Required enumerated value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [BetaResponseServerToolUseBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaResponseServerToolUseBlockName SDK namespace.
+  module BetaResponseServerToolUseBlockName
+    ADVISOR = 'advisor'
+    WEB_SEARCH = 'web_search'
+    WEB_FETCH = 'web_fetch'
+    CODE_EXECUTION = 'code_execution'
+    BASH_CODE_EXECUTION = 'bash_code_execution'
+    TEXT_EDITOR_CODE_EXECUTION = 'text_editor_code_execution'
+    TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
+    TOOL_SEARCH_TOOL_BM25 = 'tool_search_tool_bm25'
+    VALUES = %w[
+      advisor web_search web_fetch code_execution bash_code_execution
+      text_editor_code_execution tool_search_tool_regex tool_search_tool_bm25
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaResponseServerToolUseBlockName SDK namespace.
-module BetaResponseServerToolUseBlockName
-  ADVISOR = 'advisor'
-  WEB_SEARCH = 'web_search'
-  WEB_FETCH = 'web_fetch'
-  CODE_EXECUTION = 'code_execution'
-  BASH_CODE_EXECUTION = 'bash_code_execution'
-  TEXT_EDITOR_CODE_EXECUTION = 'text_editor_code_execution'
-  TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
-  TOOL_SEARCH_TOOL_BM25 = 'tool_search_tool_bm25'
-  VALUES = [
-    'advisor', 'web_search', 'web_fetch', 'code_execution', 'bash_code_execution',
-    'text_editor_code_execution', 'tool_search_tool_regex', 'tool_search_tool_bm25'
-  ].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaResponseServerToolUseBlockType SDK namespace.
+  module BetaResponseServerToolUseBlockType
+    SERVER_TOOL_USE = 'server_tool_use'
+    VALUES = ['server_tool_use'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaResponseServerToolUseBlockType', 'enum', "Unknown BetaResponseServerToolUseBlockType: #{value}")
+    end
   end
-end
 
-# Defines the BetaResponseServerToolUseBlockType SDK namespace.
-module BetaResponseServerToolUseBlockType
-  SERVER_TOOL_USE = 'server_tool_use'
-  VALUES = ['server_tool_use'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the BetaResponseServerToolUseBlockCaller SDK namespace.
+  module BetaResponseServerToolUseBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { BetaServerToolCaller },
+      'code_execution_20260120' => -> { BetaServerToolCaller20260120 },
+      'direct' => -> { BetaDirectCaller }
+    }.freeze
 
-    raise SdkValidationError.new('BetaResponseServerToolUseBlockType', 'enum', "Unknown BetaResponseServerToolUseBlockType: #{value}")
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaResponseServerToolUseBlockCaller', 'variant', "Unknown BetaResponseServerToolUseBlockCaller discriminator: #{hash['type'].inspect}")
+    end
   end
-end
-
-# Defines the BetaResponseServerToolUseBlockCaller SDK namespace.
-module BetaResponseServerToolUseBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { BetaServerToolCaller },
-    "code_execution_20260120" => -> { BetaServerToolCaller20260120 },
-    "direct" => -> { BetaDirectCaller },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaResponseServerToolUseBlockCaller', 'variant', "Unknown BetaResponseServerToolUseBlockCaller discriminator: #{hash["type"].inspect}")
-  end
-end
 end

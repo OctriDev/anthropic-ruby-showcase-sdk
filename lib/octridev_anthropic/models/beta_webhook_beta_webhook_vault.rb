@@ -5,467 +5,474 @@
 
 # beta_webhook_beta_webhook_vault domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultArchivedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultArchivedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookVaultArchivedEventData.
-# Typed representation of the `BetaWebhookVaultArchivedEventData` API schema.
-class BetaWebhookVaultArchivedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookVaultArchivedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultArchivedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultArchivedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookVaultArchivedEventData.
+  # Typed representation of the `BetaWebhookVaultArchivedEventData` API schema.
+  class BetaWebhookVaultArchivedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultArchivedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookVaultArchivedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookVaultArchivedEventDataType SDK namespace.
+  module BetaWebhookVaultArchivedEventDataType
+    VAULT_ARCHIVED = 'vault.archived'
+    VALUES = ['vault.archived'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookVaultArchivedEventDataType SDK namespace.
-module BetaWebhookVaultArchivedEventDataType
-  VAULT_ARCHIVED = 'vault.archived'
-  VALUES = ['vault.archived'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookVaultArchivedEventDataType', 'enum', "Unknown BetaWebhookVaultArchivedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultCreatedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultCreatedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookVaultCreatedEventData.
-# Typed representation of the `BetaWebhookVaultCreatedEventData` API schema.
-class BetaWebhookVaultCreatedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookVaultCreatedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaWebhookVaultArchivedEventDataType', 'enum', "Unknown BetaWebhookVaultArchivedEventDataType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultCreatedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultCreatedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaWebhookVaultCreatedEventData.
+  # Typed representation of the `BetaWebhookVaultCreatedEventData` API schema.
+  class BetaWebhookVaultCreatedEventData
+    include BetaWebhookEventData
 
-# Defines the BetaWebhookVaultCreatedEventDataType SDK namespace.
-module BetaWebhookVaultCreatedEventDataType
-  VAULT_CREATED = 'vault.created'
-  VALUES = ['vault.created'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultCreatedEventDataMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaWebhookVaultCreatedEventDataType', 'enum', "Unknown BetaWebhookVaultCreatedEventDataType: #{value}")
-  end
-end
+    # @return [BetaWebhookVaultCreatedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-    vault_id: "vault_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-    vault_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultCredentialArchivedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaWebhookVaultCredentialArchivedEventData.
-# Typed representation of the `BetaWebhookVaultCredentialArchivedEventData` API schema.
-class BetaWebhookVaultCredentialArchivedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaWebhookVaultCredentialArchivedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault credential that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-  # @return [String] ID of the vault that owns this credential.
-  attr_reader :vault_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaWebhookVaultCreatedEventDataType SDK namespace.
+  module BetaWebhookVaultCreatedEventDataType
+    VAULT_CREATED = 'vault.created'
+    VALUES = ['vault.created'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookVaultCreatedEventDataType', 'enum', "Unknown BetaWebhookVaultCreatedEventDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaWebhookVaultCredentialArchivedEventDataType SDK namespace.
-module BetaWebhookVaultCredentialArchivedEventDataType
-  VAULT_CREDENTIAL_ARCHIVED = 'vault_credential.archived'
-  VALUES = ['vault_credential.archived'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookVaultCredentialArchivedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialArchivedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-    vault_id: "vault_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-    vault_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultCredentialCreatedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookVaultCredentialCreatedEventData.
-# Typed representation of the `BetaWebhookVaultCredentialCreatedEventData` API schema.
-class BetaWebhookVaultCredentialCreatedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookVaultCredentialCreatedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault credential that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-  # @return [String] ID of the vault that owns this credential.
-  attr_reader :vault_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id',
+      vault_id: 'vault_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+      vault_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultCredentialArchivedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookVaultCredentialArchivedEventData.
+  # Typed representation of the `BetaWebhookVaultCredentialArchivedEventData` API schema.
+  class BetaWebhookVaultCredentialArchivedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultCredentialArchivedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookVaultCredentialArchivedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault credential that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+    # @return [String] ID of the vault that owns this credential.
+    attr_reader :vault_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookVaultCredentialArchivedEventDataType SDK namespace.
+  module BetaWebhookVaultCredentialArchivedEventDataType
+    VAULT_CREDENTIAL_ARCHIVED = 'vault_credential.archived'
+    VALUES = ['vault_credential.archived'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookVaultCredentialCreatedEventDataType SDK namespace.
-module BetaWebhookVaultCredentialCreatedEventDataType
-  VAULT_CREDENTIAL_CREATED = 'vault_credential.created'
-  VALUES = ['vault_credential.created'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookVaultCredentialCreatedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialCreatedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-    vault_id: "vault_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-    vault_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultCredentialDeletedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookVaultCredentialDeletedEventData.
-# Typed representation of the `BetaWebhookVaultCredentialDeletedEventData` API schema.
-class BetaWebhookVaultCredentialDeletedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookVaultCredentialDeletedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault credential that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-  # @return [String] ID of the vault that owns this credential.
-  attr_reader :vault_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaWebhookVaultCredentialArchivedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialArchivedEventDataType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id',
+      vault_id: 'vault_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+      vault_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultCredentialCreatedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaWebhookVaultCredentialCreatedEventData.
+  # Typed representation of the `BetaWebhookVaultCredentialCreatedEventData` API schema.
+  class BetaWebhookVaultCredentialCreatedEventData
+    include BetaWebhookEventData
 
-# Defines the BetaWebhookVaultCredentialDeletedEventDataType SDK namespace.
-module BetaWebhookVaultCredentialDeletedEventDataType
-  VAULT_CREDENTIAL_DELETED = 'vault_credential.deleted'
-  VALUES = ['vault_credential.deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultCredentialCreatedEventDataMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaWebhookVaultCredentialDeletedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialDeletedEventDataType: #{value}")
-  end
-end
+    # @return [BetaWebhookVaultCredentialCreatedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault credential that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+    # @return [String] ID of the vault that owns this credential.
+    attr_reader :vault_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-    vault_id: "vault_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-    vault_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultCredentialRefreshFailedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaWebhookVaultCredentialRefreshFailedEventData.
-# Typed representation of the `BetaWebhookVaultCredentialRefreshFailedEventData` API schema.
-class BetaWebhookVaultCredentialRefreshFailedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaWebhookVaultCredentialRefreshFailedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault credential that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-  # @return [String] ID of the vault that owns this credential.
-  attr_reader :vault_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaWebhookVaultCredentialCreatedEventDataType SDK namespace.
+  module BetaWebhookVaultCredentialCreatedEventDataType
+    VAULT_CREDENTIAL_CREATED = 'vault_credential.created'
+    VALUES = ['vault_credential.created'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookVaultCredentialCreatedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialCreatedEventDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaWebhookVaultCredentialRefreshFailedEventDataType SDK namespace.
-module BetaWebhookVaultCredentialRefreshFailedEventDataType
-  VAULT_CREDENTIAL_REFRESH_FAILED = 'vault_credential.refresh_failed'
-  VALUES = ['vault_credential.refresh_failed'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookVaultCredentialRefreshFailedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialRefreshFailedEventDataType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaWebhookVaultDeletedEventDataMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    organization_id: "organization_id",
-    workspace_id: "workspace_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    organization_id
-    workspace_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaWebhookVaultDeletedEventDataType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaWebhookVaultDeletedEventData.
-# Typed representation of the `BetaWebhookVaultDeletedEventData` API schema.
-class BetaWebhookVaultDeletedEventData
-  include BetaWebhookEventData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::DECODERS
-
-  # @return [BetaWebhookVaultDeletedEventDataType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the vault that triggered the event.
-  attr_reader :id
-  # @return [String] Required `string` value serialized in the `organization_id` wire field.
-  attr_reader :organization_id
-  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-  attr_reader :workspace_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id',
+      vault_id: 'vault_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+      vault_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultCredentialDeletedEventDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaWebhookVaultCredentialDeletedEventData.
+  # Typed representation of the `BetaWebhookVaultCredentialDeletedEventData` API schema.
+  class BetaWebhookVaultCredentialDeletedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultCredentialDeletedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookVaultCredentialDeletedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault credential that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+    # @return [String] ID of the vault that owns this credential.
+    attr_reader :vault_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaWebhookVaultCredentialDeletedEventDataType SDK namespace.
+  module BetaWebhookVaultCredentialDeletedEventDataType
+    VAULT_CREDENTIAL_DELETED = 'vault_credential.deleted'
+    VALUES = ['vault_credential.deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaWebhookVaultDeletedEventDataType SDK namespace.
-module BetaWebhookVaultDeletedEventDataType
-  VAULT_DELETED = 'vault.deleted'
-  VALUES = ['vault.deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaWebhookVaultDeletedEventDataType', 'enum', "Unknown BetaWebhookVaultDeletedEventDataType: #{value}")
+      raise SdkValidationError.new('BetaWebhookVaultCredentialDeletedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialDeletedEventDataType: #{value}")
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id',
+      vault_id: 'vault_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+      vault_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultCredentialRefreshFailedEventDataType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaWebhookVaultCredentialRefreshFailedEventData.
+  # Typed representation of the `BetaWebhookVaultCredentialRefreshFailedEventData` API schema.
+  class BetaWebhookVaultCredentialRefreshFailedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultCredentialRefreshFailedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookVaultCredentialRefreshFailedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault credential that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+    # @return [String] ID of the vault that owns this credential.
+    attr_reader :vault_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaWebhookVaultCredentialRefreshFailedEventDataType SDK namespace.
+  module BetaWebhookVaultCredentialRefreshFailedEventDataType
+    VAULT_CREDENTIAL_REFRESH_FAILED = 'vault_credential.refresh_failed'
+    VALUES = ['vault_credential.refresh_failed'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookVaultCredentialRefreshFailedEventDataType', 'enum', "Unknown BetaWebhookVaultCredentialRefreshFailedEventDataType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaWebhookVaultDeletedEventDataMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      organization_id: 'organization_id',
+      workspace_id: 'workspace_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      organization_id
+      workspace_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaWebhookVaultDeletedEventDataType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaWebhookVaultDeletedEventData.
+  # Typed representation of the `BetaWebhookVaultDeletedEventData` API schema.
+  class BetaWebhookVaultDeletedEventData
+    include BetaWebhookEventData
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaWebhookVaultDeletedEventDataMetadata::DECODERS
+
+    # @return [BetaWebhookVaultDeletedEventDataType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the vault that triggered the event.
+    attr_reader :id
+    # @return [String] Required `string` value serialized in the `organization_id` wire field.
+    attr_reader :organization_id
+    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+    attr_reader :workspace_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaWebhookVaultDeletedEventDataType SDK namespace.
+  module BetaWebhookVaultDeletedEventDataType
+    VAULT_DELETED = 'vault.deleted'
+    VALUES = ['vault.deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaWebhookVaultDeletedEventDataType', 'enum', "Unknown BetaWebhookVaultDeletedEventDataType: #{value}")
+    end
+  end
 end

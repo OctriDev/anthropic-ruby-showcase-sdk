@@ -5,657 +5,665 @@
 
 # shared_beta_managed_agents domain models (part 22)
 module OctridevAnthropic
-# API model for BetaManagedAgentsUserToolConfirmationEvent.
-# A tool confirmation event that approves or denies a pending tool execution.
-class BetaManagedAgentsUserToolConfirmationEvent
-  include BetaManagedAgentsInputEvent
-  include BetaManagedAgentsSessionEvent
-  include BetaManagedAgentsStreamSessionEvents
-  include BetaManagedAgentsStreamSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::DECODERS
+  # API model for BetaManagedAgentsUserToolConfirmationEvent.
+  # A tool confirmation event that approves or denies a pending tool execution.
+  class BetaManagedAgentsUserToolConfirmationEvent
+    include BetaManagedAgentsInputEvent
+    include BetaManagedAgentsSessionEvent
+    include BetaManagedAgentsStreamSessionEvents
+    include BetaManagedAgentsStreamSessionThreadEvents
 
-  # @return [BetaManagedAgentsUserToolConfirmationEventType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for this event.
-  attr_reader :id
-  # @return [String] The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
-  attr_reader :tool_use_id
-  # @return [BetaManagedAgentsUserToolConfirmationResult] The confirmation result: 'allow' or 'deny'.
-  attr_reader :result
-  # @return [String] Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-  attr_reader :deny_message
-  # @return [BetaTimestamp] Timestamp when the confirmation was processed.
-  attr_reader :processed_at
-  # @return [String] When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
-  attr_reader :session_thread_id
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserToolConfirmationEventMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [BetaManagedAgentsUserToolConfirmationEventType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for this event.
+    attr_reader :id
+    # @return [String] The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
+    attr_reader :tool_use_id
+    # @return [BetaManagedAgentsUserToolConfirmationResult] The confirmation result: 'allow' or 'deny'.
+    attr_reader :result
+    # @return [String] Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+    attr_reader :deny_message
+    # @return [BetaTimestamp] Timestamp when the confirmation was processed.
+    attr_reader :processed_at
+    # @return [String] When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+    attr_reader :session_thread_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsUserToolConfirmationEventType SDK namespace.
+  module BetaManagedAgentsUserToolConfirmationEventType
+    USER_TOOL_CONFIRMATION = 'user.tool_confirmation'
+    VALUES = ['user.tool_confirmation'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsUserToolConfirmationEventType', 'enum', "Unknown BetaManagedAgentsUserToolConfirmationEventType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsUserToolConfirmationEventType SDK namespace.
-module BetaManagedAgentsUserToolConfirmationEventType
-  USER_TOOL_CONFIRMATION = 'user.tool_confirmation'
-  VALUES = ['user.tool_confirmation'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsUserToolConfirmationEventType', 'enum', "Unknown BetaManagedAgentsUserToolConfirmationEventType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsUserToolConfirmationResult SDK namespace.
-module BetaManagedAgentsUserToolConfirmationResult
-  ALLOW = 'allow'
-  DENY = 'deny'
-  VALUES = ['allow', 'deny'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUserToolResultEventMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    tool_use_id: "tool_use_id",
-    content: "content",
-    is_error: "is_error",
-    processed_at: "processed_at",
-    session_thread_id: "session_thread_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    tool_use_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserToolResultEventType.from_value(value)
-    end,
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
-    end,
-    processed_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUserToolResultEvent.
-# Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
-class BetaManagedAgentsUserToolResultEvent
-  include BetaManagedAgentsInputEvent
-  include BetaManagedAgentsSessionEvent
-  include BetaManagedAgentsStreamSessionEvents
-  include BetaManagedAgentsStreamSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::DECODERS
-
-  # @return [BetaManagedAgentsUserToolResultEventType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for this event.
-  attr_reader :id
-  # @return [String] The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
-  attr_reader :tool_use_id
-  # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
-  attr_reader :content
-  # @return [Boolean] Whether the tool execution resulted in an error.
-  attr_reader :is_error
-  # @return [BetaTimestamp] Timestamp when this result was processed.
-  attr_reader :processed_at
-  # @return [String] Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
-  attr_reader :session_thread_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaManagedAgentsUserToolConfirmationResult SDK namespace.
+  module BetaManagedAgentsUserToolConfirmationResult
+    ALLOW = 'allow'
+    DENY = 'deny'
+    VALUES = %w[allow deny].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUserToolResultEventMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      tool_use_id: 'tool_use_id',
+      content: 'content',
+      is_error: 'is_error',
+      processed_at: 'processed_at',
+      session_thread_id: 'session_thread_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      tool_use_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserToolResultEventType.from_value(value)
+      end,
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
+      end,
+      processed_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsUserToolResultEvent.
+  # Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
+  class BetaManagedAgentsUserToolResultEvent
+    include BetaManagedAgentsInputEvent
+    include BetaManagedAgentsSessionEvent
+    include BetaManagedAgentsStreamSessionEvents
+    include BetaManagedAgentsStreamSessionThreadEvents
 
-# Defines the BetaManagedAgentsUserToolResultEventType SDK namespace.
-module BetaManagedAgentsUserToolResultEventType
-  USER_TOOL_RESULT = 'user.tool_result'
-  VALUES = ['user.tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserToolResultEventMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsUserToolResultEventType', 'enum', "Unknown BetaManagedAgentsUserToolResultEventType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsUserToolResultEventType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for this event.
+    attr_reader :id
+    # @return [String] The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
+    attr_reader :tool_use_id
+    # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
+    attr_reader :content
+    # @return [Boolean] Whether the tool execution resulted in an error.
+    attr_reader :is_error
+    # @return [BetaTimestamp] Timestamp when this result was processed.
+    attr_reader :processed_at
+    # @return [String] Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+    attr_reader :session_thread_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsVaultMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    display_name: "display_name",
-    metadata: "metadata",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    archived_at: "archived_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    display_name
-    metadata
-    created_at
-    updated_at
-    archived_at
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsVaultType.from_value(value)
-    end,
-    created_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    updated_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    archived_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    archived_at
-  ].freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsVault.
-# A vault that stores credentials for use by agents during sessions.
-class BetaManagedAgentsVault
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsVaultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsVaultMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaManagedAgentsVaultType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for the vault.
-  attr_reader :id
-  # @return [String] Human-readable name for the vault.
-  attr_reader :display_name
-  # @return [Hash] Arbitrary key-value metadata attached to the vault.
-  attr_reader :metadata
-  # @return [BetaTimestamp] A timestamp in RFC 3339 format
-  attr_reader :created_at
-  # @return [BetaTimestamp] A timestamp in RFC 3339 format
-  attr_reader :updated_at
-  # @return [BetaTimestamp] When the vault was archived. Null if not archived.
-  attr_reader :archived_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaManagedAgentsVaultMetadata::NULLABLE_FIELDS)
+  # Defines the BetaManagedAgentsUserToolResultEventType SDK namespace.
+  module BetaManagedAgentsUserToolResultEventType
+    USER_TOOL_RESULT = 'user.tool_result'
+    VALUES = ['user.tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsUserToolResultEventType', 'enum', "Unknown BetaManagedAgentsUserToolResultEventType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsVaultType SDK namespace.
-module BetaManagedAgentsVaultType
-  VAULT = 'vault'
-  VALUES = ['vault'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsVaultArchivedDeploymentPausedReasonError.
-# A vault referenced by the deployment is archived.
-class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError
-  include BetaManagedAgentsDeploymentPausedReasonError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsVaultMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      display_name: 'display_name',
+      metadata: 'metadata',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      archived_at: 'archived_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      display_name
+      metadata
+      created_at
+      updated_at
+      archived_at
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsVaultType.from_value(value)
+      end,
+      created_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      updated_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      archived_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      archived_at
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsVault.
+  # A vault that stores credentials for use by agents during sessions.
+  class BetaManagedAgentsVault
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsVaultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsVaultMetadata::DECODERS
+
+    # @return [BetaManagedAgentsVaultType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for the vault.
+    attr_reader :id
+    # @return [String] Human-readable name for the vault.
+    attr_reader :display_name
+    # @return [Hash] Arbitrary key-value metadata attached to the vault.
+    attr_reader :metadata
+    # @return [BetaTimestamp] A timestamp in RFC 3339 format
+    attr_reader :created_at
+    # @return [BetaTimestamp] A timestamp in RFC 3339 format
+    attr_reader :updated_at
+    # @return [BetaTimestamp] When the vault was archived. Null if not archived.
+    attr_reader :archived_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaManagedAgentsVaultMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType SDK namespace.
-module BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType
-  VAULT_ARCHIVED_ERROR = 'vault_archived_error'
-  VALUES = ['vault_archived_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsVaultArchivedRunErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsVaultArchivedRunError.
-# A vault referenced by the deployment is archived.
-class BetaManagedAgentsVaultArchivedRunError
-  include BetaManagedAgentsRunError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsVaultArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaManagedAgentsVaultType SDK namespace.
+  module BetaManagedAgentsVaultType
+    VAULT = 'vault'
+    VALUES = ['vault'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsVaultArchivedDeploymentPausedReasonError.
+  # A vault referenced by the deployment is archived.
+  class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError
+    include BetaManagedAgentsDeploymentPausedReasonError
 
-# Defines the BetaManagedAgentsVaultArchivedRunErrorType SDK namespace.
-module BetaManagedAgentsVaultArchivedRunErrorType
-  VAULT_ARCHIVED_ERROR = 'vault_archived_error'
-  VALUES = ['vault_archived_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsVaultArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsVaultArchivedRunErrorType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError.
-# A vault referenced by the deployment no longer exists.
-class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError
-  include BetaManagedAgentsDeploymentPausedReasonError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType SDK namespace.
+  module BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType
+    VAULT_ARCHIVED_ERROR = 'vault_archived_error'
+    VALUES = ['vault_archived_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType SDK namespace.
-module BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType
-  VAULT_NOT_FOUND_ERROR = 'vault_not_found_error'
-  VALUES = ['vault_not_found_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsVaultNotFoundRunErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsVaultNotFoundRunError.
-# A vault referenced by the deployment no longer exists.
-class BetaManagedAgentsVaultNotFoundRunError
-  include BetaManagedAgentsRunError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsVaultNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsVaultArchivedRunErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsVaultArchivedRunError.
+  # A vault referenced by the deployment is archived.
+  class BetaManagedAgentsVaultArchivedRunError
+    include BetaManagedAgentsRunError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsVaultArchivedRunErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsVaultArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsVaultArchivedRunErrorType SDK namespace.
+  module BetaManagedAgentsVaultArchivedRunErrorType
+    VAULT_ARCHIVED_ERROR = 'vault_archived_error'
+    VALUES = ['vault_archived_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsVaultNotFoundRunErrorType SDK namespace.
-module BetaManagedAgentsVaultNotFoundRunErrorType
-  VAULT_NOT_FOUND_ERROR = 'vault_not_found_error'
-  VALUES = ['vault_not_found_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsVaultNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsVaultNotFoundRunErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-    allowed_domains: "allowed_domains",
-    blocked_domains: "blocked_domains",
-    max_content_tokens: "max_content_tokens",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    name
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigType.from_value(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigName.from_value(value)
-    end,
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsWebFetchToolConfig.
-# Configuration for the web_fetch tool.
-class BetaManagedAgentsWebFetchToolConfig
-  include BetaManagedAgentsAgentToolConfigUnion
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::DECODERS
-
-  # @return [BetaManagedAgentsWebFetchToolConfigType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsWebFetchToolConfigName] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-  attr_reader :permission_policy
-  # @return [Array_of_String] Optional array value serialized in the `allowed_domains` wire field.
-  attr_reader :allowed_domains
-  # @return [Array_of_String] Optional array value serialized in the `blocked_domains` wire field.
-  attr_reader :blocked_domains
-  # @return [Integer] Optional API value serialized in the `max_content_tokens` wire field.
-  attr_reader :max_content_tokens
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsVaultArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsVaultArchivedRunErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError.
+  # A vault referenced by the deployment no longer exists.
+  class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError
+    include BetaManagedAgentsDeploymentPausedReasonError
 
-# Defines the BetaManagedAgentsWebFetchToolConfigName SDK namespace.
-module BetaManagedAgentsWebFetchToolConfigName
-  WEB_FETCH = 'web_fetch'
-  VALUES = ['web_fetch'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigName', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigName: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
 
-# Defines the BetaManagedAgentsWebFetchToolConfigType SDK namespace.
-module BetaManagedAgentsWebFetchToolConfigType
-  WEB_FETCH = 'web_fetch'
-  VALUES = ['web_fetch'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-    raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigType', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigType: #{value}")
-  end
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-    allowed_domains: "allowed_domains",
-    blocked_domains: "blocked_domains",
-    max_content_tokens: "max_content_tokens",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigParamsType.from_value(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigParamsName.from_value(value)
-    end,
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsWebFetchToolConfigParams.
-# Configuration override for the web_fetch tool.
-class BetaManagedAgentsWebFetchToolConfigParams
-  include BetaManagedAgentsAgentToolConfigUnionParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsWebFetchToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsWebFetchToolConfigParamsName] Must be "web_fetch".
-  attr_reader :name
-  # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
-  attr_reader :permission_policy
-  # @return [Array_of_String] Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-  attr_reader :allowed_domains
-  # @return [Array_of_String] Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-  attr_reader :blocked_domains
-  # @return [Integer] Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
-  attr_reader :max_content_tokens
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType SDK namespace.
+  module BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType
+    VAULT_NOT_FOUND_ERROR = 'vault_not_found_error'
+    VALUES = ['vault_not_found_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsVaultNotFoundRunErrorType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Defines the BetaManagedAgentsWebFetchToolConfigParamsName SDK namespace.
-module BetaManagedAgentsWebFetchToolConfigParamsName
-  WEB_FETCH = 'web_fetch'
-  VALUES = ['web_fetch'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # API model for BetaManagedAgentsVaultNotFoundRunError.
+  # A vault referenced by the deployment no longer exists.
+  class BetaManagedAgentsVaultNotFoundRunError
+    include BetaManagedAgentsRunError
 
-    raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigParamsName: #{value}")
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsVaultNotFoundRunErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsVaultNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the BetaManagedAgentsWebFetchToolConfigParamsType SDK namespace.
-module BetaManagedAgentsWebFetchToolConfigParamsType
-  WEB_FETCH = 'web_fetch'
-  VALUES = ['web_fetch'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the BetaManagedAgentsVaultNotFoundRunErrorType SDK namespace.
+  module BetaManagedAgentsVaultNotFoundRunErrorType
+    VAULT_NOT_FOUND_ERROR = 'vault_not_found_error'
+    VALUES = ['vault_not_found_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigParamsType: #{value}")
+      raise SdkValidationError.new('BetaManagedAgentsVaultNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsVaultNotFoundRunErrorType: #{value}")
+    end
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-    allowed_domains: "allowed_domains",
-    blocked_domains: "blocked_domains",
-    user_location: "user_location",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    name
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigType.from_value(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigName.from_value(value)
-    end,
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-    user_location: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserLocation.from_hash(value)
-    end,
-  }.freeze
-end
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy',
+      allowed_domains: 'allowed_domains',
+      blocked_domains: 'blocked_domains',
+      max_content_tokens: 'max_content_tokens'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      name
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigType.from_value(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigName.from_value(value)
+      end,
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsWebFetchToolConfig.
+  # Configuration for the web_fetch tool.
+  class BetaManagedAgentsWebFetchToolConfig
+    include BetaManagedAgentsAgentToolConfigUnion
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsWebFetchToolConfigMetadata::DECODERS
+
+    # @return [BetaManagedAgentsWebFetchToolConfigType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsWebFetchToolConfigName] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+    attr_reader :permission_policy
+    # @return [Array_of_String] Optional array value serialized in the `allowed_domains` wire field.
+    attr_reader :allowed_domains
+    # @return [Array_of_String] Optional array value serialized in the `blocked_domains` wire field.
+    attr_reader :blocked_domains
+    # @return [Integer] Optional API value serialized in the `max_content_tokens` wire field.
+    attr_reader :max_content_tokens
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsWebFetchToolConfigName SDK namespace.
+  module BetaManagedAgentsWebFetchToolConfigName
+    WEB_FETCH = 'web_fetch'
+    VALUES = ['web_fetch'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigName', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigName: #{value}")
+    end
+  end
+
+  # Defines the BetaManagedAgentsWebFetchToolConfigType SDK namespace.
+  module BetaManagedAgentsWebFetchToolConfigType
+    WEB_FETCH = 'web_fetch'
+    VALUES = ['web_fetch'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigType', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy',
+      allowed_domains: 'allowed_domains',
+      blocked_domains: 'blocked_domains',
+      max_content_tokens: 'max_content_tokens'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigParamsType.from_value(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebFetchToolConfigParamsName.from_value(value)
+      end,
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsWebFetchToolConfigParams.
+  # Configuration override for the web_fetch tool.
+  class BetaManagedAgentsWebFetchToolConfigParams
+    include BetaManagedAgentsAgentToolConfigUnionParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsWebFetchToolConfigParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsWebFetchToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsWebFetchToolConfigParamsName] Must be "web_fetch".
+    attr_reader :name
+    # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
+    attr_reader :permission_policy
+    # @return [Array_of_String] Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+    attr_reader :allowed_domains
+    # @return [Array_of_String] Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+    attr_reader :blocked_domains
+    # @return [Integer] Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
+    attr_reader :max_content_tokens
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsWebFetchToolConfigParamsName SDK namespace.
+  module BetaManagedAgentsWebFetchToolConfigParamsName
+    WEB_FETCH = 'web_fetch'
+    VALUES = ['web_fetch'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigParamsName: #{value}")
+    end
+  end
+
+  # Defines the BetaManagedAgentsWebFetchToolConfigParamsType SDK namespace.
+  module BetaManagedAgentsWebFetchToolConfigParamsType
+    WEB_FETCH = 'web_fetch'
+    VALUES = ['web_fetch'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsWebFetchToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWebFetchToolConfigParamsType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy',
+      allowed_domains: 'allowed_domains',
+      blocked_domains: 'blocked_domains',
+      user_location: 'user_location'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      name
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigType.from_value(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigName.from_value(value)
+      end,
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end,
+      user_location: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserLocation.from_hash(value)
+      end
+    }.freeze
+  end
 end

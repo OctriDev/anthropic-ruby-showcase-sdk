@@ -5,672 +5,681 @@
 
 # shared_beta_managed_agents domain models (part 3)
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata
-  FIELDS = {
-    type: "type",
-    default_config: "default_config",
-    configs: "configs",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAgentToolset20260401ParamsType.from_value(value)
-    end,
-    default_config: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAgentToolsetDefaultConfigParams.from_hash(value)
-    end,
-    configs: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolConfigUnionParams.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsAgentToolset20260401Params.
-# Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
-class BetaManagedAgentsAgentToolset20260401Params
-  include BetaManagedAgentsAgentToolParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsAgentToolset20260401ParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsAgentToolsetDefaultConfigParams] Default configuration applied to all tools in this set.
-  attr_reader :default_config
-  # @return [Array_of_BetaManagedAgentsAgentToolConfigUnionParams] Per-tool configuration overrides.
-  attr_reader :configs
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata
+    FIELDS = {
+      type: 'type',
+      default_config: 'default_config',
+      configs: 'configs'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAgentToolset20260401ParamsType.from_value(value)
+      end,
+      default_config: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAgentToolsetDefaultConfigParams.from_hash(value)
+      end,
+      configs: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolConfigUnionParams.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsAgentToolset20260401Params.
+  # Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
+  class BetaManagedAgentsAgentToolset20260401Params
+    include BetaManagedAgentsAgentToolParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAgentToolset20260401ParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsAgentToolset20260401ParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsAgentToolsetDefaultConfigParams] Default configuration applied to all tools in this set.
+    attr_reader :default_config
+    # @return [Array_of_BetaManagedAgentsAgentToolConfigUnionParams] Per-tool configuration overrides.
+    attr_reader :configs
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsAgentToolset20260401ParamsType SDK namespace.
+  module BetaManagedAgentsAgentToolset20260401ParamsType
+    AGENT_TOOLSET_20260401 = 'agent_toolset_20260401'
+    VALUES = ['agent_toolset_20260401'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsAgentToolset20260401ParamsType SDK namespace.
-module BetaManagedAgentsAgentToolset20260401ParamsType
-  AGENT_TOOLSET_20260401 = 'agent_toolset_20260401'
-  VALUES = ['agent_toolset_20260401'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsAgentToolset20260401ParamsType', 'enum', "Unknown BetaManagedAgentsAgentToolset20260401ParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata
-  FIELDS = {
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsAgentToolsetDefaultConfig.
-# Resolved default configuration for agent tools.
-class BetaManagedAgentsAgentToolsetDefaultConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::DECODERS
-
-  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsAgentToolset20260401ParamsType', 'enum', "Unknown BetaManagedAgentsAgentToolset20260401ParamsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata
+    FIELDS = {
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsAgentToolsetDefaultConfig.
+  # Resolved default configuration for agent tools.
+  class BetaManagedAgentsAgentToolsetDefaultConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata
-  FIELDS = {
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
+    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+    attr_reader :permission_policy
 
-# API model for BetaManagedAgentsAgentToolsetDefaultConfigParams.
-# Default configuration for all tools in a toolset.
-class BetaManagedAgentsAgentToolsetDefaultConfigParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
-  attr_reader :permission_policy
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata
+    FIELDS = {
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsAgentToolsetDefaultConfigParams.
+  # Default configuration for all tools in a toolset.
+  class BetaManagedAgentsAgentToolsetDefaultConfigParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAgentToolsetDefaultConfigParamsMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAgentToolUseEventMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    name: "name",
-    input: "input",
-    processed_at: "processed_at",
-    evaluated_permission: "evaluated_permission",
-    session_thread_id: "session_thread_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    name
-    input
-    processed_at
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAgentToolUseEventType.from_value(value)
-    end,
-    input: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsStruct.from_hash(value)
-    end,
-    processed_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    evaluated_permission: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAgentEvaluatedPermission.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [Boolean] Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
+    attr_reader :permission_policy
 
-# API model for BetaManagedAgentsAgentToolUseEvent.
-# Event emitted when the agent invokes a built-in agent tool.
-class BetaManagedAgentsAgentToolUseEvent
-  include BetaManagedAgentsSessionEvent
-  include BetaManagedAgentsStreamSessionEvents
-  include BetaManagedAgentsStreamSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [BetaManagedAgentsAgentToolUseEventType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for this event.
-  attr_reader :id
-  # @return [String] Name of the agent tool being used.
-  attr_reader :name
-  # @return [BetaManagedAgentsStruct] Input parameters for the tool call.
-  attr_reader :input
-  # @return [BetaTimestamp] Timestamp when this event was processed.
-  attr_reader :processed_at
-  # @return [BetaManagedAgentsAgentEvaluatedPermission] The evaluated permission policy for this tool invocation.
-  attr_reader :evaluated_permission
-  # @return [String] When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-  attr_reader :session_thread_id
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAgentToolUseEventMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      name: 'name',
+      input: 'input',
+      processed_at: 'processed_at',
+      evaluated_permission: 'evaluated_permission',
+      session_thread_id: 'session_thread_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      name
+      input
+      processed_at
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAgentToolUseEventType.from_value(value)
+      end,
+      input: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsStruct.from_hash(value)
+      end,
+      processed_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      evaluated_permission: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAgentEvaluatedPermission.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsAgentToolUseEvent.
+  # Event emitted when the agent invokes a built-in agent tool.
+  class BetaManagedAgentsAgentToolUseEvent
+    include BetaManagedAgentsSessionEvent
+    include BetaManagedAgentsStreamSessionEvents
+    include BetaManagedAgentsStreamSessionThreadEvents
 
-# Defines the BetaManagedAgentsAgentToolUseEventType SDK namespace.
-module BetaManagedAgentsAgentToolUseEventType
-  AGENT_TOOL_USE = 'agent.tool_use'
-  VALUES = ['agent.tool_use'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAgentToolUseEventMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsAgentToolUseEventType', 'enum', "Unknown BetaManagedAgentsAgentToolUseEventType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsAgentToolUseEventType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for this event.
+    attr_reader :id
+    # @return [String] Name of the agent tool being used.
+    attr_reader :name
+    # @return [BetaManagedAgentsStruct] Input parameters for the tool call.
+    attr_reader :input
+    # @return [BetaTimestamp] Timestamp when this event was processed.
+    attr_reader :processed_at
+    # @return [BetaManagedAgentsAgentEvaluatedPermission] The evaluated permission policy for this tool invocation.
+    attr_reader :evaluated_permission
+    # @return [String] When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+    attr_reader :session_thread_id
 
-# Defines the BetaManagedAgentsAgentUnionParams SDK namespace.
-module BetaManagedAgentsAgentUnionParams
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::String)
-    return BetaManagedAgentsAgentParams.from_hash(hash)
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAlwaysAllowPolicyType.from_value(value)
-    end,
-  }.freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for BetaManagedAgentsAlwaysAllowPolicy.
-# Tool calls are automatically approved without user confirmation.
-class BetaManagedAgentsAlwaysAllowPolicy
-  include BetaManagedAgentsPermissionPolicy
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::DECODERS
-
-  # @return [BetaManagedAgentsAlwaysAllowPolicyType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsAgentToolUseEventType SDK namespace.
+  module BetaManagedAgentsAgentToolUseEventType
+    AGENT_TOOL_USE = 'agent.tool_use'
+    VALUES = ['agent.tool_use'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsAgentToolUseEventType', 'enum', "Unknown BetaManagedAgentsAgentToolUseEventType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsAgentUnionParams SDK namespace.
+  module BetaManagedAgentsAgentUnionParams
+    def self.from_hash(hash)
+      return hash if hash.is_a?(::String)
 
-# Defines the BetaManagedAgentsAlwaysAllowPolicyType SDK namespace.
-module BetaManagedAgentsAlwaysAllowPolicyType
-  ALWAYS_ALLOW = 'always_allow'
-  VALUES = ['always_allow'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsAlwaysAllowPolicyType', 'enum', "Unknown BetaManagedAgentsAlwaysAllowPolicyType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAlwaysAskPolicyType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsAlwaysAskPolicy.
-# Tool calls require user confirmation before execution.
-class BetaManagedAgentsAlwaysAskPolicy
-  include BetaManagedAgentsPermissionPolicy
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::DECODERS
-
-  # @return [BetaManagedAgentsAlwaysAskPolicyType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      BetaManagedAgentsAgentParams.from_hash(hash)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAlwaysAllowPolicyType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsAlwaysAllowPolicy.
+  # Tool calls are automatically approved without user confirmation.
+  class BetaManagedAgentsAlwaysAllowPolicy
+    include BetaManagedAgentsPermissionPolicy
 
-# Defines the BetaManagedAgentsAlwaysAskPolicyType SDK namespace.
-module BetaManagedAgentsAlwaysAskPolicyType
-  ALWAYS_ASK = 'always_ask'
-  VALUES = ['always_ask'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAlwaysAllowPolicyMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsAlwaysAskPolicyType', 'enum', "Unknown BetaManagedAgentsAlwaysAskPolicyType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsAlwaysAllowPolicyType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAnthropicSkillMetadata
-  FIELDS = {
-    type: "type",
-    skill_id: "skill_id",
-    version: "version",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    skill_id
-    version
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAnthropicSkillType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsAnthropicSkill.
-# A resolved Anthropic-managed skill.
-class BetaManagedAgentsAnthropicSkill
-  include BetaManagedAgentsSkill
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaManagedAgentsAnthropicSkillType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `skill_id` wire field.
-  attr_reader :skill_id
-  # @return [String] Required `string` value serialized in the `version` wire field.
-  attr_reader :version
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsAlwaysAllowPolicyType SDK namespace.
+  module BetaManagedAgentsAlwaysAllowPolicyType
+    ALWAYS_ALLOW = 'always_allow'
+    VALUES = ['always_allow'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsAlwaysAllowPolicyType', 'enum', "Unknown BetaManagedAgentsAlwaysAllowPolicyType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsAnthropicSkillType SDK namespace.
-module BetaManagedAgentsAnthropicSkillType
-  ANTHROPIC = 'anthropic'
-  VALUES = ['anthropic'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsAnthropicSkillType', 'enum', "Unknown BetaManagedAgentsAnthropicSkillType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata
-  FIELDS = {
-    type: "type",
-    skill_id: "skill_id",
-    version: "version",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    skill_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsAnthropicSkillParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsAnthropicSkillParams.
-# An Anthropic-managed skill.
-class BetaManagedAgentsAnthropicSkillParams
-  include BetaManagedAgentsSkillParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsAnthropicSkillParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Identifier of the Anthropic skill (e.g., "xlsx").
-  attr_reader :skill_id
-  # @return [String] Version to pin. Defaults to latest if omitted.
-  attr_reader :version
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAlwaysAskPolicyType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsAlwaysAskPolicy.
+  # Tool calls require user confirmation before execution.
+  class BetaManagedAgentsAlwaysAskPolicy
+    include BetaManagedAgentsPermissionPolicy
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAlwaysAskPolicyMetadata::DECODERS
+
+    # @return [BetaManagedAgentsAlwaysAskPolicyType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsAlwaysAskPolicyType SDK namespace.
+  module BetaManagedAgentsAlwaysAskPolicyType
+    ALWAYS_ASK = 'always_ask'
+    VALUES = ['always_ask'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsAnthropicSkillParamsType SDK namespace.
-module BetaManagedAgentsAnthropicSkillParamsType
-  ANTHROPIC = 'anthropic'
-  VALUES = ['anthropic'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsAnthropicSkillParamsType', 'enum', "Unknown BetaManagedAgentsAnthropicSkillParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsApiActorMetadata
-  FIELDS = {
-    type: "type",
-    api_key_id: "api_key_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    api_key_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsApiActorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsApiActor.
-# Attribution for a write made directly via the public API (outside of any session).
-class BetaManagedAgentsApiActor
-  include BetaManagedAgentsActor
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsApiActorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsApiActorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsApiActorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsApiActorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the API key that performed the write. This identifies the key, not the secret.
-  attr_reader :api_key_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsAlwaysAskPolicyType', 'enum', "Unknown BetaManagedAgentsAlwaysAskPolicyType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAnthropicSkillMetadata
+    FIELDS = {
+      type: 'type',
+      skill_id: 'skill_id',
+      version: 'version'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      skill_id
+      version
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAnthropicSkillType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsAnthropicSkill.
+  # A resolved Anthropic-managed skill.
+  class BetaManagedAgentsAnthropicSkill
+    include BetaManagedAgentsSkill
 
-# Defines the BetaManagedAgentsApiActorType SDK namespace.
-module BetaManagedAgentsApiActorType
-  API_ACTOR = 'api_actor'
-  VALUES = ['api_actor'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAnthropicSkillMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsApiActorType', 'enum', "Unknown BetaManagedAgentsApiActorType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsAnthropicSkillType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `skill_id` wire field.
+    attr_reader :skill_id
+    # @return [String] Required `string` value serialized in the `version` wire field.
+    attr_reader :version
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata
-  FIELDS = {
-    type: "type",
-    media_type: "media_type",
-    data: "data",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    media_type
-    data
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBase64DocumentSourceType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsBase64DocumentSource.
-# Base64-encoded document data.
-class BetaManagedAgentsBase64DocumentSource
-  include BetaManagedAgentsDocumentSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaManagedAgentsBase64DocumentSourceType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] MIME type of the document (e.g., "application/pdf").
-  attr_reader :media_type
-  # @return [String] Base64-encoded document data.
-  attr_reader :data
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsAnthropicSkillType SDK namespace.
+  module BetaManagedAgentsAnthropicSkillType
+    ANTHROPIC = 'anthropic'
+    VALUES = ['anthropic'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsAnthropicSkillType', 'enum', "Unknown BetaManagedAgentsAnthropicSkillType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsBase64DocumentSourceType SDK namespace.
-module BetaManagedAgentsBase64DocumentSourceType
-  BASE64 = 'base64'
-  VALUES = ['base64'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBase64DocumentSourceType', 'enum', "Unknown BetaManagedAgentsBase64DocumentSourceType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBase64ImageSourceMetadata
-  FIELDS = {
-    type: "type",
-    media_type: "media_type",
-    data: "data",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    media_type
-    data
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBase64ImageSourceType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsBase64ImageSource.
-# Base64-encoded image data.
-class BetaManagedAgentsBase64ImageSource
-  include BetaManagedAgentsImageSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::DECODERS
-
-  # @return [BetaManagedAgentsBase64ImageSourceType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
-  attr_reader :media_type
-  # @return [String] Base64-encoded image data.
-  attr_reader :data
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata
+    FIELDS = {
+      type: 'type',
+      skill_id: 'skill_id',
+      version: 'version'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      skill_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsAnthropicSkillParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsAnthropicSkillParams.
+  # An Anthropic-managed skill.
+  class BetaManagedAgentsAnthropicSkillParams
+    include BetaManagedAgentsSkillParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsAnthropicSkillParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsAnthropicSkillParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Identifier of the Anthropic skill (e.g., "xlsx").
+    attr_reader :skill_id
+    # @return [String] Version to pin. Defaults to latest if omitted.
+    attr_reader :version
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsAnthropicSkillParamsType SDK namespace.
+  module BetaManagedAgentsAnthropicSkillParamsType
+    ANTHROPIC = 'anthropic'
+    VALUES = ['anthropic'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsAnthropicSkillParamsType', 'enum', "Unknown BetaManagedAgentsAnthropicSkillParamsType: #{value}")
+    end
   end
-end
 
-# Defines the BetaManagedAgentsBase64ImageSourceType SDK namespace.
-module BetaManagedAgentsBase64ImageSourceType
-  BASE64 = 'base64'
-  VALUES = ['base64'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBase64ImageSourceType', 'enum', "Unknown BetaManagedAgentsBase64ImageSourceType: #{value}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsApiActorMetadata
+    FIELDS = {
+      type: 'type',
+      api_key_id: 'api_key_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      api_key_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsApiActorType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBashToolConfigMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    name
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBashToolConfigType.from_value(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBashToolConfigName.from_value(value)
-    end,
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
+  # API model for BetaManagedAgentsApiActor.
+  # Attribution for a write made directly via the public API (outside of any session).
+  class BetaManagedAgentsApiActor
+    include BetaManagedAgentsActor
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsApiActorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsApiActorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsApiActorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsApiActorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the API key that performed the write. This identifies the key, not the secret.
+    attr_reader :api_key_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsApiActorType SDK namespace.
+  module BetaManagedAgentsApiActorType
+    API_ACTOR = 'api_actor'
+    VALUES = ['api_actor'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsApiActorType', 'enum', "Unknown BetaManagedAgentsApiActorType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata
+    FIELDS = {
+      type: 'type',
+      media_type: 'media_type',
+      data: 'data'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      media_type
+      data
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBase64DocumentSourceType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsBase64DocumentSource.
+  # Base64-encoded document data.
+  class BetaManagedAgentsBase64DocumentSource
+    include BetaManagedAgentsDocumentSource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBase64DocumentSourceMetadata::DECODERS
+
+    # @return [BetaManagedAgentsBase64DocumentSourceType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] MIME type of the document (e.g., "application/pdf").
+    attr_reader :media_type
+    # @return [String] Base64-encoded document data.
+    attr_reader :data
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsBase64DocumentSourceType SDK namespace.
+  module BetaManagedAgentsBase64DocumentSourceType
+    BASE64 = 'base64'
+    VALUES = ['base64'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsBase64DocumentSourceType', 'enum', "Unknown BetaManagedAgentsBase64DocumentSourceType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBase64ImageSourceMetadata
+    FIELDS = {
+      type: 'type',
+      media_type: 'media_type',
+      data: 'data'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      media_type
+      data
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBase64ImageSourceType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsBase64ImageSource.
+  # Base64-encoded image data.
+  class BetaManagedAgentsBase64ImageSource
+    include BetaManagedAgentsImageSource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBase64ImageSourceMetadata::DECODERS
+
+    # @return [BetaManagedAgentsBase64ImageSourceType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
+    attr_reader :media_type
+    # @return [String] Base64-encoded image data.
+    attr_reader :data
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsBase64ImageSourceType SDK namespace.
+  module BetaManagedAgentsBase64ImageSourceType
+    BASE64 = 'base64'
+    VALUES = ['base64'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsBase64ImageSourceType', 'enum', "Unknown BetaManagedAgentsBase64ImageSourceType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBashToolConfigMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      name
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBashToolConfigType.from_value(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBashToolConfigName.from_value(value)
+      end,
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
+  end
 end

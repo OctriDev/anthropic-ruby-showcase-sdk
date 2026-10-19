@@ -5,74 +5,76 @@
 
 # resources_beta_true domain models
 module OctridevAnthropic
-# Defines the BetaManagedAgentsAddSessionResource SDK namespace.
-module BetaManagedAgentsAddSessionResource
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "file" => BetaManagedAgentsFileResource }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
+  # Defines the BetaManagedAgentsAddSessionResource SDK namespace.
+  module BetaManagedAgentsAddSessionResource
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      mapping = { 'file' => BetaManagedAgentsFileResource }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsAddSessionResource', 'variant', "Unknown BetaManagedAgentsAddSessionResource discriminator: #{hash["type"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Defines the BetaManagedAgentsAddSessionResourceParams SDK namespace.
-module BetaManagedAgentsAddSessionResourceParams
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "file" => BetaManagedAgentsFileResourceParams }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsAddSessionResourceParams', 'variant', "Unknown BetaManagedAgentsAddSessionResourceParams discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsListSessionResourcesMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionResource.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsListSessionResources.
-# Paginated list of resources attached to a session.
-class BetaManagedAgentsListSessionResources
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsSessionResource] Resources for the session, ordered by `created_at`.
-  attr_reader :data
-  # @return [String] Opaque cursor for the next page. Null when no more results.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsAddSessionResource', 'variant', "Unknown BetaManagedAgentsAddSessionResource discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsAddSessionResourceParams SDK namespace.
+  module BetaManagedAgentsAddSessionResourceParams
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'file' => BetaManagedAgentsFileResourceParams }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsAddSessionResourceParams', 'variant', "Unknown BetaManagedAgentsAddSessionResourceParams discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsListSessionResourcesMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionResource.from_hash(item) }
+      end
+    }.freeze
   end
-end
+
+  # API model for BetaManagedAgentsListSessionResources.
+  # Paginated list of resources attached to a session.
+  class BetaManagedAgentsListSessionResources
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsListSessionResourcesMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsSessionResource] Resources for the session, ordered by `created_at`.
+    attr_reader :data
+    # @return [String] Opaque cursor for the next page. Null when no more results.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
 end

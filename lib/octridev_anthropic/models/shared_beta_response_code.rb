@@ -5,271 +5,275 @@
 
 # shared_beta_response_code domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaResponseCodeExecutionOutputBlockMetadata
-  FIELDS = {
-    file_id: "file_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    file_id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaResponseCodeExecutionOutputBlock.
-# Typed representation of the `BetaResponseCodeExecutionOutputBlock` API schema.
-class BetaResponseCodeExecutionOutputBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `file_id` wire field.
-  attr_reader :file_id
-  # @return [BetaResponseCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaResponseCodeExecutionOutputBlockMetadata
+    FIELDS = {
+      file_id: 'file_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      file_id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaResponseCodeExecutionOutputBlock.
+  # Typed representation of the `BetaResponseCodeExecutionOutputBlock` API schema.
+  class BetaResponseCodeExecutionOutputBlock
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaResponseCodeExecutionOutputBlockMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `file_id` wire field.
+    attr_reader :file_id
+    # @return [BetaResponseCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaResponseCodeExecutionOutputBlockType SDK namespace.
+  module BetaResponseCodeExecutionOutputBlockType
+    CODE_EXECUTION_OUTPUT = 'code_execution_output'
+    VALUES = ['code_execution_output'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaResponseCodeExecutionOutputBlockType SDK namespace.
-module BetaResponseCodeExecutionOutputBlockType
-  CODE_EXECUTION_OUTPUT = 'code_execution_output'
-  VALUES = ['code_execution_output'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaResponseCodeExecutionOutputBlockType', 'enum', "Unknown BetaResponseCodeExecutionOutputBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaResponseCodeExecutionResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    return_code: "return_code",
-    stderr: "stderr",
-    stdout: "stdout",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    return_code
-    stderr
-    stdout
-    type
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlock.from_hash(item) }
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaResponseCodeExecutionResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaResponseCodeExecutionResultBlock.
-# Typed representation of the `BetaResponseCodeExecutionResultBlock` API schema.
-class BetaResponseCodeExecutionResultBlock
-  include BetaResponseCodeExecutionToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::DECODERS
-
-  # @return [Array_of_BetaResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
-  attr_reader :return_code
-  # @return [String] Required `string` value serialized in the `stderr` wire field.
-  attr_reader :stderr
-  # @return [String] Required `string` value serialized in the `stdout` wire field.
-  attr_reader :stdout
-  # @return [BetaResponseCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaResponseCodeExecutionOutputBlockType', 'enum', "Unknown BetaResponseCodeExecutionOutputBlockType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaResponseCodeExecutionResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      return_code: 'return_code',
+      stderr: 'stderr',
+      stdout: 'stdout',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      return_code
+      stderr
+      stdout
+      type
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlock.from_hash(item) }
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaResponseCodeExecutionResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaResponseCodeExecutionResultBlock.
+  # Typed representation of the `BetaResponseCodeExecutionResultBlock` API schema.
+  class BetaResponseCodeExecutionResultBlock
+    include BetaResponseCodeExecutionToolResultBlockContent
 
-# Defines the BetaResponseCodeExecutionResultBlockType SDK namespace.
-module BetaResponseCodeExecutionResultBlockType
-  CODE_EXECUTION_RESULT = 'code_execution_result'
-  VALUES = ['code_execution_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaResponseCodeExecutionResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaResponseCodeExecutionResultBlockType', 'enum', "Unknown BetaResponseCodeExecutionResultBlockType: #{value}")
-  end
-end
+    # @return [Array_of_BetaResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
+    attr_reader :return_code
+    # @return [String] Required `string` value serialized in the `stderr` wire field.
+    attr_reader :stderr
+    # @return [String] Required `string` value serialized in the `stdout` wire field.
+    attr_reader :stdout
+    # @return [BetaResponseCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      ::OctridevAnthropic::BetaResponseCodeExecutionToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaResponseCodeExecutionToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaResponseCodeExecutionToolResultBlock.
-# Typed representation of the `BetaResponseCodeExecutionToolResultBlock` API schema.
-class BetaResponseCodeExecutionToolResultBlock
-  include BetaContentBlock
-  include BetaContentBlockStartEventContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaResponseCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [BetaResponseCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaResponseCodeExecutionResultBlockType SDK namespace.
+  module BetaResponseCodeExecutionResultBlockType
+    CODE_EXECUTION_RESULT = 'code_execution_result'
+    VALUES = ['code_execution_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaResponseCodeExecutionResultBlockType', 'enum', "Unknown BetaResponseCodeExecutionResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaResponseCodeExecutionToolResultBlockType SDK namespace.
-module BetaResponseCodeExecutionToolResultBlockType
-  CODE_EXECUTION_TOOL_RESULT = 'code_execution_tool_result'
-  VALUES = ['code_execution_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaResponseCodeExecutionToolResultBlockType', 'enum', "Unknown BetaResponseCodeExecutionToolResultBlockType: #{value}")
-  end
-end
-
-# Defines the BetaResponseCodeExecutionToolResultBlockContent SDK namespace.
-module BetaResponseCodeExecutionToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_tool_result_error" => -> { BetaResponseCodeExecutionToolResultError },
-    "code_execution_result" => -> { BetaResponseCodeExecutionResultBlock },
-    "encrypted_code_execution_result" => -> { BetaResponseEncryptedCodeExecutionResultBlock },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaResponseCodeExecutionToolResultBlockContent', 'variant', "Unknown BetaResponseCodeExecutionToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::BetaCodeExecutionToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaResponseCodeExecutionToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaResponseCodeExecutionToolResultError.
-# Typed representation of the `BetaResponseCodeExecutionToolResultError` API schema.
-class BetaResponseCodeExecutionToolResultError
-  include BetaResponseCodeExecutionToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::DECODERS
-
-  # @return [BetaCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [BetaResponseCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        ::OctridevAnthropic::BetaResponseCodeExecutionToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaResponseCodeExecutionToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaResponseCodeExecutionToolResultBlock.
+  # Typed representation of the `BetaResponseCodeExecutionToolResultBlock` API schema.
+  class BetaResponseCodeExecutionToolResultBlock
+    include BetaContentBlock
+    include BetaContentBlockStartEventContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaResponseCodeExecutionToolResultBlockMetadata::DECODERS
+
+    # @return [BetaResponseCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [BetaResponseCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaResponseCodeExecutionToolResultBlockType SDK namespace.
+  module BetaResponseCodeExecutionToolResultBlockType
+    CODE_EXECUTION_TOOL_RESULT = 'code_execution_tool_result'
+    VALUES = ['code_execution_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaResponseCodeExecutionToolResultErrorType SDK namespace.
-module BetaResponseCodeExecutionToolResultErrorType
-  CODE_EXECUTION_TOOL_RESULT_ERROR = 'code_execution_tool_result_error'
-  VALUES = ['code_execution_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaResponseCodeExecutionToolResultErrorType', 'enum', "Unknown BetaResponseCodeExecutionToolResultErrorType: #{value}")
+      raise SdkValidationError.new('BetaResponseCodeExecutionToolResultBlockType', 'enum', "Unknown BetaResponseCodeExecutionToolResultBlockType: #{value}")
+    end
   end
-end
+
+  # Defines the BetaResponseCodeExecutionToolResultBlockContent SDK namespace.
+  module BetaResponseCodeExecutionToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_tool_result_error' => -> { BetaResponseCodeExecutionToolResultError },
+      'code_execution_result' => -> { BetaResponseCodeExecutionResultBlock },
+      'encrypted_code_execution_result' => -> { BetaResponseEncryptedCodeExecutionResultBlock }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaResponseCodeExecutionToolResultBlockContent', 'variant', "Unknown BetaResponseCodeExecutionToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::BetaCodeExecutionToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaResponseCodeExecutionToolResultErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaResponseCodeExecutionToolResultError.
+  # Typed representation of the `BetaResponseCodeExecutionToolResultError` API schema.
+  class BetaResponseCodeExecutionToolResultError
+    include BetaResponseCodeExecutionToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaResponseCodeExecutionToolResultErrorMetadata::DECODERS
+
+    # @return [BetaCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [BetaResponseCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaResponseCodeExecutionToolResultErrorType SDK namespace.
+  module BetaResponseCodeExecutionToolResultErrorType
+    CODE_EXECUTION_TOOL_RESULT_ERROR = 'code_execution_tool_result_error'
+    VALUES = ['code_execution_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaResponseCodeExecutionToolResultErrorType', 'enum', "Unknown BetaResponseCodeExecutionToolResultErrorType: #{value}")
+    end
+  end
 end

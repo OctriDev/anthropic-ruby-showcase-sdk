@@ -5,172 +5,172 @@
 
 # shared_beta_analytics domain models
 module OctridevAnthropic
-# Defines the BetaAnalyticsCostType SDK namespace.
-module BetaAnalyticsCostType
-  CODE_EXECUTION = 'code_execution'
-  TOKENS = 'tokens'
-  WEB_SEARCH = 'web_search'
-  VALUES = ['code_execution', 'tokens', 'web_search'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaAnalyticsProductFilter SDK namespace.
-module BetaAnalyticsProductFilter
-  CHAT = 'chat'
-  CLAUDE_TAG = 'claude-tag'
-  CLAUDE_CODE = 'claude_code'
-  CLAUDE_DESIGN = 'claude_design'
-  CLAUDE_IN_CHROME = 'claude_in_chrome'
-  COWORK = 'cowork'
-  OFFICE_AGENT = 'office_agent'
-  VALUES = [
-    'chat', 'claude-tag', 'claude_code', 'claude_design', 'claude_in_chrome', 'cowork',
-    'office_agent'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaAnalyticsSortOrder SDK namespace.
-module BetaAnalyticsSortOrder
-  ASC = 'asc'
-  DESC = 'desc'
-  VALUES = ['asc', 'desc'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsUserMetadata
-  FIELDS = {
-    email_address: "email_address",
-    id: "id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    email_address
-    id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsUserType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaAnalyticsUser.
-# A user in the organization, identified by tagged id and email address.
-class BetaAnalyticsUser
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsUserMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsUserMetadata::DECODERS
-
-  # @return [String] Email address of the user
-  attr_reader :email_address
-  # @return [String] Tagged user identifier (e.g. `user_...`)
-  attr_reader :id
-  # @return [BetaAnalyticsUserType] Object type. Always `user`.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaAnalyticsCostType SDK namespace.
+  module BetaAnalyticsCostType
+    CODE_EXECUTION = 'code_execution'
+    TOKENS = 'tokens'
+    WEB_SEARCH = 'web_search'
+    VALUES = %w[code_execution tokens web_search].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaAnalyticsProductFilter SDK namespace.
+  module BetaAnalyticsProductFilter
+    CHAT = 'chat'
+    CLAUDE_TAG = 'claude-tag'
+    CLAUDE_CODE = 'claude_code'
+    CLAUDE_DESIGN = 'claude_design'
+    CLAUDE_IN_CHROME = 'claude_in_chrome'
+    COWORK = 'cowork'
+    OFFICE_AGENT = 'office_agent'
+    VALUES = %w[
+      chat claude-tag claude_code claude_design claude_in_chrome cowork
+      office_agent
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaAnalyticsUserType SDK namespace.
-module BetaAnalyticsUserType
-  USER = 'user'
-  VALUES = ['user'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaAnalyticsUserType', 'enum', "Unknown BetaAnalyticsUserType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsUserActorMetadata
-  FIELDS = {
-    deleted: "deleted",
-    email: "email",
-    name: "name",
-    type: "type",
-    user_id: "user_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    deleted
-    email
-    name
-    type
-    user_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsUserActorType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    email
-    name
-  ].freeze
-end
-
-# API model for BetaAnalyticsUserActor.
-# Typed representation of the `BetaAnalyticsUserActor` API schema.
-class BetaAnalyticsUserActor
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsUserActorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserActorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsUserActorMetadata::DECODERS
-
-  # @return [Boolean] True when the account has been deleted, or when the user is no longer a member of the organization or its associated organizations (for example, their membership was removed or they were deprovisioned via your identity provider). `email` stays populated for removed users and is null when the account has been deleted. `name` follows the rules described on that field. The `user_id` is still populated for reconciliation.
-  attr_reader :deleted
-  # @return [String] The user's email address, including for users who are no longer members of the organization or its associated organizations. Null when the account has been deleted (check `deleted`) and for system-minted service accounts, which have no person's mailbox behind them (check `name`).
-  attr_reader :email
-  # @return [String] The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's…
-  attr_reader :name
-  # @return [BetaAnalyticsUserActorType] Actor type. Always `"user_actor"`.
-  attr_reader :type
-  # @return [String] Tagged user ID.
-  attr_reader :user_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaAnalyticsSortOrder SDK namespace.
+  module BetaAnalyticsSortOrder
+    ASC = 'asc'
+    DESC = 'desc'
+    VALUES = %w[asc desc].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUserActorMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsUserMetadata
+    FIELDS = {
+      email_address: 'email_address',
+      id: 'id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      email_address
+      id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsUserType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaAnalyticsUser.
+  # A user in the organization, identified by tagged id and email address.
+  class BetaAnalyticsUser
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsUserMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsUserMetadata::DECODERS
 
-# Defines the BetaAnalyticsUserActorType SDK namespace.
-module BetaAnalyticsUserActorType
-  USER_ACTOR = 'user_actor'
-  VALUES = ['user_actor'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Email address of the user
+    attr_reader :email_address
+    # @return [String] Tagged user identifier (e.g. `user_...`)
+    attr_reader :id
+    # @return [BetaAnalyticsUserType] Object type. Always `user`.
+    attr_reader :type
 
-    raise SdkValidationError.new('BetaAnalyticsUserActorType', 'enum', "Unknown BetaAnalyticsUserActorType: #{value}")
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the BetaAnalyticsUserType SDK namespace.
+  module BetaAnalyticsUserType
+    USER = 'user'
+    VALUES = ['user'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaAnalyticsUserType', 'enum', "Unknown BetaAnalyticsUserType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsUserActorMetadata
+    FIELDS = {
+      deleted: 'deleted',
+      email: 'email',
+      name: 'name',
+      type: 'type',
+      user_id: 'user_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      deleted
+      email
+      name
+      type
+      user_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsUserActorType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      email
+      name
+    ].freeze
+  end
+
+  # API model for BetaAnalyticsUserActor.
+  # Typed representation of the `BetaAnalyticsUserActor` API schema.
+  class BetaAnalyticsUserActor
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsUserActorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserActorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsUserActorMetadata::DECODERS
+
+    # @return [Boolean] True when the account has been deleted, or when the user is no longer a member of the organization or its associated organizations (for example, their membership was removed or they were deprovisioned via your identity provider). `email` stays populated for removed users and is null when the account has been deleted. `name` follows the rules described on that field. The `user_id` is still populated for reconciliation.
+    attr_reader :deleted
+    # @return [String] The user's email address, including for users who are no longer members of the organization or its associated organizations. Null when the account has been deleted (check `deleted`) and for system-minted service accounts, which have no person's mailbox behind them (check `name`).
+    attr_reader :email
+    # @return [String] The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's…
+    attr_reader :name
+    # @return [BetaAnalyticsUserActorType] Actor type. Always `"user_actor"`.
+    attr_reader :type
+    # @return [String] Tagged user ID.
+    attr_reader :user_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUserActorMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaAnalyticsUserActorType SDK namespace.
+  module BetaAnalyticsUserActorType
+    USER_ACTOR = 'user_actor'
+    VALUES = ['user_actor'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaAnalyticsUserActorType', 'enum', "Unknown BetaAnalyticsUserActorType: #{value}")
+    end
+  end
 end

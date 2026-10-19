@@ -5,95 +5,94 @@
 
 # service_accounts domain models
 module OctridevAnthropic
-# Defines the BetaServiceAccountUpdateParamsOrganizationRoleVariant0 SDK namespace.
-module BetaServiceAccountUpdateParamsOrganizationRoleVariant0
-  ADMIN = 'admin'
-  DEVELOPER = 'developer'
-  VALUES = ['admin', 'developer'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaServiceAccountUpdateParamsMetadata
-  FIELDS = {
-    description: "description",
-    organization_role: "organization_role",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    organization_role: lambda do |value|
-      ::OctridevAnthropic::BetaServiceAccountUpdateParamsOrganizationRoleVariant0.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaServiceAccountUpdateParams.
-# Partial update. `name` is immutable.
-class BetaServiceAccountUpdateParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaServiceAccountUpdateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaServiceAccountUpdateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaServiceAccountUpdateParamsMetadata::DECODERS
-
-  # @return [String] Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
-  attr_reader :description
-  # @return [BetaServiceAccountUpdateParamsOrganizationRoleVariant0] Replaces the org-level role. Omit or send `null` to leave unchanged.
-  attr_reader :organization_role
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaServiceAccountUpdateParamsOrganizationRoleVariant0 SDK namespace.
+  module BetaServiceAccountUpdateParamsOrganizationRoleVariant0
+    ADMIN = 'admin'
+    DEVELOPER = 'developer'
+    VALUES = %w[admin developer].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaServiceAccountUpdateParamsMetadata
+    FIELDS = {
+      description: 'description',
+      organization_role: 'organization_role'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      organization_role: lambda do |value|
+        ::OctridevAnthropic::BetaServiceAccountUpdateParamsOrganizationRoleVariant0.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaServiceAccountUpdateParams.
+  # Partial update. `name` is immutable.
+  class BetaServiceAccountUpdateParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaServiceAccountUpdateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaServiceAccountUpdateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaServiceAccountUpdateParamsMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata
-  FIELDS = {
-    workspace_role: "workspace_role",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    workspace_role
-  ].freeze
-  DECODERS = {
-    workspace_role: lambda do |value|
-      ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [String] Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
+    attr_reader :description
+    # @return [BetaServiceAccountUpdateParamsOrganizationRoleVariant0] Replaces the org-level role. Omit or send `null` to leave unchanged.
+    attr_reader :organization_role
 
-# API model for BetaServiceAccountWorkspaceMemberUpdateParams.
-# Typed representation of the `BetaServiceAccountWorkspaceMemberUpdateParams` API schema.
-class BetaServiceAccountWorkspaceMemberUpdateParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [BetaNoBillingWorkspaceRoleSchema] New role for the service account in this workspace.
-  attr_reader :workspace_role
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata
+    FIELDS = {
+      workspace_role: 'workspace_role'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      workspace_role
+    ].freeze
+    DECODERS = {
+      workspace_role: lambda do |value|
+        ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaServiceAccountWorkspaceMemberUpdateParams.
+  # Typed representation of the `BetaServiceAccountWorkspaceMemberUpdateParams` API schema.
+  class BetaServiceAccountWorkspaceMemberUpdateParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberUpdateParamsMetadata::DECODERS
+
+    # @return [BetaNoBillingWorkspaceRoleSchema] New role for the service account in this workspace.
+    attr_reader :workspace_role
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

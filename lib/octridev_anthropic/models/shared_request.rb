@@ -5,566 +5,570 @@
 
 # shared_request domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalRequestCharLocationCitationMetadata
-  FIELDS = {
-    cited_text: "cited_text",
-    document_index: "document_index",
-    document_title: "document_title",
-    end_char_index: "end_char_index",
-    start_char_index: "start_char_index",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cited_text
-    document_index
-    document_title
-    end_char_index
-    start_char_index
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestCharLocationCitationType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    document_title
-  ].freeze
-end
-
-# API model for RequestCharLocationCitation.
-# Typed representation of the `RequestCharLocationCitation` API schema.
-class RequestCharLocationCitation
-  include RequestTextBlockCitationsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestCharLocationCitationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestCharLocationCitationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestCharLocationCitationMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `cited_text` wire field.
-  attr_reader :cited_text
-  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-  attr_reader :document_index
-  # @return [String] Required API value serialized in the `document_title` wire field.
-  attr_reader :document_title
-  # @return [Integer] Required `integer` value serialized in the `end_char_index` wire field.
-  attr_reader :end_char_index
-  # @return [Integer] Required `integer` value serialized in the `start_char_index` wire field.
-  attr_reader :start_char_index
-  # @return [RequestCharLocationCitationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalRequestCharLocationCitationMetadata
+    FIELDS = {
+      cited_text: 'cited_text',
+      document_index: 'document_index',
+      document_title: 'document_title',
+      end_char_index: 'end_char_index',
+      start_char_index: 'start_char_index',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cited_text
+      document_index
+      document_title
+      end_char_index
+      start_char_index
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestCharLocationCitationType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      document_title
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestCharLocationCitationMetadata::NULLABLE_FIELDS)
+  # API model for RequestCharLocationCitation.
+  # Typed representation of the `RequestCharLocationCitation` API schema.
+  class RequestCharLocationCitation
+    include RequestTextBlockCitationsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestCharLocationCitationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestCharLocationCitationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestCharLocationCitationMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `cited_text` wire field.
+    attr_reader :cited_text
+    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+    attr_reader :document_index
+    # @return [String] Required API value serialized in the `document_title` wire field.
+    attr_reader :document_title
+    # @return [Integer] Required `integer` value serialized in the `end_char_index` wire field.
+    attr_reader :end_char_index
+    # @return [Integer] Required `integer` value serialized in the `start_char_index` wire field.
+    attr_reader :start_char_index
+    # @return [RequestCharLocationCitationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestCharLocationCitationMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestCharLocationCitationType SDK namespace.
+  module RequestCharLocationCitationType
+    CHAR_LOCATION = 'char_location'
+    VALUES = ['char_location'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the RequestCharLocationCitationType SDK namespace.
-module RequestCharLocationCitationType
-  CHAR_LOCATION = 'char_location'
-  VALUES = ['char_location'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('RequestCharLocationCitationType', 'enum', "Unknown RequestCharLocationCitationType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestCitationsConfigMetadata
-  FIELDS = {
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for RequestCitationsConfig.
-# Typed representation of the `RequestCitationsConfig` API schema.
-class RequestCitationsConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestCitationsConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestCitationsConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestCitationsConfigMetadata::DECODERS
-
-  # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('RequestCharLocationCitationType', 'enum', "Unknown RequestCharLocationCitationType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestCitationsConfigMetadata
+    FIELDS = {
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestCitationsConfig.
+  # Typed representation of the `RequestCitationsConfig` API schema.
+  class RequestCitationsConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestCitationsConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestCitationsConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestCitationsConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalRequestContainerUploadBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    file_id: "file_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    file_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestContainerUploadBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
 
-# API model for RequestContainerUploadBlock.
-# A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory.
-class RequestContainerUploadBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestContainerUploadBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestContainerUploadBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestContainerUploadBlockMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [String] Required `string` value serialized in the `file_id` wire field.
-  attr_reader :file_id
-  # @return [RequestContainerUploadBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestContainerUploadBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      file_id: 'file_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      file_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestContainerUploadBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestContainerUploadBlock.
+  # A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory.
+  class RequestContainerUploadBlock
+    include InputContentBlock
 
-# Defines the RequestContainerUploadBlockType SDK namespace.
-module RequestContainerUploadBlockType
-  CONTAINER_UPLOAD = 'container_upload'
-  VALUES = ['container_upload'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestContainerUploadBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestContainerUploadBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestContainerUploadBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('RequestContainerUploadBlockType', 'enum', "Unknown RequestContainerUploadBlockType: #{value}")
-  end
-end
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [String] Required `string` value serialized in the `file_id` wire field.
+    attr_reader :file_id
+    # @return [RequestContainerUploadBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalRequestContentBlockLocationCitationMetadata
-  FIELDS = {
-    cited_text: "cited_text",
-    document_index: "document_index",
-    document_title: "document_title",
-    end_block_index: "end_block_index",
-    start_block_index: "start_block_index",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cited_text
-    document_index
-    document_title
-    end_block_index
-    start_block_index
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestContentBlockLocationCitationType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    document_title
-  ].freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for RequestContentBlockLocationCitation.
-# Typed representation of the `RequestContentBlockLocationCitation` API schema.
-class RequestContentBlockLocationCitation
-  include RequestTextBlockCitationsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestContentBlockLocationCitationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestContentBlockLocationCitationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestContentBlockLocationCitationMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-  attr_reader :cited_text
-  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-  attr_reader :document_index
-  # @return [String] Required API value serialized in the `document_title` wire field.
-  attr_reader :document_title
-  # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-  attr_reader :end_block_index
-  # @return [Integer] 0-based index of the first cited block in the source's `content` array.
-  attr_reader :start_block_index
-  # @return [RequestContentBlockLocationCitationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestContentBlockLocationCitationMetadata::NULLABLE_FIELDS)
+  # Defines the RequestContainerUploadBlockType SDK namespace.
+  module RequestContainerUploadBlockType
+    CONTAINER_UPLOAD = 'container_upload'
+    VALUES = ['container_upload'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestContainerUploadBlockType', 'enum', "Unknown RequestContainerUploadBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the RequestContentBlockLocationCitationType SDK namespace.
-module RequestContentBlockLocationCitationType
-  CONTENT_BLOCK_LOCATION = 'content_block_location'
-  VALUES = ['content_block_location'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('RequestContentBlockLocationCitationType', 'enum', "Unknown RequestContentBlockLocationCitationType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestCountsMetadata
-  FIELDS = {
-    canceled: "canceled",
-    errored: "errored",
-    expired: "expired",
-    processing: "processing",
-    succeeded: "succeeded",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    canceled
-    errored
-    expired
-    processing
-    succeeded
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for RequestCounts.
-# Typed representation of the `RequestCounts` API schema.
-class RequestCounts
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestCountsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestCountsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestCountsMetadata::DECODERS
-
-  # @return [Integer] Number of requests in the Message Batch that have been canceled. This is zero until processing of the entire Message Batch has ended.
-  attr_reader :canceled
-  # @return [Integer] Number of requests in the Message Batch that encountered an error. This is zero until processing of the entire Message Batch has ended.
-  attr_reader :errored
-  # @return [Integer] Number of requests in the Message Batch that have expired. This is zero until processing of the entire Message Batch has ended.
-  attr_reader :expired
-  # @return [Integer] Number of requests in the Message Batch that are processing.
-  attr_reader :processing
-  # @return [Integer] Number of requests in the Message Batch that have completed successfully. This is zero until processing of the entire Message Batch has ended.
-  attr_reader :succeeded
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalRequestContentBlockLocationCitationMetadata
+    FIELDS = {
+      cited_text: 'cited_text',
+      document_index: 'document_index',
+      document_title: 'document_title',
+      end_block_index: 'end_block_index',
+      start_block_index: 'start_block_index',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cited_text
+      document_index
+      document_title
+      end_block_index
+      start_block_index
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestContentBlockLocationCitationType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      document_title
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for RequestContentBlockLocationCitation.
+  # Typed representation of the `RequestContentBlockLocationCitation` API schema.
+  class RequestContentBlockLocationCitation
+    include RequestTextBlockCitationsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestContentBlockLocationCitationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestContentBlockLocationCitationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestContentBlockLocationCitationMetadata::DECODERS
+
+    # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+    attr_reader :cited_text
+    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+    attr_reader :document_index
+    # @return [String] Required API value serialized in the `document_title` wire field.
+    attr_reader :document_title
+    # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+    attr_reader :end_block_index
+    # @return [Integer] 0-based index of the first cited block in the source's `content` array.
+    attr_reader :start_block_index
+    # @return [RequestContentBlockLocationCitationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestContentBlockLocationCitationMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestContentBlockLocationCitationType SDK namespace.
+  module RequestContentBlockLocationCitationType
+    CONTENT_BLOCK_LOCATION = 'content_block_location'
+    VALUES = ['content_block_location'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Internal model hydration metadata.
-class SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    encrypted_stdout: "encrypted_stdout",
-    return_code: "return_code",
-    stderr: "stderr",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    encrypted_stdout
-    return_code
-    stderr
-    type
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::RequestCodeExecutionOutputBlock.from_hash(item) }
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestEncryptedCodeExecutionResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestEncryptedCodeExecutionResultBlock.
-# Code execution result with encrypted stdout for PFC + web_search results.
-class RequestEncryptedCodeExecutionResultBlock
-  include RequestCodeExecutionToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::DECODERS
-
-  # @return [Array_of_RequestCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `encrypted_stdout` wire field.
-  attr_reader :encrypted_stdout
-  # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
-  attr_reader :return_code
-  # @return [String] Required `string` value serialized in the `stderr` wire field.
-  attr_reader :stderr
-  # @return [RequestEncryptedCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('RequestContentBlockLocationCitationType', 'enum', "Unknown RequestContentBlockLocationCitationType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestCountsMetadata
+    FIELDS = {
+      canceled: 'canceled',
+      errored: 'errored',
+      expired: 'expired',
+      processing: 'processing',
+      succeeded: 'succeeded'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      canceled
+      errored
+      expired
+      processing
+      succeeded
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestCounts.
+  # Typed representation of the `RequestCounts` API schema.
+  class RequestCounts
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestCountsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestCountsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestCountsMetadata::DECODERS
 
-# Defines the RequestEncryptedCodeExecutionResultBlockType SDK namespace.
-module RequestEncryptedCodeExecutionResultBlockType
-  ENCRYPTED_CODE_EXECUTION_RESULT = 'encrypted_code_execution_result'
-  VALUES = ['encrypted_code_execution_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [Integer] Number of requests in the Message Batch that have been canceled. This is zero until processing of the entire Message Batch has ended.
+    attr_reader :canceled
+    # @return [Integer] Number of requests in the Message Batch that encountered an error. This is zero until processing of the entire Message Batch has ended.
+    attr_reader :errored
+    # @return [Integer] Number of requests in the Message Batch that have expired. This is zero until processing of the entire Message Batch has ended.
+    attr_reader :expired
+    # @return [Integer] Number of requests in the Message Batch that are processing.
+    attr_reader :processing
+    # @return [Integer] Number of requests in the Message Batch that have completed successfully. This is zero until processing of the entire Message Batch has ended.
+    attr_reader :succeeded
 
-    raise SdkValidationError.new('RequestEncryptedCodeExecutionResultBlockType', 'enum', "Unknown RequestEncryptedCodeExecutionResultBlockType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalRequestPageLocationCitationMetadata
-  FIELDS = {
-    cited_text: "cited_text",
-    document_index: "document_index",
-    document_title: "document_title",
-    end_page_number: "end_page_number",
-    start_page_number: "start_page_number",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cited_text
-    document_index
-    document_title
-    end_page_number
-    start_page_number
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestPageLocationCitationType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    document_title
-  ].freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for RequestPageLocationCitation.
-# Typed representation of the `RequestPageLocationCitation` API schema.
-class RequestPageLocationCitation
-  include RequestTextBlockCitationsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestPageLocationCitationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestPageLocationCitationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestPageLocationCitationMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `cited_text` wire field.
-  attr_reader :cited_text
-  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-  attr_reader :document_index
-  # @return [String] Required API value serialized in the `document_title` wire field.
-  attr_reader :document_title
-  # @return [Integer] Required `integer` value serialized in the `end_page_number` wire field.
-  attr_reader :end_page_number
-  # @return [Integer] Required `integer` value serialized in the `start_page_number` wire field.
-  attr_reader :start_page_number
-  # @return [RequestPageLocationCitationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestPageLocationCitationMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      encrypted_stdout: 'encrypted_stdout',
+      return_code: 'return_code',
+      stderr: 'stderr',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      encrypted_stdout
+      return_code
+      stderr
+      type
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::RequestCodeExecutionOutputBlock.from_hash(item) }
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestEncryptedCodeExecutionResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestEncryptedCodeExecutionResultBlock.
+  # Code execution result with encrypted stdout for PFC + web_search results.
+  class RequestEncryptedCodeExecutionResultBlock
+    include RequestCodeExecutionToolResultBlockContent
 
-# Defines the RequestPageLocationCitationType SDK namespace.
-module RequestPageLocationCitationType
-  PAGE_LOCATION = 'page_location'
-  VALUES = ['page_location'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestEncryptedCodeExecutionResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('RequestPageLocationCitationType', 'enum', "Unknown RequestPageLocationCitationType: #{value}")
-  end
-end
+    # @return [Array_of_RequestCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `encrypted_stdout` wire field.
+    attr_reader :encrypted_stdout
+    # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
+    attr_reader :return_code
+    # @return [String] Required `string` value serialized in the `stderr` wire field.
+    attr_reader :stderr
+    # @return [RequestEncryptedCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalRequestRedactedThinkingBlockMetadata
-  FIELDS = {
-    data: "data",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestRedactedThinkingBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for RequestRedactedThinkingBlock.
-# Typed representation of the `RequestRedactedThinkingBlock` API schema.
-class RequestRedactedThinkingBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestRedactedThinkingBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestRedactedThinkingBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestRedactedThinkingBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-  attr_reader :data
-  # @return [RequestRedactedThinkingBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the RequestEncryptedCodeExecutionResultBlockType SDK namespace.
+  module RequestEncryptedCodeExecutionResultBlockType
+    ENCRYPTED_CODE_EXECUTION_RESULT = 'encrypted_code_execution_result'
+    VALUES = ['encrypted_code_execution_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestEncryptedCodeExecutionResultBlockType', 'enum', "Unknown RequestEncryptedCodeExecutionResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the RequestRedactedThinkingBlockType SDK namespace.
-module RequestRedactedThinkingBlockType
-  REDACTED_THINKING = 'redacted_thinking'
-  VALUES = ['redacted_thinking'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('RequestRedactedThinkingBlockType', 'enum', "Unknown RequestRedactedThinkingBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestThinkingBlockMetadata
-  FIELDS = {
-    signature: "signature",
-    thinking: "thinking",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    signature
-    thinking
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestThinkingBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestThinkingBlock.
-# Typed representation of the `RequestThinkingBlock` API schema.
-class RequestThinkingBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestThinkingBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestThinkingBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestThinkingBlockMetadata::DECODERS
-
-  # @return [String] The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
-  attr_reader :signature
-  # @return [String] The `thinking` text of this block as returned by the API.
-  attr_reader :thinking
-  # @return [RequestThinkingBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalRequestPageLocationCitationMetadata
+    FIELDS = {
+      cited_text: 'cited_text',
+      document_index: 'document_index',
+      document_title: 'document_title',
+      end_page_number: 'end_page_number',
+      start_page_number: 'start_page_number',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cited_text
+      document_index
+      document_title
+      end_page_number
+      start_page_number
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestPageLocationCitationType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      document_title
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for RequestPageLocationCitation.
+  # Typed representation of the `RequestPageLocationCitation` API schema.
+  class RequestPageLocationCitation
+    include RequestTextBlockCitationsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestPageLocationCitationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestPageLocationCitationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestPageLocationCitationMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `cited_text` wire field.
+    attr_reader :cited_text
+    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+    attr_reader :document_index
+    # @return [String] Required API value serialized in the `document_title` wire field.
+    attr_reader :document_title
+    # @return [Integer] Required `integer` value serialized in the `end_page_number` wire field.
+    attr_reader :end_page_number
+    # @return [Integer] Required `integer` value serialized in the `start_page_number` wire field.
+    attr_reader :start_page_number
+    # @return [RequestPageLocationCitationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalRequestPageLocationCitationMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestPageLocationCitationType SDK namespace.
+  module RequestPageLocationCitationType
+    PAGE_LOCATION = 'page_location'
+    VALUES = ['page_location'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the RequestThinkingBlockType SDK namespace.
-module RequestThinkingBlockType
-  THINKING = 'thinking'
-  VALUES = ['thinking'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('RequestThinkingBlockType', 'enum', "Unknown RequestThinkingBlockType: #{value}")
+      raise SdkValidationError.new('RequestPageLocationCitationType', 'enum', "Unknown RequestPageLocationCitationType: #{value}")
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalRequestRedactedThinkingBlockMetadata
+    FIELDS = {
+      data: 'data',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestRedactedThinkingBlockType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for RequestRedactedThinkingBlock.
+  # Typed representation of the `RequestRedactedThinkingBlock` API schema.
+  class RequestRedactedThinkingBlock
+    include InputContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestRedactedThinkingBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestRedactedThinkingBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestRedactedThinkingBlockMetadata::DECODERS
+
+    # @return [String] The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+    attr_reader :data
+    # @return [RequestRedactedThinkingBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the RequestRedactedThinkingBlockType SDK namespace.
+  module RequestRedactedThinkingBlockType
+    REDACTED_THINKING = 'redacted_thinking'
+    VALUES = ['redacted_thinking'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestRedactedThinkingBlockType', 'enum', "Unknown RequestRedactedThinkingBlockType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalRequestThinkingBlockMetadata
+    FIELDS = {
+      signature: 'signature',
+      thinking: 'thinking',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      signature
+      thinking
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestThinkingBlockType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for RequestThinkingBlock.
+  # Typed representation of the `RequestThinkingBlock` API schema.
+  class RequestThinkingBlock
+    include InputContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestThinkingBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestThinkingBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestThinkingBlockMetadata::DECODERS
+
+    # @return [String] The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+    attr_reader :signature
+    # @return [String] The `thinking` text of this block as returned by the API.
+    attr_reader :thinking
+    # @return [RequestThinkingBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the RequestThinkingBlockType SDK namespace.
+  module RequestThinkingBlockType
+    THINKING = 'thinking'
+    VALUES = ['thinking'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestThinkingBlockType', 'enum', "Unknown RequestThinkingBlockType: #{value}")
+    end
+  end
 end

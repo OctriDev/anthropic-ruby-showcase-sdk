@@ -5,427 +5,429 @@
 
 # shared_beta_user domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaUserMetadata
-  FIELDS = {
-    added_at: "added_at",
-    email: "email",
-    id: "id",
-    name: "name",
-    role: "role",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    added_at
-    email
-    id
-    name
-    role
-    type
-  ].freeze
-  DECODERS = {
-    role: lambda do |value|
-      ::OctridevAnthropic::BetaOrganizationRoleSchema.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaUserType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaUser.
-# Typed representation of the `BetaUser` API schema.
-class BetaUser
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserMetadata::DECODERS
-
-  # @return [String] RFC 3339 datetime string indicating when the User joined the Organization.
-  attr_reader :added_at
-  # @return [String] Email of the User.
-  attr_reader :email
-  # @return [String] ID of the User.
-  attr_reader :id
-  # @return [String] Name of the User.
-  attr_reader :name
-  # @return [BetaOrganizationRoleSchema] Organization role of the User.
-  attr_reader :role
-  # @return [BetaUserType] Object type. For Users, this is always `"user"`.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserMetadata
+    FIELDS = {
+      added_at: 'added_at',
+      email: 'email',
+      id: 'id',
+      name: 'name',
+      role: 'role',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      added_at
+      email
+      id
+      name
+      role
+      type
+    ].freeze
+    DECODERS = {
+      role: lambda do |value|
+        ::OctridevAnthropic::BetaOrganizationRoleSchema.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaUserType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaUser.
+  # Typed representation of the `BetaUser` API schema.
+  class BetaUser
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserMetadata::DECODERS
+
+    # @return [String] RFC 3339 datetime string indicating when the User joined the Organization.
+    attr_reader :added_at
+    # @return [String] Email of the User.
+    attr_reader :email
+    # @return [String] ID of the User.
+    attr_reader :id
+    # @return [String] Name of the User.
+    attr_reader :name
+    # @return [BetaOrganizationRoleSchema] Organization role of the User.
+    attr_reader :role
+    # @return [BetaUserType] Object type. For Users, this is always `"user"`.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaUserType SDK namespace.
+  module BetaUserType
+    USER = 'user'
+    VALUES = ['user'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaUserType SDK namespace.
-module BetaUserType
-  USER = 'user'
-  VALUES = ['user'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaUserType', 'enum', "Unknown BetaUserType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaUserActorSchemaMetadata
-  FIELDS = {
-    deleted: "deleted",
-    email_address: "email_address",
-    name: "name",
-    type: "type",
-    user_id: "user_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    deleted
-    email_address
-    name
-    type
-    user_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaUserActorSchemaType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    email_address
-    name
-  ].freeze
-end
-
-# API model for BetaUserActorSchema.
-# A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
-class BetaUserActorSchema
-  include BetaApproveSpendLimitIncreaseRequestResponseResolvedBy
-  include BetaSpendLimitIncreaseRequestSchemaResolvedBy
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserActorSchemaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserActorSchemaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserActorSchemaMetadata::DECODERS
-
-  # @return [Boolean] True only when the underlying account has been deleted.
-  attr_reader :deleted
-  # @return [String] The user's email address. Null when the account is unavailable or has been deleted.
-  attr_reader :email_address
-  # @return [String] The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
-  attr_reader :name
-  # @return [BetaUserActorSchemaType] Actor type. Always `user_actor`.
-  attr_reader :type
-  # @return [String] Tagged ID of the user.
-  attr_reader :user_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaUserType', 'enum', "Unknown BetaUserType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaUserActorSchemaMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserActorSchemaMetadata
+    FIELDS = {
+      deleted: 'deleted',
+      email_address: 'email_address',
+      name: 'name',
+      type: 'type',
+      user_id: 'user_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      deleted
+      email_address
+      name
+      type
+      user_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaUserActorSchemaType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      email_address
+      name
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaUserActorSchema.
+  # A user within the organization. `name` and `email_address` are null when the underlying account is unavailable or has been deleted; `deleted` is true only for deleted accounts.
+  class BetaUserActorSchema
+    include BetaApproveSpendLimitIncreaseRequestResponseResolvedBy
+    include BetaSpendLimitIncreaseRequestSchemaResolvedBy
 
-# Defines the BetaUserActorSchemaType SDK namespace.
-module BetaUserActorSchemaType
-  USER_ACTOR = 'user_actor'
-  VALUES = ['user_actor'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserActorSchemaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserActorSchemaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserActorSchemaMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaUserActorSchemaType', 'enum', "Unknown BetaUserActorSchemaType: #{value}")
-  end
-end
+    # @return [Boolean] True only when the underlying account has been deleted.
+    attr_reader :deleted
+    # @return [String] The user's email address. Null when the account is unavailable or has been deleted.
+    attr_reader :email_address
+    # @return [String] The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+    attr_reader :name
+    # @return [BetaUserActorSchemaType] Actor type. Always `user_actor`.
+    attr_reader :type
+    # @return [String] Tagged ID of the user.
+    attr_reader :user_id
 
-# Internal model hydration metadata.
-class SdkInternalBetaUserLocationMetadata
-  FIELDS = {
-    city: "city",
-    country: "country",
-    region: "region",
-    timezone: "timezone",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaUserLocationType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaUserLocation.
-# Typed representation of the `BetaUserLocation` API schema.
-class BetaUserLocation
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserLocationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserLocationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserLocationMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaUserActorSchemaMetadata::NULLABLE_FIELDS)
+    end
 
-  # @return [String] The city of the user.
-  attr_reader :city
-  # @return [String] The two letter ISO country code of the user.
-  attr_reader :country
-  # @return [String] The region of the user.
-  attr_reader :region
-  # @return [String] The IANA timezone of the user.
-  attr_reader :timezone
-  # @return [BetaUserLocationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaUserActorSchemaType SDK namespace.
+  module BetaUserActorSchemaType
+    USER_ACTOR = 'user_actor'
+    VALUES = ['user_actor'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaUserActorSchemaType', 'enum', "Unknown BetaUserActorSchemaType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaUserLocationType SDK namespace.
-module BetaUserLocationType
-  APPROXIMATE = 'approximate'
-  VALUES = ['approximate'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaUserLocationType', 'enum', "Unknown BetaUserLocationType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaUserProfileMetadata
-  FIELDS = {
-    id: "id",
-    type: "type",
-    external_id: "external_id",
-    name: "name",
-    access_type: "access_type",
-    external_user_onboarded_at: "external_user_onboarded_at",
-    trust_grants: "trust_grants",
-    created_at: "created_at",
-    metadata: "metadata",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    type
-    trust_grants
-    created_at
-    metadata
-    updated_at
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaUserProfileType.from_value(value)
-    end,
-    access_type: lambda do |value|
-      ::OctridevAnthropic::BetaUserProfileAccessType.from_value(value)
-    end,
-    external_user_onboarded_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    trust_grants: lambda do |value|
-      value&.transform_values { |item| ::OctridevAnthropic::BetaUserProfileTrustGrant.from_hash(item) }
-    end,
-    created_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    updated_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaUserProfile.
-# Typed representation of the `BetaUserProfile` API schema.
-class BetaUserProfile
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserProfileMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserProfileMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserProfileMetadata::DECODERS
-
-  # @return [String] Unique identifier for this user profile, prefixed `uprof_`.
-  attr_reader :id
-  # @return [BetaUserProfileType] Object type. Always `user_profile`.
-  attr_reader :type
-  # @return [String] Platform's own identifier for this user. Not enforced unique.
-  attr_reader :external_id
-  # @return [String] Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
-  attr_reader :name
-  # @return [BetaUserProfileAccessType] How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` beta header.
-  attr_reader :access_type
-  # @return [BetaTimestamp] When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header.
-  attr_reader :external_user_onboarded_at
-  # @return [Hash] Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
-  attr_reader :trust_grants
-  # @return [BetaTimestamp] When this user profile was created, in RFC 3339 format.
-  attr_reader :created_at
-  # @return [Hash] Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-  attr_reader :metadata
-  # @return [BetaTimestamp] When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserLocationMetadata
+    FIELDS = {
+      city: 'city',
+      country: 'country',
+      region: 'region',
+      timezone: 'timezone',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaUserLocationType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaUserLocation.
+  # Typed representation of the `BetaUserLocation` API schema.
+  class BetaUserLocation
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserLocationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserLocationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserLocationMetadata::DECODERS
+
+    # @return [String] The city of the user.
+    attr_reader :city
+    # @return [String] The two letter ISO country code of the user.
+    attr_reader :country
+    # @return [String] The region of the user.
+    attr_reader :region
+    # @return [String] The IANA timezone of the user.
+    attr_reader :timezone
+    # @return [BetaUserLocationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaUserLocationType SDK namespace.
+  module BetaUserLocationType
+    APPROXIMATE = 'approximate'
+    VALUES = ['approximate'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaUserProfileType SDK namespace.
-module BetaUserProfileType
-  USER_PROFILE = 'user_profile'
-  VALUES = ['user_profile'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaUserProfileAccessType SDK namespace.
-module BetaUserProfileAccessType
-  APPLICATION = 'application'
-  PASSTHROUGH = 'passthrough'
-  VALUES = ['application', 'passthrough'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaUserProfileTrustGrantMetadata
-  FIELDS = {
-    status: "status",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    status
-  ].freeze
-  DECODERS = {
-    status: lambda do |value|
-      ::OctridevAnthropic::BetaUserProfileTrustGrantStatus.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaUserProfileTrustGrant.
-# Typed representation of the `BetaUserProfileTrustGrant` API schema.
-class BetaUserProfileTrustGrant
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserProfileTrustGrantMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserProfileTrustGrantMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserProfileTrustGrantMetadata::DECODERS
-
-  # @return [BetaUserProfileTrustGrantStatus] Status of the trust grant.
-  attr_reader :status
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaUserLocationType', 'enum', "Unknown BetaUserLocationType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserProfileMetadata
+    FIELDS = {
+      id: 'id',
+      type: 'type',
+      external_id: 'external_id',
+      name: 'name',
+      access_type: 'access_type',
+      external_user_onboarded_at: 'external_user_onboarded_at',
+      trust_grants: 'trust_grants',
+      created_at: 'created_at',
+      metadata: 'metadata',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      type
+      trust_grants
+      created_at
+      metadata
+      updated_at
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaUserProfileType.from_value(value)
+      end,
+      access_type: lambda do |value|
+        ::OctridevAnthropic::BetaUserProfileAccessType.from_value(value)
+      end,
+      external_user_onboarded_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      trust_grants: lambda do |value|
+        value&.transform_values { |item| ::OctridevAnthropic::BetaUserProfileTrustGrant.from_hash(item) }
+      end,
+      created_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      updated_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaUserProfile.
+  # Typed representation of the `BetaUserProfile` API schema.
+  class BetaUserProfile
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserProfileMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserProfileMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserProfileMetadata::DECODERS
 
-# Defines the BetaUserProfileTrustGrantStatus SDK namespace.
-module BetaUserProfileTrustGrantStatus
-  ACTIVE = 'active'
-  PENDING = 'pending'
-  REJECTED = 'rejected'
-  VALUES = ['active', 'pending', 'rejected'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [String] Unique identifier for this user profile, prefixed `uprof_`.
+    attr_reader :id
+    # @return [BetaUserProfileType] Object type. Always `user_profile`.
+    attr_reader :type
+    # @return [String] Platform's own identifier for this user. Not enforced unique.
+    attr_reader :external_id
+    # @return [String] Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
+    attr_reader :name
+    # @return [BetaUserProfileAccessType] How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` beta header.
+    attr_reader :access_type
+    # @return [BetaTimestamp] When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header.
+    attr_reader :external_user_onboarded_at
+    # @return [Hash] Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
+    attr_reader :trust_grants
+    # @return [BetaTimestamp] When this user profile was created, in RFC 3339 format.
+    attr_reader :created_at
+    # @return [Hash] Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    attr_reader :metadata
+    # @return [BetaTimestamp] When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    attr_reader :updated_at
 
-# Internal model hydration metadata.
-class SdkInternalBetaUserScopeMetadata
-  FIELDS = {
-    type: "type",
-    user_id: "user_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    user_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaUserScopeType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaUserScope.
-# Scope selecting a single member of the organization.
-class BetaUserScope
-  include BetaSpendLimitScope
-  include BetaSpendSummarySource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaUserScopeMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaUserScopeMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaUserScopeMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaUserScopeType] Scope type. Always `user` for this scope.
-  attr_reader :type
-  # @return [String] Tagged ID of the member the spend limit applies to.
-  attr_reader :user_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaUserProfileType SDK namespace.
+  module BetaUserProfileType
+    USER_PROFILE = 'user_profile'
+    VALUES = ['user_profile'].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaUserProfileAccessType SDK namespace.
+  module BetaUserProfileAccessType
+    APPLICATION = 'application'
+    PASSTHROUGH = 'passthrough'
+    VALUES = %w[application passthrough].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaUserScopeType SDK namespace.
-module BetaUserScopeType
-  USER = 'user'
-  VALUES = ['user'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaUserScopeType', 'enum', "Unknown BetaUserScopeType: #{value}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserProfileTrustGrantMetadata
+    FIELDS = {
+      status: 'status'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      status
+    ].freeze
+    DECODERS = {
+      status: lambda do |value|
+        ::OctridevAnthropic::BetaUserProfileTrustGrantStatus.from_value(value)
+      end
+    }.freeze
   end
-end
+
+  # API model for BetaUserProfileTrustGrant.
+  # Typed representation of the `BetaUserProfileTrustGrant` API schema.
+  class BetaUserProfileTrustGrant
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserProfileTrustGrantMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserProfileTrustGrantMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserProfileTrustGrantMetadata::DECODERS
+
+    # @return [BetaUserProfileTrustGrantStatus] Status of the trust grant.
+    attr_reader :status
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaUserProfileTrustGrantStatus SDK namespace.
+  module BetaUserProfileTrustGrantStatus
+    ACTIVE = 'active'
+    PENDING = 'pending'
+    REJECTED = 'rejected'
+    VALUES = %w[active pending rejected].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaUserScopeMetadata
+    FIELDS = {
+      type: 'type',
+      user_id: 'user_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      user_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaUserScopeType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaUserScope.
+  # Scope selecting a single member of the organization.
+  class BetaUserScope
+    include BetaSpendLimitScope
+    include BetaSpendSummarySource
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaUserScopeMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaUserScopeMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaUserScopeMetadata::DECODERS
+
+    # @return [BetaUserScopeType] Scope type. Always `user` for this scope.
+    attr_reader :type
+    # @return [String] Tagged ID of the member the spend limit applies to.
+    attr_reader :user_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaUserScopeType SDK namespace.
+  module BetaUserScopeType
+    USER = 'user'
+    VALUES = ['user'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaUserScopeType', 'enum', "Unknown BetaUserScopeType: #{value}")
+    end
+  end
 end

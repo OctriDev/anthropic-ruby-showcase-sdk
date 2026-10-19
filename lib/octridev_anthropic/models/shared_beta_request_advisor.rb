@@ -5,268 +5,273 @@
 
 # shared_beta_request_advisor domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata
-  FIELDS = {
-    encrypted_content: "encrypted_content",
-    stop_reason: "stop_reason",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    encrypted_content
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestAdvisorRedactedResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestAdvisorRedactedResultBlock.
-# Typed representation of the `BetaRequestAdvisorRedactedResultBlock` API schema.
-class BetaRequestAdvisorRedactedResultBlock
-  include BetaRequestAdvisorToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::DECODERS
-
-  # @return [String] Opaque blob produced by a prior response; must be round-tripped verbatim.
-  attr_reader :encrypted_content
-  # @return [String] Optional `string` value serialized in the `stop_reason` wire field.
-  attr_reader :stop_reason
-  # @return [BetaRequestAdvisorRedactedResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata
+    FIELDS = {
+      encrypted_content: 'encrypted_content',
+      stop_reason: 'stop_reason',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      encrypted_content
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestAdvisorRedactedResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRequestAdvisorRedactedResultBlock.
+  # Typed representation of the `BetaRequestAdvisorRedactedResultBlock` API schema.
+  class BetaRequestAdvisorRedactedResultBlock
+    include BetaRequestAdvisorToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestAdvisorRedactedResultBlockMetadata::DECODERS
+
+    # @return [String] Opaque blob produced by a prior response; must be round-tripped verbatim.
+    attr_reader :encrypted_content
+    # @return [String] Optional `string` value serialized in the `stop_reason` wire field.
+    attr_reader :stop_reason
+    # @return [BetaRequestAdvisorRedactedResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaRequestAdvisorRedactedResultBlockType SDK namespace.
+  module BetaRequestAdvisorRedactedResultBlockType
+    ADVISOR_REDACTED_RESULT = 'advisor_redacted_result'
+    VALUES = ['advisor_redacted_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaRequestAdvisorRedactedResultBlockType SDK namespace.
-module BetaRequestAdvisorRedactedResultBlockType
-  ADVISOR_REDACTED_RESULT = 'advisor_redacted_result'
-  VALUES = ['advisor_redacted_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRequestAdvisorRedactedResultBlockType', 'enum', "Unknown BetaRequestAdvisorRedactedResultBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRequestAdvisorResultBlockMetadata
-  FIELDS = {
-    stop_reason: "stop_reason",
-    text: "text",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    text
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestAdvisorResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestAdvisorResultBlock.
-# Typed representation of the `BetaRequestAdvisorResultBlock` API schema.
-class BetaRequestAdvisorResultBlock
-  include BetaRequestAdvisorToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestAdvisorResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestAdvisorResultBlockMetadata::DECODERS
-
-  # @return [String] Optional `string` value serialized in the `stop_reason` wire field.
-  attr_reader :stop_reason
-  # @return [String] Required `string` value serialized in the `text` wire field.
-  attr_reader :text
-  # @return [BetaRequestAdvisorResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaRequestAdvisorRedactedResultBlockType', 'enum', "Unknown BetaRequestAdvisorRedactedResultBlockType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestAdvisorResultBlockMetadata
+    FIELDS = {
+      stop_reason: 'stop_reason',
+      text: 'text',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      text
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestAdvisorResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaRequestAdvisorResultBlock.
+  # Typed representation of the `BetaRequestAdvisorResultBlock` API schema.
+  class BetaRequestAdvisorResultBlock
+    include BetaRequestAdvisorToolResultBlockContent
 
-# Defines the BetaRequestAdvisorResultBlockType SDK namespace.
-module BetaRequestAdvisorResultBlockType
-  ADVISOR_RESULT = 'advisor_result'
-  VALUES = ['advisor_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestAdvisorResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestAdvisorResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaRequestAdvisorResultBlockType', 'enum', "Unknown BetaRequestAdvisorResultBlockType: #{value}")
-  end
-end
+    # @return [String] Optional `string` value serialized in the `stop_reason` wire field.
+    attr_reader :stop_reason
+    # @return [String] Required `string` value serialized in the `text` wire field.
+    attr_reader :text
+    # @return [BetaRequestAdvisorResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaRequestAdvisorToolResultBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    content: lambda do |value|
-      ::OctridevAnthropic::BetaRequestAdvisorToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestAdvisorToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaRequestAdvisorToolResultBlock.
-# Typed representation of the `BetaRequestAdvisorToolResultBlock` API schema.
-class BetaRequestAdvisorToolResultBlock
-  include BetaInputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [BetaRequestAdvisorToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [BetaRequestAdvisorToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRequestAdvisorResultBlockType SDK namespace.
+  module BetaRequestAdvisorResultBlockType
+    ADVISOR_RESULT = 'advisor_result'
+    VALUES = ['advisor_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestAdvisorResultBlockType', 'enum', "Unknown BetaRequestAdvisorResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaRequestAdvisorToolResultBlockType SDK namespace.
-module BetaRequestAdvisorToolResultBlockType
-  ADVISOR_TOOL_RESULT = 'advisor_tool_result'
-  VALUES = ['advisor_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRequestAdvisorToolResultBlockType', 'enum', "Unknown BetaRequestAdvisorToolResultBlockType: #{value}")
-  end
-end
-
-# Defines the BetaRequestAdvisorToolResultBlockContent SDK namespace.
-module BetaRequestAdvisorToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "advisor_tool_result_error" => -> { BetaRequestAdvisorToolResultError },
-    "advisor_result" => -> { BetaRequestAdvisorResultBlock },
-    "advisor_redacted_result" => -> { BetaRequestAdvisorRedactedResultBlock },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaRequestAdvisorToolResultBlockContent', 'variant', "Unknown BetaRequestAdvisorToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRequestAdvisorToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::BetaAdvisorToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestAdvisorToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestAdvisorToolResultError.
-# Typed representation of the `BetaRequestAdvisorToolResultError` API schema.
-class BetaRequestAdvisorToolResultError
-  include BetaRequestAdvisorToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::DECODERS
-
-  # @return [BetaAdvisorToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [BetaRequestAdvisorToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestAdvisorToolResultBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      content: lambda do |value|
+        ::OctridevAnthropic::BetaRequestAdvisorToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestAdvisorToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRequestAdvisorToolResultBlock.
+  # Typed representation of the `BetaRequestAdvisorToolResultBlock` API schema.
+  class BetaRequestAdvisorToolResultBlock
+    include BetaInputContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestAdvisorToolResultBlockMetadata::DECODERS
+
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [BetaRequestAdvisorToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [BetaRequestAdvisorToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaRequestAdvisorToolResultBlockType SDK namespace.
+  module BetaRequestAdvisorToolResultBlockType
+    ADVISOR_TOOL_RESULT = 'advisor_tool_result'
+    VALUES = ['advisor_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaRequestAdvisorToolResultErrorType SDK namespace.
-module BetaRequestAdvisorToolResultErrorType
-  ADVISOR_TOOL_RESULT_ERROR = 'advisor_tool_result_error'
-  VALUES = ['advisor_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRequestAdvisorToolResultErrorType', 'enum', "Unknown BetaRequestAdvisorToolResultErrorType: #{value}")
+      raise SdkValidationError.new('BetaRequestAdvisorToolResultBlockType', 'enum', "Unknown BetaRequestAdvisorToolResultBlockType: #{value}")
+    end
   end
-end
+
+  # Defines the BetaRequestAdvisorToolResultBlockContent SDK namespace.
+  module BetaRequestAdvisorToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'advisor_tool_result_error' => -> { BetaRequestAdvisorToolResultError },
+      'advisor_result' => -> { BetaRequestAdvisorResultBlock },
+      'advisor_redacted_result' => -> { BetaRequestAdvisorRedactedResultBlock }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaRequestAdvisorToolResultBlockContent', 'variant', "Unknown BetaRequestAdvisorToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestAdvisorToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::BetaAdvisorToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestAdvisorToolResultErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaRequestAdvisorToolResultError.
+  # Typed representation of the `BetaRequestAdvisorToolResultError` API schema.
+  class BetaRequestAdvisorToolResultError
+    include BetaRequestAdvisorToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestAdvisorToolResultErrorMetadata::DECODERS
+
+    # @return [BetaAdvisorToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [BetaRequestAdvisorToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaRequestAdvisorToolResultErrorType SDK namespace.
+  module BetaRequestAdvisorToolResultErrorType
+    ADVISOR_TOOL_RESULT_ERROR = 'advisor_tool_result_error'
+    VALUES = ['advisor_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestAdvisorToolResultErrorType', 'enum', "Unknown BetaRequestAdvisorToolResultErrorType: #{value}")
+    end
+  end
 end

@@ -5,330 +5,329 @@
 
 # skills domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaDeletedSkillMetadata
-  FIELDS = {
-    id: "id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaDeletedSkillType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaDeletedSkill.
-# Typed representation of the `BetaDeletedSkill` API schema.
-class BetaDeletedSkill
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaDeletedSkillMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaDeletedSkillMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaDeletedSkillMetadata::DECODERS
-
-  # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
-  attr_reader :id
-  # @return [BetaDeletedSkillType] Deleted object type. For Skills, this is always `"skill_deleted"`.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaDeletedSkillMetadata
+    FIELDS = {
+      id: 'id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaDeletedSkillType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaDeletedSkill.
+  # Typed representation of the `BetaDeletedSkill` API schema.
+  class BetaDeletedSkill
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaDeletedSkillMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaDeletedSkillMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaDeletedSkillMetadata::DECODERS
+
+    # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
+    attr_reader :id
+    # @return [BetaDeletedSkillType] Deleted object type. For Skills, this is always `"skill_deleted"`.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaDeletedSkillType SDK namespace.
+  module BetaDeletedSkillType
+    SKILL_DELETED = 'skill_deleted'
+    VALUES = ['skill_deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaDeletedSkillType SDK namespace.
-module BetaDeletedSkillType
-  SKILL_DELETED = 'skill_deleted'
-  VALUES = ['skill_deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaDeletedSkillType', 'enum', "Unknown BetaDeletedSkillType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBodyCreateSkillV1SkillsPostMetadata
-  FIELDS = {
-    files: "files",
-    display_name: "display_name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    files
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BodyCreateSkillV1SkillsPost.
-# Typed representation of the `Body_create_skill_v1_skills_post` API schema.
-class BodyCreateSkillV1SkillsPost
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::DECODERS
-
-  # @return [Array_of_String] Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
-  attr_reader :files
-  # @return [String] Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique.
-  attr_reader :display_name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaDeletedSkillType', 'enum', "Unknown BetaDeletedSkillType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBodyCreateSkillV1SkillsPostMetadata
+    FIELDS = {
+      files: 'files',
+      display_name: 'display_name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      files
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BodyCreateSkillV1SkillsPost.
+  # Typed representation of the `Body_create_skill_v1_skills_post` API schema.
+  class BodyCreateSkillV1SkillsPost
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBodyCreateSkillV1SkillsPostMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalDeletedSkillMetadata
-  FIELDS = {
-    id: "id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::DeletedSkillType.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [Array_of_String] Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
+    attr_reader :files
+    # @return [String] Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique.
+    attr_reader :display_name
 
-# API model for DeletedSkill.
-# Typed representation of the `DeletedSkill` API schema.
-class DeletedSkill
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDeletedSkillMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDeletedSkillMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDeletedSkillMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
-  attr_reader :id
-  # @return [DeletedSkillType] Deleted object type. For Skills, this is always `"skill_deleted"`.
-  attr_reader :type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalDeletedSkillMetadata
+    FIELDS = {
+      id: 'id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::DeletedSkillType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for DeletedSkill.
+  # Typed representation of the `DeletedSkill` API schema.
+  class DeletedSkill
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDeletedSkillMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDeletedSkillMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDeletedSkillMetadata::DECODERS
 
-# Defines the DeletedSkillType SDK namespace.
-module DeletedSkillType
-  SKILL_DELETED = 'skill_deleted'
-  VALUES = ['skill_deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
+    attr_reader :id
+    # @return [DeletedSkillType] Deleted object type. For Skills, this is always `"skill_deleted"`.
+    attr_reader :type
 
-    raise SdkValidationError.new('DeletedSkillType', 'enum', "Unknown DeletedSkillType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalListSkillsResponseMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::Skill.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for ListSkillsResponse.
-# Typed representation of the `ListSkillsResponse` API schema.
-class ListSkillsResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalListSkillsResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalListSkillsResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalListSkillsResponseMetadata::DECODERS
-
-  # @return [Array_of_Skill] List of skills.
-  attr_reader :data
-  # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalListSkillsResponseMetadata::NULLABLE_FIELDS)
+  # Defines the DeletedSkillType SDK namespace.
+  module DeletedSkillType
+    SKILL_DELETED = 'skill_deleted'
+    VALUES = ['skill_deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('DeletedSkillType', 'enum', "Unknown DeletedSkillType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSkillMetadata
-  FIELDS = {
-    created_at: "created_at",
-    display_name: "display_name",
-    id: "id",
-    latest_version_id: "latest_version_id",
-    source: "source",
-    type: "type",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    created_at
-    display_name
-    id
-    latest_version_id
-    source
-    type
-    updated_at
-  ].freeze
-  DECODERS = {
-    source: lambda do |value|
-      ::OctridevAnthropic::SkillSource.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::SkillType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for Skill.
-# Typed representation of the `Skill` API schema.
-class Skill
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSkillMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSkillMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSkillMetadata::DECODERS
-
-  # @return [String] ISO 8601 timestamp of when the skill was created.
-  attr_reader :created_at
-  # @return [String] Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique.
-  attr_reader :display_name
-  # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
-  attr_reader :id
-  # @return [String] ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
-  attr_reader :latest_version_id
-  # @return [SkillSource] Where the Skill comes from. Possible values: * `"custom"`: authored by the platform user; private to their workspace * `"anthropic"`: published by Anthropic; shared and read-only * `"anthropic_example"`: Anthropic-published sample Skill * `"plugin"`: resolved from an installed plugin
-  attr_reader :source
-  # @return [SkillType] Object type. For Skills, this is always `"skill"`.
-  attr_reader :type
-  # @return [String] ISO 8601 timestamp of when the skill was last updated.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalListSkillsResponseMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::Skill.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for ListSkillsResponse.
+  # Typed representation of the `ListSkillsResponse` API schema.
+  class ListSkillsResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalListSkillsResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalListSkillsResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalListSkillsResponseMetadata::DECODERS
+
+    # @return [Array_of_Skill] List of skills.
+    attr_reader :data
+    # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalListSkillsResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the SkillType SDK namespace.
-module SkillType
-  SKILL = 'skill'
-  VALUES = ['skill'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('SkillType', 'enum', "Unknown SkillType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSkillSourceMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::SkillSourceType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for SkillSource.
-# Typed representation of the `SkillSource` API schema.
-class SkillSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSkillSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSkillSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSkillSourceMetadata::DECODERS
-
-  # @return [SkillSourceType] Where the Skill comes from. Possible values: * `"custom"`: authored by the platform user; private to their workspace * `"anthropic"`: published by Anthropic; shared and read-only * `"anthropic_example"`: Anthropic-published sample Skill * `"plugin"`: resolved from an installed plugin
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSkillMetadata
+    FIELDS = {
+      created_at: 'created_at',
+      display_name: 'display_name',
+      id: 'id',
+      latest_version_id: 'latest_version_id',
+      source: 'source',
+      type: 'type',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      created_at
+      display_name
+      id
+      latest_version_id
+      source
+      type
+      updated_at
+    ].freeze
+    DECODERS = {
+      source: lambda do |value|
+        ::OctridevAnthropic::SkillSource.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::SkillType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for Skill.
+  # Typed representation of the `Skill` API schema.
+  class Skill
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSkillMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSkillMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSkillMetadata::DECODERS
+
+    # @return [String] ISO 8601 timestamp of when the skill was created.
+    attr_reader :created_at
+    # @return [String] Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique.
+    attr_reader :display_name
+    # @return [String] Unique identifier for the skill. The format and length of IDs may change over time.
+    attr_reader :id
+    # @return [String] ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
+    attr_reader :latest_version_id
+    # @return [SkillSource] Where the Skill comes from. Possible values: * `"custom"`: authored by the platform user; private to their workspace * `"anthropic"`: published by Anthropic; shared and read-only * `"anthropic_example"`: Anthropic-published sample Skill * `"plugin"`: resolved from an installed plugin
+    attr_reader :source
+    # @return [SkillType] Object type. For Skills, this is always `"skill"`.
+    attr_reader :type
+    # @return [String] ISO 8601 timestamp of when the skill was last updated.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the SkillType SDK namespace.
+  module SkillType
+    SKILL = 'skill'
+    VALUES = ['skill'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the SkillSourceType SDK namespace.
-module SkillSourceType
-  CUSTOM = 'custom'
-  ANTHROPIC = 'anthropic'
-  ANTHROPIC_EXAMPLE = 'anthropic_example'
-  PLUGIN = 'plugin'
-  VALUES = ['custom', 'anthropic', 'anthropic_example', 'plugin'].freeze
-  def self.from_value(value)
-    value
+      raise SdkValidationError.new('SkillType', 'enum', "Unknown SkillType: #{value}")
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalSkillSourceMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::SkillSourceType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for SkillSource.
+  # Typed representation of the `SkillSource` API schema.
+  class SkillSource
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSkillSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSkillSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSkillSourceMetadata::DECODERS
+
+    # @return [SkillSourceType] Where the Skill comes from. Possible values: * `"custom"`: authored by the platform user; private to their workspace * `"anthropic"`: published by Anthropic; shared and read-only * `"anthropic_example"`: Anthropic-published sample Skill * `"plugin"`: resolved from an installed plugin
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the SkillSourceType SDK namespace.
+  module SkillSourceType
+    CUSTOM = 'custom'
+    ANTHROPIC = 'anthropic'
+    ANTHROPIC_EXAMPLE = 'anthropic_example'
+    PLUGIN = 'plugin'
+    VALUES = %w[custom anthropic anthropic_example plugin].freeze
+    def self.from_value(value)
+      value
+    end
+  end
 end
