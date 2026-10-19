@@ -5,394 +5,390 @@
 
 # shared_beta_text domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaTextEditor20241022Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      input_examples: 'input_examples',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20241022Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20241022Type.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaTextEditor20241022Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    input_examples: "input_examples",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20241022Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20241022Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaTextEditor20241022.
+# Typed representation of the `BetaTextEditor_20241022` API schema.
+class BetaTextEditor20241022
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaTextEditor20241022Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaTextEditor20241022Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaTextEditor20241022Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+  attr_reader :input_examples
+  # @return [BetaTextEditor20241022Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaTextEditor20241022Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaTextEditor20241022.
-  # Typed representation of the `BetaTextEditor_20241022` API schema.
-  class BetaTextEditor20241022
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaTextEditor20241022Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaTextEditor20241022Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaTextEditor20241022Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-    attr_reader :input_examples
-    # @return [BetaTextEditor20241022Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaTextEditor20241022Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaTextEditor20241022Name SDK namespace.
-  module BetaTextEditor20241022Name
-    STR_REPLACE_EDITOR = 'str_replace_editor'
-    VALUES = ['str_replace_editor'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaTextEditor20241022Name', 'enum', "Unknown BetaTextEditor20241022Name: #{value}")
-    end
+# Defines the BetaTextEditor20241022Name SDK namespace.
+module BetaTextEditor20241022Name
+  STR_REPLACE_EDITOR = 'str_replace_editor'
+  VALUES = ['str_replace_editor'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20241022Name', 'enum', "Unknown BetaTextEditor20241022Name: #{value}")
+  end
+end
+
+# Defines the BetaTextEditor20241022Type SDK namespace.
+module BetaTextEditor20241022Type
+  TEXT_EDITOR_20241022 = 'text_editor_20241022'
+  VALUES = ['text_editor_20241022'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20241022Type', 'enum', "Unknown BetaTextEditor20241022Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaTextEditor20250124Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    input_examples: "input_examples",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250124Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250124Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaTextEditor20250124.
+# Typed representation of the `BetaTextEditor_20250124` API schema.
+class BetaTextEditor20250124
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaTextEditor20250124Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaTextEditor20250124Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaTextEditor20250124Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+  attr_reader :input_examples
+  # @return [BetaTextEditor20250124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaTextEditor20250124Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaTextEditor20241022Type SDK namespace.
-  module BetaTextEditor20241022Type
-    TEXT_EDITOR_20241022 = 'text_editor_20241022'
-    VALUES = ['text_editor_20241022'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaTextEditor20241022Type', 'enum', "Unknown BetaTextEditor20241022Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaTextEditor20250124Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      input_examples: 'input_examples',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250124Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250124Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaTextEditor20250124Name SDK namespace.
+module BetaTextEditor20250124Name
+  STR_REPLACE_EDITOR = 'str_replace_editor'
+  VALUES = ['str_replace_editor'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20250124Name', 'enum', "Unknown BetaTextEditor20250124Name: #{value}")
+  end
+end
+
+# Defines the BetaTextEditor20250124Type SDK namespace.
+module BetaTextEditor20250124Type
+  TEXT_EDITOR_20250124 = 'text_editor_20250124'
+  VALUES = ['text_editor_20250124'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20250124Type', 'enum', "Unknown BetaTextEditor20250124Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaTextEditor20250429Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    input_examples: "input_examples",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250429Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250429Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaTextEditor20250429.
+# Typed representation of the `BetaTextEditor_20250429` API schema.
+class BetaTextEditor20250429
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaTextEditor20250429Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaTextEditor20250429Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaTextEditor20250429Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+  attr_reader :input_examples
+  # @return [BetaTextEditor20250429Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaTextEditor20250429Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaTextEditor20250124.
-  # Typed representation of the `BetaTextEditor_20250124` API schema.
-  class BetaTextEditor20250124
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaTextEditor20250124Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaTextEditor20250124Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaTextEditor20250124Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-    attr_reader :input_examples
-    # @return [BetaTextEditor20250124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaTextEditor20250124Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaTextEditor20250124Name SDK namespace.
-  module BetaTextEditor20250124Name
-    STR_REPLACE_EDITOR = 'str_replace_editor'
-    VALUES = ['str_replace_editor'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaTextEditor20250124Name', 'enum', "Unknown BetaTextEditor20250124Name: #{value}")
-    end
+# Defines the BetaTextEditor20250429Name SDK namespace.
+module BetaTextEditor20250429Name
+  STR_REPLACE_BASED_EDIT_TOOL = 'str_replace_based_edit_tool'
+  VALUES = ['str_replace_based_edit_tool'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20250429Name', 'enum', "Unknown BetaTextEditor20250429Name: #{value}")
+  end
+end
+
+# Defines the BetaTextEditor20250429Type SDK namespace.
+module BetaTextEditor20250429Type
+  TEXT_EDITOR_20250429 = 'text_editor_20250429'
+  VALUES = ['text_editor_20250429'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaTextEditor20250429Type', 'enum', "Unknown BetaTextEditor20250429Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaTextEditor20250728Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    input_examples: "input_examples",
+    max_characters: "max_characters",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250728Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditor20250728Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaTextEditor20250728.
+# Typed representation of the `BetaTextEditor_20250728` API schema.
+class BetaTextEditor20250728
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaTextEditor20250728Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaTextEditor20250728Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaTextEditor20250728Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+  attr_reader :input_examples
+  # @return [Integer] Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+  attr_reader :max_characters
+  # @return [BetaTextEditor20250728Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaTextEditor20250728Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaTextEditor20250124Type SDK namespace.
-  module BetaTextEditor20250124Type
-    TEXT_EDITOR_20250124 = 'text_editor_20250124'
-    VALUES = ['text_editor_20250124'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaTextEditor20250124Type', 'enum', "Unknown BetaTextEditor20250124Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaTextEditor20250429Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      input_examples: 'input_examples',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250429Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250429Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaTextEditor20250429.
-  # Typed representation of the `BetaTextEditor_20250429` API schema.
-  class BetaTextEditor20250429
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
+# Defines the BetaTextEditor20250728Name SDK namespace.
+module BetaTextEditor20250728Name
+  STR_REPLACE_BASED_EDIT_TOOL = 'str_replace_based_edit_tool'
+  VALUES = ['str_replace_based_edit_tool'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaTextEditor20250429Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaTextEditor20250429Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaTextEditor20250429Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-    attr_reader :input_examples
-    # @return [BetaTextEditor20250429Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaTextEditor20250429Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaTextEditor20250728Name', 'enum', "Unknown BetaTextEditor20250728Name: #{value}")
   end
+end
 
-  # Defines the BetaTextEditor20250429Name SDK namespace.
-  module BetaTextEditor20250429Name
-    STR_REPLACE_BASED_EDIT_TOOL = 'str_replace_based_edit_tool'
-    VALUES = ['str_replace_based_edit_tool'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaTextEditor20250728Type SDK namespace.
+module BetaTextEditor20250728Type
+  TEXT_EDITOR_20250728 = 'text_editor_20250728'
+  VALUES = ['text_editor_20250728'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaTextEditor20250429Name', 'enum', "Unknown BetaTextEditor20250429Name: #{value}")
-    end
+    raise SdkValidationError.new('BetaTextEditor20250728Type', 'enum', "Unknown BetaTextEditor20250728Type: #{value}")
   end
+end
 
-  # Defines the BetaTextEditor20250429Type SDK namespace.
-  module BetaTextEditor20250429Type
-    TEXT_EDITOR_20250429 = 'text_editor_20250429'
-    VALUES = ['text_editor_20250429'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaTextEditor20250429Type', 'enum', "Unknown BetaTextEditor20250429Type: #{value}")
-    end
+# Defines the BetaTextEditorCodeExecutionToolResultErrorCode SDK namespace.
+module BetaTextEditorCodeExecutionToolResultErrorCode
+  INVALID_TOOL_INPUT = 'invalid_tool_input'
+  UNAVAILABLE = 'unavailable'
+  TOO_MANY_REQUESTS = 'too_many_requests'
+  EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
+  FILE_NOT_FOUND = 'file_not_found'
+  VALUES = [
+    'invalid_tool_input', 'unavailable', 'too_many_requests', 'execution_time_exceeded',
+    'file_not_found'
+  ].freeze
+  def self.from_value(value)
+    value
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaTextEditor20250728Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      input_examples: 'input_examples',
-      max_characters: 'max_characters',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250728Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditor20250728Type.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaTextEditor20250728.
-  # Typed representation of the `BetaTextEditor_20250728` API schema.
-  class BetaTextEditor20250728
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaTextEditor20250728Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaTextEditor20250728Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaTextEditor20250728Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-    attr_reader :input_examples
-    # @return [Integer] Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
-    attr_reader :max_characters
-    # @return [BetaTextEditor20250728Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaTextEditor20250728Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaTextEditor20250728Name SDK namespace.
-  module BetaTextEditor20250728Name
-    STR_REPLACE_BASED_EDIT_TOOL = 'str_replace_based_edit_tool'
-    VALUES = ['str_replace_based_edit_tool'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaTextEditor20250728Name', 'enum', "Unknown BetaTextEditor20250728Name: #{value}")
-    end
-  end
-
-  # Defines the BetaTextEditor20250728Type SDK namespace.
-  module BetaTextEditor20250728Type
-    TEXT_EDITOR_20250728 = 'text_editor_20250728'
-    VALUES = ['text_editor_20250728'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaTextEditor20250728Type', 'enum', "Unknown BetaTextEditor20250728Type: #{value}")
-    end
-  end
-
-  # Defines the BetaTextEditorCodeExecutionToolResultErrorCode SDK namespace.
-  module BetaTextEditorCodeExecutionToolResultErrorCode
-    INVALID_TOOL_INPUT = 'invalid_tool_input'
-    UNAVAILABLE = 'unavailable'
-    TOO_MANY_REQUESTS = 'too_many_requests'
-    EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
-    FILE_NOT_FOUND = 'file_not_found'
-    VALUES = %w[
-      invalid_tool_input unavailable too_many_requests execution_time_exceeded
-      file_not_found
-    ].freeze
-    def self.from_value(value)
-      value
-    end
-  end
+end
 end

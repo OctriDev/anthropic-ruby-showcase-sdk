@@ -5,76 +5,76 @@
 
 # federation_issuers domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaFederationIssuerUpdateParamsMetadata
-    FIELDS = {
-      check_jti: 'check_jti',
-      issuer_url: 'issuer_url',
-      jwks: 'jwks',
-      jwks_polling_disabled: 'jwks_polling_disabled',
-      max_jwt_lifetime_seconds: 'max_jwt_lifetime_seconds',
-      name: 'name'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      jwks: lambda do |value|
-        ::OctridevAnthropic::BetaFederationIssuerUpdateParamsJwks.from_hash(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaFederationIssuerUpdateParamsMetadata
+  FIELDS = {
+    check_jti: "check_jti",
+    issuer_url: "issuer_url",
+    jwks: "jwks",
+    jwks_polling_disabled: "jwks_polling_disabled",
+    max_jwt_lifetime_seconds: "max_jwt_lifetime_seconds",
+    name: "name",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    jwks: lambda do |value|
+      ::OctridevAnthropic::BetaFederationIssuerUpdateParamsJwks.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaFederationIssuerUpdateParams.
+# Partial update. Set fields are applied; omitted fields are unchanged. Setting `jwks` replaces the whole JWKS configuration at once.
+class BetaFederationIssuerUpdateParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::DECODERS
+
+  # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+  attr_reader :check_jti
+  # @return [String] Replaces the `iss` claim value to match against. For discovery-mode issuers without a `discovery_base`, this is also the URL Anthropic fetches the OIDC discovery document and signing keys from, so changing it repoints the JWKS source. Changing the issuer URL to a well-known shared platform is rejected while any live rule under this issuer would not constrain tenant identity.
+  attr_reader :issuer_url
+  # @return [BetaFederationIssuerUpdateParamsJwks] Replaces the entire JWKS configuration.
+  attr_reader :jwks
+  # @return [Boolean] Only `false` is accepted, to re-enable polling after the system pauses it. Polling is paused automatically; sending `true` is rejected.
+  attr_reader :jwks_polling_disabled
+  # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+  attr_reader :max_jwt_lifetime_seconds
+  # @return [String] Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+  attr_reader :name
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaFederationIssuerUpdateParams.
-  # Partial update. Set fields are applied; omitted fields are unchanged. Setting `jwks` replaces the whole JWKS configuration at once.
-  class BetaFederationIssuerUpdateParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaFederationIssuerUpdateParamsMetadata::DECODERS
-
-    # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
-    attr_reader :check_jti
-    # @return [String] Replaces the `iss` claim value to match against. For discovery-mode issuers without a `discovery_base`, this is also the URL Anthropic fetches the OIDC discovery document and signing keys from, so changing it repoints the JWKS source. Changing the issuer URL to a well-known shared platform is rejected while any live rule under this issuer would not constrain tenant identity.
-    attr_reader :issuer_url
-    # @return [BetaFederationIssuerUpdateParamsJwks] Replaces the entire JWKS configuration.
-    attr_reader :jwks
-    # @return [Boolean] Only `false` is accepted, to re-enable polling after the system pauses it. Polling is paused automatically; sending `true` is rejected.
-    attr_reader :jwks_polling_disabled
-    # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
-    attr_reader :max_jwt_lifetime_seconds
-    # @return [String] Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
-    attr_reader :name
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaFederationIssuerUpdateParamsJwks SDK namespace.
-  module BetaFederationIssuerUpdateParamsJwks
-    DISCRIMINATOR_MAPPING = {
-      'discovery' => -> { BetaJwksDiscovery },
-      'explicit_url' => -> { BetaJwksExplicitUrl },
-      'inline' => -> { BetaJwksInline }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaFederationIssuerUpdateParamsJwks', 'variant', "Unknown BetaFederationIssuerUpdateParamsJwks discriminator: #{hash['type'].inspect}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the BetaFederationIssuerUpdateParamsJwks SDK namespace.
+module BetaFederationIssuerUpdateParamsJwks
+  DISCRIMINATOR_MAPPING = {
+    "discovery" => -> { BetaJwksDiscovery },
+    "explicit_url" => -> { BetaJwksExplicitUrl },
+    "inline" => -> { BetaJwksInline },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaFederationIssuerUpdateParamsJwks', 'variant', "Unknown BetaFederationIssuerUpdateParamsJwks discriminator: #{hash["type"].inspect}")
+  end
+end
 end

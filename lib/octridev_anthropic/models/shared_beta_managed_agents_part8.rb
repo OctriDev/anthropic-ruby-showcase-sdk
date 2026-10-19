@@ -5,675 +5,665 @@
 
 # shared_beta_managed_agents domain models (part 8)
 module OctridevAnthropic
-  # Defines the BetaManagedAgentsFileDocumentSourceType SDK namespace.
-  module BetaManagedAgentsFileDocumentSourceType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaManagedAgentsFileDocumentSourceType SDK namespace.
+module BetaManagedAgentsFileDocumentSourceType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaManagedAgentsFileDocumentSourceType', 'enum', "Unknown BetaManagedAgentsFileDocumentSourceType: #{value}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsFileDocumentSourceType', 'enum', "Unknown BetaManagedAgentsFileDocumentSourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileImageSourceMetadata
+  FIELDS = {
+    type: "type",
+    file_id: "file_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    file_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileImageSourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsFileImageSource.
+# Image referenced by file ID.
+class BetaManagedAgentsFileImageSource
+  include BetaManagedAgentsImageSource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::DECODERS
+
+  # @return [BetaManagedAgentsFileImageSourceType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of a previously uploaded file.
+  attr_reader :file_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileImageSourceMetadata
-    FIELDS = {
-      type: 'type',
-      file_id: 'file_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      file_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileImageSourceType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsFileImageSource.
-  # Image referenced by file ID.
-  class BetaManagedAgentsFileImageSource
-    include BetaManagedAgentsImageSource
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileImageSourceMetadata::DECODERS
+# Defines the BetaManagedAgentsFileImageSourceType SDK namespace.
+module BetaManagedAgentsFileImageSourceType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsFileImageSourceType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of a previously uploaded file.
-    attr_reader :file_id
+    raise SdkValidationError.new('BetaManagedAgentsFileImageSourceType', 'enum', "Unknown BetaManagedAgentsFileImageSourceType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsFileNotFoundDeploymentPausedReasonError.
+# A file resource referenced by the deployment no longer exists.
+class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError
+  include BetaManagedAgentsDeploymentPausedReasonError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsFileImageSourceType SDK namespace.
-  module BetaManagedAgentsFileImageSourceType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsFileImageSourceType', 'enum', "Unknown BetaManagedAgentsFileImageSourceType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType SDK namespace.
+module BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType
+  FILE_NOT_FOUND_ERROR = 'file_not_found_error'
+  VALUES = ['file_not_found_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileNotFoundRunErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsFileNotFoundRunError.
+# A file resource referenced by the deployment no longer exists.
+class BetaManagedAgentsFileNotFoundRunError
+  include BetaManagedAgentsRunError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsFileNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Human-readable error description.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsFileNotFoundDeploymentPausedReasonError.
-  # A file resource referenced by the deployment no longer exists.
-  class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError
-    include BetaManagedAgentsDeploymentPausedReasonError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType SDK namespace.
-  module BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType
-    FILE_NOT_FOUND_ERROR = 'file_not_found_error'
-    VALUES = ['file_not_found_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType: #{value}")
-    end
+# Defines the BetaManagedAgentsFileNotFoundRunErrorType SDK namespace.
+module BetaManagedAgentsFileNotFoundRunErrorType
+  FILE_NOT_FOUND_ERROR = 'file_not_found_error'
+  VALUES = ['file_not_found_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsFileNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsFileNotFoundRunErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileResourceMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    file_id: "file_id",
+    mount_path: "mount_path",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    file_id
+    mount_path
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileResourceType.from_value(value)
+    end,
+    created_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    updated_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsFileResource.
+# Typed representation of the `BetaManagedAgentsFileResource` API schema.
+class BetaManagedAgentsFileResource
+  include BetaManagedAgentsAddSessionResource
+  include BetaManagedAgentsGetSessionResource
+  include BetaManagedAgentsSessionResource
+  include BetaManagedAgentsUpdateSessionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileResourceMetadata::DECODERS
+
+  # @return [BetaManagedAgentsFileResourceType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [String] Required `string` value serialized in the `mount_path` wire field.
+  attr_reader :mount_path
+  # @return [BetaTimestamp] A timestamp in RFC 3339 format
+  attr_reader :created_at
+  # @return [BetaTimestamp] A timestamp in RFC 3339 format
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileNotFoundRunErrorType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsFileNotFoundRunError.
-  # A file resource referenced by the deployment no longer exists.
-  class BetaManagedAgentsFileNotFoundRunError
-    include BetaManagedAgentsRunError
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileNotFoundRunErrorMetadata::DECODERS
+# Defines the BetaManagedAgentsFileResourceType SDK namespace.
+module BetaManagedAgentsFileResourceType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsFileNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Human-readable error description.
-    attr_reader :message
+    raise SdkValidationError.new('BetaManagedAgentsFileResourceType', 'enum', "Unknown BetaManagedAgentsFileResourceType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileResourceConfigMetadata
+  FIELDS = {
+    type: "type",
+    file_id: "file_id",
+    mount_path: "mount_path",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    file_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileResourceConfigType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsFileResourceConfig.
+# A file mounted into each session's container.
+class BetaManagedAgentsFileResourceConfig
+  include BetaManagedAgentsSessionResourceConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsFileResourceConfigType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of a previously uploaded file.
+  attr_reader :file_id
+  # @return [String] Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+  attr_reader :mount_path
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsFileNotFoundRunErrorType SDK namespace.
-  module BetaManagedAgentsFileNotFoundRunErrorType
-    FILE_NOT_FOUND_ERROR = 'file_not_found_error'
-    VALUES = ['file_not_found_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsFileNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsFileNotFoundRunErrorType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileResourceMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      file_id: 'file_id',
-      mount_path: 'mount_path',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      file_id
-      mount_path
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileResourceType.from_value(value)
-      end,
-      created_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      updated_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsFileResourceConfigType SDK namespace.
+module BetaManagedAgentsFileResourceConfigType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsFileResourceConfigType', 'enum', "Unknown BetaManagedAgentsFileResourceConfigType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileResourceParamsMetadata
+  FIELDS = {
+    type: "type",
+    file_id: "file_id",
+    mount_path: "mount_path",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    file_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileResourceParamsType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsFileResourceParams.
+# Mount a file uploaded via the Files API into the session.
+class BetaManagedAgentsFileResourceParams
+  include BetaManagedAgentsAddSessionResourceParams
+  include BetaManagedAgentsSessionResourceParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::DECODERS
+
+  # @return [BetaManagedAgentsFileResourceParamsType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of a previously uploaded file.
+  attr_reader :file_id
+  # @return [String] Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+  attr_reader :mount_path
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsFileResource.
-  # Typed representation of the `BetaManagedAgentsFileResource` API schema.
-  class BetaManagedAgentsFileResource
-    include BetaManagedAgentsAddSessionResource
-    include BetaManagedAgentsGetSessionResource
-    include BetaManagedAgentsSessionResource
-    include BetaManagedAgentsUpdateSessionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileResourceMetadata::DECODERS
-
-    # @return [BetaManagedAgentsFileResourceType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [String] Required `string` value serialized in the `mount_path` wire field.
-    attr_reader :mount_path
-    # @return [BetaTimestamp] A timestamp in RFC 3339 format
-    attr_reader :created_at
-    # @return [BetaTimestamp] A timestamp in RFC 3339 format
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsFileResourceType SDK namespace.
-  module BetaManagedAgentsFileResourceType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsFileResourceType', 'enum', "Unknown BetaManagedAgentsFileResourceType: #{value}")
-    end
+# Defines the BetaManagedAgentsFileResourceParamsType SDK namespace.
+module BetaManagedAgentsFileResourceParamsType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsFileResourceParamsType', 'enum', "Unknown BetaManagedAgentsFileResourceParamsType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileRubricMetadata
+  FIELDS = {
+    type: "type",
+    file_id: "file_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    file_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileRubricType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsFileRubric.
+# Rubric referenced by a file uploaded via the Files API.
+class BetaManagedAgentsFileRubric
+  include BetaManagedAgentsRubric
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileRubricMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileRubricMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileRubricMetadata::DECODERS
+
+  # @return [BetaManagedAgentsFileRubricType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the rubric file.
+  attr_reader :file_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileResourceConfigMetadata
-    FIELDS = {
-      type: 'type',
-      file_id: 'file_id',
-      mount_path: 'mount_path'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      file_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileResourceConfigType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsFileResourceConfig.
-  # A file mounted into each session's container.
-  class BetaManagedAgentsFileResourceConfig
-    include BetaManagedAgentsSessionResourceConfig
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileResourceConfigMetadata::DECODERS
+# Defines the BetaManagedAgentsFileRubricType SDK namespace.
+module BetaManagedAgentsFileRubricType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsFileResourceConfigType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of a previously uploaded file.
-    attr_reader :file_id
-    # @return [String] Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-    attr_reader :mount_path
+    raise SdkValidationError.new('BetaManagedAgentsFileRubricType', 'enum', "Unknown BetaManagedAgentsFileRubricType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsFileRubricParamsMetadata
+  FIELDS = {
+    type: "type",
+    file_id: "file_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    file_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsFileRubricParamsType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsFileRubricParams.
+# Rubric referenced by a file uploaded via the Files API.
+class BetaManagedAgentsFileRubricParams
+  include BetaManagedAgentsRubricParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsFileRubricParamsType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the rubric file.
+  attr_reader :file_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsFileResourceConfigType SDK namespace.
-  module BetaManagedAgentsFileResourceConfigType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsFileResourceConfigType', 'enum', "Unknown BetaManagedAgentsFileResourceConfigType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileResourceParamsMetadata
-    FIELDS = {
-      type: 'type',
-      file_id: 'file_id',
-      mount_path: 'mount_path'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      file_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileResourceParamsType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsFileRubricParamsType SDK namespace.
+module BetaManagedAgentsFileRubricParamsType
+  FILE = 'file'
+  VALUES = ['file'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsFileRubricParamsType', 'enum', "Unknown BetaManagedAgentsFileRubricParamsType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    url: "url",
+    mount_path: "mount_path",
+    checkout: "checkout",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    url
+    mount_path
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceType.from_value(value)
+    end,
+    checkout: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
+    end,
+    created_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    updated_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsGitHubRepositoryResource.
+# Typed representation of the `BetaManagedAgentsGitHubRepositoryResource` API schema.
+class BetaManagedAgentsGitHubRepositoryResource
+  include BetaManagedAgentsGetSessionResource
+  include BetaManagedAgentsSessionResource
+  include BetaManagedAgentsUpdateSessionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::DECODERS
+
+  # @return [BetaManagedAgentsGitHubRepositoryResourceType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `url` wire field.
+  attr_reader :url
+  # @return [String] Required `string` value serialized in the `mount_path` wire field.
+  attr_reader :mount_path
+  # @return [BetaManagedAgentsRepositoryCheckout] Optional API value serialized in the `checkout` wire field.
+  attr_reader :checkout
+  # @return [BetaTimestamp] A timestamp in RFC 3339 format
+  attr_reader :created_at
+  # @return [BetaTimestamp] A timestamp in RFC 3339 format
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsFileResourceParams.
-  # Mount a file uploaded via the Files API into the session.
-  class BetaManagedAgentsFileResourceParams
-    include BetaManagedAgentsAddSessionResourceParams
-    include BetaManagedAgentsSessionResourceParams
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileResourceParamsMetadata::DECODERS
-
-    # @return [BetaManagedAgentsFileResourceParamsType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of a previously uploaded file.
-    attr_reader :file_id
-    # @return [String] Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-    attr_reader :mount_path
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsFileResourceParamsType SDK namespace.
-  module BetaManagedAgentsFileResourceParamsType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsFileResourceParamsType', 'enum', "Unknown BetaManagedAgentsFileResourceParamsType: #{value}")
-    end
+# Defines the BetaManagedAgentsGitHubRepositoryResourceType SDK namespace.
+module BetaManagedAgentsGitHubRepositoryResourceType
+  GITHUB_REPOSITORY = 'github_repository'
+  VALUES = ['github_repository'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsGitHubRepositoryResourceType', 'enum', "Unknown BetaManagedAgentsGitHubRepositoryResourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata
+  FIELDS = {
+    type: "type",
+    url: "url",
+    mount_path: "mount_path",
+    checkout: "checkout",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    url
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceConfigType.from_value(value)
+    end,
+    checkout: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsGitHubRepositoryResourceConfig.
+# A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
+class BetaManagedAgentsGitHubRepositoryResourceConfig
+  include BetaManagedAgentsSessionResourceConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::DECODERS
+
+  # @return [BetaManagedAgentsGitHubRepositoryResourceConfigType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Github URL of the repository
+  attr_reader :url
+  # @return [String] Mount path in the container. Defaults to `/workspace/<repo-name>`.
+  attr_reader :mount_path
+  # @return [BetaManagedAgentsRepositoryCheckout] Branch or commit to check out. Defaults to the repository's default branch.
+  attr_reader :checkout
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileRubricMetadata
-    FIELDS = {
-      type: 'type',
-      file_id: 'file_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      file_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileRubricType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsFileRubric.
-  # Rubric referenced by a file uploaded via the Files API.
-  class BetaManagedAgentsFileRubric
-    include BetaManagedAgentsRubric
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileRubricMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileRubricMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileRubricMetadata::DECODERS
-
-    # @return [BetaManagedAgentsFileRubricType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the rubric file.
-    attr_reader :file_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaManagedAgentsFileRubricType SDK namespace.
-  module BetaManagedAgentsFileRubricType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaManagedAgentsGitHubRepositoryResourceConfigType SDK namespace.
+module BetaManagedAgentsGitHubRepositoryResourceConfigType
+  GITHUB_REPOSITORY = 'github_repository'
+  VALUES = ['github_repository'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaManagedAgentsFileRubricType', 'enum', "Unknown BetaManagedAgentsFileRubricType: #{value}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsGitHubRepositoryResourceConfigType', 'enum', "Unknown BetaManagedAgentsGitHubRepositoryResourceConfigType: #{value}")
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsFileRubricParamsMetadata
-    FIELDS = {
-      type: 'type',
-      file_id: 'file_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      file_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsFileRubricParamsType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsFileRubricParams.
-  # Rubric referenced by a file uploaded via the Files API.
-  class BetaManagedAgentsFileRubricParams
-    include BetaManagedAgentsRubricParams
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsFileRubricParamsMetadata::DECODERS
-
-    # @return [BetaManagedAgentsFileRubricParamsType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the rubric file.
-    attr_reader :file_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsFileRubricParamsType SDK namespace.
-  module BetaManagedAgentsFileRubricParamsType
-    FILE = 'file'
-    VALUES = ['file'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsFileRubricParamsType', 'enum', "Unknown BetaManagedAgentsFileRubricParamsType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      url: 'url',
-      mount_path: 'mount_path',
-      checkout: 'checkout',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      url
-      mount_path
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceType.from_value(value)
-      end,
-      checkout: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
-      end,
-      created_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      updated_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsGitHubRepositoryResource.
-  # Typed representation of the `BetaManagedAgentsGitHubRepositoryResource` API schema.
-  class BetaManagedAgentsGitHubRepositoryResource
-    include BetaManagedAgentsGetSessionResource
-    include BetaManagedAgentsSessionResource
-    include BetaManagedAgentsUpdateSessionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceMetadata::DECODERS
-
-    # @return [BetaManagedAgentsGitHubRepositoryResourceType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `url` wire field.
-    attr_reader :url
-    # @return [String] Required `string` value serialized in the `mount_path` wire field.
-    attr_reader :mount_path
-    # @return [BetaManagedAgentsRepositoryCheckout] Optional API value serialized in the `checkout` wire field.
-    attr_reader :checkout
-    # @return [BetaTimestamp] A timestamp in RFC 3339 format
-    attr_reader :created_at
-    # @return [BetaTimestamp] A timestamp in RFC 3339 format
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsGitHubRepositoryResourceType SDK namespace.
-  module BetaManagedAgentsGitHubRepositoryResourceType
-    GITHUB_REPOSITORY = 'github_repository'
-    VALUES = ['github_repository'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsGitHubRepositoryResourceType', 'enum', "Unknown BetaManagedAgentsGitHubRepositoryResourceType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata
-    FIELDS = {
-      type: 'type',
-      url: 'url',
-      mount_path: 'mount_path',
-      checkout: 'checkout'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      url
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceConfigType.from_value(value)
-      end,
-      checkout: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsGitHubRepositoryResourceConfig.
-  # A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
-  class BetaManagedAgentsGitHubRepositoryResourceConfig
-    include BetaManagedAgentsSessionResourceConfig
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsGitHubRepositoryResourceConfigMetadata::DECODERS
-
-    # @return [BetaManagedAgentsGitHubRepositoryResourceConfigType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Github URL of the repository
-    attr_reader :url
-    # @return [String] Mount path in the container. Defaults to `/workspace/<repo-name>`.
-    attr_reader :mount_path
-    # @return [BetaManagedAgentsRepositoryCheckout] Branch or commit to check out. Defaults to the repository's default branch.
-    attr_reader :checkout
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsGitHubRepositoryResourceConfigType SDK namespace.
-  module BetaManagedAgentsGitHubRepositoryResourceConfigType
-    GITHUB_REPOSITORY = 'github_repository'
-    VALUES = ['github_repository'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsGitHubRepositoryResourceConfigType', 'enum', "Unknown BetaManagedAgentsGitHubRepositoryResourceConfigType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsGitHubRepositoryResourceParamsMetadata
-    FIELDS = {
-      type: 'type',
-      url: 'url',
-      authorization_token: 'authorization_token',
-      mount_path: 'mount_path',
-      checkout: 'checkout'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      url
-      authorization_token
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceParamsType.from_value(value)
-      end,
-      checkout: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
-      end
-    }.freeze
-  end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsGitHubRepositoryResourceParamsMetadata
+  FIELDS = {
+    type: "type",
+    url: "url",
+    authorization_token: "authorization_token",
+    mount_path: "mount_path",
+    checkout: "checkout",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    url
+    authorization_token
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsGitHubRepositoryResourceParamsType.from_value(value)
+    end,
+    checkout: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsRepositoryCheckout.from_hash(value)
+    end,
+  }.freeze
+end
 end

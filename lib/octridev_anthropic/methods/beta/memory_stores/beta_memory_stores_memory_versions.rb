@@ -48,6 +48,7 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(created_at_gte) { Validation.validate_date_time('created_at[gte]', created_at_gte) }
 
         Validation.if_given(created_at_lte) { Validation.validate_date_time('created_at[lte]', created_at_lte) }
@@ -55,9 +56,9 @@ module OctridevAnthropic
         SdkClient.request(
           'GET',
           [
-            '/v1/memory_stores/',
+            "/v1/memory_stores/",
             SdkClient.encode_path_segment(memory_store_id),
-            '/memory_versions?beta=true'
+            "/memory_versions?beta=true"
           ].join,
           config: config,
           query: {
@@ -70,22 +71,22 @@ module OctridevAnthropic
             'created_at[lte]' => QueryValue.new(created_at_lte, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'page' => QueryValue.new(page, style: 'form', explode: true),
-            'view' => QueryValue.new(view, style: 'form', explode: true)
+            'view' => QueryValue.new(view, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaManagedAgentsListMemoryVersionsResult,
           decoder: :json,
           operation_id: 'list_beta_memory_stores_memory_versions',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse },
         ).data
       end
 
-      ListBetaMemoryStoresMemoryVersionsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    ListBetaMemoryStoresMemoryVersionsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Lists a memory store's version history, with the newest versions first. Use the available filters to narrow results by memory, actor, operation, or creation time, and use `page` to continue through the results. Choose `view` to control whether version content is included.
       #
@@ -149,11 +150,9 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
-
             cursor = next_cursor
           end
         end
@@ -200,12 +199,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaMemoryStoresMemoryVersionsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
-
             cursor = next_cursor
           end
         end
@@ -231,29 +228,30 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/v1/memory_stores/',
+            "/v1/memory_stores/",
             SdkClient.encode_path_segment(memory_store_id),
-            '/memory_versions/',
+            "/memory_versions/",
             SdkClient.encode_path_segment(memory_version_id),
-            '?beta=true'
+            "?beta=true"
           ].join,
           config: config,
           query: {
-            'view' => QueryValue.new(view, style: 'form', explode: true)
+            'view' => QueryValue.new(view, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaManagedAgentsMemoryVersion,
           decoder: :json,
           operation_id: 'retrieve_beta_memory_stores_memory_versions',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse },
         ).data
       end
 
@@ -275,26 +273,27 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/v1/memory_stores/',
+            "/v1/memory_stores/",
             SdkClient.encode_path_segment(memory_store_id),
-            '/memory_versions/',
+            "/memory_versions/",
             SdkClient.encode_path_segment(memory_version_id),
-            '/redact?beta=true'
+            "/redact?beta=true"
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::BetaManagedAgentsMemoryVersion,
           decoder: :json,
           operation_id: 'redact_beta_memory_stores_memory_versions',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '401' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '403' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '404' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '408' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '409' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '412' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '413' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '429' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '431' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '499' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '500' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '501' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '503' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse, '504' => ::OctridevAnthropic::BetaManagedAgentsErrorResponse },
         ).data
       end
     end

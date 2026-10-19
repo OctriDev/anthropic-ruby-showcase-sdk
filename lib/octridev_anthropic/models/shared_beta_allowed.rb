@@ -5,27 +5,27 @@
 
 # shared_beta_allowed domain models
 module OctridevAnthropic
-  # Defines the BetaAllowedCaller SDK namespace.
-  module BetaAllowedCaller
-    DIRECT = 'direct'
-    CODE_EXECUTION_20250825 = 'code_execution_20250825'
-    CODE_EXECUTION_20260120 = 'code_execution_20260120'
-    CODE_EXECUTION_20260521 = 'code_execution_20260521'
-    VALUES = %w[
-      direct code_execution_20250825 code_execution_20260120 code_execution_20260521
-    ].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaAllowedCaller SDK namespace.
+module BetaAllowedCaller
+  DIRECT = 'direct'
+  CODE_EXECUTION_20250825 = 'code_execution_20250825'
+  CODE_EXECUTION_20260120 = 'code_execution_20260120'
+  CODE_EXECUTION_20260521 = 'code_execution_20260521'
+  VALUES = [
+    'direct', 'code_execution_20250825', 'code_execution_20260120', 'code_execution_20260521'
+  ].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Defines the BetaAllowedInferenceGeo SDK namespace.
-  module BetaAllowedInferenceGeo
-    GLOBAL = 'global'
-    US = 'us'
-    VALUES = %w[global us].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaAllowedInferenceGeo SDK namespace.
+module BetaAllowedInferenceGeo
+  GLOBAL = 'global'
+  US = 'us'
+  VALUES = ['global', 'us'].freeze
+  def self.from_value(value)
+    value
   end
+end
 end

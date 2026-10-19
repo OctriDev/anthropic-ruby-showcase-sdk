@@ -5,153 +5,155 @@
 
 # sessions domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsDeletedSessionMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsDeletedSessionType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsDeletedSessionMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsDeletedSessionType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsDeletedSession.
+# Confirmation that a `session` has been permanently deleted.
+class BetaManagedAgentsDeletedSession
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::DECODERS
+
+  # @return [BetaManagedAgentsDeletedSessionType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsDeletedSession.
-  # Confirmation that a `session` has been permanently deleted.
-  class BetaManagedAgentsDeletedSession
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsDeletedSessionMetadata::DECODERS
-
-    # @return [BetaManagedAgentsDeletedSessionType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsDeletedSessionType SDK namespace.
-  module BetaManagedAgentsDeletedSessionType
-    SESSION_DELETED = 'session_deleted'
-    VALUES = ['session_deleted'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsDeletedSessionType SDK namespace.
+module BetaManagedAgentsDeletedSessionType
+  SESSION_DELETED = 'session_deleted'
+  VALUES = ['session_deleted'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata
+  FIELDS = {
+    tools: "tools",
+    mcp_servers: "mcp_servers",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    tools: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
+    end,
+    mcp_servers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionAgentUpdate.
+# Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
+class BetaManagedAgentsSessionAgentUpdate
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsAgentToolParams] Replacement tool list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
+  attr_reader :tools
+  # @return [Array_of_BetaManagedAgentsMCPServerParams] Replacement MCP server list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
+  attr_reader :mcp_servers
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata
-    FIELDS = {
-      tools: 'tools',
-      mcp_servers: 'mcp_servers'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      tools: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
-      end,
-      mcp_servers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSessionAgentUpdate.
-  # Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
-  class BetaManagedAgentsSessionAgentUpdate
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionAgentUpdateMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Array_of_BetaManagedAgentsAgentToolParams] Replacement tool list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
-    attr_reader :tools
-    # @return [Array_of_BetaManagedAgentsMCPServerParams] Replacement MCP server list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
-    attr_reader :mcp_servers
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata
+  FIELDS = {
+    title: "title",
+    metadata: "metadata",
+    vault_ids: "vault_ids",
+    agent: "agent",
+    budget: "budget",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    agent: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionAgentUpdate.from_hash(value)
+    end,
+    budget: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsBudget.from_hash(value)
+    end,
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for BetaManagedAgentsUpdateSessionParams.
+# Request parameters for updating a `session`. Omit a field to preserve its current value.
+class BetaManagedAgentsUpdateSessionParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [String] Human-readable session title.
+  attr_reader :title
+  # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
+  attr_reader :metadata
+  # @return [Array_of_String] Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
+  attr_reader :vault_ids
+  # @return [BetaManagedAgentsSessionAgentUpdate] Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
+  attr_reader :agent
+  # @return [BetaManagedAgentsBudget] Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the…
+  attr_reader :budget
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata
-    FIELDS = {
-      title: 'title',
-      metadata: 'metadata',
-      vault_ids: 'vault_ids',
-      agent: 'agent',
-      budget: 'budget'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      agent: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionAgentUpdate.from_hash(value)
-      end,
-      budget: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsBudget.from_hash(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsUpdateSessionParams.
-  # Request parameters for updating a `session`. Omit a field to preserve its current value.
-  class BetaManagedAgentsUpdateSessionParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsUpdateSessionParamsMetadata::DECODERS
-
-    # @return [String] Human-readable session title.
-    attr_reader :title
-    # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
-    attr_reader :metadata
-    # @return [Array_of_String] Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
-    attr_reader :vault_ids
-    # @return [BetaManagedAgentsSessionAgentUpdate] Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
-    attr_reader :agent
-    # @return [BetaManagedAgentsBudget] Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the…
-    attr_reader :budget
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

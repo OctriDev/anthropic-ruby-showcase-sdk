@@ -5,236 +5,234 @@
 
 # shared_beta_self domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaSelfHostedConfigMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaSelfHostedConfigType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaSelfHostedConfigMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaSelfHostedConfigType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaSelfHostedConfig.
+# Configuration for self-hosted environments.
+class BetaSelfHostedConfig
+  include BetaEnvironmentConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaSelfHostedConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaSelfHostedConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaSelfHostedConfigMetadata::DECODERS
+
+  # @return [BetaSelfHostedConfigType] Environment type
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaSelfHostedConfig.
-  # Configuration for self-hosted environments.
-  class BetaSelfHostedConfig
-    include BetaEnvironmentConfig
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaSelfHostedConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaSelfHostedConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaSelfHostedConfigMetadata::DECODERS
-
-    # @return [BetaSelfHostedConfigType] Environment type
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaSelfHostedConfigType SDK namespace.
-  module BetaSelfHostedConfigType
-    SELF_HOSTED = 'self_hosted'
-    VALUES = ['self_hosted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaSelfHostedConfigType', 'enum', "Unknown BetaSelfHostedConfigType: #{value}")
-    end
+# Defines the BetaSelfHostedConfigType SDK namespace.
+module BetaSelfHostedConfigType
+  SELF_HOSTED = 'self_hosted'
+  VALUES = ['self_hosted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaSelfHostedConfigType', 'enum', "Unknown BetaSelfHostedConfigType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaSelfHostedConfigParamsMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaSelfHostedConfigParamsType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaSelfHostedConfigParams.
+# Request params for `self_hosted` environment configuration.
+class BetaSelfHostedConfigParams
+  include BetaPublicEnvironmentCreateRequestConfig
+  include BetaPublicEnvironmentUpdateRequestConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaSelfHostedConfigParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaSelfHostedConfigParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaSelfHostedConfigParamsMetadata::DECODERS
+
+  # @return [BetaSelfHostedConfigParamsType] Environment type
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaSelfHostedConfigParamsMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaSelfHostedConfigParamsType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaSelfHostedConfigParams.
-  # Request params for `self_hosted` environment configuration.
-  class BetaSelfHostedConfigParams
-    include BetaPublicEnvironmentCreateRequestConfig
-    include BetaPublicEnvironmentUpdateRequestConfig
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaSelfHostedConfigParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaSelfHostedConfigParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaSelfHostedConfigParamsMetadata::DECODERS
+# Defines the BetaSelfHostedConfigParamsType SDK namespace.
+module BetaSelfHostedConfigParamsType
+  SELF_HOSTED = 'self_hosted'
+  VALUES = ['self_hosted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaSelfHostedConfigParamsType] Environment type
-    attr_reader :type
+    raise SdkValidationError.new('BetaSelfHostedConfigParamsType', 'enum', "Unknown BetaSelfHostedConfigParamsType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaSelfHostedWorkMetadata
+  FIELDS = {
+    acknowledged_at: "acknowledged_at",
+    created_at: "created_at",
+    data: "data",
+    environment_id: "environment_id",
+    id: "id",
+    latest_heartbeat_at: "latest_heartbeat_at",
+    metadata: "metadata",
+    secret: "secret",
+    started_at: "started_at",
+    state: "state",
+    stop_requested_at: "stop_requested_at",
+    stopped_at: "stopped_at",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    acknowledged_at
+    created_at
+    data
+    environment_id
+    id
+    latest_heartbeat_at
+    metadata
+    secret
+    started_at
+    state
+    stop_requested_at
+    stopped_at
+    type
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      ::OctridevAnthropic::BetaSessionWorkData.from_hash(value)
+    end,
+    state: lambda do |value|
+      ::OctridevAnthropic::BetaSelfHostedWorkState.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaSelfHostedWorkType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    acknowledged_at
+    latest_heartbeat_at
+    secret
+    started_at
+    stop_requested_at
+    stopped_at
+  ].freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaSelfHostedWork.
+# Work resource representing a unit of work in a self-hosted environment. Work items are queued when sessions are created or when long-dormant sessions receive new messages. The environment worker polls for work to execute in a self-hosted sandbox.
+class BetaSelfHostedWork
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaSelfHostedWorkMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaSelfHostedWorkMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
+  attr_reader :acknowledged_at
+  # @return [String] RFC 3339 timestamp when work was created
+  attr_reader :created_at
+  # @return [BetaSessionWorkData] The actual work to be performed
+  attr_reader :data
+  # @return [String] Environment identifier this work belongs to (e.g., `env_...`)
+  attr_reader :environment_id
+  # @return [String] Work identifier (e.g., 'work_...')
+  attr_reader :id
+  # @return [String] RFC 3339 timestamp of the most recent heartbeat
+  attr_reader :latest_heartbeat_at
+  # @return [Hash] User-provided metadata key-value pairs associated with this work item
+  attr_reader :metadata
+  # @return [String] Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+  attr_reader :secret
+  # @return [String] RFC 3339 timestamp when work execution started
+  attr_reader :started_at
+  # @return [BetaSelfHostedWorkState] Current state of the work item
+  attr_reader :state
+  # @return [String] RFC 3339 timestamp when stop was requested
+  attr_reader :stop_requested_at
+  # @return [String] RFC 3339 timestamp when work execution stopped
+  attr_reader :stopped_at
+  # @return [BetaSelfHostedWorkType] The type of object (always 'work')
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaSelfHostedConfigParamsType SDK namespace.
-  module BetaSelfHostedConfigParamsType
-    SELF_HOSTED = 'self_hosted'
-    VALUES = ['self_hosted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaSelfHostedConfigParamsType', 'enum', "Unknown BetaSelfHostedConfigParamsType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaSelfHostedWorkMetadata
-    FIELDS = {
-      acknowledged_at: 'acknowledged_at',
-      created_at: 'created_at',
-      data: 'data',
-      environment_id: 'environment_id',
-      id: 'id',
-      latest_heartbeat_at: 'latest_heartbeat_at',
-      metadata: 'metadata',
-      secret: 'secret',
-      started_at: 'started_at',
-      state: 'state',
-      stop_requested_at: 'stop_requested_at',
-      stopped_at: 'stopped_at',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      acknowledged_at
-      created_at
-      data
-      environment_id
-      id
-      latest_heartbeat_at
-      metadata
-      secret
-      started_at
-      state
-      stop_requested_at
-      stopped_at
-      type
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        ::OctridevAnthropic::BetaSessionWorkData.from_hash(value)
-      end,
-      state: lambda do |value|
-        ::OctridevAnthropic::BetaSelfHostedWorkState.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaSelfHostedWorkType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      acknowledged_at
-      latest_heartbeat_at
-      secret
-      started_at
-      stop_requested_at
-      stopped_at
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaSelfHostedWork.
-  # Work resource representing a unit of work in a self-hosted environment. Work items are queued when sessions are created or when long-dormant sessions receive new messages. The environment worker polls for work to execute in a self-hosted sandbox.
-  class BetaSelfHostedWork
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaSelfHostedWorkMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaSelfHostedWorkMetadata::DECODERS
-
-    # @return [String] RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
-    attr_reader :acknowledged_at
-    # @return [String] RFC 3339 timestamp when work was created
-    attr_reader :created_at
-    # @return [BetaSessionWorkData] The actual work to be performed
-    attr_reader :data
-    # @return [String] Environment identifier this work belongs to (e.g., `env_...`)
-    attr_reader :environment_id
-    # @return [String] Work identifier (e.g., 'work_...')
-    attr_reader :id
-    # @return [String] RFC 3339 timestamp of the most recent heartbeat
-    attr_reader :latest_heartbeat_at
-    # @return [Hash] User-provided metadata key-value pairs associated with this work item
-    attr_reader :metadata
-    # @return [String] Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
-    attr_reader :secret
-    # @return [String] RFC 3339 timestamp when work execution started
-    attr_reader :started_at
-    # @return [BetaSelfHostedWorkState] Current state of the work item
-    attr_reader :state
-    # @return [String] RFC 3339 timestamp when stop was requested
-    attr_reader :stop_requested_at
-    # @return [String] RFC 3339 timestamp when work execution stopped
-    attr_reader :stopped_at
-    # @return [BetaSelfHostedWorkType] The type of object (always 'work')
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# Defines the BetaSelfHostedWorkState SDK namespace.
+module BetaSelfHostedWorkState
+  QUEUED = 'queued'
+  STARTING = 'starting'
+  ACTIVE = 'active'
+  STOPPING = 'stopping'
+  STOPPED = 'stopped'
+  VALUES = ['queued', 'starting', 'active', 'stopping', 'stopped'].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Defines the BetaSelfHostedWorkState SDK namespace.
-  module BetaSelfHostedWorkState
-    QUEUED = 'queued'
-    STARTING = 'starting'
-    ACTIVE = 'active'
-    STOPPING = 'stopping'
-    STOPPED = 'stopped'
-    VALUES = %w[queued starting active stopping stopped].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaSelfHostedWorkType SDK namespace.
+module BetaSelfHostedWorkType
+  WORK = 'work'
+  VALUES = ['work'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaSelfHostedWorkType', 'enum', "Unknown BetaSelfHostedWorkType: #{value}")
   end
-
-  # Defines the BetaSelfHostedWorkType SDK namespace.
-  module BetaSelfHostedWorkType
-    WORK = 'work'
-    VALUES = ['work'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaSelfHostedWorkType', 'enum', "Unknown BetaSelfHostedWorkType: #{value}")
-    end
-  end
+end
 end

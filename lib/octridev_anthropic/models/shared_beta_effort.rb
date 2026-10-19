@@ -5,91 +5,91 @@
 
 # shared_beta_effort domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaEffortCapabilityMetadata
-    FIELDS = {
-      high: 'high',
-      low: 'low',
-      max: 'max',
-      medium: 'medium',
-      supported: 'supported',
-      xhigh: 'xhigh'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      high
-      low
-      max
-      medium
-      supported
-      xhigh
-    ].freeze
-    DECODERS = {
-      high: lambda do |value|
-        ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
-      end,
-      low: lambda do |value|
-        ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
-      end,
-      max: lambda do |value|
-        ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
-      end,
-      medium: lambda do |value|
-        ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
-      end,
-      xhigh: lambda do |value|
-        ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      xhigh
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaEffortCapabilityMetadata
+  FIELDS = {
+    high: "high",
+    low: "low",
+    max: "max",
+    medium: "medium",
+    supported: "supported",
+    xhigh: "xhigh",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    high
+    low
+    max
+    medium
+    supported
+    xhigh
+  ].freeze
+  DECODERS = {
+    high: lambda do |value|
+      ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
+    end,
+    low: lambda do |value|
+      ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
+    end,
+    max: lambda do |value|
+      ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
+    end,
+    medium: lambda do |value|
+      ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
+    end,
+    xhigh: lambda do |value|
+      ::OctridevAnthropic::BetaCapabilitySupport.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    xhigh
+  ].freeze
+end
+
+# API model for BetaEffortCapability.
+# Effort (reasoning_effort) capability details.
+class BetaEffortCapability
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaEffortCapabilityMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaEffortCapabilityMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaEffortCapabilityMetadata::DECODERS
+
+  # @return [BetaCapabilitySupport] Whether the model supports high effort level.
+  attr_reader :high
+  # @return [BetaCapabilitySupport] Whether the model supports low effort level.
+  attr_reader :low
+  # @return [BetaCapabilitySupport] Whether the model supports max effort level.
+  attr_reader :max
+  # @return [BetaCapabilitySupport] Whether the model supports medium effort level.
+  attr_reader :medium
+  # @return [Boolean] Whether this capability is supported by the model.
+  attr_reader :supported
+  # @return [BetaCapabilitySupport] Whether the model supports xhigh effort level.
+  attr_reader :xhigh
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaEffortCapability.
-  # Effort (reasoning_effort) capability details.
-  class BetaEffortCapability
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaEffortCapabilityMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaEffortCapabilityMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaEffortCapabilityMetadata::DECODERS
-
-    # @return [BetaCapabilitySupport] Whether the model supports high effort level.
-    attr_reader :high
-    # @return [BetaCapabilitySupport] Whether the model supports low effort level.
-    attr_reader :low
-    # @return [BetaCapabilitySupport] Whether the model supports max effort level.
-    attr_reader :max
-    # @return [BetaCapabilitySupport] Whether the model supports medium effort level.
-    attr_reader :medium
-    # @return [Boolean] Whether this capability is supported by the model.
-    attr_reader :supported
-    # @return [BetaCapabilitySupport] Whether the model supports xhigh effort level.
-    attr_reader :xhigh
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEffortCapabilityMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEffortCapabilityMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaEffortLevel SDK namespace.
-  module BetaEffortLevel
-    LOW = 'low'
-    MEDIUM = 'medium'
-    HIGH = 'high'
-    XHIGH = 'xhigh'
-    MAX = 'max'
-    VALUES = %w[low medium high xhigh max].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the BetaEffortLevel SDK namespace.
+module BetaEffortLevel
+  LOW = 'low'
+  MEDIUM = 'medium'
+  HIGH = 'high'
+  XHIGH = 'xhigh'
+  MAX = 'max'
+  VALUES = ['low', 'medium', 'high', 'xhigh', 'max'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end

@@ -5,101 +5,102 @@
 
 # memory_stores_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata
-    FIELDS = {
-      name: 'name',
-      description: 'description',
-      metadata: 'metadata'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata
+  FIELDS = {
+    name: "name",
+    description: "description",
+    metadata: "metadata",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaManagedAgentsCreateMemoryStoreRequest.
+# Request parameters for creating a `memory_store`.
+class BetaManagedAgentsCreateMemoryStoreRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::DECODERS
+
+  # @return [String] Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
+  attr_reader :name
+  # @return [String] Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
+  attr_reader :description
+  # @return [Hash] Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
+  attr_reader :metadata
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsCreateMemoryStoreRequest.
-  # Request parameters for creating a `memory_store`.
-  class BetaManagedAgentsCreateMemoryStoreRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsCreateMemoryStoreRequestMetadata::DECODERS
-
-    # @return [String] Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
-    attr_reader :name
-    # @return [String] Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
-    attr_reader :description
-    # @return [Hash] Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
-    attr_reader :metadata
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsCreateMemoryStoreResponse SDK namespace.
-  module BetaManagedAgentsCreateMemoryStoreResponse
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      mapping = { 'memory_store' => BetaManagedAgentsMemoryStore }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
+# Defines the BetaManagedAgentsCreateMemoryStoreResponse SDK namespace.
+module BetaManagedAgentsCreateMemoryStoreResponse
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "memory_store" => BetaManagedAgentsMemoryStore }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      raise SdkValidationError.new('BetaManagedAgentsCreateMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsCreateMemoryStoreResponse discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsCreateMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsCreateMemoryStoreResponse discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMemoryStore.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListMemoryStoresResponse.
+# A page of `memory_store` results, ordered by `created_at` descending (newest first).
+class BetaManagedAgentsListMemoryStoresResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsMemoryStore] Memory stores on this page, newest first. Empty when there are no stores matching the filters.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMemoryStore.from_hash(item) }
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsListMemoryStoresResponse.
-  # A page of `memory_store` results, ordered by `created_at` descending (newest first).
-  class BetaManagedAgentsListMemoryStoresResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListMemoryStoresResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsMemoryStore] Memory stores on this page, newest first. Empty when there are no stores matching the filters.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

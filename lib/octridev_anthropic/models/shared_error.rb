@@ -5,94 +5,93 @@
 
 # shared_error domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalErrorResponseMetadata
-    FIELDS = {
-      error: 'error',
-      request_id: 'request_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      error
-      request_id
-      type
-    ].freeze
-    DECODERS = {
-      error: lambda do |value|
-        ::OctridevAnthropic::ErrorResponseError.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::ErrorResponseType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      request_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalErrorResponseMetadata
+  FIELDS = {
+    error: "error",
+    request_id: "request_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    error
+    request_id
+    type
+  ].freeze
+  DECODERS = {
+    error: lambda do |value|
+      ::OctridevAnthropic::ErrorResponseError.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::ErrorResponseType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    request_id
+  ].freeze
+end
+
+# API model for ErrorResponse.
+# Typed representation of the `ErrorResponse` API schema.
+class ErrorResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalErrorResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalErrorResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalErrorResponseMetadata::DECODERS
+
+  # @return [ErrorResponseError] Required API value serialized in the `error` wire field.
+  attr_reader :error
+  # @return [String] Required `string` value serialized in the `request_id` wire field.
+  attr_reader :request_id
+  # @return [ErrorResponseType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for ErrorResponse.
-  # Typed representation of the `ErrorResponse` API schema.
-  class ErrorResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalErrorResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalErrorResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalErrorResponseMetadata::DECODERS
-
-    # @return [ErrorResponseError] Required API value serialized in the `error` wire field.
-    attr_reader :error
-    # @return [String] Required `string` value serialized in the `request_id` wire field.
-    attr_reader :request_id
-    # @return [ErrorResponseType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalErrorResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalErrorResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the ErrorResponseType SDK namespace.
-  module ErrorResponseType
-    ERROR = 'error'
-    VALUES = ['error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('ErrorResponseType', 'enum', "Unknown ErrorResponseType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the ErrorResponseError SDK namespace.
-  module ErrorResponseError
-    DISCRIMINATOR_MAPPING = {
-      'api_error' => -> { APIError },
-      'authentication_error' => -> { AuthenticationError },
-      'billing_error' => -> { BillingError },
-      'invalid_request_error' => -> { InvalidRequestError },
-      'not_found_error' => -> { NotFoundError },
-      'overloaded_error' => -> { OverloadedError },
-      'permission_error' => -> { PermissionError },
-      'rate_limit_error' => -> { RateLimitError },
-      'timeout_error' => -> { GatewayTimeoutError }
-    }.freeze
+# Defines the ErrorResponseType SDK namespace.
+module ErrorResponseType
+  ERROR = 'error'
+  VALUES = ['error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('ErrorResponseError', 'variant', "Unknown ErrorResponseError discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('ErrorResponseType', 'enum', "Unknown ErrorResponseType: #{value}")
   end
+end
+
+# Defines the ErrorResponseError SDK namespace.
+module ErrorResponseError
+  DISCRIMINATOR_MAPPING = {
+    "api_error" => -> { APIError },
+    "authentication_error" => -> { AuthenticationError },
+    "billing_error" => -> { BillingError },
+    "invalid_request_error" => -> { InvalidRequestError },
+    "not_found_error" => -> { NotFoundError },
+    "overloaded_error" => -> { OverloadedError },
+    "permission_error" => -> { PermissionError },
+    "rate_limit_error" => -> { RateLimitError },
+    "timeout_error" => -> { GatewayTimeoutError },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('ErrorResponseError', 'variant', "Unknown ErrorResponseError discriminator: #{hash["type"].inspect}")
+  end
+end
 end

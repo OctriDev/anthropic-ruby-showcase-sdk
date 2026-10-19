@@ -5,459 +5,451 @@
 
 # shared_beta_request_text domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      citations: 'citations',
-      text: 'text',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      text
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRequestTextBlockCitationsItem.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    citations: "citations",
+    text: "text",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    text
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRequestTextBlockCitationsItem.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextBlock.
+# Typed representation of the `BetaRequestTextBlock` API schema.
+class BetaRequestTextBlock
+  include BetaInputContentBlock
+  include BetaContentBlockSourceContentItem
+  include BetaRequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Array_of_BetaRequestTextBlockCitationsItem] Optional array value serialized in the `citations` wire field.
+  attr_reader :citations
+  # @return [String] Required `string` value serialized in the `text` wire field.
+  attr_reader :text
+  # @return [BetaRequestTextBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestTextBlock.
-  # Typed representation of the `BetaRequestTextBlock` API schema.
-  class BetaRequestTextBlock
-    include BetaInputContentBlock
-    include BetaContentBlockSourceContentItem
-    include BetaRequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Array_of_BetaRequestTextBlockCitationsItem] Optional array value serialized in the `citations` wire field.
-    attr_reader :citations
-    # @return [String] Required `string` value serialized in the `text` wire field.
-    attr_reader :text
-    # @return [BetaRequestTextBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestTextBlockType SDK namespace.
-  module BetaRequestTextBlockType
-    TEXT = 'text'
-    VALUES = ['text'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestTextBlockType', 'enum', "Unknown BetaRequestTextBlockType: #{value}")
-    end
+# Defines the BetaRequestTextBlockType SDK namespace.
+module BetaRequestTextBlockType
+  TEXT = 'text'
+  VALUES = ['text'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestTextBlockType', 'enum', "Unknown BetaRequestTextBlockType: #{value}")
+  end
+end
+
+# Defines the BetaRequestTextBlockCitationsItem SDK namespace.
+module BetaRequestTextBlockCitationsItem
+  DISCRIMINATOR_MAPPING = {
+    "char_location" => -> { BetaRequestCharLocationCitation },
+    "content_block_location" => -> { BetaRequestContentBlockLocationCitation },
+    "page_location" => -> { BetaRequestPageLocationCitation },
+    "search_result_location" => -> { BetaRequestSearchResultLocationCitation },
+    "web_search_result_location" => -> { BetaRequestWebSearchResultLocationCitation },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestTextBlockCitationsItem', 'variant', "Unknown BetaRequestTextBlockCitationsItem discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata
+  FIELDS = {
+    is_file_update: "is_file_update",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    is_file_update
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionCreateResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextEditorCodeExecutionCreateResultBlock.
+# Typed representation of the `BetaRequestTextEditorCodeExecutionCreateResultBlock` API schema.
+class BetaRequestTextEditorCodeExecutionCreateResultBlock
+  include BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::DECODERS
+
+  # @return [Boolean] Required `boolean` value serialized in the `is_file_update` wire field.
+  attr_reader :is_file_update
+  # @return [BetaRequestTextEditorCodeExecutionCreateResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestTextBlockCitationsItem SDK namespace.
-  module BetaRequestTextBlockCitationsItem
-    DISCRIMINATOR_MAPPING = {
-      'char_location' => -> { BetaRequestCharLocationCitation },
-      'content_block_location' => -> { BetaRequestContentBlockLocationCitation },
-      'page_location' => -> { BetaRequestPageLocationCitation },
-      'search_result_location' => -> { BetaRequestSearchResultLocationCitation },
-      'web_search_result_location' => -> { BetaRequestWebSearchResultLocationCitation }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestTextBlockCitationsItem', 'variant', "Unknown BetaRequestTextBlockCitationsItem discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata
-    FIELDS = {
-      is_file_update: 'is_file_update',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      is_file_update
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionCreateResultBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaRequestTextEditorCodeExecutionCreateResultBlockType SDK namespace.
+module BetaRequestTextEditorCodeExecutionCreateResultBlockType
+  TEXT_EDITOR_CODE_EXECUTION_CREATE_RESULT = 'text_editor_code_execution_create_result'
+  VALUES = ['text_editor_code_execution_create_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionCreateResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionCreateResultBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata
+  FIELDS = {
+    lines: "lines",
+    new_lines: "new_lines",
+    new_start: "new_start",
+    old_lines: "old_lines",
+    old_start: "old_start",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextEditorCodeExecutionStrReplaceResultBlock.
+# Typed representation of the `BetaRequestTextEditorCodeExecutionStrReplaceResultBlock` API schema.
+class BetaRequestTextEditorCodeExecutionStrReplaceResultBlock
+  include BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::DECODERS
+
+  # @return [Array_of_String] Optional array value serialized in the `lines` wire field.
+  attr_reader :lines
+  # @return [Integer] Optional `integer` value serialized in the `new_lines` wire field.
+  attr_reader :new_lines
+  # @return [Integer] Optional `integer` value serialized in the `new_start` wire field.
+  attr_reader :new_start
+  # @return [Integer] Optional `integer` value serialized in the `old_lines` wire field.
+  attr_reader :old_lines
+  # @return [Integer] Optional `integer` value serialized in the `old_start` wire field.
+  attr_reader :old_start
+  # @return [BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestTextEditorCodeExecutionCreateResultBlock.
-  # Typed representation of the `BetaRequestTextEditorCodeExecutionCreateResultBlock` API schema.
-  class BetaRequestTextEditorCodeExecutionCreateResultBlock
-    include BetaRequestTextEditorCodeExecutionToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionCreateResultBlockMetadata::DECODERS
-
-    # @return [Boolean] Required `boolean` value serialized in the `is_file_update` wire field.
-    attr_reader :is_file_update
-    # @return [BetaRequestTextEditorCodeExecutionCreateResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestTextEditorCodeExecutionCreateResultBlockType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionCreateResultBlockType
-    TEXT_EDITOR_CODE_EXECUTION_CREATE_RESULT = 'text_editor_code_execution_create_result'
-    VALUES = ['text_editor_code_execution_create_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionCreateResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionCreateResultBlockType: #{value}")
-    end
+# Defines the BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType SDK namespace.
+module BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType
+  TEXT_EDITOR_CODE_EXECUTION_STR_REPLACE_RESULT = 'text_editor_code_execution_str_replace_result'
+  VALUES = ['text_editor_code_execution_str_replace_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    content: "content",
+    tool_use_id: "tool_use_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    tool_use_id
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    content: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultBlockContent.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextEditorCodeExecutionToolResultBlock.
+# Typed representation of the `BetaRequestTextEditorCodeExecutionToolResultBlock` API schema.
+class BetaRequestTextEditorCodeExecutionToolResultBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestTextEditorCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+  attr_reader :tool_use_id
+  # @return [BetaRequestTextEditorCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata
-    FIELDS = {
-      lines: 'lines',
-      new_lines: 'new_lines',
-      new_start: 'new_start',
-      old_lines: 'old_lines',
-      old_start: 'old_start',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestTextEditorCodeExecutionStrReplaceResultBlock.
-  # Typed representation of the `BetaRequestTextEditorCodeExecutionStrReplaceResultBlock` API schema.
-  class BetaRequestTextEditorCodeExecutionStrReplaceResultBlock
-    include BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionStrReplaceResultBlockMetadata::DECODERS
+# Defines the BetaRequestTextEditorCodeExecutionToolResultBlockType SDK namespace.
+module BetaRequestTextEditorCodeExecutionToolResultBlockType
+  TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT = 'text_editor_code_execution_tool_result'
+  VALUES = ['text_editor_code_execution_tool_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [Array_of_String] Optional array value serialized in the `lines` wire field.
-    attr_reader :lines
-    # @return [Integer] Optional `integer` value serialized in the `new_lines` wire field.
-    attr_reader :new_lines
-    # @return [Integer] Optional `integer` value serialized in the `new_start` wire field.
-    attr_reader :new_start
-    # @return [Integer] Optional `integer` value serialized in the `old_lines` wire field.
-    attr_reader :old_lines
-    # @return [Integer] Optional `integer` value serialized in the `old_start` wire field.
-    attr_reader :old_start
-    # @return [BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionToolResultBlockType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Defines the BetaRequestTextEditorCodeExecutionToolResultBlockContent SDK namespace.
+module BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  DISCRIMINATOR_MAPPING = {
+    "text_editor_code_execution_tool_result_error" => -> { BetaRequestTextEditorCodeExecutionToolResultError },
+    "text_editor_code_execution_view_result" => -> { BetaRequestTextEditorCodeExecutionViewResultBlock },
+    "text_editor_code_execution_create_result" => -> { BetaRequestTextEditorCodeExecutionCreateResultBlock },
+    "text_editor_code_execution_str_replace_result" => -> { BetaRequestTextEditorCodeExecutionStrReplaceResultBlock },
+  }.freeze
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultBlockContent', 'variant', "Unknown BetaRequestTextEditorCodeExecutionToolResultBlockContent discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata
+  FIELDS = {
+    error_code: "error_code",
+    error_message: "error_message",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    error_code
+    type
+  ].freeze
+  DECODERS = {
+    error_code: lambda do |value|
+      ::OctridevAnthropic::BetaTextEditorCodeExecutionToolResultErrorCode.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextEditorCodeExecutionToolResultError.
+# Typed representation of the `BetaRequestTextEditorCodeExecutionToolResultError` API schema.
+class BetaRequestTextEditorCodeExecutionToolResultError
+  include BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::DECODERS
+
+  # @return [BetaTextEditorCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+  attr_reader :error_code
+  # @return [String] Optional `string` value serialized in the `error_message` wire field.
+  attr_reader :error_message
+  # @return [BetaRequestTextEditorCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType
-    TEXT_EDITOR_CODE_EXECUTION_STR_REPLACE_RESULT = 'text_editor_code_execution_str_replace_result'
-    VALUES = ['text_editor_code_execution_str_replace_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionStrReplaceResultBlockType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      content: 'content',
-      tool_use_id: 'tool_use_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      tool_use_id
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      content: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultBlockContent.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaRequestTextEditorCodeExecutionToolResultErrorType SDK namespace.
+module BetaRequestTextEditorCodeExecutionToolResultErrorType
+  TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT_ERROR = 'text_editor_code_execution_tool_result_error'
+  VALUES = ['text_editor_code_execution_tool_result_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultErrorType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionToolResultErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata
+  FIELDS = {
+    content: "content",
+    file_type: "file_type",
+    num_lines: "num_lines",
+    start_line: "start_line",
+    total_lines: "total_lines",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    file_type
+    type
+  ].freeze
+  DECODERS = {
+    file_type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionViewResultBlockFileType.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionViewResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestTextEditorCodeExecutionViewResultBlock.
+# Typed representation of the `BetaRequestTextEditorCodeExecutionViewResultBlock` API schema.
+class BetaRequestTextEditorCodeExecutionViewResultBlock
+  include BetaRequestTextEditorCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::DECODERS
+
+  # @return [String] Required `string` value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [BetaRequestTextEditorCodeExecutionViewResultBlockFileType] Required enumerated value serialized in the `file_type` wire field.
+  attr_reader :file_type
+  # @return [Integer] Optional `integer` value serialized in the `num_lines` wire field.
+  attr_reader :num_lines
+  # @return [Integer] Optional `integer` value serialized in the `start_line` wire field.
+  attr_reader :start_line
+  # @return [Integer] Optional `integer` value serialized in the `total_lines` wire field.
+  attr_reader :total_lines
+  # @return [BetaRequestTextEditorCodeExecutionViewResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestTextEditorCodeExecutionToolResultBlock.
-  # Typed representation of the `BetaRequestTextEditorCodeExecutionToolResultBlock` API schema.
-  class BetaRequestTextEditorCodeExecutionToolResultBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestTextEditorCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-    attr_reader :tool_use_id
-    # @return [BetaRequestTextEditorCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestTextEditorCodeExecutionToolResultBlockType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionToolResultBlockType
-    TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT = 'text_editor_code_execution_tool_result'
-    VALUES = ['text_editor_code_execution_tool_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionToolResultBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestTextEditorCodeExecutionToolResultBlockContent SDK namespace.
-  module BetaRequestTextEditorCodeExecutionToolResultBlockContent
-    DISCRIMINATOR_MAPPING = {
-      'text_editor_code_execution_tool_result_error' => -> { BetaRequestTextEditorCodeExecutionToolResultError },
-      'text_editor_code_execution_view_result' => -> { BetaRequestTextEditorCodeExecutionViewResultBlock },
-      'text_editor_code_execution_create_result' => -> { BetaRequestTextEditorCodeExecutionCreateResultBlock },
-      'text_editor_code_execution_str_replace_result' => -> { BetaRequestTextEditorCodeExecutionStrReplaceResultBlock }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultBlockContent', 'variant', "Unknown BetaRequestTextEditorCodeExecutionToolResultBlockContent discriminator: #{hash['type'].inspect}")
-    end
+# Defines the BetaRequestTextEditorCodeExecutionViewResultBlockFileType SDK namespace.
+module BetaRequestTextEditorCodeExecutionViewResultBlockFileType
+  TEXT = 'text'
+  IMAGE = 'image'
+  PDF = 'pdf'
+  VALUES = ['text', 'image', 'pdf'].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata
-    FIELDS = {
-      error_code: 'error_code',
-      error_message: 'error_message',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      error_code
-      type
-    ].freeze
-    DECODERS = {
-      error_code: lambda do |value|
-        ::OctridevAnthropic::BetaTextEditorCodeExecutionToolResultErrorCode.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionToolResultErrorType.from_value(value)
-      end
-    }.freeze
+# Defines the BetaRequestTextEditorCodeExecutionViewResultBlockType SDK namespace.
+module BetaRequestTextEditorCodeExecutionViewResultBlockType
+  TEXT_EDITOR_CODE_EXECUTION_VIEW_RESULT = 'text_editor_code_execution_view_result'
+  VALUES = ['text_editor_code_execution_view_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionViewResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionViewResultBlockType: #{value}")
   end
-
-  # API model for BetaRequestTextEditorCodeExecutionToolResultError.
-  # Typed representation of the `BetaRequestTextEditorCodeExecutionToolResultError` API schema.
-  class BetaRequestTextEditorCodeExecutionToolResultError
-    include BetaRequestTextEditorCodeExecutionToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionToolResultErrorMetadata::DECODERS
-
-    # @return [BetaTextEditorCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-    attr_reader :error_code
-    # @return [String] Optional `string` value serialized in the `error_message` wire field.
-    attr_reader :error_message
-    # @return [BetaRequestTextEditorCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRequestTextEditorCodeExecutionToolResultErrorType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionToolResultErrorType
-    TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT_ERROR = 'text_editor_code_execution_tool_result_error'
-    VALUES = ['text_editor_code_execution_tool_result_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionToolResultErrorType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionToolResultErrorType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata
-    FIELDS = {
-      content: 'content',
-      file_type: 'file_type',
-      num_lines: 'num_lines',
-      start_line: 'start_line',
-      total_lines: 'total_lines',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      file_type
-      type
-    ].freeze
-    DECODERS = {
-      file_type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionViewResultBlockFileType.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestTextEditorCodeExecutionViewResultBlockType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaRequestTextEditorCodeExecutionViewResultBlock.
-  # Typed representation of the `BetaRequestTextEditorCodeExecutionViewResultBlock` API schema.
-  class BetaRequestTextEditorCodeExecutionViewResultBlock
-    include BetaRequestTextEditorCodeExecutionToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestTextEditorCodeExecutionViewResultBlockMetadata::DECODERS
-
-    # @return [String] Required `string` value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [BetaRequestTextEditorCodeExecutionViewResultBlockFileType] Required enumerated value serialized in the `file_type` wire field.
-    attr_reader :file_type
-    # @return [Integer] Optional `integer` value serialized in the `num_lines` wire field.
-    attr_reader :num_lines
-    # @return [Integer] Optional `integer` value serialized in the `start_line` wire field.
-    attr_reader :start_line
-    # @return [Integer] Optional `integer` value serialized in the `total_lines` wire field.
-    attr_reader :total_lines
-    # @return [BetaRequestTextEditorCodeExecutionViewResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRequestTextEditorCodeExecutionViewResultBlockFileType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionViewResultBlockFileType
-    TEXT = 'text'
-    IMAGE = 'image'
-    PDF = 'pdf'
-    VALUES = %w[text image pdf].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Defines the BetaRequestTextEditorCodeExecutionViewResultBlockType SDK namespace.
-  module BetaRequestTextEditorCodeExecutionViewResultBlockType
-    TEXT_EDITOR_CODE_EXECUTION_VIEW_RESULT = 'text_editor_code_execution_view_result'
-    VALUES = ['text_editor_code_execution_view_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestTextEditorCodeExecutionViewResultBlockType', 'enum', "Unknown BetaRequestTextEditorCodeExecutionViewResultBlockType: #{value}")
-    end
-  end
+end
 end

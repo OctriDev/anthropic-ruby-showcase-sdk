@@ -5,123 +5,124 @@
 
 # user_profiles_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCreateUserProfileRequestMetadata
-    FIELDS = {
-      external_id: 'external_id',
-      name: 'name',
-      access_type: 'access_type',
-      external_user_onboarded_at: 'external_user_onboarded_at',
-      metadata: 'metadata'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      access_type: lambda do |value|
-        ::OctridevAnthropic::BetaUserProfileAccessType.from_value(value)
-      end,
-      external_user_onboarded_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCreateUserProfileRequestMetadata
+  FIELDS = {
+    external_id: "external_id",
+    name: "name",
+    access_type: "access_type",
+    external_user_onboarded_at: "external_user_onboarded_at",
+    metadata: "metadata",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    access_type: lambda do |value|
+      ::OctridevAnthropic::BetaUserProfileAccessType.from_value(value)
+    end,
+    external_user_onboarded_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCreateUserProfileRequest.
+# Typed representation of the `BetaCreateUserProfileRequest` API schema.
+class BetaCreateUserProfileRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCreateUserProfileRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCreateUserProfileRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCreateUserProfileRequestMetadata::DECODERS
+
+  # @return [String] Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+  attr_reader :external_id
+  # @return [String] Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+  attr_reader :name
+  # @return [BetaUserProfileAccessType] How the platform uses the API for this entity. `application` (default): the profile represents an individual end-user of the platform's product. `passthrough`: the profile identifies a company the platform resells Claude access to.
+  attr_reader :access_type
+  # @return [BetaTimestamp] When the entity this profile represents opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. Optional.
+  attr_reader :external_user_onboarded_at
+  # @return [Hash] Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
+  attr_reader :metadata
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCreateUserProfileRequest.
-  # Typed representation of the `BetaCreateUserProfileRequest` API schema.
-  class BetaCreateUserProfileRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCreateUserProfileRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCreateUserProfileRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCreateUserProfileRequestMetadata::DECODERS
-
-    # @return [String] Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
-    attr_reader :external_id
-    # @return [String] Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
-    attr_reader :name
-    # @return [BetaUserProfileAccessType] How the platform uses the API for this entity. `application` (default): the profile represents an individual end-user of the platform's product. `passthrough`: the profile identifies a company the platform resells Claude access to.
-    attr_reader :access_type
-    # @return [BetaTimestamp] When the entity this profile represents opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. Optional.
-    attr_reader :external_user_onboarded_at
-    # @return [Hash] Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
-    attr_reader :metadata
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListUserProfilesResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaUserProfile.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListUserProfilesResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaUserProfile.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaListUserProfilesResponse.
+# Typed representation of the `BetaListUserProfilesResponse` API schema.
+class BetaListUserProfilesResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListUserProfilesResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListUserProfilesResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListUserProfilesResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaUserProfile] User profiles on this page.
+  attr_reader :data
+  # @return [String] Cursor for the next page, or `null` when there are no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListUserProfilesResponse.
-  # Typed representation of the `BetaListUserProfilesResponse` API schema.
-  class BetaListUserProfilesResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListUserProfilesResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListUserProfilesResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListUserProfilesResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaUserProfile] User profiles on this page.
-    attr_reader :data
-    # @return [String] Cursor for the next page, or `null` when there are no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListUserProfilesResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListUserProfilesResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaUserProfileListOrder SDK namespace.
-  module BetaUserProfileListOrder
-    ASC = 'asc'
-    DESC = 'desc'
-    VALUES = %w[asc desc].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaUserProfileListOrderBy SDK namespace.
-  module BetaUserProfileListOrderBy
-    CREATED_AT = 'created_at'
-    NAME = 'name'
-    VALUES = %w[created_at name].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaUserProfileListOrder SDK namespace.
+module BetaUserProfileListOrder
+  ASC = 'asc'
+  DESC = 'desc'
+  VALUES = ['asc', 'desc'].freeze
+  def self.from_value(value)
+    value
   end
+end
+
+# Defines the BetaUserProfileListOrderBy SDK namespace.
+module BetaUserProfileListOrderBy
+  CREATED_AT = 'created_at'
+  NAME = 'name'
+  VALUES = ['created_at', 'name'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end

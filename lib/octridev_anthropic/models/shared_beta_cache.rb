@@ -5,444 +5,439 @@
 
 # shared_beta_cache domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheControlEphemeralMetadata
-    FIELDS = {
-      ttl: 'ttl',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      ttl: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeralTtl.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeralType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCacheControlEphemeralMetadata
+  FIELDS = {
+    ttl: "ttl",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    ttl: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeralTtl.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeralType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheControlEphemeral.
+# Typed representation of the `BetaCacheControlEphemeral` API schema.
+class BetaCacheControlEphemeral
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheControlEphemeralMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheControlEphemeralMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheControlEphemeralMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeralTtl] The time-to-live for the cache control breakpoint. This may be one the following values: - `5m`: 5 minutes - `1h`: 1 hour Defaults to `5m`. See prompt caching pricing for details.
+  attr_reader :ttl
+  # @return [BetaCacheControlEphemeralType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCacheControlEphemeral.
-  # Typed representation of the `BetaCacheControlEphemeral` API schema.
-  class BetaCacheControlEphemeral
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheControlEphemeralMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheControlEphemeralMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheControlEphemeralMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeralTtl] The time-to-live for the cache control breakpoint. This may be one the following values: - `5m`: 5 minutes - `1h`: 1 hour Defaults to `5m`. See prompt caching pricing for details.
-    attr_reader :ttl
-    # @return [BetaCacheControlEphemeralType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCacheControlEphemeralTtl SDK namespace.
-  module BetaCacheControlEphemeralTtl
-    V_5_M = '5m'
-    V_1_H = '1h'
-    VALUES = %w[5m 1h].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaCacheControlEphemeralTtl SDK namespace.
+module BetaCacheControlEphemeralTtl
+  V_5_M = '5m'
+  V_1_H = '1h'
+  VALUES = ['5m', '1h'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the BetaCacheControlEphemeralType SDK namespace.
+module BetaCacheControlEphemeralType
+  EPHEMERAL = 'ephemeral'
+  VALUES = ['ephemeral'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCacheControlEphemeralType', 'enum', "Unknown BetaCacheControlEphemeralType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheCreationMetadata
+  FIELDS = {
+    ephemeral1h_input_tokens: "ephemeral_1h_input_tokens",
+    ephemeral5m_input_tokens: "ephemeral_5m_input_tokens",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    ephemeral1h_input_tokens
+    ephemeral5m_input_tokens
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaCacheCreation.
+# Typed representation of the `BetaCacheCreation` API schema.
+class BetaCacheCreation
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheCreationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheCreationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheCreationMetadata::DECODERS
+
+  # @return [Integer] The number of input tokens used to create the 1 hour cache entry.
+  attr_reader :ephemeral1h_input_tokens
+  # @return [Integer] The number of input tokens used to create the 5 minute cache entry.
+  attr_reader :ephemeral5m_input_tokens
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaCacheControlEphemeralType SDK namespace.
-  module BetaCacheControlEphemeralType
-    EPHEMERAL = 'ephemeral'
-    VALUES = ['ephemeral'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCacheControlEphemeralType', 'enum', "Unknown BetaCacheControlEphemeralType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheCreationMetadata
-    FIELDS = {
-      ephemeral1h_input_tokens: 'ephemeral_1h_input_tokens',
-      ephemeral5m_input_tokens: 'ephemeral_5m_input_tokens'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      ephemeral1h_input_tokens
-      ephemeral5m_input_tokens
-    ].freeze
-    DECODERS = {}.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissMessagesChangedMetadata
+  FIELDS = {
+    cache_missed_input_tokens: "cache_missed_input_tokens",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_missed_input_tokens
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissMessagesChangedType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheMissMessagesChanged.
+# Typed representation of the `BetaCacheMissMessagesChanged` API schema.
+class BetaCacheMissMessagesChanged
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissMessagesChangedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissMessagesChangedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissMessagesChangedMetadata::DECODERS
+
+  # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+  attr_reader :cache_missed_input_tokens
+  # @return [BetaCacheMissMessagesChangedType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCacheCreation.
-  # Typed representation of the `BetaCacheCreation` API schema.
-  class BetaCacheCreation
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheCreationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheCreationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheCreationMetadata::DECODERS
-
-    # @return [Integer] The number of input tokens used to create the 1 hour cache entry.
-    attr_reader :ephemeral1h_input_tokens
-    # @return [Integer] The number of input tokens used to create the 5 minute cache entry.
-    attr_reader :ephemeral5m_input_tokens
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissMessagesChangedMetadata
-    FIELDS = {
-      cache_missed_input_tokens: 'cache_missed_input_tokens',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_missed_input_tokens
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissMessagesChangedType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaCacheMissMessagesChangedType SDK namespace.
+module BetaCacheMissMessagesChangedType
+  MESSAGES_CHANGED = 'messages_changed'
+  VALUES = ['messages_changed'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCacheMissMessagesChangedType', 'enum', "Unknown BetaCacheMissMessagesChangedType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissModelChangedMetadata
+  FIELDS = {
+    cache_missed_input_tokens: "cache_missed_input_tokens",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_missed_input_tokens
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissModelChangedType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheMissModelChanged.
+# Typed representation of the `BetaCacheMissModelChanged` API schema.
+class BetaCacheMissModelChanged
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissModelChangedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissModelChangedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissModelChangedMetadata::DECODERS
+
+  # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+  attr_reader :cache_missed_input_tokens
+  # @return [BetaCacheMissModelChangedType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCacheMissMessagesChanged.
-  # Typed representation of the `BetaCacheMissMessagesChanged` API schema.
-  class BetaCacheMissMessagesChanged
-    include BetaDiagnosticsCacheMissReason
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissMessagesChangedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissMessagesChangedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissMessagesChangedMetadata::DECODERS
-
-    # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-    attr_reader :cache_missed_input_tokens
-    # @return [BetaCacheMissMessagesChangedType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCacheMissMessagesChangedType SDK namespace.
-  module BetaCacheMissMessagesChangedType
-    MESSAGES_CHANGED = 'messages_changed'
-    VALUES = ['messages_changed'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaCacheMissMessagesChangedType', 'enum', "Unknown BetaCacheMissMessagesChangedType: #{value}")
-    end
+# Defines the BetaCacheMissModelChangedType SDK namespace.
+module BetaCacheMissModelChangedType
+  MODEL_CHANGED = 'model_changed'
+  VALUES = ['model_changed'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCacheMissModelChangedType', 'enum', "Unknown BetaCacheMissModelChangedType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissPreviousMessageNotFoundType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheMissPreviousMessageNotFound.
+# Typed representation of the `BetaCacheMissPreviousMessageNotFound` API schema.
+class BetaCacheMissPreviousMessageNotFound
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::DECODERS
+
+  # @return [BetaCacheMissPreviousMessageNotFoundType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissModelChangedMetadata
-    FIELDS = {
-      cache_missed_input_tokens: 'cache_missed_input_tokens',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_missed_input_tokens
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissModelChangedType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaCacheMissModelChanged.
-  # Typed representation of the `BetaCacheMissModelChanged` API schema.
-  class BetaCacheMissModelChanged
-    include BetaDiagnosticsCacheMissReason
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissModelChangedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissModelChangedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissModelChangedMetadata::DECODERS
+# Defines the BetaCacheMissPreviousMessageNotFoundType SDK namespace.
+module BetaCacheMissPreviousMessageNotFoundType
+  PREVIOUS_MESSAGE_NOT_FOUND = 'previous_message_not_found'
+  VALUES = ['previous_message_not_found'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-    attr_reader :cache_missed_input_tokens
-    # @return [BetaCacheMissModelChangedType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaCacheMissPreviousMessageNotFoundType', 'enum', "Unknown BetaCacheMissPreviousMessageNotFoundType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissSystemChangedMetadata
+  FIELDS = {
+    cache_missed_input_tokens: "cache_missed_input_tokens",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_missed_input_tokens
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissSystemChangedType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaCacheMissSystemChanged.
+# Typed representation of the `BetaCacheMissSystemChanged` API schema.
+class BetaCacheMissSystemChanged
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissSystemChangedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissSystemChangedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissSystemChangedMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+  attr_reader :cache_missed_input_tokens
+  # @return [BetaCacheMissSystemChangedType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaCacheMissModelChangedType SDK namespace.
-  module BetaCacheMissModelChangedType
-    MODEL_CHANGED = 'model_changed'
-    VALUES = ['model_changed'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCacheMissModelChangedType', 'enum', "Unknown BetaCacheMissModelChangedType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissPreviousMessageNotFoundType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaCacheMissSystemChangedType SDK namespace.
+module BetaCacheMissSystemChangedType
+  SYSTEM_CHANGED = 'system_changed'
+  VALUES = ['system_changed'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCacheMissSystemChangedType', 'enum', "Unknown BetaCacheMissSystemChangedType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissToolsChangedMetadata
+  FIELDS = {
+    cache_missed_input_tokens: "cache_missed_input_tokens",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_missed_input_tokens
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissToolsChangedType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheMissToolsChanged.
+# Typed representation of the `BetaCacheMissToolsChanged` API schema.
+class BetaCacheMissToolsChanged
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissToolsChangedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissToolsChangedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissToolsChangedMetadata::DECODERS
+
+  # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+  attr_reader :cache_missed_input_tokens
+  # @return [BetaCacheMissToolsChangedType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCacheMissPreviousMessageNotFound.
-  # Typed representation of the `BetaCacheMissPreviousMessageNotFound` API schema.
-  class BetaCacheMissPreviousMessageNotFound
-    include BetaDiagnosticsCacheMissReason
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissPreviousMessageNotFoundMetadata::DECODERS
-
-    # @return [BetaCacheMissPreviousMessageNotFoundType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCacheMissPreviousMessageNotFoundType SDK namespace.
-  module BetaCacheMissPreviousMessageNotFoundType
-    PREVIOUS_MESSAGE_NOT_FOUND = 'previous_message_not_found'
-    VALUES = ['previous_message_not_found'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaCacheMissPreviousMessageNotFoundType', 'enum', "Unknown BetaCacheMissPreviousMessageNotFoundType: #{value}")
-    end
+# Defines the BetaCacheMissToolsChangedType SDK namespace.
+module BetaCacheMissToolsChangedType
+  TOOLS_CHANGED = 'tools_changed'
+  VALUES = ['tools_changed'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCacheMissToolsChangedType', 'enum', "Unknown BetaCacheMissToolsChangedType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCacheMissUnavailableMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCacheMissUnavailableType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCacheMissUnavailable.
+# Typed representation of the `BetaCacheMissUnavailable` API schema.
+class BetaCacheMissUnavailable
+  include BetaDiagnosticsCacheMissReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCacheMissUnavailableMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCacheMissUnavailableMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCacheMissUnavailableMetadata::DECODERS
+
+  # @return [BetaCacheMissUnavailableType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissSystemChangedMetadata
-    FIELDS = {
-      cache_missed_input_tokens: 'cache_missed_input_tokens',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_missed_input_tokens
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissSystemChangedType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaCacheMissSystemChanged.
-  # Typed representation of the `BetaCacheMissSystemChanged` API schema.
-  class BetaCacheMissSystemChanged
-    include BetaDiagnosticsCacheMissReason
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissSystemChangedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissSystemChangedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissSystemChangedMetadata::DECODERS
-
-    # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-    attr_reader :cache_missed_input_tokens
-    # @return [BetaCacheMissSystemChangedType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaCacheMissSystemChangedType SDK namespace.
-  module BetaCacheMissSystemChangedType
-    SYSTEM_CHANGED = 'system_changed'
-    VALUES = ['system_changed'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaCacheMissUnavailableType SDK namespace.
+module BetaCacheMissUnavailableType
+  UNAVAILABLE = 'unavailable'
+  VALUES = ['unavailable'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaCacheMissSystemChangedType', 'enum', "Unknown BetaCacheMissSystemChangedType: #{value}")
-    end
+    raise SdkValidationError.new('BetaCacheMissUnavailableType', 'enum', "Unknown BetaCacheMissUnavailableType: #{value}")
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissToolsChangedMetadata
-    FIELDS = {
-      cache_missed_input_tokens: 'cache_missed_input_tokens',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_missed_input_tokens
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissToolsChangedType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaCacheMissToolsChanged.
-  # Typed representation of the `BetaCacheMissToolsChanged` API schema.
-  class BetaCacheMissToolsChanged
-    include BetaDiagnosticsCacheMissReason
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissToolsChangedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissToolsChangedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissToolsChangedMetadata::DECODERS
-
-    # @return [Integer] Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-    attr_reader :cache_missed_input_tokens
-    # @return [BetaCacheMissToolsChangedType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaCacheMissToolsChangedType SDK namespace.
-  module BetaCacheMissToolsChangedType
-    TOOLS_CHANGED = 'tools_changed'
-    VALUES = ['tools_changed'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCacheMissToolsChangedType', 'enum', "Unknown BetaCacheMissToolsChangedType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaCacheMissUnavailableMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCacheMissUnavailableType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaCacheMissUnavailable.
-  # Typed representation of the `BetaCacheMissUnavailable` API schema.
-  class BetaCacheMissUnavailable
-    include BetaDiagnosticsCacheMissReason
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCacheMissUnavailableMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCacheMissUnavailableMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCacheMissUnavailableMetadata::DECODERS
-
-    # @return [BetaCacheMissUnavailableType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaCacheMissUnavailableType SDK namespace.
-  module BetaCacheMissUnavailableType
-    UNAVAILABLE = 'unavailable'
-    VALUES = ['unavailable'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCacheMissUnavailableType', 'enum', "Unknown BetaCacheMissUnavailableType: #{value}")
-    end
-  end
+end
 end

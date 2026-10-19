@@ -5,114 +5,115 @@
 
 # artifacts_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaAnalyticsArtifactActivityMetadata
-    FIELDS = {
-      artifact_type: 'artifact_type',
-      artifacts_created_count: 'artifacts_created_count',
-      distinct_user_count: 'distinct_user_count',
-      is_shared: 'is_shared',
-      product: 'product',
-      published_artifacts_created_count: 'published_artifacts_created_count',
-      rbac_group_id: 'rbac_group_id',
-      rbac_group_name: 'rbac_group_name',
-      user_id: 'user_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      artifact_type
-      artifacts_created_count
-      distinct_user_count
-      is_shared
-      published_artifacts_created_count
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaAnalyticsArtifactActivityMetadata
+  FIELDS = {
+    artifact_type: "artifact_type",
+    artifacts_created_count: "artifacts_created_count",
+    distinct_user_count: "distinct_user_count",
+    is_shared: "is_shared",
+    product: "product",
+    published_artifacts_created_count: "published_artifacts_created_count",
+    rbac_group_id: "rbac_group_id",
+    rbac_group_name: "rbac_group_name",
+    user_id: "user_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    artifact_type
+    artifacts_created_count
+    distinct_user_count
+    is_shared
+    published_artifacts_created_count
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaAnalyticsArtifactActivity.
+# Artifact-creation activity for one (`artifact_type`, `is_shared`) bucket on a given day. Artifacts form a small finite cube — the canonical MIME type (8 values incl. `other`) crossed with shared-vs-private — so the response is the full set of non-empty buckets, not a ranked/paginated list. Claude Code and Cowork artifacts report under `text/html` and are counted from 2026-08-17 onward; earlier days contain claude.ai chat artifacts only. With `group_by[]=product` / `user_id`…
+class BetaAnalyticsArtifactActivity
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAnalyticsArtifactActivityMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAnalyticsArtifactActivityMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAnalyticsArtifactActivityMetadata::DECODERS
+
+  # @return [String] Canonical artifact MIME type (e.g. `text/markdown`, `application/vnd.ant.react`, `image/svg+xml`), or `other`. Claude Code and Cowork artifacts report as `text/html`.
+  attr_reader :artifact_type
+  # @return [Integer] Number of artifacts created in this bucket on the requested day
+  attr_reader :artifacts_created_count
+  # @return [Integer] Number of distinct users who created artifacts in this bucket on the requested day
+  attr_reader :distinct_user_count
+  # @return [Boolean] Whether the artifacts in this bucket have ever been shared (a Claude Code / Cowork artifact is shared once anyone beyond its creator may open it: named members, the whole organization, or anyone with the link).
+  attr_reader :is_shared
+  # @return [String] Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension…
+  attr_reader :product
+  # @return [Integer] Number of those artifacts that have been published (for Claude Code / Cowork artifacts: open to anyone with the link); never exceeds `artifacts_created_count`
+  attr_reader :published_artifacts_created_count
+  # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+  attr_reader :rbac_group_id
+  # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+  attr_reader :rbac_group_name
+  # @return [String] Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+  attr_reader :user_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAnalyticsArtifactActivity.
-  # Artifact-creation activity for one (`artifact_type`, `is_shared`) bucket on a given day. Artifacts form a small finite cube — the canonical MIME type (8 values incl. `other`) crossed with shared-vs-private — so the response is the full set of non-empty buckets, not a ranked/paginated list. Claude Code and Cowork artifacts report under `text/html` and are counted from 2026-08-17 onward; earlier days contain claude.ai chat artifacts only. With `group_by[]=product` / `user_id`…
-  class BetaAnalyticsArtifactActivity
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAnalyticsArtifactActivityMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAnalyticsArtifactActivityMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAnalyticsArtifactActivityMetadata::DECODERS
-
-    # @return [String] Canonical artifact MIME type (e.g. `text/markdown`, `application/vnd.ant.react`, `image/svg+xml`), or `other`. Claude Code and Cowork artifacts report as `text/html`.
-    attr_reader :artifact_type
-    # @return [Integer] Number of artifacts created in this bucket on the requested day
-    attr_reader :artifacts_created_count
-    # @return [Integer] Number of distinct users who created artifacts in this bucket on the requested day
-    attr_reader :distinct_user_count
-    # @return [Boolean] Whether the artifacts in this bucket have ever been shared (a Claude Code / Cowork artifact is shared once anyone beyond its creator may open it: named members, the whole organization, or anyone with the link).
-    attr_reader :is_shared
-    # @return [String] Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension…
-    attr_reader :product
-    # @return [Integer] Number of those artifacts that have been published (for Claude Code / Cowork artifacts: open to anyone with the link); never exceeds `artifacts_created_count`
-    attr_reader :published_artifacts_created_count
-    # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
-    attr_reader :rbac_group_id
-    # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-    attr_reader :rbac_group_name
-    # @return [String] Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-    attr_reader :user_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaAnalyticsArtifactsResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsArtifactActivity.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaAnalyticsArtifactsResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsArtifactActivity.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaAnalyticsArtifactsResponse.
+# Response for GET /v1/organizations/analytics/artifacts. `next_page` is null on ungrouped queries — the artifact-type cube is finite and returned in full. Grouped queries (`group_by[]` on `product` / `user_id` / `rbac_group_id`) multiply the cube and paginate like the other analytics list endpoints.
+class BetaAnalyticsArtifactsResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaAnalyticsArtifactActivity] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] Cursor for the next page of a grouped query; always null for the ungrouped artifact-type cube, which is returned in full.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAnalyticsArtifactsResponse.
-  # Response for GET /v1/organizations/analytics/artifacts. `next_page` is null on ungrouped queries — the artifact-type cube is finite and returned in full. Grouped queries (`group_by[]` on `product` / `user_id` / `rbac_group_id`) multiply the cube and paginate like the other analytics list endpoints.
-  class BetaAnalyticsArtifactsResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAnalyticsArtifactsResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaAnalyticsArtifactActivity] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] Cursor for the next page of a grouped query; always null for the ungrouped artifact-type cube, which is returned in full.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsArtifactsResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsArtifactsResponseMetadata::NULLABLE_FIELDS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

@@ -5,203 +5,203 @@
 
 # users_beta_true domain models (part 2)
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaAnalyticsUserActivityMetadata
-    FIELDS = {
-      chat_metrics: 'chat_metrics',
-      claude_code_metrics: 'claude_code_metrics',
-      cowork_metrics: 'cowork_metrics',
-      design_metrics: 'design_metrics',
-      distinct_user_count: 'distinct_user_count',
-      last_activity_date: 'last_activity_date',
-      office_metrics: 'office_metrics',
-      rbac_group_id: 'rbac_group_id',
-      rbac_group_name: 'rbac_group_name',
-      science_metrics: 'science_metrics',
-      user: 'user',
-      web_search_count: 'web_search_count'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      chat_metrics
-      claude_code_metrics
-      cowork_metrics
-      design_metrics
-      office_metrics
-      science_metrics
-      web_search_count
-    ].freeze
-    DECODERS = {
-      chat_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsChatMetrics.from_hash(value)
-      end,
-      claude_code_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsClaudeCodeMetrics.from_hash(value)
-      end,
-      cowork_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsCoworkMetrics.from_hash(value)
-      end,
-      design_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsDesignMetrics.from_hash(value)
-      end,
-      office_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsOfficeMetrics.from_hash(value)
-      end,
-      science_metrics: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsScienceMetrics.from_hash(value)
-      end,
-      user: lambda do |value|
-        ::OctridevAnthropic::BetaAnalyticsUser.from_hash(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaAnalyticsUserActivityMetadata
+  FIELDS = {
+    chat_metrics: "chat_metrics",
+    claude_code_metrics: "claude_code_metrics",
+    cowork_metrics: "cowork_metrics",
+    design_metrics: "design_metrics",
+    distinct_user_count: "distinct_user_count",
+    last_activity_date: "last_activity_date",
+    office_metrics: "office_metrics",
+    rbac_group_id: "rbac_group_id",
+    rbac_group_name: "rbac_group_name",
+    science_metrics: "science_metrics",
+    user: "user",
+    web_search_count: "web_search_count",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    chat_metrics
+    claude_code_metrics
+    cowork_metrics
+    design_metrics
+    office_metrics
+    science_metrics
+    web_search_count
+  ].freeze
+  DECODERS = {
+    chat_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsChatMetrics.from_hash(value)
+    end,
+    claude_code_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsClaudeCodeMetrics.from_hash(value)
+    end,
+    cowork_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsCoworkMetrics.from_hash(value)
+    end,
+    design_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsDesignMetrics.from_hash(value)
+    end,
+    office_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsOfficeMetrics.from_hash(value)
+    end,
+    science_metrics: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsScienceMetrics.from_hash(value)
+    end,
+    user: lambda do |value|
+      ::OctridevAnthropic::BetaAnalyticsUser.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaAnalyticsUserActivity.
+# Per-user activity data for a given day.
+class BetaAnalyticsUserActivity
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAnalyticsUserActivityMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserActivityMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAnalyticsUserActivityMetadata::DECODERS
+
+  # @return [BetaAnalyticsChatMetrics] Claude.ai activity metrics for a single user on a given day.
+  attr_reader :chat_metrics
+  # @return [BetaAnalyticsClaudeCodeMetrics] Claude Code activity metrics for a single user on a given day.
+  attr_reader :claude_code_metrics
+  # @return [BetaAnalyticsCoworkMetrics] Cowork activity metrics for a single user on a given day.
+  attr_reader :cowork_metrics
+  # @return [BetaAnalyticsDesignMetrics] Claude Design activity metrics for a single user on a given day.
+  attr_reader :design_metrics
+  # @return [Integer] Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
+  attr_reader :distinct_user_count
+  # @return [String] Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member…
+  attr_reader :last_activity_date
+  # @return [BetaAnalyticsOfficeMetrics] Office Agent activity metrics for a single user on a given day, broken out by Office product.
+  attr_reader :office_metrics
+  # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+  attr_reader :rbac_group_id
+  # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+  attr_reader :rbac_group_name
+  # @return [BetaAnalyticsScienceMetrics] Claude Science activity metrics for a single user on a given day.
+  attr_reader :science_metrics
+  # @return [BetaAnalyticsUser] The user this row describes. Null on rows aggregated across users.
+  attr_reader :user
+  # @return [Integer] Number of web searches performed
+  attr_reader :web_search_count
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAnalyticsUserActivity.
-  # Per-user activity data for a given day.
-  class BetaAnalyticsUserActivity
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAnalyticsUserActivityMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUserActivityMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAnalyticsUserActivityMetadata::DECODERS
-
-    # @return [BetaAnalyticsChatMetrics] Claude.ai activity metrics for a single user on a given day.
-    attr_reader :chat_metrics
-    # @return [BetaAnalyticsClaudeCodeMetrics] Claude Code activity metrics for a single user on a given day.
-    attr_reader :claude_code_metrics
-    # @return [BetaAnalyticsCoworkMetrics] Cowork activity metrics for a single user on a given day.
-    attr_reader :cowork_metrics
-    # @return [BetaAnalyticsDesignMetrics] Claude Design activity metrics for a single user on a given day.
-    attr_reader :design_metrics
-    # @return [Integer] Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
-    attr_reader :distinct_user_count
-    # @return [String] Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member…
-    attr_reader :last_activity_date
-    # @return [BetaAnalyticsOfficeMetrics] Office Agent activity metrics for a single user on a given day, broken out by Office product.
-    attr_reader :office_metrics
-    # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
-    attr_reader :rbac_group_id
-    # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-    attr_reader :rbac_group_name
-    # @return [BetaAnalyticsScienceMetrics] Claude Science activity metrics for a single user on a given day.
-    attr_reader :science_metrics
-    # @return [BetaAnalyticsUser] The user this row describes. Null on rows aggregated across users.
-    attr_reader :user
-    # @return [Integer] Number of web searches performed
-    attr_reader :web_search_count
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaAnalyticsUsersResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUserActivity.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaAnalyticsUsersResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUserActivity.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaAnalyticsUsersResponse.
+# Response for GET /v1/organizations/analytics/users.
+class BetaAnalyticsUsersResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAnalyticsUsersResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsersResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAnalyticsUsersResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaAnalyticsUserActivity] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page, or null if no more results
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAnalyticsUsersResponse.
-  # Response for GET /v1/organizations/analytics/users.
-  class BetaAnalyticsUsersResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAnalyticsUsersResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsersResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAnalyticsUsersResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaAnalyticsUserActivity] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page, or null if no more results
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsersResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsersResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListResponseUserMetadata
-    FIELDS = {
-      data: 'data',
-      first_id: 'first_id',
-      has_more: 'has_more',
-      last_id: 'last_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      first_id
-      has_more
-      last_id
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaUser.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      first_id
-      last_id
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListResponseUserMetadata
+  FIELDS = {
+    data: "data",
+    first_id: "first_id",
+    has_more: "has_more",
+    last_id: "last_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    first_id
+    has_more
+    last_id
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaUser.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    first_id
+    last_id
+  ].freeze
+end
+
+# API model for BetaListResponseUser.
+# Typed representation of the `BetaListResponse_User_` API schema.
+class BetaListResponseUser
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListResponseUserMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListResponseUserMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListResponseUserMetadata::DECODERS
+
+  # @return [Array_of_BetaUser] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
+  attr_reader :first_id
+  # @return [Boolean] Indicates if there are more results in the requested page direction.
+  attr_reader :has_more
+  # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
+  attr_reader :last_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListResponseUser.
-  # Typed representation of the `BetaListResponse_User_` API schema.
-  class BetaListResponseUser
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListResponseUserMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListResponseUserMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListResponseUserMetadata::DECODERS
-
-    # @return [Array_of_BetaUser] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
-    attr_reader :first_id
-    # @return [Boolean] Indicates if there are more results in the requested page direction.
-    attr_reader :has_more
-    # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
-    attr_reader :last_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseUserMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseUserMetadata::NULLABLE_FIELDS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

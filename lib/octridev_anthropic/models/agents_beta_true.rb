@@ -5,123 +5,123 @@
 
 # agents_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsCreateAgentParamsMetadata
-    FIELDS = {
-      name: 'name',
-      model: 'model',
-      description: 'description',
-      system: 'system',
-      tools: 'tools',
-      mcp_servers: 'mcp_servers',
-      skills: 'skills',
-      metadata: 'metadata',
-      multiagent: 'multiagent'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      model
-    ].freeze
-    DECODERS = {
-      model: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsModelParams.from_hash(value)
-      end,
-      tools: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
-      end,
-      mcp_servers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
-      end,
-      skills: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSkillParams.from_hash(item) }
-      end,
-      multiagent: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMultiagentParams.from_hash(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsCreateAgentParamsMetadata
+  FIELDS = {
+    name: "name",
+    model: "model",
+    description: "description",
+    system: "system",
+    tools: "tools",
+    mcp_servers: "mcp_servers",
+    skills: "skills",
+    metadata: "metadata",
+    multiagent: "multiagent",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    model
+  ].freeze
+  DECODERS = {
+    model: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsModelParams.from_hash(value)
+    end,
+    tools: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
+    end,
+    mcp_servers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
+    end,
+    skills: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSkillParams.from_hash(item) }
+    end,
+    multiagent: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMultiagentParams.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsCreateAgentParams.
+# Request parameters for creating an `agent`.
+class BetaManagedAgentsCreateAgentParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::DECODERS
+
+  # @return [String] Human-readable name for the agent.
+  attr_reader :name
+  # @return [BetaManagedAgentsModelParams] Model identifier. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+  attr_reader :model
+  # @return [String] Description of what the agent does.
+  attr_reader :description
+  # @return [String] System prompt for the agent.
+  attr_reader :system
+  # @return [Array_of_BetaManagedAgentsAgentToolParams] Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+  attr_reader :tools
+  # @return [Array_of_BetaManagedAgentsMCPServerParams] MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the MCP connector guide.
+  attr_reader :mcp_servers
+  # @return [Array_of_BetaManagedAgentsSkillParams] Skills available to the agent.
+  attr_reader :skills
+  # @return [Hash] Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+  attr_reader :metadata
+  # @return [BetaManagedAgentsMultiagentParams] Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
+  attr_reader :multiagent
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsCreateAgentParams.
-  # Request parameters for creating an `agent`.
-  class BetaManagedAgentsCreateAgentParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsCreateAgentParamsMetadata::DECODERS
-
-    # @return [String] Human-readable name for the agent.
-    attr_reader :name
-    # @return [BetaManagedAgentsModelParams] Model identifier. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
-    attr_reader :model
-    # @return [String] Description of what the agent does.
-    attr_reader :description
-    # @return [String] System prompt for the agent.
-    attr_reader :system
-    # @return [Array_of_BetaManagedAgentsAgentToolParams] Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
-    attr_reader :tools
-    # @return [Array_of_BetaManagedAgentsMCPServerParams] MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the MCP connector guide.
-    attr_reader :mcp_servers
-    # @return [Array_of_BetaManagedAgentsSkillParams] Skills available to the agent.
-    attr_reader :skills
-    # @return [Hash] Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-    attr_reader :metadata
-    # @return [BetaManagedAgentsMultiagentParams] Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
-    attr_reader :multiagent
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListAgentsMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgent.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListAgentsMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgent.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListAgents.
+# Paginated list of agents.
+class BetaManagedAgentsListAgents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListAgentsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListAgentsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListAgentsMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsAgent] List of agents.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page. Null when no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsListAgents.
-  # Paginated list of agents.
-  class BetaManagedAgentsListAgents
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListAgentsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListAgentsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListAgentsMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsAgent] List of agents.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page. Null when no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

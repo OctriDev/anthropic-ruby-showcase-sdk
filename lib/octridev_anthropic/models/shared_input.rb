@@ -5,150 +5,149 @@
 
 # shared_input domain models
 module OctridevAnthropic
-  # Defines the InputContentBlock SDK namespace.
-  module InputContentBlock
-    DISCRIMINATOR_MAPPING = {
-      'bash_code_execution_tool_result' => -> { RequestBashCodeExecutionToolResultBlock },
-      'code_execution_tool_result' => -> { RequestCodeExecutionToolResultBlock },
-      'container_upload' => -> { RequestContainerUploadBlock },
-      'document' => -> { RequestDocumentBlock },
-      'image' => -> { RequestImageBlock },
-      'redacted_thinking' => -> { RequestRedactedThinkingBlock },
-      'search_result' => -> { RequestSearchResultBlock },
-      'server_tool_use' => -> { RequestServerToolUseBlock },
-      'text' => -> { RequestTextBlock },
-      'text_editor_code_execution_tool_result' => -> { RequestTextEditorCodeExecutionToolResultBlock },
-      'thinking' => -> { RequestThinkingBlock },
-      'tool_result' => -> { RequestToolResultBlock },
-      'tool_search_tool_result' => -> { RequestToolSearchToolResultBlock },
-      'tool_use' => -> { RequestToolUseBlock },
-      'web_fetch_tool_result' => -> { RequestWebFetchToolResultBlock },
-      'web_search_tool_result' => -> { RequestWebSearchToolResultBlock }
-    }.freeze
+# Defines the InputContentBlock SDK namespace.
+module InputContentBlock
+  DISCRIMINATOR_MAPPING = {
+    "bash_code_execution_tool_result" => -> { RequestBashCodeExecutionToolResultBlock },
+    "code_execution_tool_result" => -> { RequestCodeExecutionToolResultBlock },
+    "container_upload" => -> { RequestContainerUploadBlock },
+    "document" => -> { RequestDocumentBlock },
+    "image" => -> { RequestImageBlock },
+    "redacted_thinking" => -> { RequestRedactedThinkingBlock },
+    "search_result" => -> { RequestSearchResultBlock },
+    "server_tool_use" => -> { RequestServerToolUseBlock },
+    "text" => -> { RequestTextBlock },
+    "text_editor_code_execution_tool_result" => -> { RequestTextEditorCodeExecutionToolResultBlock },
+    "thinking" => -> { RequestThinkingBlock },
+    "tool_result" => -> { RequestToolResultBlock },
+    "tool_search_tool_result" => -> { RequestToolSearchToolResultBlock },
+    "tool_use" => -> { RequestToolUseBlock },
+    "web_fetch_tool_result" => -> { RequestWebFetchToolResultBlock },
+    "web_search_tool_result" => -> { RequestWebSearchToolResultBlock },
+  }.freeze
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+    raise SdkValidationError.new('InputContentBlock', 'variant', "Unknown InputContentBlock discriminator: #{hash["type"].inspect}")
+  end
+end
 
-      raise SdkValidationError.new('InputContentBlock', 'variant', "Unknown InputContentBlock discriminator: #{hash['type'].inspect}")
-    end
+# Internal model hydration metadata.
+class SdkInternalInputMessageMetadata
+  FIELDS = {
+    content: "content",
+    role: "role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    role
+  ].freeze
+  DECODERS = {
+    role: lambda do |value|
+      ::OctridevAnthropic::InputMessageRole.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for InputMessage.
+# Typed representation of the `InputMessage` API schema.
+class InputMessage
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInputMessageMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInputMessageMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInputMessageMetadata::DECODERS
+
+  # @return [Object] Required API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [InputMessageRole] Required enumerated value serialized in the `role` wire field.
+  attr_reader :role
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalInputMessageMetadata
-    FIELDS = {
-      content: 'content',
-      role: 'role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      role
-    ].freeze
-    DECODERS = {
-      role: lambda do |value|
-        ::OctridevAnthropic::InputMessageRole.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for InputMessage.
-  # Typed representation of the `InputMessage` API schema.
-  class InputMessage
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInputMessageMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInputMessageMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInputMessageMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Object] Required API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [InputMessageRole] Required enumerated value serialized in the `role` wire field.
-    attr_reader :role
+# Defines the InputMessageRole SDK namespace.
+module InputMessageRole
+  USER = 'user'
+  ASSISTANT = 'assistant'
+  SYSTEM = 'system'
+  VALUES = ['user', 'assistant', 'system'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalInputSchemaMetadata
+  FIELDS = {
+    properties: "properties",
+    required: "required",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::InputSchemaType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for InputSchema.
+# Typed representation of the `InputSchema` API schema.
+class InputSchema
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalInputSchemaMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalInputSchemaMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalInputSchemaMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [Hash] Optional object value serialized in the `properties` wire field.
+  attr_reader :properties
+  # @return [Array_of_String] Optional array value serialized in the `required` wire field.
+  attr_reader :required
+  # @return [InputSchemaType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Hash{String => Object}] Keys the schema admits beside the declared fields.
+  attr_reader :additional_properties
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS, extras: true)
+    freeze
   end
 
-  # Defines the InputMessageRole SDK namespace.
-  module InputMessageRole
-    USER = 'user'
-    ASSISTANT = 'assistant'
-    SYSTEM = 'system'
-    VALUES = %w[user assistant system].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, extras: true)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalInputSchemaMetadata
-    FIELDS = {
-      properties: 'properties',
-      required: 'required',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::InputSchemaType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS, extras: true)
   end
+end
 
-  # API model for InputSchema.
-  # Typed representation of the `InputSchema` API schema.
-  class InputSchema
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalInputSchemaMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalInputSchemaMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalInputSchemaMetadata::DECODERS
+# Defines the InputSchemaType SDK namespace.
+module InputSchemaType
+  OBJECT = 'object'
+  VALUES = ['object'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [Hash] Optional object value serialized in the `properties` wire field.
-    attr_reader :properties
-    # @return [Array_of_String] Optional array value serialized in the `required` wire field.
-    attr_reader :required
-    # @return [InputSchemaType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Hash{String => Object}] Keys the schema admits beside the declared fields.
-    attr_reader :additional_properties
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS, extras: true)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, extras: true)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS, extras: true)
-    end
+    raise SdkValidationError.new('InputSchemaType', 'enum', "Unknown InputSchemaType: #{value}")
   end
-
-  # Defines the InputSchemaType SDK namespace.
-  module InputSchemaType
-    OBJECT = 'object'
-    VALUES = ['object'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('InputSchemaType', 'enum', "Unknown InputSchemaType: #{value}")
-    end
-  end
+end
 end

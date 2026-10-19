@@ -5,44 +5,45 @@
 
 # threads_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListSessionThreadsMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionThread.from_hash(item) }
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListSessionThreadsMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionThread.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListSessionThreads.
+# Paginated list of threads within a `session`.
+class BetaManagedAgentsListSessionThreads
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsSessionThread] Threads in the session, primary first then children in spawn order.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page. Null when no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsListSessionThreads.
-  # Paginated list of threads within a `session`.
-  class BetaManagedAgentsListSessionThreads
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListSessionThreadsMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsSessionThread] Threads in the session, primary first then children in spawn order.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page. Null when no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

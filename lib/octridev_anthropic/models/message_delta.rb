@@ -5,204 +5,203 @@
 
 # message_delta domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalMessageDeltaMetadata
-    FIELDS = {
-      container: 'container',
-      stop_details: 'stop_details',
-      stop_reason: 'stop_reason',
-      stop_sequence: 'stop_sequence'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      container
-      stop_details
-      stop_reason
-      stop_sequence
-    ].freeze
-    DECODERS = {
-      container: lambda do |value|
-        ::OctridevAnthropic::Container.from_hash(value)
-      end,
-      stop_details: lambda do |value|
-        ::OctridevAnthropic::RefusalStopDetails.from_hash(value)
-      end,
-      stop_reason: lambda do |value|
-        ::OctridevAnthropic::StopReason.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      container
-      stop_details
-      stop_reason
-      stop_sequence
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalMessageDeltaMetadata
+  FIELDS = {
+    container: "container",
+    stop_details: "stop_details",
+    stop_reason: "stop_reason",
+    stop_sequence: "stop_sequence",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    container
+    stop_details
+    stop_reason
+    stop_sequence
+  ].freeze
+  DECODERS = {
+    container: lambda do |value|
+      ::OctridevAnthropic::Container.from_hash(value)
+    end,
+    stop_details: lambda do |value|
+      ::OctridevAnthropic::RefusalStopDetails.from_hash(value)
+    end,
+    stop_reason: lambda do |value|
+      ::OctridevAnthropic::StopReason.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    container
+    stop_details
+    stop_reason
+    stop_sequence
+  ].freeze
+end
+
+# API model for MessageDelta.
+# Typed representation of the `MessageDelta` API schema.
+class MessageDelta
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalMessageDeltaMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalMessageDeltaMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalMessageDeltaMetadata::DECODERS
+
+  # @return [Container] Information about the container used in this request. This will be non-null if a container tool (e.g. code execution) was used.
+  attr_reader :container
+  # @return [RefusalStopDetails] Structured information about why model output stopped. This is `null` when the `stop_reason` has no additional detail to report.
+  attr_reader :stop_details
+  # @return [StopReason] Required API value serialized in the `stop_reason` wire field.
+  attr_reader :stop_reason
+  # @return [String] Required `string` value serialized in the `stop_sequence` wire field.
+  attr_reader :stop_sequence
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for MessageDelta.
-  # Typed representation of the `MessageDelta` API schema.
-  class MessageDelta
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalMessageDeltaMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalMessageDeltaMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalMessageDeltaMetadata::DECODERS
-
-    # @return [Container] Information about the container used in this request. This will be non-null if a container tool (e.g. code execution) was used.
-    attr_reader :container
-    # @return [RefusalStopDetails] Structured information about why model output stopped. This is `null` when the `stop_reason` has no additional detail to report.
-    attr_reader :stop_details
-    # @return [StopReason] Required API value serialized in the `stop_reason` wire field.
-    attr_reader :stop_reason
-    # @return [String] Required `string` value serialized in the `stop_sequence` wire field.
-    attr_reader :stop_sequence
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalMessageDeltaMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalMessageDeltaMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalMessageDeltaEventMetadata
-    FIELDS = {
-      delta: 'delta',
-      type: 'type',
-      usage: 'usage'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      delta
-      type
-      usage
-    ].freeze
-    DECODERS = {
-      delta: lambda do |value|
-        ::OctridevAnthropic::MessageDelta.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::MessageDeltaEventType.from_value(value)
-      end,
-      usage: lambda do |value|
-        ::OctridevAnthropic::MessageDeltaUsage.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalMessageDeltaEventMetadata
+  FIELDS = {
+    delta: "delta",
+    type: "type",
+    usage: "usage",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    delta
+    type
+    usage
+  ].freeze
+  DECODERS = {
+    delta: lambda do |value|
+      ::OctridevAnthropic::MessageDelta.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::MessageDeltaEventType.from_value(value)
+    end,
+    usage: lambda do |value|
+      ::OctridevAnthropic::MessageDeltaUsage.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for MessageDeltaEvent.
+# Typed representation of the `MessageDeltaEvent` API schema.
+class MessageDeltaEvent
+  include MessageStreamEvent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalMessageDeltaEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalMessageDeltaEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalMessageDeltaEventMetadata::DECODERS
+
+  # @return [MessageDelta] Required object value serialized in the `delta` wire field.
+  attr_reader :delta
+  # @return [MessageDeltaEventType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [MessageDeltaUsage] Billing and rate-limit usage. Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems. Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response. For example, `output_tokens` will be…
+  attr_reader :usage
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for MessageDeltaEvent.
-  # Typed representation of the `MessageDeltaEvent` API schema.
-  class MessageDeltaEvent
-    include MessageStreamEvent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalMessageDeltaEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalMessageDeltaEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalMessageDeltaEventMetadata::DECODERS
-
-    # @return [MessageDelta] Required object value serialized in the `delta` wire field.
-    attr_reader :delta
-    # @return [MessageDeltaEventType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [MessageDeltaUsage] Billing and rate-limit usage. Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems. Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response. For example, `output_tokens` will be…
-    attr_reader :usage
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the MessageDeltaEventType SDK namespace.
-  module MessageDeltaEventType
-    MESSAGE_DELTA = 'message_delta'
-    VALUES = ['message_delta'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('MessageDeltaEventType', 'enum', "Unknown MessageDeltaEventType: #{value}")
-    end
+# Defines the MessageDeltaEventType SDK namespace.
+module MessageDeltaEventType
+  MESSAGE_DELTA = 'message_delta'
+  VALUES = ['message_delta'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('MessageDeltaEventType', 'enum', "Unknown MessageDeltaEventType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalMessageDeltaUsageMetadata
+  FIELDS = {
+    cache_creation_input_tokens: "cache_creation_input_tokens",
+    cache_read_input_tokens: "cache_read_input_tokens",
+    input_tokens: "input_tokens",
+    output_tokens: "output_tokens",
+    output_tokens_details: "output_tokens_details",
+    server_tool_use: "server_tool_use",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_creation_input_tokens
+    cache_read_input_tokens
+    input_tokens
+    output_tokens
+    output_tokens_details
+    server_tool_use
+  ].freeze
+  DECODERS = {
+    output_tokens_details: lambda do |value|
+      ::OctridevAnthropic::OutputTokensDetails.from_hash(value)
+    end,
+    server_tool_use: lambda do |value|
+      ::OctridevAnthropic::ServerToolUsage.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    cache_creation_input_tokens
+    cache_read_input_tokens
+    input_tokens
+    output_tokens_details
+    server_tool_use
+  ].freeze
+end
+
+# API model for MessageDeltaUsage.
+# Typed representation of the `MessageDeltaUsage` API schema.
+class MessageDeltaUsage
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalMessageDeltaUsageMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalMessageDeltaUsageMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalMessageDeltaUsageMetadata::DECODERS
+
+  # @return [Integer] The cumulative number of input tokens used to create the cache entry.
+  attr_reader :cache_creation_input_tokens
+  # @return [Integer] The cumulative number of input tokens read from the cache.
+  attr_reader :cache_read_input_tokens
+  # @return [Integer] The cumulative number of input tokens which were used.
+  attr_reader :input_tokens
+  # @return [Integer] The cumulative number of output tokens which were used.
+  attr_reader :output_tokens
+  # @return [OutputTokensDetails] Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you.
+  attr_reader :output_tokens_details
+  # @return [ServerToolUsage] The number of server tool requests.
+  attr_reader :server_tool_use
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalMessageDeltaUsageMetadata
-    FIELDS = {
-      cache_creation_input_tokens: 'cache_creation_input_tokens',
-      cache_read_input_tokens: 'cache_read_input_tokens',
-      input_tokens: 'input_tokens',
-      output_tokens: 'output_tokens',
-      output_tokens_details: 'output_tokens_details',
-      server_tool_use: 'server_tool_use'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_creation_input_tokens
-      cache_read_input_tokens
-      input_tokens
-      output_tokens
-      output_tokens_details
-      server_tool_use
-    ].freeze
-    DECODERS = {
-      output_tokens_details: lambda do |value|
-        ::OctridevAnthropic::OutputTokensDetails.from_hash(value)
-      end,
-      server_tool_use: lambda do |value|
-        ::OctridevAnthropic::ServerToolUsage.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      cache_creation_input_tokens
-      cache_read_input_tokens
-      input_tokens
-      output_tokens_details
-      server_tool_use
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalMessageDeltaUsageMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for MessageDeltaUsage.
-  # Typed representation of the `MessageDeltaUsage` API schema.
-  class MessageDeltaUsage
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalMessageDeltaUsageMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalMessageDeltaUsageMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalMessageDeltaUsageMetadata::DECODERS
-
-    # @return [Integer] The cumulative number of input tokens used to create the cache entry.
-    attr_reader :cache_creation_input_tokens
-    # @return [Integer] The cumulative number of input tokens read from the cache.
-    attr_reader :cache_read_input_tokens
-    # @return [Integer] The cumulative number of input tokens which were used.
-    attr_reader :input_tokens
-    # @return [Integer] The cumulative number of output tokens which were used.
-    attr_reader :output_tokens
-    # @return [OutputTokensDetails] Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you.
-    attr_reader :output_tokens_details
-    # @return [ServerToolUsage] The number of server tool requests.
-    attr_reader :server_tool_use
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalMessageDeltaUsageMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

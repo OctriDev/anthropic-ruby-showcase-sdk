@@ -5,208 +5,216 @@
 
 # shared_computer domain models (part 2)
 module OctridevAnthropic
-  # API model for ComputerToolsetConfigs.
-  # Per-member configuration for ``computer_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
-  class ComputerToolsetConfigs
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalComputerToolsetConfigsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalComputerToolsetConfigsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalComputerToolsetConfigsMetadata::DECODERS
+# API model for ComputerToolsetConfigs.
+# Per-member configuration for ``computer_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
+class ComputerToolsetConfigs
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalComputerToolsetConfigsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalComputerToolsetConfigsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalComputerToolsetConfigsMetadata::DECODERS
 
-    # @return [ComputerCursorPositionConfig] Optional API value serialized in the `cursor_position` wire field.
-    attr_reader :cursor_position
-    # @return [ComputerDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
-    attr_reader :double_click
-    # @return [ComputerHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
-    attr_reader :hold_key
-    # @return [ComputerKeyConfig] Optional API value serialized in the `key` wire field.
-    attr_reader :key
-    # @return [ComputerLeftClickConfig] Optional API value serialized in the `left_click` wire field.
-    attr_reader :left_click
-    # @return [ComputerLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
-    attr_reader :left_click_drag
-    # @return [ComputerLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
-    attr_reader :left_mouse_down
-    # @return [ComputerLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
-    attr_reader :left_mouse_up
-    # @return [ComputerMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
-    attr_reader :middle_click
-    # @return [ComputerMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
-    attr_reader :mouse_move
-    # @return [ComputerRightClickConfig] Optional API value serialized in the `right_click` wire field.
-    attr_reader :right_click
-    # @return [ComputerScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
-    attr_reader :screenshot
-    # @return [ComputerScrollConfig] Optional API value serialized in the `scroll` wire field.
-    attr_reader :scroll
-    # @return [ComputerTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
-    attr_reader :triple_click
-    # @return [ComputerTypeConfig] Optional API value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [ComputerWaitConfig] Optional API value serialized in the `wait` wire field.
-    attr_reader :wait
-    # @return [ComputerZoomConfig] Optional API value serialized in the `zoom` wire field.
-    attr_reader :zoom
+  # @return [ComputerCursorPositionConfig] Optional API value serialized in the `cursor_position` wire field.
+  attr_reader :cursor_position
+  # @return [ComputerDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
+  attr_reader :double_click
+  # @return [ComputerHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
+  attr_reader :hold_key
+  # @return [ComputerKeyConfig] Optional API value serialized in the `key` wire field.
+  attr_reader :key
+  # @return [ComputerLeftClickConfig] Optional API value serialized in the `left_click` wire field.
+  attr_reader :left_click
+  # @return [ComputerLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
+  attr_reader :left_click_drag
+  # @return [ComputerLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
+  attr_reader :left_mouse_down
+  # @return [ComputerLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
+  attr_reader :left_mouse_up
+  # @return [ComputerMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
+  attr_reader :middle_click
+  # @return [ComputerMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
+  attr_reader :mouse_move
+  # @return [ComputerRightClickConfig] Optional API value serialized in the `right_click` wire field.
+  attr_reader :right_click
+  # @return [ComputerScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
+  attr_reader :screenshot
+  # @return [ComputerScrollConfig] Optional API value serialized in the `scroll` wire field.
+  attr_reader :scroll
+  # @return [ComputerTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
+  attr_reader :triple_click
+  # @return [ComputerTypeConfig] Optional API value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [ComputerWaitConfig] Optional API value serialized in the `wait` wire field.
+  attr_reader :wait
+  # @return [ComputerZoomConfig] Optional API value serialized in the `zoom` wire field.
+  attr_reader :zoom
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalComputerTripleClickConfigMetadata
-    FIELDS = {
-      defer_loading: 'defer_loading',
-      enabled: 'enabled'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for ComputerTripleClickConfig.
-  # ``triple_click``'s config overrides.
-  class ComputerTripleClickConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalComputerTripleClickConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalComputerTripleClickConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalComputerTripleClickConfigMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-    attr_reader :defer_loading
-    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-    attr_reader :enabled
+# Internal model hydration metadata.
+class SdkInternalComputerTripleClickConfigMetadata
+  FIELDS = {
+    defer_loading: "defer_loading",
+    enabled: "enabled",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for ComputerTripleClickConfig.
+# ``triple_click``'s config overrides.
+class ComputerTripleClickConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalComputerTripleClickConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalComputerTripleClickConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalComputerTripleClickConfigMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+  attr_reader :defer_loading
+  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+  attr_reader :enabled
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalComputerTypeConfigMetadata
-    FIELDS = {
-      defer_loading: 'defer_loading',
-      enabled: 'enabled'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for ComputerTypeConfig.
-  # ``type``'s config overrides.
-  class ComputerTypeConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalComputerTypeConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalComputerTypeConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalComputerTypeConfigMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-    attr_reader :defer_loading
-    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-    attr_reader :enabled
+# Internal model hydration metadata.
+class SdkInternalComputerTypeConfigMetadata
+  FIELDS = {
+    defer_loading: "defer_loading",
+    enabled: "enabled",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for ComputerTypeConfig.
+# ``type``'s config overrides.
+class ComputerTypeConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalComputerTypeConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalComputerTypeConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalComputerTypeConfigMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+  attr_reader :defer_loading
+  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+  attr_reader :enabled
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalComputerWaitConfigMetadata
-    FIELDS = {
-      defer_loading: 'defer_loading',
-      enabled: 'enabled'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for ComputerWaitConfig.
-  # ``wait``'s config overrides.
-  class ComputerWaitConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalComputerWaitConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalComputerWaitConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalComputerWaitConfigMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-    attr_reader :defer_loading
-    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-    attr_reader :enabled
+# Internal model hydration metadata.
+class SdkInternalComputerWaitConfigMetadata
+  FIELDS = {
+    defer_loading: "defer_loading",
+    enabled: "enabled",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for ComputerWaitConfig.
+# ``wait``'s config overrides.
+class ComputerWaitConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalComputerWaitConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalComputerWaitConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalComputerWaitConfigMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+  attr_reader :defer_loading
+  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+  attr_reader :enabled
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalComputerZoomConfigMetadata
-    FIELDS = {
-      defer_loading: 'defer_loading',
-      enabled: 'enabled'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for ComputerZoomConfig.
-  # ``zoom``'s config overrides.
-  class ComputerZoomConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalComputerZoomConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalComputerZoomConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalComputerZoomConfigMetadata::DECODERS
-
-    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-    attr_reader :defer_loading
-    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-    attr_reader :enabled
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Internal model hydration metadata.
+class SdkInternalComputerZoomConfigMetadata
+  FIELDS = {
+    defer_loading: "defer_loading",
+    enabled: "enabled",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for ComputerZoomConfig.
+# ``zoom``'s config overrides.
+class ComputerZoomConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalComputerZoomConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalComputerZoomConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalComputerZoomConfigMetadata::DECODERS
+
+  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+  attr_reader :defer_loading
+  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+  attr_reader :enabled
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
+  end
+
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

@@ -5,139 +5,136 @@
 
 # message domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalMessageStartEventMetadata
-    FIELDS = {
-      message: 'message',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      message
-      type
-    ].freeze
-    DECODERS = {
-      message: lambda do |value|
-        ::OctridevAnthropic::Message.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::MessageStartEventType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalMessageStartEventMetadata
+  FIELDS = {
+    message: "message",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    message
+    type
+  ].freeze
+  DECODERS = {
+    message: lambda do |value|
+      ::OctridevAnthropic::Message.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::MessageStartEventType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for MessageStartEvent.
+# Typed representation of the `MessageStartEvent` API schema.
+class MessageStartEvent
+  include MessageStreamEvent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalMessageStartEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalMessageStartEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalMessageStartEventMetadata::DECODERS
+
+  # @return [Message] Required object value serialized in the `message` wire field.
+  attr_reader :message
+  # @return [MessageStartEventType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for MessageStartEvent.
-  # Typed representation of the `MessageStartEvent` API schema.
-  class MessageStartEvent
-    include MessageStreamEvent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalMessageStartEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalMessageStartEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalMessageStartEventMetadata::DECODERS
-
-    # @return [Message] Required object value serialized in the `message` wire field.
-    attr_reader :message
-    # @return [MessageStartEventType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the MessageStartEventType SDK namespace.
-  module MessageStartEventType
-    MESSAGE_START = 'message_start'
-    VALUES = ['message_start'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('MessageStartEventType', 'enum', "Unknown MessageStartEventType: #{value}")
-    end
+# Defines the MessageStartEventType SDK namespace.
+module MessageStartEventType
+  MESSAGE_START = 'message_start'
+  VALUES = ['message_start'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('MessageStartEventType', 'enum', "Unknown MessageStartEventType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalMessageStopEventMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::MessageStopEventType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for MessageStopEvent.
+# Typed representation of the `MessageStopEvent` API schema.
+class MessageStopEvent
+  include MessageStreamEvent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalMessageStopEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalMessageStopEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalMessageStopEventMetadata::DECODERS
+
+  # @return [MessageStopEventType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalMessageStopEventMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::MessageStopEventType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for MessageStopEvent.
-  # Typed representation of the `MessageStopEvent` API schema.
-  class MessageStopEvent
-    include MessageStreamEvent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalMessageStopEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalMessageStopEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalMessageStopEventMetadata::DECODERS
-
-    # @return [MessageStopEventType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the MessageStopEventType SDK namespace.
-  module MessageStopEventType
-    MESSAGE_STOP = 'message_stop'
-    VALUES = ['message_stop'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the MessageStopEventType SDK namespace.
+module MessageStopEventType
+  MESSAGE_STOP = 'message_stop'
+  VALUES = ['message_stop'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('MessageStopEventType', 'enum', "Unknown MessageStopEventType: #{value}")
-    end
+    raise SdkValidationError.new('MessageStopEventType', 'enum', "Unknown MessageStopEventType: #{value}")
   end
+end
 
-  # Defines the MessageStreamEvent SDK namespace.
-  module MessageStreamEvent
-    DISCRIMINATOR_MAPPING = {
-      'content_block_delta' => -> { ContentBlockDeltaEvent },
-      'content_block_start' => -> { ContentBlockStartEvent },
-      'content_block_stop' => -> { ContentBlockStopEvent },
-      'message_delta' => -> { MessageDeltaEvent },
-      'message_start' => -> { MessageStartEvent },
-      'message_stop' => -> { MessageStopEvent }
-    }.freeze
+# Defines the MessageStreamEvent SDK namespace.
+module MessageStreamEvent
+  DISCRIMINATOR_MAPPING = {
+    "content_block_delta" => -> { ContentBlockDeltaEvent },
+    "content_block_start" => -> { ContentBlockStartEvent },
+    "content_block_stop" => -> { ContentBlockStopEvent },
+    "message_delta" => -> { MessageDeltaEvent },
+    "message_start" => -> { MessageStartEvent },
+    "message_stop" => -> { MessageStopEvent },
+  }.freeze
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('MessageStreamEvent', 'variant', "Unknown MessageStreamEvent discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('MessageStreamEvent', 'variant', "Unknown MessageStreamEvent discriminator: #{hash["type"].inspect}")
   end
+end
 end

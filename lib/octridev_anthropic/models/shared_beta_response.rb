@@ -5,682 +5,674 @@
 
 # shared_beta_response domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseCharLocationCitationMetadata
-    FIELDS = {
-      cited_text: 'cited_text',
-      document_index: 'document_index',
-      document_title: 'document_title',
-      end_char_index: 'end_char_index',
-      file_id: 'file_id',
-      start_char_index: 'start_char_index',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cited_text
-      document_index
-      document_title
-      end_char_index
-      file_id
-      start_char_index
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseCharLocationCitationType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      document_title
-      file_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaResponseCharLocationCitationMetadata
+  FIELDS = {
+    cited_text: "cited_text",
+    document_index: "document_index",
+    document_title: "document_title",
+    end_char_index: "end_char_index",
+    file_id: "file_id",
+    start_char_index: "start_char_index",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cited_text
+    document_index
+    document_title
+    end_char_index
+    file_id
+    start_char_index
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseCharLocationCitationType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    document_title
+    file_id
+  ].freeze
+end
+
+# API model for BetaResponseCharLocationCitation.
+# Typed representation of the `BetaResponseCharLocationCitation` API schema.
+class BetaResponseCharLocationCitation
+  include BetaCitationsDeltaCitation
+  include BetaResponseTextBlockCitationsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseCharLocationCitationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseCharLocationCitationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseCharLocationCitationMetadata::DECODERS
+
+  # @return [String] Required `string` value serialized in the `cited_text` wire field.
+  attr_reader :cited_text
+  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+  attr_reader :document_index
+  # @return [String] Required `string` value serialized in the `document_title` wire field.
+  attr_reader :document_title
+  # @return [Integer] Required `integer` value serialized in the `end_char_index` wire field.
+  attr_reader :end_char_index
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [Integer] Required `integer` value serialized in the `start_char_index` wire field.
+  attr_reader :start_char_index
+  # @return [BetaResponseCharLocationCitationType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaResponseCharLocationCitation.
-  # Typed representation of the `BetaResponseCharLocationCitation` API schema.
-  class BetaResponseCharLocationCitation
-    include BetaCitationsDeltaCitation
-    include BetaResponseTextBlockCitationsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseCharLocationCitationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseCharLocationCitationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseCharLocationCitationMetadata::DECODERS
-
-    # @return [String] Required `string` value serialized in the `cited_text` wire field.
-    attr_reader :cited_text
-    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-    attr_reader :document_index
-    # @return [String] Required `string` value serialized in the `document_title` wire field.
-    attr_reader :document_title
-    # @return [Integer] Required `integer` value serialized in the `end_char_index` wire field.
-    attr_reader :end_char_index
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [Integer] Required `integer` value serialized in the `start_char_index` wire field.
-    attr_reader :start_char_index
-    # @return [BetaResponseCharLocationCitationType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseCharLocationCitationMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseCharLocationCitationMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaResponseCharLocationCitationType SDK namespace.
-  module BetaResponseCharLocationCitationType
-    CHAR_LOCATION = 'char_location'
-    VALUES = ['char_location'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaResponseCharLocationCitationType', 'enum', "Unknown BetaResponseCharLocationCitationType: #{value}")
-    end
+# Defines the BetaResponseCharLocationCitationType SDK namespace.
+module BetaResponseCharLocationCitationType
+  CHAR_LOCATION = 'char_location'
+  VALUES = ['char_location'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaResponseCharLocationCitationType', 'enum', "Unknown BetaResponseCharLocationCitationType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaResponseCitationsConfigMetadata
+  FIELDS = {
+    enabled: "enabled",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    enabled
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaResponseCitationsConfig.
+# Typed representation of the `BetaResponseCitationsConfig` API schema.
+class BetaResponseCitationsConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseCitationsConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseCitationsConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseCitationsConfigMetadata::DECODERS
+
+  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+  attr_reader :enabled
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseCitationsConfigMetadata
-    FIELDS = {
-      enabled: 'enabled'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      enabled
-    ].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaResponseCitationsConfig.
-  # Typed representation of the `BetaResponseCitationsConfig` API schema.
-  class BetaResponseCitationsConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseCitationsConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseCitationsConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseCitationsConfigMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-    attr_reader :enabled
+# Internal model hydration metadata.
+class SdkInternalBetaResponseCompactionBlockMetadata
+  FIELDS = {
+    content: "content",
+    encrypted_content: "encrypted_content",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    encrypted_content
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseCompactionBlockType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    content
+    encrypted_content
+  ].freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for BetaResponseCompactionBlock.
+# A compaction block returned when autocompact is triggered. When content is None, it indicates the compaction failed to produce a valid summary (e.g., malformed output from the model). Clients may round-trip compaction blocks with null content; the server treats them as no-ops.
+class BetaResponseCompactionBlock
+  include BetaContentBlock
+  include BetaContentBlockStartEventContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseCompactionBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseCompactionBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseCompactionBlockMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [String] Summary of compacted content, or null if compaction failed
+  attr_reader :content
+  # @return [String] Opaque metadata from prior compaction, to be round-tripped verbatim
+  attr_reader :encrypted_content
+  # @return [BetaResponseCompactionBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseCompactionBlockMetadata
-    FIELDS = {
-      content: 'content',
-      encrypted_content: 'encrypted_content',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      encrypted_content
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseCompactionBlockType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      content
-      encrypted_content
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseCompactionBlockMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaResponseCompactionBlock.
-  # A compaction block returned when autocompact is triggered. When content is None, it indicates the compaction failed to produce a valid summary (e.g., malformed output from the model). Clients may round-trip compaction blocks with null content; the server treats them as no-ops.
-  class BetaResponseCompactionBlock
-    include BetaContentBlock
-    include BetaContentBlockStartEventContentBlock
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseCompactionBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseCompactionBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseCompactionBlockMetadata::DECODERS
+# Defines the BetaResponseCompactionBlockType SDK namespace.
+module BetaResponseCompactionBlockType
+  COMPACTION = 'compaction'
+  VALUES = ['compaction'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [String] Summary of compacted content, or null if compaction failed
-    attr_reader :content
-    # @return [String] Opaque metadata from prior compaction, to be round-tripped verbatim
-    attr_reader :encrypted_content
-    # @return [BetaResponseCompactionBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaResponseCompactionBlockType', 'enum', "Unknown BetaResponseCompactionBlockType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaResponseContainerUploadBlockMetadata
+  FIELDS = {
+    file_id: "file_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    file_id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseContainerUploadBlockType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseCompactionBlockMetadata::NULLABLE_FIELDS)
-    end
+# API model for BetaResponseContainerUploadBlock.
+# Response model for a file uploaded to the container.
+class BetaResponseContainerUploadBlock
+  include BetaContentBlock
+  include BetaContentBlockStartEventContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseContainerUploadBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseContainerUploadBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseContainerUploadBlockMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [BetaResponseContainerUploadBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaResponseCompactionBlockType SDK namespace.
-  module BetaResponseCompactionBlockType
-    COMPACTION = 'compaction'
-    VALUES = ['compaction'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseCompactionBlockType', 'enum', "Unknown BetaResponseCompactionBlockType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseContainerUploadBlockMetadata
-    FIELDS = {
-      file_id: 'file_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      file_id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseContainerUploadBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaResponseContainerUploadBlockType SDK namespace.
+module BetaResponseContainerUploadBlockType
+  CONTAINER_UPLOAD = 'container_upload'
+  VALUES = ['container_upload'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaResponseContainerUploadBlockType', 'enum', "Unknown BetaResponseContainerUploadBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaResponseContentBlockLocationCitationMetadata
+  FIELDS = {
+    cited_text: "cited_text",
+    document_index: "document_index",
+    document_title: "document_title",
+    end_block_index: "end_block_index",
+    file_id: "file_id",
+    start_block_index: "start_block_index",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cited_text
+    document_index
+    document_title
+    end_block_index
+    file_id
+    start_block_index
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseContentBlockLocationCitationType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    document_title
+    file_id
+  ].freeze
+end
+
+# API model for BetaResponseContentBlockLocationCitation.
+# Typed representation of the `BetaResponseContentBlockLocationCitation` API schema.
+class BetaResponseContentBlockLocationCitation
+  include BetaCitationsDeltaCitation
+  include BetaResponseTextBlockCitationsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::DECODERS
+
+  # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+  attr_reader :cited_text
+  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+  attr_reader :document_index
+  # @return [String] Required `string` value serialized in the `document_title` wire field.
+  attr_reader :document_title
+  # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+  attr_reader :end_block_index
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [Integer] 0-based index of the first cited block in the source's `content` array.
+  attr_reader :start_block_index
+  # @return [BetaResponseContentBlockLocationCitationType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaResponseContainerUploadBlock.
-  # Response model for a file uploaded to the container.
-  class BetaResponseContainerUploadBlock
-    include BetaContentBlock
-    include BetaContentBlockStartEventContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseContainerUploadBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseContainerUploadBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseContainerUploadBlockMetadata::DECODERS
-
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [BetaResponseContainerUploadBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseContentBlockLocationCitationMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaResponseContainerUploadBlockType SDK namespace.
-  module BetaResponseContainerUploadBlockType
-    CONTAINER_UPLOAD = 'container_upload'
-    VALUES = ['container_upload'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaResponseContainerUploadBlockType', 'enum', "Unknown BetaResponseContainerUploadBlockType: #{value}")
-    end
+# Defines the BetaResponseContentBlockLocationCitationType SDK namespace.
+module BetaResponseContentBlockLocationCitationType
+  CONTENT_BLOCK_LOCATION = 'content_block_location'
+  VALUES = ['content_block_location'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaResponseContentBlockLocationCitationType', 'enum', "Unknown BetaResponseContentBlockLocationCitationType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata
+  FIELDS = {
+    content: "content",
+    encrypted_stdout: "encrypted_stdout",
+    return_code: "return_code",
+    stderr: "stderr",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    encrypted_stdout
+    return_code
+    stderr
+    type
+  ].freeze
+  DECODERS = {
+    content: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlock.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseEncryptedCodeExecutionResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaResponseEncryptedCodeExecutionResultBlock.
+# Code execution result with encrypted stdout for PFC + web_search results.
+class BetaResponseEncryptedCodeExecutionResultBlock
+  include BetaResponseCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::DECODERS
+
+  # @return [Array_of_BetaResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [String] Required `string` value serialized in the `encrypted_stdout` wire field.
+  attr_reader :encrypted_stdout
+  # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
+  attr_reader :return_code
+  # @return [String] Required `string` value serialized in the `stderr` wire field.
+  attr_reader :stderr
+  # @return [BetaResponseEncryptedCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseContentBlockLocationCitationMetadata
-    FIELDS = {
-      cited_text: 'cited_text',
-      document_index: 'document_index',
-      document_title: 'document_title',
-      end_block_index: 'end_block_index',
-      file_id: 'file_id',
-      start_block_index: 'start_block_index',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cited_text
-      document_index
-      document_title
-      end_block_index
-      file_id
-      start_block_index
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseContentBlockLocationCitationType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      document_title
-      file_id
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaResponseContentBlockLocationCitation.
-  # Typed representation of the `BetaResponseContentBlockLocationCitation` API schema.
-  class BetaResponseContentBlockLocationCitation
-    include BetaCitationsDeltaCitation
-    include BetaResponseTextBlockCitationsItem
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseContentBlockLocationCitationMetadata::DECODERS
+# Defines the BetaResponseEncryptedCodeExecutionResultBlockType SDK namespace.
+module BetaResponseEncryptedCodeExecutionResultBlockType
+  ENCRYPTED_CODE_EXECUTION_RESULT = 'encrypted_code_execution_result'
+  VALUES = ['encrypted_code_execution_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-    attr_reader :cited_text
-    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-    attr_reader :document_index
-    # @return [String] Required `string` value serialized in the `document_title` wire field.
-    attr_reader :document_title
-    # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-    attr_reader :end_block_index
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [Integer] 0-based index of the first cited block in the source's `content` array.
-    attr_reader :start_block_index
-    # @return [BetaResponseContentBlockLocationCitationType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaResponseEncryptedCodeExecutionResultBlockType', 'enum', "Unknown BetaResponseEncryptedCodeExecutionResultBlockType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaResponsePageLocationCitationMetadata
+  FIELDS = {
+    cited_text: "cited_text",
+    document_index: "document_index",
+    document_title: "document_title",
+    end_page_number: "end_page_number",
+    file_id: "file_id",
+    start_page_number: "start_page_number",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cited_text
+    document_index
+    document_title
+    end_page_number
+    file_id
+    start_page_number
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponsePageLocationCitationType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    document_title
+    file_id
+  ].freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseContentBlockLocationCitationMetadata::NULLABLE_FIELDS)
-    end
+# API model for BetaResponsePageLocationCitation.
+# Typed representation of the `BetaResponsePageLocationCitation` API schema.
+class BetaResponsePageLocationCitation
+  include BetaCitationsDeltaCitation
+  include BetaResponseTextBlockCitationsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponsePageLocationCitationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponsePageLocationCitationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponsePageLocationCitationMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] Required `string` value serialized in the `cited_text` wire field.
+  attr_reader :cited_text
+  # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
+  attr_reader :document_index
+  # @return [String] Required `string` value serialized in the `document_title` wire field.
+  attr_reader :document_title
+  # @return [Integer] Required `integer` value serialized in the `end_page_number` wire field.
+  attr_reader :end_page_number
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [Integer] Required `integer` value serialized in the `start_page_number` wire field.
+  attr_reader :start_page_number
+  # @return [BetaResponsePageLocationCitationType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaResponseContentBlockLocationCitationType SDK namespace.
-  module BetaResponseContentBlockLocationCitationType
-    CONTENT_BLOCK_LOCATION = 'content_block_location'
-    VALUES = ['content_block_location'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseContentBlockLocationCitationType', 'enum', "Unknown BetaResponseContentBlockLocationCitationType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponsePageLocationCitationMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata
-    FIELDS = {
-      content: 'content',
-      encrypted_stdout: 'encrypted_stdout',
-      return_code: 'return_code',
-      stderr: 'stderr',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      encrypted_stdout
-      return_code
-      stderr
-      type
-    ].freeze
-    DECODERS = {
-      content: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaResponseCodeExecutionOutputBlock.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseEncryptedCodeExecutionResultBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaResponsePageLocationCitationType SDK namespace.
+module BetaResponsePageLocationCitationType
+  PAGE_LOCATION = 'page_location'
+  VALUES = ['page_location'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaResponsePageLocationCitationType', 'enum', "Unknown BetaResponsePageLocationCitationType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaResponseRedactedThinkingBlockMetadata
+  FIELDS = {
+    data: "data",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseRedactedThinkingBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaResponseRedactedThinkingBlock.
+# Typed representation of the `BetaResponseRedactedThinkingBlock` API schema.
+class BetaResponseRedactedThinkingBlock
+  include BetaContentBlock
+  include BetaContentBlockStartEventContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::DECODERS
+
+  # @return [String] The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content. Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation. See extended thinking for details.
+  attr_reader :data
+  # @return [BetaResponseRedactedThinkingBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaResponseEncryptedCodeExecutionResultBlock.
-  # Code execution result with encrypted stdout for PFC + web_search results.
-  class BetaResponseEncryptedCodeExecutionResultBlock
-    include BetaResponseCodeExecutionToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseEncryptedCodeExecutionResultBlockMetadata::DECODERS
-
-    # @return [Array_of_BetaResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [String] Required `string` value serialized in the `encrypted_stdout` wire field.
-    attr_reader :encrypted_stdout
-    # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
-    attr_reader :return_code
-    # @return [String] Required `string` value serialized in the `stderr` wire field.
-    attr_reader :stderr
-    # @return [BetaResponseEncryptedCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaResponseEncryptedCodeExecutionResultBlockType SDK namespace.
-  module BetaResponseEncryptedCodeExecutionResultBlockType
-    ENCRYPTED_CODE_EXECUTION_RESULT = 'encrypted_code_execution_result'
-    VALUES = ['encrypted_code_execution_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaResponseEncryptedCodeExecutionResultBlockType', 'enum', "Unknown BetaResponseEncryptedCodeExecutionResultBlockType: #{value}")
-    end
+# Defines the BetaResponseRedactedThinkingBlockType SDK namespace.
+module BetaResponseRedactedThinkingBlockType
+  REDACTED_THINKING = 'redacted_thinking'
+  VALUES = ['redacted_thinking'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaResponseRedactedThinkingBlockType', 'enum', "Unknown BetaResponseRedactedThinkingBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaResponseSearchResultLocationCitationMetadata
+  FIELDS = {
+    cited_text: "cited_text",
+    end_block_index: "end_block_index",
+    search_result_index: "search_result_index",
+    source: "source",
+    start_block_index: "start_block_index",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cited_text
+    end_block_index
+    search_result_index
+    source
+    start_block_index
+    title
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseSearchResultLocationCitationType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    title
+  ].freeze
+end
+
+# API model for BetaResponseSearchResultLocationCitation.
+# Typed representation of the `BetaResponseSearchResultLocationCitation` API schema.
+class BetaResponseSearchResultLocationCitation
+  include BetaCitationsDeltaCitation
+  include BetaResponseTextBlockCitationsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::DECODERS
+
+  # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+  attr_reader :cited_text
+  # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+  attr_reader :end_block_index
+  # @return [Integer] 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count.
+  attr_reader :search_result_index
+  # @return [String] Required `string` value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [Integer] 0-based index of the first cited block in the source's `content` array.
+  attr_reader :start_block_index
+  # @return [String] Required `string` value serialized in the `title` wire field.
+  attr_reader :title
+  # @return [BetaResponseSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponsePageLocationCitationMetadata
-    FIELDS = {
-      cited_text: 'cited_text',
-      document_index: 'document_index',
-      document_title: 'document_title',
-      end_page_number: 'end_page_number',
-      file_id: 'file_id',
-      start_page_number: 'start_page_number',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cited_text
-      document_index
-      document_title
-      end_page_number
-      file_id
-      start_page_number
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponsePageLocationCitationType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      document_title
-      file_id
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaResponsePageLocationCitation.
-  # Typed representation of the `BetaResponsePageLocationCitation` API schema.
-  class BetaResponsePageLocationCitation
-    include BetaCitationsDeltaCitation
-    include BetaResponseTextBlockCitationsItem
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponsePageLocationCitationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponsePageLocationCitationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponsePageLocationCitationMetadata::DECODERS
+# Defines the BetaResponseSearchResultLocationCitationType SDK namespace.
+module BetaResponseSearchResultLocationCitationType
+  SEARCH_RESULT_LOCATION = 'search_result_location'
+  VALUES = ['search_result_location'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [String] Required `string` value serialized in the `cited_text` wire field.
-    attr_reader :cited_text
-    # @return [Integer] Required `integer` value serialized in the `document_index` wire field.
-    attr_reader :document_index
-    # @return [String] Required `string` value serialized in the `document_title` wire field.
-    attr_reader :document_title
-    # @return [Integer] Required `integer` value serialized in the `end_page_number` wire field.
-    attr_reader :end_page_number
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [Integer] Required `integer` value serialized in the `start_page_number` wire field.
-    attr_reader :start_page_number
-    # @return [BetaResponsePageLocationCitationType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaResponseSearchResultLocationCitationType', 'enum', "Unknown BetaResponseSearchResultLocationCitationType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaResponseThinkingBlockMetadata
+  FIELDS = {
+    signature: "signature",
+    thinking: "thinking",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    signature
+    thinking
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseThinkingBlockType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponsePageLocationCitationMetadata::NULLABLE_FIELDS)
-    end
+# API model for BetaResponseThinkingBlock.
+# Typed representation of the `BetaResponseThinkingBlock` API schema.
+class BetaResponseThinkingBlock
+  include BetaContentBlock
+  include BetaContentBlockStartEventContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseThinkingBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseThinkingBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseThinkingBlockMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] A value used to verify that this thinking block was generated by Claude when it is passed back to the API. This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact. See extended thinking for details.
+  attr_reader :signature
+  # @return [String] The text of Claude's thinking process for this block.
+  attr_reader :thinking
+  # @return [BetaResponseThinkingBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaResponsePageLocationCitationType SDK namespace.
-  module BetaResponsePageLocationCitationType
-    PAGE_LOCATION = 'page_location'
-    VALUES = ['page_location'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponsePageLocationCitationType', 'enum', "Unknown BetaResponsePageLocationCitationType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseRedactedThinkingBlockMetadata
-    FIELDS = {
-      data: 'data',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseRedactedThinkingBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaResponseRedactedThinkingBlock.
-  # Typed representation of the `BetaResponseRedactedThinkingBlock` API schema.
-  class BetaResponseRedactedThinkingBlock
-    include BetaContentBlock
-    include BetaContentBlockStartEventContentBlock
+# Defines the BetaResponseThinkingBlockType SDK namespace.
+module BetaResponseThinkingBlockType
+  THINKING = 'thinking'
+  VALUES = ['thinking'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseRedactedThinkingBlockMetadata::DECODERS
-
-    # @return [String] The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content. Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation. See extended thinking for details.
-    attr_reader :data
-    # @return [BetaResponseRedactedThinkingBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaResponseThinkingBlockType', 'enum', "Unknown BetaResponseThinkingBlockType: #{value}")
   end
-
-  # Defines the BetaResponseRedactedThinkingBlockType SDK namespace.
-  module BetaResponseRedactedThinkingBlockType
-    REDACTED_THINKING = 'redacted_thinking'
-    VALUES = ['redacted_thinking'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseRedactedThinkingBlockType', 'enum', "Unknown BetaResponseRedactedThinkingBlockType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseSearchResultLocationCitationMetadata
-    FIELDS = {
-      cited_text: 'cited_text',
-      end_block_index: 'end_block_index',
-      search_result_index: 'search_result_index',
-      source: 'source',
-      start_block_index: 'start_block_index',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cited_text
-      end_block_index
-      search_result_index
-      source
-      start_block_index
-      title
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseSearchResultLocationCitationType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      title
-    ].freeze
-  end
-
-  # API model for BetaResponseSearchResultLocationCitation.
-  # Typed representation of the `BetaResponseSearchResultLocationCitation` API schema.
-  class BetaResponseSearchResultLocationCitation
-    include BetaCitationsDeltaCitation
-    include BetaResponseTextBlockCitationsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseSearchResultLocationCitationMetadata::DECODERS
-
-    # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-    attr_reader :cited_text
-    # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-    attr_reader :end_block_index
-    # @return [Integer] 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count.
-    attr_reader :search_result_index
-    # @return [String] Required `string` value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [Integer] 0-based index of the first cited block in the source's `content` array.
-    attr_reader :start_block_index
-    # @return [String] Required `string` value serialized in the `title` wire field.
-    attr_reader :title
-    # @return [BetaResponseSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaResponseSearchResultLocationCitationType SDK namespace.
-  module BetaResponseSearchResultLocationCitationType
-    SEARCH_RESULT_LOCATION = 'search_result_location'
-    VALUES = ['search_result_location'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseSearchResultLocationCitationType', 'enum', "Unknown BetaResponseSearchResultLocationCitationType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseThinkingBlockMetadata
-    FIELDS = {
-      signature: 'signature',
-      thinking: 'thinking',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      signature
-      thinking
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseThinkingBlockType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaResponseThinkingBlock.
-  # Typed representation of the `BetaResponseThinkingBlock` API schema.
-  class BetaResponseThinkingBlock
-    include BetaContentBlock
-    include BetaContentBlockStartEventContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseThinkingBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseThinkingBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseThinkingBlockMetadata::DECODERS
-
-    # @return [String] A value used to verify that this thinking block was generated by Claude when it is passed back to the API. This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact. See extended thinking for details.
-    attr_reader :signature
-    # @return [String] The text of Claude's thinking process for this block.
-    attr_reader :thinking
-    # @return [BetaResponseThinkingBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaResponseThinkingBlockType SDK namespace.
-  module BetaResponseThinkingBlockType
-    THINKING = 'thinking'
-    VALUES = ['thinking'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseThinkingBlockType', 'enum', "Unknown BetaResponseThinkingBlockType: #{value}")
-    end
-  end
+end
 end

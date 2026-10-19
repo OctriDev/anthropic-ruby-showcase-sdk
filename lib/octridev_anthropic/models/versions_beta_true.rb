@@ -5,129 +5,130 @@
 
 # versions_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata
-    FIELDS = {
-      files: 'files'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      files
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata
+  FIELDS = {
+    files: "files",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    files
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPost.
+# Typed representation of the `BetaBody_create_skill_version_v1_skills__skill_id__versions_post` API schema.
+class BetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPost
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::DECODERS
+
+  # @return [Array_of_String] Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
+  attr_reader :files
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPost.
-  # Typed representation of the `BetaBody_create_skill_version_v1_skills__skill_id__versions_post` API schema.
-  class BetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPost
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaBodyCreateSkillVersionV1SkillsSkillIdVersionsPostMetadata::DECODERS
-
-    # @return [Array_of_String] Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
-    attr_reader :files
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListSkillVersionsResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaSkillVersion.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListSkillVersionsResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaSkillVersion.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaListSkillVersionsResponse.
+# Typed representation of the `BetaListSkillVersionsResponse` API schema.
+class BetaListSkillVersionsResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListSkillVersionsResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListSkillVersionsResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListSkillVersionsResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaSkillVersion] List of skills.
+  attr_reader :data
+  # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListSkillVersionsResponse.
-  # Typed representation of the `BetaListSkillVersionsResponse` API schema.
-  class BetaListSkillVersionsResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListSkillVersionsResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListSkillVersionsResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListSkillVersionsResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaSkillVersion] List of skills.
-    attr_reader :data
-    # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListSkillVersionsResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListSkillVersionsResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListAgentVersionsMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgent.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListAgentVersionsMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgent.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListAgentVersions.
+# Paginated list of agent versions.
+class BetaManagedAgentsListAgentVersions
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsAgent] Agent versions.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page. Null when no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsListAgentVersions.
-  # Paginated list of agent versions.
-  class BetaManagedAgentsListAgentVersions
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListAgentVersionsMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsAgent] Agent versions.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page. Null when no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

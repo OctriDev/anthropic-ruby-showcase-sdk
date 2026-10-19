@@ -5,91 +5,90 @@
 
 # shared_response_document domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalResponseDocumentBlockMetadata
-    FIELDS = {
-      citations: 'citations',
-      source: 'source',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      citations
-      source
-      title
-      type
-    ].freeze
-    DECODERS = {
-      citations: lambda do |value|
-        ::OctridevAnthropic::ResponseCitationsConfig.from_hash(value)
-      end,
-      source: lambda do |value|
-        ::OctridevAnthropic::ResponseDocumentBlockSource.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::ResponseDocumentBlockType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      citations
-      title
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalResponseDocumentBlockMetadata
+  FIELDS = {
+    citations: "citations",
+    source: "source",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    citations
+    source
+    title
+    type
+  ].freeze
+  DECODERS = {
+    citations: lambda do |value|
+      ::OctridevAnthropic::ResponseCitationsConfig.from_hash(value)
+    end,
+    source: lambda do |value|
+      ::OctridevAnthropic::ResponseDocumentBlockSource.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::ResponseDocumentBlockType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    citations
+    title
+  ].freeze
+end
+
+# API model for ResponseDocumentBlock.
+# Typed representation of the `ResponseDocumentBlock` API schema.
+class ResponseDocumentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalResponseDocumentBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalResponseDocumentBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalResponseDocumentBlockMetadata::DECODERS
+
+  # @return [ResponseCitationsConfig] Citation configuration for the document
+  attr_reader :citations
+  # @return [ResponseDocumentBlockSource] Required API value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [String] The title of the document
+  attr_reader :title
+  # @return [ResponseDocumentBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for ResponseDocumentBlock.
-  # Typed representation of the `ResponseDocumentBlock` API schema.
-  class ResponseDocumentBlock
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalResponseDocumentBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalResponseDocumentBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalResponseDocumentBlockMetadata::DECODERS
-
-    # @return [ResponseCitationsConfig] Citation configuration for the document
-    attr_reader :citations
-    # @return [ResponseDocumentBlockSource] Required API value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [String] The title of the document
-    attr_reader :title
-    # @return [ResponseDocumentBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseDocumentBlockMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalResponseDocumentBlockMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the ResponseDocumentBlockType SDK namespace.
-  module ResponseDocumentBlockType
-    DOCUMENT = 'document'
-    VALUES = ['document'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('ResponseDocumentBlockType', 'enum', "Unknown ResponseDocumentBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the ResponseDocumentBlockSource SDK namespace.
-  module ResponseDocumentBlockSource
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the ResponseDocumentBlockType SDK namespace.
+module ResponseDocumentBlockType
+  DOCUMENT = 'document'
+  VALUES = ['document'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      mapping = { 'base64' => Base64PDFSource, 'text' => PlainTextSource }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('ResponseDocumentBlockSource', 'variant', "Unknown ResponseDocumentBlockSource discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('ResponseDocumentBlockType', 'enum', "Unknown ResponseDocumentBlockType: #{value}")
   end
+end
+
+# Defines the ResponseDocumentBlockSource SDK namespace.
+module ResponseDocumentBlockSource
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "base64" => Base64PDFSource, "text" => PlainTextSource }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('ResponseDocumentBlockSource', 'variant', "Unknown ResponseDocumentBlockSource discriminator: #{hash["type"].inspect}")
+  end
+end
 end

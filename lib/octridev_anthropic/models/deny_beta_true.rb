@@ -5,37 +5,39 @@
 
 # deny_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata
-    FIELDS = {
-      suppress_notification: 'suppress_notification'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata
+  FIELDS = {
+    suppress_notification: "suppress_notification",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaDenySpendLimitIncreaseRequestParams.
+# Typed representation of the `BetaDenySpendLimitIncreaseRequestParams` API schema.
+class BetaDenySpendLimitIncreaseRequestParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::DECODERS
+
+  # @return [Boolean] Optional `boolean` value serialized in the `suppress_notification` wire field.
+  attr_reader :suppress_notification
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDenySpendLimitIncreaseRequestParams.
-  # Typed representation of the `BetaDenySpendLimitIncreaseRequestParams` API schema.
-  class BetaDenySpendLimitIncreaseRequestParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDenySpendLimitIncreaseRequestParamsMetadata::DECODERS
-
-    # @return [Boolean] Optional `boolean` value serialized in the `suppress_notification` wire field.
-    attr_reader :suppress_notification
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

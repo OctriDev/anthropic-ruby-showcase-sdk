@@ -34,25 +34,26 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
-        Validation.validate_items('requests', requests, min: 1, max: 100_000)
+
+        Validation.validate_items('requests', requests, min: 1, max: 100000)
 
         SdkClient.request(
           'POST',
-          '/v1/messages/batches',
+          "/v1/messages/batches",
           config: config,
           body: {
-            'requests' => requests
+            'requests' => requests,
           },
           return_type: ::OctridevAnthropic::MessageBatch,
           decoder: :json,
           operation_id: 'create_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-user-profile-id' => SdkClient.header_value(anthropic_user_profile_id),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-user-profile-id' => SdkClient.header_value(anthropic_user_profile_id),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
 
@@ -81,26 +82,27 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 1000) }
 
         SdkClient.request(
           'GET',
-          '/v1/messages/batches',
+          "/v1/messages/batches",
           config: config,
           query: {
             'before_id' => QueryValue.new(before_id, style: 'form', explode: true),
             'after_id' => QueryValue.new(after_id, style: 'form', explode: true),
-            'limit' => QueryValue.new(limit, style: 'form', explode: true)
+            'limit' => QueryValue.new(limit, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::ListResponseMessageBatch,
           decoder: :json,
           operation_id: 'list_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
 
@@ -121,10 +123,11 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/v1/messages/batches/',
+            "/v1/messages/batches/",
             SdkClient.encode_path_segment(message_batch_id)
           ].join,
           config: config,
@@ -132,11 +135,11 @@ module OctridevAnthropic
           decoder: :json,
           operation_id: 'retrieve_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
 
@@ -157,10 +160,11 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/v1/messages/batches/',
+            "/v1/messages/batches/",
             SdkClient.encode_path_segment(message_batch_id)
           ].join,
           config: config,
@@ -168,11 +172,11 @@ module OctridevAnthropic
           decoder: :json,
           operation_id: 'delete_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
 
@@ -193,23 +197,24 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
           [
-            '/v1/messages/batches/',
+            "/v1/messages/batches/",
             SdkClient.encode_path_segment(message_batch_id),
-            '/cancel'
+            "/cancel"
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::MessageBatch,
           decoder: :json,
           operation_id: 'cancel_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
 
@@ -230,23 +235,24 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/v1/messages/batches/',
+            "/v1/messages/batches/",
             SdkClient.encode_path_segment(message_batch_id),
-            '/results'
+            "/results"
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::MessageBatchIndividualResponse,
           decoder: :json,
           operation_id: 'results_messages_batches',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
     end

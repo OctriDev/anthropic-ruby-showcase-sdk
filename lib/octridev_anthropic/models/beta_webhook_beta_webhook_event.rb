@@ -5,121 +5,122 @@
 
 # beta_webhook_beta_webhook_event domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      created_at: 'created_at',
-      data: 'data'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      created_at
-      data
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEventType.from_value(value)
-      end,
-      data: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEventData.from_hash(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    created_at: "created_at",
+    data: "data",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    created_at
+    data
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEventType.from_value(value)
+    end,
+    data: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEventData.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookEvent.
+# Typed representation of the `BetaWebhookEvent` API schema.
+class BetaWebhookEvent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookEventMetadata::DECODERS
+
+  # @return [BetaWebhookEventType] Object type. Always `event` for webhook payloads.
+  attr_reader :type
+  # @return [String] Unique event identifier for idempotency.
+  attr_reader :id
+  # @return [String] RFC 3339 timestamp when the event occurred.
+  attr_reader :created_at
+  # @return [BetaWebhookEventData] Required API value serialized in the `data` wire field.
+  attr_reader :data
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebhookEvent.
-  # Typed representation of the `BetaWebhookEvent` API schema.
-  class BetaWebhookEvent
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookEventMetadata::DECODERS
-
-    # @return [BetaWebhookEventType] Object type. Always `event` for webhook payloads.
-    attr_reader :type
-    # @return [String] Unique event identifier for idempotency.
-    attr_reader :id
-    # @return [String] RFC 3339 timestamp when the event occurred.
-    attr_reader :created_at
-    # @return [BetaWebhookEventData] Required API value serialized in the `data` wire field.
-    attr_reader :data
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebhookEventType SDK namespace.
-  module BetaWebhookEventType
-    EVENT = 'event'
-    VALUES = ['event'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookEventType', 'enum', "Unknown BetaWebhookEventType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaWebhookEventData SDK namespace.
-  module BetaWebhookEventData
-    DISCRIMINATOR_MAPPING = {
-      'session.created' => -> { BetaWebhookSessionCreatedEventData },
-      'session.pending' => -> { BetaWebhookSessionPendingEventData },
-      'session.running' => -> { BetaWebhookSessionRunningEventData },
-      'session.idled' => -> { BetaWebhookSessionIdledEventData },
-      'session.requires_action' => -> { BetaWebhookSessionRequiresActionEventData },
-      'session.archived' => -> { BetaWebhookSessionArchivedEventData },
-      'session.deleted' => -> { BetaWebhookSessionDeletedEventData },
-      'session.status_rescheduled' => -> { BetaWebhookSessionStatusRescheduledEventData },
-      'session.status_run_started' => -> { BetaWebhookSessionStatusRunStartedEventData },
-      'session.status_idled' => -> { BetaWebhookSessionStatusIdledEventData },
-      'session.status_terminated' => -> { BetaWebhookSessionStatusTerminatedEventData },
-      'session.thread_created' => -> { BetaWebhookSessionThreadCreatedEventData },
-      'session.thread_idled' => -> { BetaWebhookSessionThreadIdledEventData },
-      'session.thread_terminated' => -> { BetaWebhookSessionThreadTerminatedEventData },
-      'session.outcome_evaluation_ended' => -> { BetaWebhookSessionOutcomeEvaluationEndedEventData },
-      'vault.created' => -> { BetaWebhookVaultCreatedEventData },
-      'vault.archived' => -> { BetaWebhookVaultArchivedEventData },
-      'vault.deleted' => -> { BetaWebhookVaultDeletedEventData },
-      'vault_credential.created' => -> { BetaWebhookVaultCredentialCreatedEventData },
-      'vault_credential.archived' => -> { BetaWebhookVaultCredentialArchivedEventData },
-      'vault_credential.deleted' => -> { BetaWebhookVaultCredentialDeletedEventData },
-      'vault_credential.refresh_failed' => -> { BetaWebhookVaultCredentialRefreshFailedEventData },
-      'session.updated' => -> { BetaWebhookSessionUpdatedEventData },
-      'agent.created' => -> { BetaWebhookAgentCreatedEventData },
-      'agent.archived' => -> { BetaWebhookAgentArchivedEventData },
-      'agent.deleted' => -> { BetaWebhookAgentDeletedEventData },
-      'deployment.paused' => -> { BetaWebhookDeploymentPausedEventData },
-      'deployment_run.failed' => -> { BetaWebhookDeploymentRunFailedEventData },
-      'deployment.created' => -> { BetaWebhookDeploymentCreatedEventData },
-      'deployment.updated' => -> { BetaWebhookDeploymentUpdatedEventData },
-      'deployment.unpaused' => -> { BetaWebhookDeploymentUnpausedEventData },
-      'agent.updated' => -> { BetaWebhookAgentUpdatedEventData },
-      'deployment.archived' => -> { BetaWebhookDeploymentArchivedEventData },
-      'deployment_run.started' => -> { BetaWebhookDeploymentRunStartedEventData },
-      'deployment.deleted' => -> { BetaWebhookDeploymentDeletedEventData },
-      'deployment_run.succeeded' => -> { BetaWebhookDeploymentRunSucceededEventData },
-      'environment.created' => -> { BetaWebhookEnvironmentCreatedEventData },
-      'environment.updated' => -> { BetaWebhookEnvironmentUpdatedEventData },
-      'environment.archived' => -> { BetaWebhookEnvironmentArchivedEventData },
-      'environment.deleted' => -> { BetaWebhookEnvironmentDeletedEventData },
-      'memory_store.created' => -> { BetaWebhookMemoryStoreCreatedEventData },
-      'memory_store.archived' => -> { BetaWebhookMemoryStoreArchivedEventData },
-      'memory_store.deleted' => -> { BetaWebhookMemoryStoreDeletedEventData },
-      'session.budget_reached' => -> { BetaWebhookSessionBudgetReachedEventData }
-    }.freeze
-    UNDECIDED_VARIANTS = [
+# Defines the BetaWebhookEventType SDK namespace.
+module BetaWebhookEventType
+  EVENT = 'event'
+  VALUES = ['event'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebhookEventType', 'enum', "Unknown BetaWebhookEventType: #{value}")
+  end
+end
+
+# Defines the BetaWebhookEventData SDK namespace.
+module BetaWebhookEventData
+  DISCRIMINATOR_MAPPING = {
+    "session.created" => -> { BetaWebhookSessionCreatedEventData },
+    "session.pending" => -> { BetaWebhookSessionPendingEventData },
+    "session.running" => -> { BetaWebhookSessionRunningEventData },
+    "session.idled" => -> { BetaWebhookSessionIdledEventData },
+    "session.requires_action" => -> { BetaWebhookSessionRequiresActionEventData },
+    "session.archived" => -> { BetaWebhookSessionArchivedEventData },
+    "session.deleted" => -> { BetaWebhookSessionDeletedEventData },
+    "session.status_rescheduled" => -> { BetaWebhookSessionStatusRescheduledEventData },
+    "session.status_run_started" => -> { BetaWebhookSessionStatusRunStartedEventData },
+    "session.status_idled" => -> { BetaWebhookSessionStatusIdledEventData },
+    "session.status_terminated" => -> { BetaWebhookSessionStatusTerminatedEventData },
+    "session.thread_created" => -> { BetaWebhookSessionThreadCreatedEventData },
+    "session.thread_idled" => -> { BetaWebhookSessionThreadIdledEventData },
+    "session.thread_terminated" => -> { BetaWebhookSessionThreadTerminatedEventData },
+    "session.outcome_evaluation_ended" => -> { BetaWebhookSessionOutcomeEvaluationEndedEventData },
+    "vault.created" => -> { BetaWebhookVaultCreatedEventData },
+    "vault.archived" => -> { BetaWebhookVaultArchivedEventData },
+    "vault.deleted" => -> { BetaWebhookVaultDeletedEventData },
+    "vault_credential.created" => -> { BetaWebhookVaultCredentialCreatedEventData },
+    "vault_credential.archived" => -> { BetaWebhookVaultCredentialArchivedEventData },
+    "vault_credential.deleted" => -> { BetaWebhookVaultCredentialDeletedEventData },
+    "vault_credential.refresh_failed" => -> { BetaWebhookVaultCredentialRefreshFailedEventData },
+    "session.updated" => -> { BetaWebhookSessionUpdatedEventData },
+    "agent.created" => -> { BetaWebhookAgentCreatedEventData },
+    "agent.archived" => -> { BetaWebhookAgentArchivedEventData },
+    "agent.deleted" => -> { BetaWebhookAgentDeletedEventData },
+    "deployment.paused" => -> { BetaWebhookDeploymentPausedEventData },
+    "deployment_run.failed" => -> { BetaWebhookDeploymentRunFailedEventData },
+    "deployment.created" => -> { BetaWebhookDeploymentCreatedEventData },
+    "deployment.updated" => -> { BetaWebhookDeploymentUpdatedEventData },
+    "deployment.unpaused" => -> { BetaWebhookDeploymentUnpausedEventData },
+    "agent.updated" => -> { BetaWebhookAgentUpdatedEventData },
+    "deployment.archived" => -> { BetaWebhookDeploymentArchivedEventData },
+    "deployment_run.started" => -> { BetaWebhookDeploymentRunStartedEventData },
+    "deployment.deleted" => -> { BetaWebhookDeploymentDeletedEventData },
+    "deployment_run.succeeded" => -> { BetaWebhookDeploymentRunSucceededEventData },
+    "environment.created" => -> { BetaWebhookEnvironmentCreatedEventData },
+    "environment.updated" => -> { BetaWebhookEnvironmentUpdatedEventData },
+    "environment.archived" => -> { BetaWebhookEnvironmentArchivedEventData },
+    "environment.deleted" => -> { BetaWebhookEnvironmentDeletedEventData },
+    "memory_store.created" => -> { BetaWebhookMemoryStoreCreatedEventData },
+    "memory_store.archived" => -> { BetaWebhookMemoryStoreArchivedEventData },
+    "memory_store.deleted" => -> { BetaWebhookMemoryStoreDeletedEventData },
+    "session.budget_reached" => -> { BetaWebhookSessionBudgetReachedEventData },
+  }.freeze
+  UNDECIDED_VARIANTS = (
+    [
       -> { BetaWebhookSessionCreatedEventData },
       -> { BetaWebhookSessionPendingEventData },
       -> { BetaWebhookSessionRunningEventData },
@@ -163,18 +164,18 @@ module OctridevAnthropic
       -> { BetaWebhookMemoryStoreCreatedEventData },
       -> { BetaWebhookMemoryStoreArchivedEventData },
       -> { BetaWebhookMemoryStoreDeletedEventData },
-      -> { BetaWebhookSessionBudgetReachedEventData }
-    ].freeze
+      -> { BetaWebhookSessionBudgetReachedEventData },
+    ]
+  ).freeze
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaWebhookEventData', 'variant', "Unknown BetaWebhookEventData discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaWebhookEventData', 'variant', "Unknown BetaWebhookEventData discriminator: #{hash["type"].inspect}")
   end
+end
 end

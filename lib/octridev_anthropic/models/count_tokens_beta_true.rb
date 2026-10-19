@@ -5,149 +5,151 @@
 
 # count_tokens_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaContextManagementResponseMetadata
-    FIELDS = {
-      original_input_tokens: 'original_input_tokens'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      original_input_tokens
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaContextManagementResponseMetadata
+  FIELDS = {
+    original_input_tokens: "original_input_tokens",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    original_input_tokens
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaContextManagementResponse.
+# Typed representation of the `BetaContextManagementResponse` API schema.
+class BetaContextManagementResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaContextManagementResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaContextManagementResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaContextManagementResponseMetadata::DECODERS
+
+  # @return [Integer] The original token count before context management was applied
+  attr_reader :original_input_tokens
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaContextManagementResponse.
-  # Typed representation of the `BetaContextManagementResponse` API schema.
-  class BetaContextManagementResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaContextManagementResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaContextManagementResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaContextManagementResponseMetadata::DECODERS
-
-    # @return [Integer] The original token count before context management was applied
-    attr_reader :original_input_tokens
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCountMessageTokensParamsMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      context_management: 'context_management',
-      mcp_servers: 'mcp_servers',
-      messages: 'messages',
-      model: 'model',
-      output_config: 'output_config',
-      output_format: 'output_format',
-      speed: 'speed',
-      system: 'system',
-      thinking: 'thinking',
-      tool_choice: 'tool_choice',
-      tools: 'tools'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      messages
-      model
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      context_management: lambda do |value|
-        ::OctridevAnthropic::BetaContextManagementConfig.from_hash(value)
-      end,
-      mcp_servers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRequestMCPServerURLDefinition.from_hash(item) }
-      end,
-      messages: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaInputMessage.from_hash(item) }
-      end,
-      model: lambda do |value|
-        ::OctridevAnthropic::Model.from_hash(value)
-      end,
-      output_config: lambda do |value|
-        ::OctridevAnthropic::BetaOutputConfig.from_hash(value)
-      end,
-      output_format: lambda do |value|
-        ::OctridevAnthropic::BetaJsonOutputFormat.from_hash(value)
-      end,
-      speed: lambda do |value|
-        ::OctridevAnthropic::BetaSpeed.from_value(value)
-      end,
-      thinking: lambda do |value|
-        ::OctridevAnthropic::BetaThinkingConfigParam.from_hash(value)
-      end,
-      tool_choice: lambda do |value|
-        ::OctridevAnthropic::BetaToolChoice.from_hash(value)
-      end,
-      tools: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaCountMessageTokensParamsToolsItem.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCountMessageTokensParamsMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    context_management: "context_management",
+    mcp_servers: "mcp_servers",
+    messages: "messages",
+    model: "model",
+    output_config: "output_config",
+    output_format: "output_format",
+    speed: "speed",
+    system: "system",
+    thinking: "thinking",
+    tool_choice: "tool_choice",
+    tools: "tools",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    messages
+    model
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    context_management: lambda do |value|
+      ::OctridevAnthropic::BetaContextManagementConfig.from_hash(value)
+    end,
+    mcp_servers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRequestMCPServerURLDefinition.from_hash(item) }
+    end,
+    messages: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaInputMessage.from_hash(item) }
+    end,
+    model: lambda do |value|
+      ::OctridevAnthropic::Model.from_hash(value)
+    end,
+    output_config: lambda do |value|
+      ::OctridevAnthropic::BetaOutputConfig.from_hash(value)
+    end,
+    output_format: lambda do |value|
+      ::OctridevAnthropic::BetaJsonOutputFormat.from_hash(value)
+    end,
+    speed: lambda do |value|
+      ::OctridevAnthropic::BetaSpeed.from_value(value)
+    end,
+    thinking: lambda do |value|
+      ::OctridevAnthropic::BetaThinkingConfigParam.from_hash(value)
+    end,
+    tool_choice: lambda do |value|
+      ::OctridevAnthropic::BetaToolChoice.from_hash(value)
+    end,
+    tools: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaCountMessageTokensParamsToolsItem.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaCountMessageTokensParams.
+# Typed representation of the `BetaCountMessageTokensParams` API schema.
+class BetaCountMessageTokensParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCountMessageTokensParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCountMessageTokensParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCountMessageTokensParamsMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+  attr_reader :cache_control
+  # @return [BetaContextManagementConfig] Context management configuration. This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
+  attr_reader :context_management
+  # @return [Array_of_BetaRequestMCPServerURLDefinition] MCP servers to be utilized in this request
+  attr_reader :mcp_servers
+  # @return [Array_of_BetaInputMessage] Input messages. Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn. Each input message must be an object with a `role` and `content`. You can specify a single `user`-role…
+  attr_reader :messages
+  # @return [Model] The model that will complete your prompt. See models for additional details and options.
+  attr_reader :model
+  # @return [BetaOutputConfig] Configuration options for the model's output, such as the output format.
+  attr_reader :output_config
+  # @return [BetaJsonOutputFormat] Deprecated: Use `output_config.format` instead. See structured outputs A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+  attr_reader :output_format
+  # @return [BetaSpeed] The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  attr_reader :speed
+  # @return [Object] System prompt. A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our guide to system prompts.
+  attr_reader :system
+  # @return [BetaThinkingConfigParam] Configuration for enabling Claude's extended thinking. When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit. See extended thinking for details.
+  attr_reader :thinking
+  # @return [BetaToolChoice] How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+  attr_reader :tool_choice
+  # @return [Array_of_BetaCountMessageTokensParamsToolsItem] Definitions of tools that the model may use. If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks. There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For server…
+  attr_reader :tools
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCountMessageTokensParams.
-  # Typed representation of the `BetaCountMessageTokensParams` API schema.
-  class BetaCountMessageTokensParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCountMessageTokensParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCountMessageTokensParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCountMessageTokensParamsMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
-    attr_reader :cache_control
-    # @return [BetaContextManagementConfig] Context management configuration. This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
-    attr_reader :context_management
-    # @return [Array_of_BetaRequestMCPServerURLDefinition] MCP servers to be utilized in this request
-    attr_reader :mcp_servers
-    # @return [Array_of_BetaInputMessage] Input messages. Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn. Each input message must be an object with a `role` and `content`. You can specify a single `user`-role…
-    attr_reader :messages
-    # @return [Model] The model that will complete your prompt. See models for additional details and options.
-    attr_reader :model
-    # @return [BetaOutputConfig] Configuration options for the model's output, such as the output format.
-    attr_reader :output_config
-    # @return [BetaJsonOutputFormat] Deprecated: Use `output_config.format` instead. See structured outputs A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-    attr_reader :output_format
-    # @return [BetaSpeed] The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
-    attr_reader :speed
-    # @return [Object] System prompt. A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our guide to system prompts.
-    attr_reader :system
-    # @return [BetaThinkingConfigParam] Configuration for enabling Claude's extended thinking. When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit. See extended thinking for details.
-    attr_reader :thinking
-    # @return [BetaToolChoice] How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
-    attr_reader :tool_choice
-    # @return [Array_of_BetaCountMessageTokensParamsToolsItem] Definitions of tools that the model may use. If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks. There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For server…
-    attr_reader :tools
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCountMessageTokensParamsToolsItem SDK namespace.
-  module BetaCountMessageTokensParamsToolsItem
-    UNDECIDED_VARIANTS = [
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaCountMessageTokensParamsToolsItem SDK namespace.
+module BetaCountMessageTokensParamsToolsItem
+  UNDECIDED_VARIANTS = (
+    [
       -> { BetaBashTool20241022 },
       -> { BetaBashTool20250124 },
       -> { BetaCodeExecutionTool20250522 },
@@ -172,77 +174,77 @@ module OctridevAnthropic
       -> { BetaWebSearchTool20260318 },
       -> { BetaWebFetchTool20260318 },
       -> { BetaToolSearchToolBM2520251119 },
-      -> { BetaToolSearchToolRegex20251119 }
-    ].freeze
+      -> { BetaToolSearchToolRegex20251119 },
+    ]
+  ).freeze
 
-    def self.from_hash(hash)
-      shape_mapping = {
-        'input_schema' => BetaTool,
-        'model' => BetaAdvisorTool20260301,
-        'mcp_server_name' => BetaMCPToolset
-      }
-      type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
-      decoded = type&.from_hash(hash)
-      return decoded unless type.nil?
+  def self.from_hash(hash)
+    shape_mapping = {
+      "input_schema" => BetaTool,
+      "model" => BetaAdvisorTool20260301,
+      "mcp_server_name" => BetaMCPToolset,
+    }
+    type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
+    decoded = type&.from_hash(hash)
+    return decoded unless type.nil?
+    lossy = nil
+    UNDECIDED_VARIANTS.each do |variant|
+      type = variant.call
+      decoded = type.from_hash(hash)
+      return decoded if SdkModel.keeps_every_key?(hash, decoded)
 
-      lossy = nil
-      UNDECIDED_VARIANTS.each do |variant|
-        type = variant.call
-        decoded = type.from_hash(hash)
-        return decoded if SdkModel.keeps_every_key?(hash, decoded)
-
-        lossy ||= decoded
-      rescue ::StandardError
-        next
-      end
-      lossy unless lossy.nil?
+      lossy ||= decoded
+    rescue ::StandardError
+      next
     end
+    return lossy unless lossy.nil?
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCountMessageTokensResponseMetadata
+  FIELDS = {
+    context_management: "context_management",
+    input_tokens: "input_tokens",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    context_management
+    input_tokens
+  ].freeze
+  DECODERS = {
+    context_management: lambda do |value|
+      ::OctridevAnthropic::BetaContextManagementResponse.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    context_management
+  ].freeze
+end
+
+# API model for BetaCountMessageTokensResponse.
+# Typed representation of the `BetaCountMessageTokensResponse` API schema.
+class BetaCountMessageTokensResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCountMessageTokensResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCountMessageTokensResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCountMessageTokensResponseMetadata::DECODERS
+
+  # @return [BetaContextManagementResponse] Information about context management applied to the message.
+  attr_reader :context_management
+  # @return [Integer] The total number of tokens across the provided list of messages, system prompt, and tools.
+  attr_reader :input_tokens
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCountMessageTokensResponseMetadata
-    FIELDS = {
-      context_management: 'context_management',
-      input_tokens: 'input_tokens'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      context_management
-      input_tokens
-    ].freeze
-    DECODERS = {
-      context_management: lambda do |value|
-        ::OctridevAnthropic::BetaContextManagementResponse.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      context_management
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaCountMessageTokensResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaCountMessageTokensResponse.
-  # Typed representation of the `BetaCountMessageTokensResponse` API schema.
-  class BetaCountMessageTokensResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCountMessageTokensResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCountMessageTokensResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCountMessageTokensResponseMetadata::DECODERS
-
-    # @return [BetaContextManagementResponse] Information about context management applied to the message.
-    attr_reader :context_management
-    # @return [Integer] The total number of tokens across the provided list of messages, system prompt, and tools.
-    attr_reader :input_tokens
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaCountMessageTokensResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

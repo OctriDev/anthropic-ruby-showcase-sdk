@@ -5,126 +5,124 @@
 
 # shared_beta_external domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaExternalKeyMetadata
-    FIELDS = {
-      attachment: 'attachment',
-      created_at: 'created_at',
-      display_name: 'display_name',
-      geo: 'geo',
-      id: 'id',
-      provider_config: 'provider_config',
-      type: 'type',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      attachment
-      created_at
-      display_name
-      geo
-      id
-      provider_config
-      type
-      updated_at
-    ].freeze
-    DECODERS = {
-      attachment: lambda do |value|
-        ::OctridevAnthropic::BetaExternalKeyAttachment.from_hash(value)
-      end,
-      provider_config: lambda do |value|
-        ::OctridevAnthropic::BetaExternalKeyProviderConfig.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaExternalKeyType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      display_name
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaExternalKeyMetadata
+  FIELDS = {
+    attachment: "attachment",
+    created_at: "created_at",
+    display_name: "display_name",
+    geo: "geo",
+    id: "id",
+    provider_config: "provider_config",
+    type: "type",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    attachment
+    created_at
+    display_name
+    geo
+    id
+    provider_config
+    type
+    updated_at
+  ].freeze
+  DECODERS = {
+    attachment: lambda do |value|
+      ::OctridevAnthropic::BetaExternalKeyAttachment.from_hash(value)
+    end,
+    provider_config: lambda do |value|
+      ::OctridevAnthropic::BetaExternalKeyProviderConfig.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaExternalKeyType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    display_name
+  ].freeze
+end
+
+# API model for BetaExternalKey.
+# CMEK external key config belonging to the caller's organization. Configs are organization-scoped. Workspaces attach to a config; once any workspace references it, the provider fields become effectively immutable (existing encrypted data needs the config for decrypt).
+class BetaExternalKey
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaExternalKeyMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaExternalKeyMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaExternalKeyMetadata::DECODERS
+
+  # @return [BetaExternalKeyAttachment] Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
+  attr_reader :attachment
+  # @return [String] Required `date-time`-formatted value serialized in the `created_at` wire field.
+  attr_reader :created_at
+  # @return [String] Human-friendly display name. Null if none was set.
+  attr_reader :display_name
+  # @return [String] Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+  attr_reader :geo
+  # @return [String] Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
+  attr_reader :id
+  # @return [BetaExternalKeyProviderConfig] KMS provider identity and auth coordinates.
+  attr_reader :provider_config
+  # @return [BetaExternalKeyType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `date-time`-formatted value serialized in the `updated_at` wire field.
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaExternalKey.
-  # CMEK external key config belonging to the caller's organization. Configs are organization-scoped. Workspaces attach to a config; once any workspace references it, the provider fields become effectively immutable (existing encrypted data needs the config for decrypt).
-  class BetaExternalKey
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaExternalKeyMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaExternalKeyMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaExternalKeyMetadata::DECODERS
-
-    # @return [BetaExternalKeyAttachment] Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
-    attr_reader :attachment
-    # @return [String] Required `date-time`-formatted value serialized in the `created_at` wire field.
-    attr_reader :created_at
-    # @return [String] Human-friendly display name. Null if none was set.
-    attr_reader :display_name
-    # @return [String] Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
-    attr_reader :geo
-    # @return [String] Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
-    attr_reader :id
-    # @return [BetaExternalKeyProviderConfig] KMS provider identity and auth coordinates.
-    attr_reader :provider_config
-    # @return [BetaExternalKeyType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `date-time`-formatted value serialized in the `updated_at` wire field.
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaExternalKeyMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaExternalKeyMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaExternalKeyType SDK namespace.
-  module BetaExternalKeyType
-    EXTERNAL_KEY = 'external_key'
-    VALUES = ['external_key'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaExternalKeyType', 'enum', "Unknown BetaExternalKeyType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaExternalKeyAttachment SDK namespace.
-  module BetaExternalKeyAttachment
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaExternalKeyType SDK namespace.
+module BetaExternalKeyType
+  EXTERNAL_KEY = 'external_key'
+  VALUES = ['external_key'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      mapping = { 'attached' => BetaAttachedAttachment, 'unattached' => BetaUnattachedAttachment }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaExternalKeyAttachment', 'variant', "Unknown BetaExternalKeyAttachment discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaExternalKeyType', 'enum', "Unknown BetaExternalKeyType: #{value}")
   end
+end
 
-  # Defines the BetaExternalKeyProviderConfig SDK namespace.
-  module BetaExternalKeyProviderConfig
-    DISCRIMINATOR_MAPPING = {
-      'aws' => -> { BetaAwsExternalKeyConfig },
-      'azure' => -> { BetaAzureExternalKeyConfig },
-      'gcp' => -> { BetaGcpExternalKeyConfig }
-    }.freeze
+# Defines the BetaExternalKeyAttachment SDK namespace.
+module BetaExternalKeyAttachment
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "attached" => BetaAttachedAttachment, "unattached" => BetaUnattachedAttachment }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaExternalKeyProviderConfig', 'variant', "Unknown BetaExternalKeyProviderConfig discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaExternalKeyAttachment', 'variant', "Unknown BetaExternalKeyAttachment discriminator: #{hash["type"].inspect}")
   end
+end
+
+# Defines the BetaExternalKeyProviderConfig SDK namespace.
+module BetaExternalKeyProviderConfig
+  DISCRIMINATOR_MAPPING = {
+    "aws" => -> { BetaAwsExternalKeyConfig },
+    "azure" => -> { BetaAzureExternalKeyConfig },
+    "gcp" => -> { BetaGcpExternalKeyConfig },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaExternalKeyProviderConfig', 'variant', "Unknown BetaExternalKeyProviderConfig discriminator: #{hash["type"].inspect}")
+  end
+end
 end

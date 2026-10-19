@@ -5,104 +5,102 @@
 
 # shared_beta_request_document domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestDocumentBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      citations: 'citations',
-      context: 'context',
-      source: 'source',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      source
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      source: lambda do |value|
-        ::OctridevAnthropic::BetaRequestDocumentBlockSource.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestDocumentBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestDocumentBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    citations: "citations",
+    context: "context",
+    source: "source",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    source
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    source: lambda do |value|
+      ::OctridevAnthropic::BetaRequestDocumentBlockSource.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestDocumentBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestDocumentBlock.
+# Typed representation of the `BetaRequestDocumentBlock` API schema.
+class BetaRequestDocumentBlock
+  include BetaInputContentBlock
+  include BetaRequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestDocumentBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestDocumentBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestDocumentBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Optional API value serialized in the `citations` wire field.
+  attr_reader :citations
+  # @return [String] Optional API value serialized in the `context` wire field.
+  attr_reader :context
+  # @return [BetaRequestDocumentBlockSource] Required API value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [String] Optional API value serialized in the `title` wire field.
+  attr_reader :title
+  # @return [BetaRequestDocumentBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestDocumentBlock.
-  # Typed representation of the `BetaRequestDocumentBlock` API schema.
-  class BetaRequestDocumentBlock
-    include BetaInputContentBlock
-    include BetaRequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestDocumentBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestDocumentBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestDocumentBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Optional API value serialized in the `citations` wire field.
-    attr_reader :citations
-    # @return [String] Optional API value serialized in the `context` wire field.
-    attr_reader :context
-    # @return [BetaRequestDocumentBlockSource] Required API value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [String] Optional API value serialized in the `title` wire field.
-    attr_reader :title
-    # @return [BetaRequestDocumentBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestDocumentBlockType SDK namespace.
-  module BetaRequestDocumentBlockType
-    DOCUMENT = 'document'
-    VALUES = ['document'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestDocumentBlockType', 'enum', "Unknown BetaRequestDocumentBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestDocumentBlockSource SDK namespace.
-  module BetaRequestDocumentBlockSource
-    DISCRIMINATOR_MAPPING = {
-      'base64' => -> { BetaBase64PDFSource },
-      'content' => -> { BetaContentBlockSource },
-      'file' => -> { BetaFileDocumentSource },
-      'text' => -> { BetaPlainTextSource },
-      'url' => -> { BetaURLPDFSource }
-    }.freeze
+# Defines the BetaRequestDocumentBlockType SDK namespace.
+module BetaRequestDocumentBlockType
+  DOCUMENT = 'document'
+  VALUES = ['document'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestDocumentBlockSource', 'variant', "Unknown BetaRequestDocumentBlockSource discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaRequestDocumentBlockType', 'enum', "Unknown BetaRequestDocumentBlockType: #{value}")
   end
+end
+
+# Defines the BetaRequestDocumentBlockSource SDK namespace.
+module BetaRequestDocumentBlockSource
+  DISCRIMINATOR_MAPPING = {
+    "base64" => -> { BetaBase64PDFSource },
+    "content" => -> { BetaContentBlockSource },
+    "file" => -> { BetaFileDocumentSource },
+    "text" => -> { BetaPlainTextSource },
+    "url" => -> { BetaURLPDFSource },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestDocumentBlockSource', 'variant', "Unknown BetaRequestDocumentBlockSource discriminator: #{hash["type"].inspect}")
+  end
+end
 end

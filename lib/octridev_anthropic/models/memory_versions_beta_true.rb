@@ -5,44 +5,45 @@
 
 # memory_versions_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMemoryVersion.from_hash(item) }
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMemoryVersion.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListMemoryVersionsResult.
+# Response payload for List memory versions.
+class BetaManagedAgentsListMemoryVersionsResult
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsMemoryVersion] One page of `memory_version` objects, ordered by `created_at` descending (newest first), with `id` as tiebreak.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsListMemoryVersionsResult.
-  # Response payload for List memory versions.
-  class BetaManagedAgentsListMemoryVersionsResult
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListMemoryVersionsResultMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsMemoryVersion] One page of `memory_version` objects, ordered by `created_at` descending (newest first), with `id` as tiebreak.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

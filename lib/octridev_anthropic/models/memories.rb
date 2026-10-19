@@ -5,171 +5,170 @@
 
 # memories domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata
-    FIELDS = {
-      type: 'type',
-      content_sha256: 'content_sha256'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsContentSha256PreconditionType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata
+  FIELDS = {
+    type: "type",
+    content_sha256: "content_sha256",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsContentSha256PreconditionType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsContentSha256Precondition.
+# Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
+class BetaManagedAgentsContentSha256Precondition
+  include BetaManagedAgentsPrecondition
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::DECODERS
+
+  # @return [BetaManagedAgentsContentSha256PreconditionType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
+  attr_reader :content_sha256
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsContentSha256Precondition.
-  # Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
-  class BetaManagedAgentsContentSha256Precondition
-    include BetaManagedAgentsPrecondition
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsContentSha256PreconditionMetadata::DECODERS
-
-    # @return [BetaManagedAgentsContentSha256PreconditionType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
-    attr_reader :content_sha256
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsContentSha256PreconditionType SDK namespace.
-  module BetaManagedAgentsContentSha256PreconditionType
-    CONTENT_SHA256 = 'content_sha256'
-    VALUES = ['content_sha256'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsContentSha256PreconditionType', 'enum', "Unknown BetaManagedAgentsContentSha256PreconditionType: #{value}")
-    end
+# Defines the BetaManagedAgentsContentSha256PreconditionType SDK namespace.
+module BetaManagedAgentsContentSha256PreconditionType
+  CONTENT_SHA256 = 'content_sha256'
+  VALUES = ['content_sha256'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsContentSha256PreconditionType', 'enum', "Unknown BetaManagedAgentsContentSha256PreconditionType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsDeletedMemoryMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsDeletedMemoryType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsDeletedMemory.
+# Tombstone returned by Delete a memory. Deleting a memory does not erase its version history: its versions remain listable via List memory versions while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
+class BetaManagedAgentsDeletedMemory
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::DECODERS
+
+  # @return [BetaManagedAgentsDeletedMemoryType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the deleted memory (a `mem_...` value).
+  attr_reader :id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsDeletedMemoryMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsDeletedMemoryType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsDeletedMemory.
-  # Tombstone returned by Delete a memory. Deleting a memory does not erase its version history: its versions remain listable via List memory versions while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
-  class BetaManagedAgentsDeletedMemory
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsDeletedMemoryMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [BetaManagedAgentsDeletedMemoryType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the deleted memory (a `mem_...` value).
-    attr_reader :id
+# Defines the BetaManagedAgentsDeletedMemoryType SDK namespace.
+module BetaManagedAgentsDeletedMemoryType
+  MEMORY_DELETED = 'memory_deleted'
+  VALUES = ['memory_deleted'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Defines the BetaManagedAgentsPrecondition SDK namespace.
+module BetaManagedAgentsPrecondition
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "content_sha256" => BetaManagedAgentsContentSha256Precondition }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaManagedAgentsPrecondition', 'variant', "Unknown BetaManagedAgentsPrecondition discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata
+  FIELDS = {
+    content: "content",
+    path: "path",
+    precondition: "precondition",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    precondition: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPrecondition.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsUpdateMemoryParams.
+# Request parameters for Update a memory. At least one of `content` or `path` must be provided. Renaming onto a path occupied by a different memory returns `memory_path_conflict_error` (HTTP 409). Rename never overwrites; delete or rename the blocking memory first. An update where every supplied field already matches the stored value is a no-op: it returns 200 with the existing memory and writes no new version.
+class BetaManagedAgentsUpdateMemoryParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::DECODERS
+
+  # @return [String] New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
+  attr_reader :content
+  # @return [String] New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
+  attr_reader :path
+  # @return [BetaManagedAgentsPrecondition] Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
+  attr_reader :precondition
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsDeletedMemoryType SDK namespace.
-  module BetaManagedAgentsDeletedMemoryType
-    MEMORY_DELETED = 'memory_deleted'
-    VALUES = ['memory_deleted'].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsPrecondition SDK namespace.
-  module BetaManagedAgentsPrecondition
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'content_sha256' => BetaManagedAgentsContentSha256Precondition }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaManagedAgentsPrecondition', 'variant', "Unknown BetaManagedAgentsPrecondition discriminator: #{hash['type'].inspect}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata
-    FIELDS = {
-      content: 'content',
-      path: 'path',
-      precondition: 'precondition'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      precondition: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPrecondition.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsUpdateMemoryParams.
-  # Request parameters for Update a memory. At least one of `content` or `path` must be provided. Renaming onto a path occupied by a different memory returns `memory_path_conflict_error` (HTTP 409). Rename never overwrites; delete or rename the blocking memory first. An update where every supplied field already matches the stored value is a no-op: it returns 200 with the existing memory and writes no new version.
-  class BetaManagedAgentsUpdateMemoryParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsUpdateMemoryParamsMetadata::DECODERS
-
-    # @return [String] New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
-    attr_reader :content
-    # @return [String] New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
-    attr_reader :path
-    # @return [BetaManagedAgentsPrecondition] Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
-    attr_reader :precondition
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

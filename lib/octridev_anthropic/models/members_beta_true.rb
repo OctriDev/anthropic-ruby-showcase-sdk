@@ -5,257 +5,258 @@
 
 # members_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaAddRbacGroupMemberParamsMetadata
-    FIELDS = {
-      user_id: 'user_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      user_id
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaAddRbacGroupMemberParamsMetadata
+  FIELDS = {
+    user_id: "user_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    user_id
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaAddRbacGroupMemberParams.
+# Typed representation of the `BetaAddRbacGroupMemberParams` API schema.
+class BetaAddRbacGroupMemberParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::DECODERS
+
+  # @return [String] ID of the User.
+  attr_reader :user_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAddRbacGroupMemberParams.
-  # Typed representation of the `BetaAddRbacGroupMemberParams` API schema.
-  class BetaAddRbacGroupMemberParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAddRbacGroupMemberParamsMetadata::DECODERS
-
-    # @return [String] ID of the User.
-    attr_reader :user_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCreateWorkspaceMemberParamsMetadata
-    FIELDS = {
-      user_id: 'user_id',
-      workspace_role: 'workspace_role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      user_id
-      workspace_role
-    ].freeze
-    DECODERS = {
-      workspace_role: lambda do |value|
-        ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCreateWorkspaceMemberParamsMetadata
+  FIELDS = {
+    user_id: "user_id",
+    workspace_role: "workspace_role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    user_id
+    workspace_role
+  ].freeze
+  DECODERS = {
+    workspace_role: lambda do |value|
+      ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCreateWorkspaceMemberParams.
+# Typed representation of the `BetaCreateWorkspaceMemberParams` API schema.
+class BetaCreateWorkspaceMemberParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::DECODERS
+
+  # @return [String] ID of the User.
+  attr_reader :user_id
+  # @return [BetaNoBillingWorkspaceRoleSchema] Role of the new Workspace Member. Cannot be `workspace_billing`.
+  attr_reader :workspace_role
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCreateWorkspaceMemberParams.
-  # Typed representation of the `BetaCreateWorkspaceMemberParams` API schema.
-  class BetaCreateWorkspaceMemberParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCreateWorkspaceMemberParamsMetadata::DECODERS
-
-    # @return [String] ID of the User.
-    attr_reader :user_id
-    # @return [BetaNoBillingWorkspaceRoleSchema] Role of the new Workspace Member. Cannot be `workspace_billing`.
-    attr_reader :workspace_role
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata
-    FIELDS = {
-      data: 'data',
-      first_id: 'first_id',
-      has_more: 'has_more',
-      last_id: 'last_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      first_id
-      has_more
-      last_id
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaWorkspaceMemberSchema.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      first_id
-      last_id
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata
+  FIELDS = {
+    data: "data",
+    first_id: "first_id",
+    has_more: "has_more",
+    last_id: "last_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    first_id
+    has_more
+    last_id
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaWorkspaceMemberSchema.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    first_id
+    last_id
+  ].freeze
+end
+
+# API model for BetaListResponseWorkspaceMemberSchema.
+# Typed representation of the `BetaListResponse_WorkspaceMemberSchema_` API schema.
+class BetaListResponseWorkspaceMemberSchema
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::DECODERS
+
+  # @return [Array_of_BetaWorkspaceMemberSchema] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
+  attr_reader :first_id
+  # @return [Boolean] Indicates if there are more results in the requested page direction.
+  attr_reader :has_more
+  # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
+  attr_reader :last_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListResponseWorkspaceMemberSchema.
-  # Typed representation of the `BetaListResponse_WorkspaceMemberSchema_` API schema.
-  class BetaListResponseWorkspaceMemberSchema
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::DECODERS
-
-    # @return [Array_of_BetaWorkspaceMemberSchema] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
-    attr_reader :first_id
-    # @return [Boolean] Indicates if there are more results in the requested page direction.
-    attr_reader :has_more
-    # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
-    attr_reader :last_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseWorkspaceMemberSchemaMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRbacGroupMemberMetadata
-    FIELDS = {
-      created_at: 'created_at',
-      email: 'email',
-      group_id: 'group_id',
-      type: 'type',
-      user_id: 'user_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      created_at
-      email
-      group_id
-      type
-      user_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRbacGroupMemberType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRbacGroupMemberMetadata
+  FIELDS = {
+    created_at: "created_at",
+    email: "email",
+    group_id: "group_id",
+    type: "type",
+    user_id: "user_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    created_at
+    email
+    group_id
+    type
+    user_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRbacGroupMemberType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRbacGroupMember.
+# Typed representation of the `BetaRbacGroupMember` API schema.
+class BetaRbacGroupMember
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRbacGroupMemberMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRbacGroupMemberMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRbacGroupMemberMetadata::DECODERS
+
+  # @return [String] RFC 3339 timestamp of when the User was added to the RBAC Group.
+  attr_reader :created_at
+  # @return [String] Email of the User.
+  attr_reader :email
+  # @return [String] ID of the RBAC Group.
+  attr_reader :group_id
+  # @return [BetaRbacGroupMemberType] Object type. For RBAC Group Members, this is always `"rbac_group_member"`.
+  attr_reader :type
+  # @return [String] ID of the User.
+  attr_reader :user_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRbacGroupMember.
-  # Typed representation of the `BetaRbacGroupMember` API schema.
-  class BetaRbacGroupMember
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRbacGroupMemberMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRbacGroupMemberMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRbacGroupMemberMetadata::DECODERS
-
-    # @return [String] RFC 3339 timestamp of when the User was added to the RBAC Group.
-    attr_reader :created_at
-    # @return [String] Email of the User.
-    attr_reader :email
-    # @return [String] ID of the RBAC Group.
-    attr_reader :group_id
-    # @return [BetaRbacGroupMemberType] Object type. For RBAC Group Members, this is always `"rbac_group_member"`.
-    attr_reader :type
-    # @return [String] ID of the User.
-    attr_reader :user_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRbacGroupMemberType SDK namespace.
-  module BetaRbacGroupMemberType
-    RBAC_GROUP_MEMBER = 'rbac_group_member'
-    VALUES = ['rbac_group_member'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRbacGroupMemberType', 'enum', "Unknown BetaRbacGroupMemberType: #{value}")
-    end
+# Defines the BetaRbacGroupMemberType SDK namespace.
+module BetaRbacGroupMemberType
+  RBAC_GROUP_MEMBER = 'rbac_group_member'
+  VALUES = ['rbac_group_member'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRbacGroupMemberType', 'enum', "Unknown BetaRbacGroupMemberType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRbacGroupMemberListMetadata
+  FIELDS = {
+    data: "data",
+    has_more: "has_more",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    has_more
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRbacGroupMember.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaRbacGroupMemberList.
+# Typed representation of the `BetaRbacGroupMemberList` API schema.
+class BetaRbacGroupMemberList
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRbacGroupMemberListMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRbacGroupMemberListMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRbacGroupMemberListMetadata::DECODERS
+
+  # @return [Array_of_BetaRbacGroupMember] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Boolean] Indicates if there are more results in the requested page direction.
+  attr_reader :has_more
+  # @return [String] Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRbacGroupMemberListMetadata
-    FIELDS = {
-      data: 'data',
-      has_more: 'has_more',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      has_more
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRbacGroupMember.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupMemberListMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaRbacGroupMemberList.
-  # Typed representation of the `BetaRbacGroupMemberList` API schema.
-  class BetaRbacGroupMemberList
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRbacGroupMemberListMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRbacGroupMemberListMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRbacGroupMemberListMetadata::DECODERS
-
-    # @return [Array_of_BetaRbacGroupMember] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Boolean] Indicates if there are more results in the requested page direction.
-    attr_reader :has_more
-    # @return [String] Token to provide in as `page` in the subsequent request to retrieve the next page of data.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacGroupMemberListMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

@@ -5,287 +5,286 @@
 
 # shared_beta_federation domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaFederationIssuerMetadata
-    FIELDS = {
-      archived_at: 'archived_at',
-      archived_by_actor_id: 'archived_by_actor_id',
-      check_jti: 'check_jti',
-      created_at: 'created_at',
-      created_by_actor_id: 'created_by_actor_id',
-      id: 'id',
-      issuer_url: 'issuer_url',
-      jwks: 'jwks',
-      jwks_polling_disabled_at: 'jwks_polling_disabled_at',
-      max_jwt_lifetime_seconds: 'max_jwt_lifetime_seconds',
-      name: 'name',
-      poll_status: 'poll_status',
-      type: 'type',
-      updated_at: 'updated_at',
-      updated_by_actor_id: 'updated_by_actor_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      archived_at
-      archived_by_actor_id
-      check_jti
-      created_at
-      created_by_actor_id
-      id
-      issuer_url
-      jwks
-      jwks_polling_disabled_at
-      max_jwt_lifetime_seconds
-      name
-      poll_status
-      type
-      updated_at
-      updated_by_actor_id
-    ].freeze
-    DECODERS = {
-      jwks: lambda do |value|
-        ::OctridevAnthropic::BetaFederationIssuerJwks.from_hash(value)
-      end,
-      poll_status: lambda do |value|
-        ::OctridevAnthropic::BetaIssuerPollStatus.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaFederationIssuerType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      archived_at
-      archived_by_actor_id
-      created_by_actor_id
-      jwks_polling_disabled_at
-      poll_status
-      updated_by_actor_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaFederationIssuerMetadata
+  FIELDS = {
+    archived_at: "archived_at",
+    archived_by_actor_id: "archived_by_actor_id",
+    check_jti: "check_jti",
+    created_at: "created_at",
+    created_by_actor_id: "created_by_actor_id",
+    id: "id",
+    issuer_url: "issuer_url",
+    jwks: "jwks",
+    jwks_polling_disabled_at: "jwks_polling_disabled_at",
+    max_jwt_lifetime_seconds: "max_jwt_lifetime_seconds",
+    name: "name",
+    poll_status: "poll_status",
+    type: "type",
+    updated_at: "updated_at",
+    updated_by_actor_id: "updated_by_actor_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    archived_at
+    archived_by_actor_id
+    check_jti
+    created_at
+    created_by_actor_id
+    id
+    issuer_url
+    jwks
+    jwks_polling_disabled_at
+    max_jwt_lifetime_seconds
+    name
+    poll_status
+    type
+    updated_at
+    updated_by_actor_id
+  ].freeze
+  DECODERS = {
+    jwks: lambda do |value|
+      ::OctridevAnthropic::BetaFederationIssuerJwks.from_hash(value)
+    end,
+    poll_status: lambda do |value|
+      ::OctridevAnthropic::BetaIssuerPollStatus.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaFederationIssuerType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    archived_at
+    archived_by_actor_id
+    created_by_actor_id
+    jwks_polling_disabled_at
+    poll_status
+    updated_by_actor_id
+  ].freeze
+end
+
+# API model for BetaFederationIssuer.
+# Registered external OIDC identity provider. Records an external IdP the organization trusts for the RFC 7523 jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+class BetaFederationIssuer
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaFederationIssuerMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaFederationIssuerMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaFederationIssuerMetadata::DECODERS
+
+  # @return [String] If set, all rules referencing this issuer reject token exchange.
+  attr_reader :archived_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+  attr_reader :archived_by_actor_id
+  # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+  attr_reader :check_jti
+  # @return [String] When this issuer was created.
+  attr_reader :created_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+  attr_reader :created_by_actor_id
+  # @return [String] Tagged ID of the federation issuer.
+  attr_reader :id
+  # @return [String] The `iss` claim value. Incoming JWTs must match exactly.
+  attr_reader :issuer_url
+  # @return [BetaFederationIssuerJwks] How signing keys are obtained for signature verification.
+  attr_reader :jwks
+  # @return [String] If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+  attr_reader :jwks_polling_disabled_at
+  # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+  attr_reader :max_jwt_lifetime_seconds
+  # @return [String] Admin-chosen slug identifier.
+  attr_reader :name
+  # @return [BetaIssuerPollStatus] Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
+  attr_reader :poll_status
+  # @return [BetaFederationIssuerType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] When this issuer was last updated.
+  attr_reader :updated_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+  attr_reader :updated_by_actor_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaFederationIssuer.
-  # Registered external OIDC identity provider. Records an external IdP the organization trusts for the RFC 7523 jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
-  class BetaFederationIssuer
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaFederationIssuerMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaFederationIssuerMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaFederationIssuerMetadata::DECODERS
-
-    # @return [String] If set, all rules referencing this issuer reject token exchange.
-    attr_reader :archived_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
-    attr_reader :archived_by_actor_id
-    # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
-    attr_reader :check_jti
-    # @return [String] When this issuer was created.
-    attr_reader :created_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
-    attr_reader :created_by_actor_id
-    # @return [String] Tagged ID of the federation issuer.
-    attr_reader :id
-    # @return [String] The `iss` claim value. Incoming JWTs must match exactly.
-    attr_reader :issuer_url
-    # @return [BetaFederationIssuerJwks] How signing keys are obtained for signature verification.
-    attr_reader :jwks
-    # @return [String] If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
-    attr_reader :jwks_polling_disabled_at
-    # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
-    attr_reader :max_jwt_lifetime_seconds
-    # @return [String] Admin-chosen slug identifier.
-    attr_reader :name
-    # @return [BetaIssuerPollStatus] Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
-    attr_reader :poll_status
-    # @return [BetaFederationIssuerType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] When this issuer was last updated.
-    attr_reader :updated_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
-    attr_reader :updated_by_actor_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationIssuerMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationIssuerMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaFederationIssuerType SDK namespace.
-  module BetaFederationIssuerType
-    FEDERATION_ISSUER = 'federation_issuer'
-    VALUES = ['federation_issuer'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaFederationIssuerType', 'enum', "Unknown BetaFederationIssuerType: #{value}")
-    end
+# Defines the BetaFederationIssuerType SDK namespace.
+module BetaFederationIssuerType
+  FEDERATION_ISSUER = 'federation_issuer'
+  VALUES = ['federation_issuer'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaFederationIssuerType', 'enum', "Unknown BetaFederationIssuerType: #{value}")
+  end
+end
+
+# Defines the BetaFederationIssuerJwks SDK namespace.
+module BetaFederationIssuerJwks
+  DISCRIMINATOR_MAPPING = {
+    "discovery" => -> { BetaJwksDiscovery },
+    "explicit_url" => -> { BetaJwksExplicitUrl },
+    "inline" => -> { BetaJwksInline },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaFederationIssuerJwks', 'variant', "Unknown BetaFederationIssuerJwks discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaFederationRuleMetadata
+  FIELDS = {
+    applies_to_all_workspaces: "applies_to_all_workspaces",
+    archived_at: "archived_at",
+    archived_by_actor_id: "archived_by_actor_id",
+    attributes: "attributes",
+    created_at: "created_at",
+    created_by_actor_id: "created_by_actor_id",
+    description: "description",
+    id: "id",
+    issuer_id: "issuer_id",
+    issuer_name: "issuer_name",
+    match: "match",
+    name: "name",
+    oauth_scope: "oauth_scope",
+    target: "target",
+    token_lifetime_seconds: "token_lifetime_seconds",
+    type: "type",
+    updated_at: "updated_at",
+    updated_by_actor_id: "updated_by_actor_id",
+    workspace_id: "workspace_id",
+    workspace_ids: "workspace_ids",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    applies_to_all_workspaces
+    archived_at
+    archived_by_actor_id
+    attributes
+    created_at
+    created_by_actor_id
+    description
+    id
+    issuer_id
+    issuer_name
+    match
+    name
+    oauth_scope
+    target
+    token_lifetime_seconds
+    type
+    updated_at
+    updated_by_actor_id
+    workspace_id
+    workspace_ids
+  ].freeze
+  DECODERS = {
+    match: lambda do |value|
+      ::OctridevAnthropic::BetaRuleMatch.from_hash(value)
+    end,
+    target: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountTarget.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaFederationRuleType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    archived_at
+    archived_by_actor_id
+    attributes
+    created_by_actor_id
+    description
+    issuer_name
+    updated_by_actor_id
+    workspace_id
+  ].freeze
+end
+
+# API model for BetaFederationRule.
+# Authorization rule binding an external OIDC identity to Anthropic. Evaluates the match conditions and mints an OAuth access token for the resolved target, scoped to a single workspace where the rule is enabled (chosen by the caller at exchange time when the rule is enabled for more than one). For rules enabled via `workspace_ids` or `applies_to_all_workspaces`, the target service account must be a member of that workspace (it is implicitly a member of the default workspace);…
+class BetaFederationRule
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaFederationRuleMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaFederationRuleMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaFederationRuleMetadata::DECODERS
+
+  # @return [Boolean] When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+  attr_reader :applies_to_all_workspaces
+  # @return [String] If set, this rule is archived and rejects token exchange.
+  attr_reader :archived_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+  attr_reader :archived_by_actor_id
+  # @return [Hash] CEL expressions extracting named values from claims. Not yet supported; always null.
+  attr_reader :attributes
+  # @return [String] When this rule was created.
+  attr_reader :created_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+  attr_reader :created_by_actor_id
+  # @return [String] Optional free-text description.
+  attr_reader :description
+  # @return [String] Tagged ID of the federation rule.
+  attr_reader :id
+  # @return [String] Tagged ID of the issuer whose tokens this rule accepts.
+  attr_reader :issuer_id
+  # @return [String] Issuer's display name at read time.
+  attr_reader :issuer_name
+  # @return [BetaRuleMatch] Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+  attr_reader :match
+  # @return [String] Admin-chosen slug identifier.
+  attr_reader :name
+  # @return [String] Space-separated OAuth scopes granted on the minted token.
+  attr_reader :oauth_scope
+  # @return [BetaServiceAccountTarget] Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+  attr_reader :target
+  # @return [Integer] Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+  attr_reader :token_lifetime_seconds
+  # @return [BetaFederationRuleType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] When this rule was last updated.
+  attr_reader :updated_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+  attr_reader :updated_by_actor_id
+  # @return [String] Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+  attr_reader :workspace_id
+  # @return [Array_of_String] Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+  attr_reader :workspace_ids
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaFederationIssuerJwks SDK namespace.
-  module BetaFederationIssuerJwks
-    DISCRIMINATOR_MAPPING = {
-      'discovery' => -> { BetaJwksDiscovery },
-      'explicit_url' => -> { BetaJwksExplicitUrl },
-      'inline' => -> { BetaJwksInline }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaFederationIssuerJwks', 'variant', "Unknown BetaFederationIssuerJwks discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationRuleMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaFederationRuleMetadata
-    FIELDS = {
-      applies_to_all_workspaces: 'applies_to_all_workspaces',
-      archived_at: 'archived_at',
-      archived_by_actor_id: 'archived_by_actor_id',
-      attributes: 'attributes',
-      created_at: 'created_at',
-      created_by_actor_id: 'created_by_actor_id',
-      description: 'description',
-      id: 'id',
-      issuer_id: 'issuer_id',
-      issuer_name: 'issuer_name',
-      match: 'match',
-      name: 'name',
-      oauth_scope: 'oauth_scope',
-      target: 'target',
-      token_lifetime_seconds: 'token_lifetime_seconds',
-      type: 'type',
-      updated_at: 'updated_at',
-      updated_by_actor_id: 'updated_by_actor_id',
-      workspace_id: 'workspace_id',
-      workspace_ids: 'workspace_ids'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      applies_to_all_workspaces
-      archived_at
-      archived_by_actor_id
-      attributes
-      created_at
-      created_by_actor_id
-      description
-      id
-      issuer_id
-      issuer_name
-      match
-      name
-      oauth_scope
-      target
-      token_lifetime_seconds
-      type
-      updated_at
-      updated_by_actor_id
-      workspace_id
-      workspace_ids
-    ].freeze
-    DECODERS = {
-      match: lambda do |value|
-        ::OctridevAnthropic::BetaRuleMatch.from_hash(value)
-      end,
-      target: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountTarget.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaFederationRuleType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      archived_at
-      archived_by_actor_id
-      attributes
-      created_by_actor_id
-      description
-      issuer_name
-      updated_by_actor_id
-      workspace_id
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaFederationRule.
-  # Authorization rule binding an external OIDC identity to Anthropic. Evaluates the match conditions and mints an OAuth access token for the resolved target, scoped to a single workspace where the rule is enabled (chosen by the caller at exchange time when the rule is enabled for more than one). For rules enabled via `workspace_ids` or `applies_to_all_workspaces`, the target service account must be a member of that workspace (it is implicitly a member of the default workspace);…
-  class BetaFederationRule
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaFederationRuleMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaFederationRuleMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaFederationRuleMetadata::DECODERS
+# Defines the BetaFederationRuleType SDK namespace.
+module BetaFederationRuleType
+  FEDERATION_RULE = 'federation_rule'
+  VALUES = ['federation_rule'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [Boolean] When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
-    attr_reader :applies_to_all_workspaces
-    # @return [String] If set, this rule is archived and rejects token exchange.
-    attr_reader :archived_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
-    attr_reader :archived_by_actor_id
-    # @return [Hash] CEL expressions extracting named values from claims. Not yet supported; always null.
-    attr_reader :attributes
-    # @return [String] When this rule was created.
-    attr_reader :created_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this rule.
-    attr_reader :created_by_actor_id
-    # @return [String] Optional free-text description.
-    attr_reader :description
-    # @return [String] Tagged ID of the federation rule.
-    attr_reader :id
-    # @return [String] Tagged ID of the issuer whose tokens this rule accepts.
-    attr_reader :issuer_id
-    # @return [String] Issuer's display name at read time.
-    attr_reader :issuer_name
-    # @return [BetaRuleMatch] Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
-    attr_reader :match
-    # @return [String] Admin-chosen slug identifier.
-    attr_reader :name
-    # @return [String] Space-separated OAuth scopes granted on the minted token.
-    attr_reader :oauth_scope
-    # @return [BetaServiceAccountTarget] Identity that tokens minted via this rule act as. Currently always a `service_account` target.
-    attr_reader :target
-    # @return [Integer] Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-    attr_reader :token_lifetime_seconds
-    # @return [BetaFederationRuleType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] When this rule was last updated.
-    attr_reader :updated_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
-    attr_reader :updated_by_actor_id
-    # @return [String] Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
-    attr_reader :workspace_id
-    # @return [Array_of_String] Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
-    attr_reader :workspace_ids
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationRuleMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaFederationRuleType', 'enum', "Unknown BetaFederationRuleType: #{value}")
   end
-
-  # Defines the BetaFederationRuleType SDK namespace.
-  module BetaFederationRuleType
-    FEDERATION_RULE = 'federation_rule'
-    VALUES = ['federation_rule'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaFederationRuleType', 'enum', "Unknown BetaFederationRuleType: #{value}")
-    end
-  end
+end
 end

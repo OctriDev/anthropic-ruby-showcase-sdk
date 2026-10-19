@@ -5,92 +5,94 @@
 
 # rbac_groups domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaDeleteRbacGroupResponseMetadata
-    FIELDS = {
-      id: 'id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDeleteRbacGroupResponseType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaDeleteRbacGroupResponseMetadata
+  FIELDS = {
+    id: "id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDeleteRbacGroupResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDeleteRbacGroupResponse.
+# Typed representation of the `BetaDeleteRbacGroupResponse` API schema.
+class BetaDeleteRbacGroupResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDeleteRbacGroupResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDeleteRbacGroupResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDeleteRbacGroupResponseMetadata::DECODERS
+
+  # @return [String] ID of the RBAC Group.
+  attr_reader :id
+  # @return [BetaDeleteRbacGroupResponseType] Deleted object type. For RBAC Groups, this is always `"rbac_group_deleted"`.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDeleteRbacGroupResponse.
-  # Typed representation of the `BetaDeleteRbacGroupResponse` API schema.
-  class BetaDeleteRbacGroupResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDeleteRbacGroupResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDeleteRbacGroupResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDeleteRbacGroupResponseMetadata::DECODERS
-
-    # @return [String] ID of the RBAC Group.
-    attr_reader :id
-    # @return [BetaDeleteRbacGroupResponseType] Deleted object type. For RBAC Groups, this is always `"rbac_group_deleted"`.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaDeleteRbacGroupResponseType SDK namespace.
-  module BetaDeleteRbacGroupResponseType
-    RBAC_GROUP_DELETED = 'rbac_group_deleted'
-    VALUES = ['rbac_group_deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaDeleteRbacGroupResponseType', 'enum', "Unknown BetaDeleteRbacGroupResponseType: #{value}")
-    end
+# Defines the BetaDeleteRbacGroupResponseType SDK namespace.
+module BetaDeleteRbacGroupResponseType
+  RBAC_GROUP_DELETED = 'rbac_group_deleted'
+  VALUES = ['rbac_group_deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaDeleteRbacGroupResponseType', 'enum', "Unknown BetaDeleteRbacGroupResponseType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaUpdateRbacGroupParamsMetadata
+  FIELDS = {
+    name: "name",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaUpdateRbacGroupParams.
+# Typed representation of the `BetaUpdateRbacGroupParams` API schema.
+class BetaUpdateRbacGroupParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaUpdateRbacGroupParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaUpdateRbacGroupParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaUpdateRbacGroupParamsMetadata::DECODERS
+
+  # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
+  attr_reader :name
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaUpdateRbacGroupParamsMetadata
-    FIELDS = {
-      name: 'name'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaUpdateRbacGroupParams.
-  # Typed representation of the `BetaUpdateRbacGroupParams` API schema.
-  class BetaUpdateRbacGroupParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaUpdateRbacGroupParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaUpdateRbacGroupParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaUpdateRbacGroupParamsMetadata::DECODERS
-
-    # @return [String] Name of the RBAC Group. Not uniqueness-enforced.
-    attr_reader :name
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

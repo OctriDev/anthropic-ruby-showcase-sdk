@@ -5,122 +5,120 @@
 
 # shared_beta_request_server domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestServerToolUseBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      caller: 'caller',
-      id: 'id',
-      input: 'input',
-      name: 'name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-      input
-      name
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      caller: lambda do |value|
-        ::OctridevAnthropic::BetaRequestServerToolUseBlockCaller.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaRequestServerToolUseBlockName.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestServerToolUseBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestServerToolUseBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    caller: "caller",
+    id: "id",
+    input: "input",
+    name: "name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    input
+    name
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    caller: lambda do |value|
+      ::OctridevAnthropic::BetaRequestServerToolUseBlockCaller.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaRequestServerToolUseBlockName.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestServerToolUseBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestServerToolUseBlock.
+# Typed representation of the `BetaRequestServerToolUseBlock` API schema.
+class BetaRequestServerToolUseBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestServerToolUseBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestServerToolUseBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestServerToolUseBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestServerToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
+  attr_reader :caller
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [Hash] Required object value serialized in the `input` wire field.
+  attr_reader :input
+  # @return [BetaRequestServerToolUseBlockName] Required enumerated value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [BetaRequestServerToolUseBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestServerToolUseBlock.
-  # Typed representation of the `BetaRequestServerToolUseBlock` API schema.
-  class BetaRequestServerToolUseBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestServerToolUseBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestServerToolUseBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestServerToolUseBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestServerToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
-    attr_reader :caller
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [Hash] Required object value serialized in the `input` wire field.
-    attr_reader :input
-    # @return [BetaRequestServerToolUseBlockName] Required enumerated value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [BetaRequestServerToolUseBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestServerToolUseBlockName SDK namespace.
-  module BetaRequestServerToolUseBlockName
-    ADVISOR = 'advisor'
-    WEB_SEARCH = 'web_search'
-    WEB_FETCH = 'web_fetch'
-    CODE_EXECUTION = 'code_execution'
-    BASH_CODE_EXECUTION = 'bash_code_execution'
-    TEXT_EDITOR_CODE_EXECUTION = 'text_editor_code_execution'
-    TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
-    TOOL_SEARCH_TOOL_BM25 = 'tool_search_tool_bm25'
-    VALUES = %w[
-      advisor web_search web_fetch code_execution bash_code_execution
-      text_editor_code_execution tool_search_tool_regex tool_search_tool_bm25
-    ].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestServerToolUseBlockType SDK namespace.
-  module BetaRequestServerToolUseBlockType
-    SERVER_TOOL_USE = 'server_tool_use'
-    VALUES = ['server_tool_use'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestServerToolUseBlockType', 'enum', "Unknown BetaRequestServerToolUseBlockType: #{value}")
-    end
+# Defines the BetaRequestServerToolUseBlockName SDK namespace.
+module BetaRequestServerToolUseBlockName
+  ADVISOR = 'advisor'
+  WEB_SEARCH = 'web_search'
+  WEB_FETCH = 'web_fetch'
+  CODE_EXECUTION = 'code_execution'
+  BASH_CODE_EXECUTION = 'bash_code_execution'
+  TEXT_EDITOR_CODE_EXECUTION = 'text_editor_code_execution'
+  TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
+  TOOL_SEARCH_TOOL_BM25 = 'tool_search_tool_bm25'
+  VALUES = [
+    'advisor', 'web_search', 'web_fetch', 'code_execution', 'bash_code_execution',
+    'text_editor_code_execution', 'tool_search_tool_regex', 'tool_search_tool_bm25'
+  ].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Defines the BetaRequestServerToolUseBlockCaller SDK namespace.
-  module BetaRequestServerToolUseBlockCaller
-    DISCRIMINATOR_MAPPING = {
-      'code_execution_20250825' => -> { BetaServerToolCaller },
-      'code_execution_20260120' => -> { BetaServerToolCaller20260120 },
-      'direct' => -> { BetaDirectCaller }
-    }.freeze
+# Defines the BetaRequestServerToolUseBlockType SDK namespace.
+module BetaRequestServerToolUseBlockType
+  SERVER_TOOL_USE = 'server_tool_use'
+  VALUES = ['server_tool_use'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestServerToolUseBlockCaller', 'variant', "Unknown BetaRequestServerToolUseBlockCaller discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaRequestServerToolUseBlockType', 'enum', "Unknown BetaRequestServerToolUseBlockType: #{value}")
   end
+end
+
+# Defines the BetaRequestServerToolUseBlockCaller SDK namespace.
+module BetaRequestServerToolUseBlockCaller
+  DISCRIMINATOR_MAPPING = {
+    "code_execution_20250825" => -> { BetaServerToolCaller },
+    "code_execution_20260120" => -> { BetaServerToolCaller20260120 },
+    "direct" => -> { BetaDirectCaller },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestServerToolUseBlockCaller', 'variant', "Unknown BetaRequestServerToolUseBlockCaller discriminator: #{hash["type"].inspect}")
+  end
+end
 end

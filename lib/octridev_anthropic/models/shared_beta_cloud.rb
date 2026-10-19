@@ -5,166 +5,162 @@
 
 # shared_beta_cloud domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCloudConfigMetadata
-    FIELDS = {
-      networking: 'networking',
-      packages: 'packages',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      networking
-      packages
-      type
-    ].freeze
-    DECODERS = {
-      networking: lambda do |value|
-        ::OctridevAnthropic::BetaCloudConfigNetworking.from_hash(value)
-      end,
-      packages: lambda do |value|
-        ::OctridevAnthropic::BetaPackages.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCloudConfigType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCloudConfigMetadata
+  FIELDS = {
+    networking: "networking",
+    packages: "packages",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    networking
+    packages
+    type
+  ].freeze
+  DECODERS = {
+    networking: lambda do |value|
+      ::OctridevAnthropic::BetaCloudConfigNetworking.from_hash(value)
+    end,
+    packages: lambda do |value|
+      ::OctridevAnthropic::BetaPackages.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCloudConfigType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCloudConfig.
+# `cloud` environment configuration.
+class BetaCloudConfig
+  include BetaEnvironmentConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCloudConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCloudConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCloudConfigMetadata::DECODERS
+
+  # @return [BetaCloudConfigNetworking] Network configuration policy.
+  attr_reader :networking
+  # @return [BetaPackages] Package manager configuration.
+  attr_reader :packages
+  # @return [BetaCloudConfigType] Environment type
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCloudConfig.
-  # `cloud` environment configuration.
-  class BetaCloudConfig
-    include BetaEnvironmentConfig
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCloudConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCloudConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCloudConfigMetadata::DECODERS
-
-    # @return [BetaCloudConfigNetworking] Network configuration policy.
-    attr_reader :networking
-    # @return [BetaPackages] Package manager configuration.
-    attr_reader :packages
-    # @return [BetaCloudConfigType] Environment type
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCloudConfigType SDK namespace.
-  module BetaCloudConfigType
-    CLOUD = 'cloud'
-    VALUES = ['cloud'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaCloudConfigType', 'enum', "Unknown BetaCloudConfigType: #{value}")
-    end
+# Defines the BetaCloudConfigType SDK namespace.
+module BetaCloudConfigType
+  CLOUD = 'cloud'
+  VALUES = ['cloud'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCloudConfigType', 'enum', "Unknown BetaCloudConfigType: #{value}")
+  end
+end
+
+# Defines the BetaCloudConfigNetworking SDK namespace.
+module BetaCloudConfigNetworking
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "limited" => BetaLimitedNetwork, "unrestricted" => BetaUnrestrictedNetwork }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaCloudConfigNetworking', 'variant', "Unknown BetaCloudConfigNetworking discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCloudConfigParamsMetadata
+  FIELDS = {
+    networking: "networking",
+    packages: "packages",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    networking: lambda do |value|
+      ::OctridevAnthropic::BetaCloudConfigParamsNetworking.from_hash(value)
+    end,
+    packages: lambda do |value|
+      ::OctridevAnthropic::BetaPackagesParams.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCloudConfigParamsType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCloudConfigParams.
+# Request params for `cloud` environment configuration. Fields default to null; on update, omitted fields preserve the existing value.
+class BetaCloudConfigParams
+  include BetaPublicEnvironmentCreateRequestConfig
+  include BetaPublicEnvironmentUpdateRequestConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCloudConfigParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCloudConfigParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCloudConfigParamsMetadata::DECODERS
+
+  # @return [BetaCloudConfigParamsNetworking] Network configuration policy. Omit on update to preserve the existing value.
+  attr_reader :networking
+  # @return [BetaPackagesParams] Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
+  attr_reader :packages
+  # @return [BetaCloudConfigParamsType] Environment type
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaCloudConfigNetworking SDK namespace.
-  module BetaCloudConfigNetworking
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'limited' => BetaLimitedNetwork, 'unrestricted' => BetaUnrestrictedNetwork }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaCloudConfigNetworking', 'variant', "Unknown BetaCloudConfigNetworking discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCloudConfigParamsMetadata
-    FIELDS = {
-      networking: 'networking',
-      packages: 'packages',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      networking: lambda do |value|
-        ::OctridevAnthropic::BetaCloudConfigParamsNetworking.from_hash(value)
-      end,
-      packages: lambda do |value|
-        ::OctridevAnthropic::BetaPackagesParams.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCloudConfigParamsType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaCloudConfigParams.
-  # Request params for `cloud` environment configuration. Fields default to null; on update, omitted fields preserve the existing value.
-  class BetaCloudConfigParams
-    include BetaPublicEnvironmentCreateRequestConfig
-    include BetaPublicEnvironmentUpdateRequestConfig
+# Defines the BetaCloudConfigParamsType SDK namespace.
+module BetaCloudConfigParamsType
+  CLOUD = 'cloud'
+  VALUES = ['cloud'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCloudConfigParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCloudConfigParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCloudConfigParamsMetadata::DECODERS
-
-    # @return [BetaCloudConfigParamsNetworking] Network configuration policy. Omit on update to preserve the existing value.
-    attr_reader :networking
-    # @return [BetaPackagesParams] Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
-    attr_reader :packages
-    # @return [BetaCloudConfigParamsType] Environment type
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaCloudConfigParamsType', 'enum', "Unknown BetaCloudConfigParamsType: #{value}")
   end
+end
 
-  # Defines the BetaCloudConfigParamsType SDK namespace.
-  module BetaCloudConfigParamsType
-    CLOUD = 'cloud'
-    VALUES = ['cloud'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaCloudConfigParamsNetworking SDK namespace.
+module BetaCloudConfigParamsNetworking
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "limited" => BetaLimitedNetworkParams, "unrestricted" => BetaUnrestrictedNetwork }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-      raise SdkValidationError.new('BetaCloudConfigParamsType', 'enum', "Unknown BetaCloudConfigParamsType: #{value}")
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaCloudConfigParamsNetworking', 'variant', "Unknown BetaCloudConfigParamsNetworking discriminator: #{hash["type"].inspect}")
   end
-
-  # Defines the BetaCloudConfigParamsNetworking SDK namespace.
-  module BetaCloudConfigParamsNetworking
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'limited' => BetaLimitedNetworkParams, 'unrestricted' => BetaUnrestrictedNetwork }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaCloudConfigParamsNetworking', 'variant', "Unknown BetaCloudConfigParamsNetworking discriminator: #{hash['type'].inspect}")
-    end
-  end
+end
 end

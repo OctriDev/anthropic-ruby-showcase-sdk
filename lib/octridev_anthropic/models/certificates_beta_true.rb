@@ -5,169 +5,171 @@
 
 # certificates_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCreateTunnelCertificateParamsMetadata
-    FIELDS = {
-      ca_certificate_pem: 'ca_certificate_pem'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      ca_certificate_pem
-    ].freeze
-    DECODERS = {}.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCreateTunnelCertificateParamsMetadata
+  FIELDS = {
+    ca_certificate_pem: "ca_certificate_pem",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    ca_certificate_pem
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaCreateTunnelCertificateParams.
+# Typed representation of the `BetaCreateTunnelCertificateParams` API schema.
+class BetaCreateTunnelCertificateParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::DECODERS
+
+  # @return [String] PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material.
+  attr_reader :ca_certificate_pem
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCreateTunnelCertificateParams.
-  # Typed representation of the `BetaCreateTunnelCertificateParams` API schema.
-  class BetaCreateTunnelCertificateParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCreateTunnelCertificateParamsMetadata::DECODERS
-
-    # @return [String] PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material.
-    attr_reader :ca_certificate_pem
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata
-    FIELDS = {
-      ca_certificate_pem: 'ca_certificate_pem'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      ca_certificate_pem
-    ].freeze
-    DECODERS = {}.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata
+  FIELDS = {
+    ca_certificate_pem: "ca_certificate_pem",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    ca_certificate_pem
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaCreateTunnelCertificateRequestBody.
+# Typed representation of the `BetaCreateTunnelCertificateRequestBody` API schema.
+class BetaCreateTunnelCertificateRequestBody
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::DECODERS
+
+  # @return [String] PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
+  attr_reader :ca_certificate_pem
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCreateTunnelCertificateRequestBody.
-  # Typed representation of the `BetaCreateTunnelCertificateRequestBody` API schema.
-  class BetaCreateTunnelCertificateRequestBody
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCreateTunnelCertificateRequestBodyMetadata::DECODERS
-
-    # @return [String] PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
-    attr_reader :ca_certificate_pem
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListTunnelCertificatesResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaTunnelCertificate.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListTunnelCertificatesResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaTunnelCertificate.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaListTunnelCertificatesResponse.
+# The tunnel's certificates.
+class BetaListTunnelCertificatesResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListTunnelCertificatesResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListTunnelCertificatesResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListTunnelCertificatesResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaTunnelCertificate] List of certificates, ordered by created_at descending.
+  attr_reader :data
+  # @return [String] Pagination cursor for the next page, or null if no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListTunnelCertificatesResponse.
-  # The tunnel's certificates.
-  class BetaListTunnelCertificatesResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListTunnelCertificatesResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListTunnelCertificatesResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListTunnelCertificatesResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaTunnelCertificate] List of certificates, ordered by created_at descending.
-    attr_reader :data
-    # @return [String] Pagination cursor for the next page, or null if no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListTunnelCertificatesResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListTunnelCertificatesResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaTunnelCertificateListResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaOrganizationTunnelCertificate.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaTunnelCertificateListResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaOrganizationTunnelCertificate.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaTunnelCertificateListResponse.
+# Typed representation of the `BetaTunnelCertificateListResponse` API schema.
+class BetaTunnelCertificateListResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaTunnelCertificateListResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaTunnelCertificateListResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaTunnelCertificateListResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaOrganizationTunnelCertificate] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page, or `null` if there are no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaTunnelCertificateListResponse.
-  # Typed representation of the `BetaTunnelCertificateListResponse` API schema.
-  class BetaTunnelCertificateListResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaTunnelCertificateListResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaTunnelCertificateListResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaTunnelCertificateListResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaOrganizationTunnelCertificate] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page, or `null` if there are no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaTunnelCertificateListResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaTunnelCertificateListResponseMetadata::NULLABLE_FIELDS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

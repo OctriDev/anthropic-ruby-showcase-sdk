@@ -5,377 +5,373 @@
 
 # shared_beta_code domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCodeExecutionTool20250522Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20250522Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20250522Type.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCodeExecutionTool20250522Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20250522Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20250522Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCodeExecutionTool20250522.
+# Typed representation of the `BetaCodeExecutionTool_20250522` API schema.
+class BetaCodeExecutionTool20250522
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCodeExecutionTool20250522Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20250522Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCodeExecutionTool20250522Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [BetaCodeExecutionTool20250522Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaCodeExecutionTool20250522Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCodeExecutionTool20250522.
-  # Typed representation of the `BetaCodeExecutionTool_20250522` API schema.
-  class BetaCodeExecutionTool20250522
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCodeExecutionTool20250522Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20250522Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCodeExecutionTool20250522Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [BetaCodeExecutionTool20250522Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaCodeExecutionTool20250522Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCodeExecutionTool20250522Name SDK namespace.
-  module BetaCodeExecutionTool20250522Name
-    CODE_EXECUTION = 'code_execution'
-    VALUES = ['code_execution'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaCodeExecutionTool20250522Name', 'enum', "Unknown BetaCodeExecutionTool20250522Name: #{value}")
-    end
+# Defines the BetaCodeExecutionTool20250522Name SDK namespace.
+module BetaCodeExecutionTool20250522Name
+  CODE_EXECUTION = 'code_execution'
+  VALUES = ['code_execution'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20250522Name', 'enum', "Unknown BetaCodeExecutionTool20250522Name: #{value}")
+  end
+end
+
+# Defines the BetaCodeExecutionTool20250522Type SDK namespace.
+module BetaCodeExecutionTool20250522Type
+  CODE_EXECUTION_20250522 = 'code_execution_20250522'
+  VALUES = ['code_execution_20250522'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20250522Type', 'enum', "Unknown BetaCodeExecutionTool20250522Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCodeExecutionTool20250825Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20250825Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20250825Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCodeExecutionTool20250825.
+# Typed representation of the `BetaCodeExecutionTool_20250825` API schema.
+class BetaCodeExecutionTool20250825
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCodeExecutionTool20250825Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20250825Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCodeExecutionTool20250825Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [BetaCodeExecutionTool20250825Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaCodeExecutionTool20250825Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaCodeExecutionTool20250522Type SDK namespace.
-  module BetaCodeExecutionTool20250522Type
-    CODE_EXECUTION_20250522 = 'code_execution_20250522'
-    VALUES = ['code_execution_20250522'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCodeExecutionTool20250522Type', 'enum', "Unknown BetaCodeExecutionTool20250522Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCodeExecutionTool20250825Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20250825Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20250825Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaCodeExecutionTool20250825Name SDK namespace.
+module BetaCodeExecutionTool20250825Name
+  CODE_EXECUTION = 'code_execution'
+  VALUES = ['code_execution'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20250825Name', 'enum', "Unknown BetaCodeExecutionTool20250825Name: #{value}")
+  end
+end
+
+# Defines the BetaCodeExecutionTool20250825Type SDK namespace.
+module BetaCodeExecutionTool20250825Type
+  CODE_EXECUTION_20250825 = 'code_execution_20250825'
+  VALUES = ['code_execution_20250825'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20250825Type', 'enum', "Unknown BetaCodeExecutionTool20250825Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCodeExecutionTool20260120Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20260120Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20260120Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCodeExecutionTool20260120.
+# Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+class BetaCodeExecutionTool20260120
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCodeExecutionTool20260120Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20260120Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCodeExecutionTool20260120Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [BetaCodeExecutionTool20260120Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaCodeExecutionTool20260120Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCodeExecutionTool20250825.
-  # Typed representation of the `BetaCodeExecutionTool_20250825` API schema.
-  class BetaCodeExecutionTool20250825
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCodeExecutionTool20250825Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20250825Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCodeExecutionTool20250825Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [BetaCodeExecutionTool20250825Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaCodeExecutionTool20250825Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaCodeExecutionTool20250825Name SDK namespace.
-  module BetaCodeExecutionTool20250825Name
-    CODE_EXECUTION = 'code_execution'
-    VALUES = ['code_execution'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaCodeExecutionTool20250825Name', 'enum', "Unknown BetaCodeExecutionTool20250825Name: #{value}")
-    end
+# Defines the BetaCodeExecutionTool20260120Name SDK namespace.
+module BetaCodeExecutionTool20260120Name
+  CODE_EXECUTION = 'code_execution'
+  VALUES = ['code_execution'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20260120Name', 'enum', "Unknown BetaCodeExecutionTool20260120Name: #{value}")
+  end
+end
+
+# Defines the BetaCodeExecutionTool20260120Type SDK namespace.
+module BetaCodeExecutionTool20260120Type
+  CODE_EXECUTION_20260120 = 'code_execution_20260120'
+  VALUES = ['code_execution_20260120'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaCodeExecutionTool20260120Type', 'enum', "Unknown BetaCodeExecutionTool20260120Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaCodeExecutionTool20260521Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20260521Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaCodeExecutionTool20260521Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaCodeExecutionTool20260521.
+# Code execution tool with REPL state persistence.
+class BetaCodeExecutionTool20260521
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCodeExecutionTool20260521Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20260521Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCodeExecutionTool20260521Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [BetaCodeExecutionTool20260521Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaCodeExecutionTool20260521Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaCodeExecutionTool20250825Type SDK namespace.
-  module BetaCodeExecutionTool20250825Type
-    CODE_EXECUTION_20250825 = 'code_execution_20250825'
-    VALUES = ['code_execution_20250825'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCodeExecutionTool20250825Type', 'enum', "Unknown BetaCodeExecutionTool20250825Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaCodeExecutionTool20260120Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20260120Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20260120Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaCodeExecutionTool20260120.
-  # Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
-  class BetaCodeExecutionTool20260120
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
+# Defines the BetaCodeExecutionTool20260521Name SDK namespace.
+module BetaCodeExecutionTool20260521Name
+  CODE_EXECUTION = 'code_execution'
+  VALUES = ['code_execution'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCodeExecutionTool20260120Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20260120Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCodeExecutionTool20260120Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [BetaCodeExecutionTool20260120Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaCodeExecutionTool20260120Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaCodeExecutionTool20260521Name', 'enum', "Unknown BetaCodeExecutionTool20260521Name: #{value}")
   end
+end
 
-  # Defines the BetaCodeExecutionTool20260120Name SDK namespace.
-  module BetaCodeExecutionTool20260120Name
-    CODE_EXECUTION = 'code_execution'
-    VALUES = ['code_execution'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaCodeExecutionTool20260521Type SDK namespace.
+module BetaCodeExecutionTool20260521Type
+  CODE_EXECUTION_20260521 = 'code_execution_20260521'
+  VALUES = ['code_execution_20260521'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaCodeExecutionTool20260120Name', 'enum', "Unknown BetaCodeExecutionTool20260120Name: #{value}")
-    end
+    raise SdkValidationError.new('BetaCodeExecutionTool20260521Type', 'enum', "Unknown BetaCodeExecutionTool20260521Type: #{value}")
   end
+end
 
-  # Defines the BetaCodeExecutionTool20260120Type SDK namespace.
-  module BetaCodeExecutionTool20260120Type
-    CODE_EXECUTION_20260120 = 'code_execution_20260120'
-    VALUES = ['code_execution_20260120'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCodeExecutionTool20260120Type', 'enum', "Unknown BetaCodeExecutionTool20260120Type: #{value}")
-    end
+# Defines the BetaCodeExecutionToolResultErrorCode SDK namespace.
+module BetaCodeExecutionToolResultErrorCode
+  INVALID_TOOL_INPUT = 'invalid_tool_input'
+  UNAVAILABLE = 'unavailable'
+  TOO_MANY_REQUESTS = 'too_many_requests'
+  EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
+  VALUES = [
+    'invalid_tool_input', 'unavailable', 'too_many_requests', 'execution_time_exceeded'
+  ].freeze
+  def self.from_value(value)
+    value
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaCodeExecutionTool20260521Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20260521Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaCodeExecutionTool20260521Type.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaCodeExecutionTool20260521.
-  # Code execution tool with REPL state persistence.
-  class BetaCodeExecutionTool20260521
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCodeExecutionTool20260521Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCodeExecutionTool20260521Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCodeExecutionTool20260521Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [BetaCodeExecutionTool20260521Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaCodeExecutionTool20260521Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaCodeExecutionTool20260521Name SDK namespace.
-  module BetaCodeExecutionTool20260521Name
-    CODE_EXECUTION = 'code_execution'
-    VALUES = ['code_execution'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCodeExecutionTool20260521Name', 'enum', "Unknown BetaCodeExecutionTool20260521Name: #{value}")
-    end
-  end
-
-  # Defines the BetaCodeExecutionTool20260521Type SDK namespace.
-  module BetaCodeExecutionTool20260521Type
-    CODE_EXECUTION_20260521 = 'code_execution_20260521'
-    VALUES = ['code_execution_20260521'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaCodeExecutionTool20260521Type', 'enum', "Unknown BetaCodeExecutionTool20260521Type: #{value}")
-    end
-  end
-
-  # Defines the BetaCodeExecutionToolResultErrorCode SDK namespace.
-  module BetaCodeExecutionToolResultErrorCode
-    INVALID_TOOL_INPUT = 'invalid_tool_input'
-    UNAVAILABLE = 'unavailable'
-    TOO_MANY_REQUESTS = 'too_many_requests'
-    EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
-    VALUES = %w[
-      invalid_tool_input unavailable too_many_requests execution_time_exceeded
-    ].freeze
-    def self.from_value(value)
-      value
-    end
-  end
+end
 end

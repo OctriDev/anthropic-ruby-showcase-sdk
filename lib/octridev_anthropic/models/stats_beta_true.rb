@@ -5,74 +5,74 @@
 
 # stats_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaSelfHostedWorkQueueStatsMetadata
-    FIELDS = {
-      depth: 'depth',
-      oldest_queued_at: 'oldest_queued_at',
-      pending: 'pending',
-      type: 'type',
-      workers_polling: 'workers_polling'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      depth
-      oldest_queued_at
-      pending
-      type
-      workers_polling
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaSelfHostedWorkQueueStatsType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      oldest_queued_at
-      workers_polling
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaSelfHostedWorkQueueStatsMetadata
+  FIELDS = {
+    depth: "depth",
+    oldest_queued_at: "oldest_queued_at",
+    pending: "pending",
+    type: "type",
+    workers_polling: "workers_polling",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    depth
+    oldest_queued_at
+    pending
+    type
+    workers_polling
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaSelfHostedWorkQueueStatsType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    oldest_queued_at
+    workers_polling
+  ].freeze
+end
+
+# API model for BetaSelfHostedWorkQueueStats.
+# Statistics about the work queue for an environment. Uses Redis Stream consumer group metrics for O(1) queries.
+class BetaSelfHostedWorkQueueStats
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::DECODERS
+
+  # @return [Integer] Number of work items waiting to be picked up (lag from consumer group)
+  attr_reader :depth
+  # @return [String] RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
+  attr_reader :oldest_queued_at
+  # @return [Integer] Number of work items being processed (polled but not acknowledged)
+  attr_reader :pending
+  # @return [BetaSelfHostedWorkQueueStatsType] The type of object
+  attr_reader :type
+  # @return [Integer] Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
+  attr_reader :workers_polling
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaSelfHostedWorkQueueStats.
-  # Statistics about the work queue for an environment. Uses Redis Stream consumer group metrics for O(1) queries.
-  class BetaSelfHostedWorkQueueStats
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaSelfHostedWorkQueueStatsMetadata::DECODERS
-
-    # @return [Integer] Number of work items waiting to be picked up (lag from consumer group)
-    attr_reader :depth
-    # @return [String] RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
-    attr_reader :oldest_queued_at
-    # @return [Integer] Number of work items being processed (polled but not acknowledged)
-    attr_reader :pending
-    # @return [BetaSelfHostedWorkQueueStatsType] The type of object
-    attr_reader :type
-    # @return [Integer] Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
-    attr_reader :workers_polling
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkQueueStatsMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkQueueStatsMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaSelfHostedWorkQueueStatsType SDK namespace.
-  module BetaSelfHostedWorkQueueStatsType
-    WORK_QUEUE_STATS = 'work_queue_stats'
-    VALUES = ['work_queue_stats'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaSelfHostedWorkQueueStatsType', 'enum', "Unknown BetaSelfHostedWorkQueueStatsType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the BetaSelfHostedWorkQueueStatsType SDK namespace.
+module BetaSelfHostedWorkQueueStatsType
+  WORK_QUEUE_STATS = 'work_queue_stats'
+  VALUES = ['work_queue_stats'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaSelfHostedWorkQueueStatsType', 'enum', "Unknown BetaSelfHostedWorkQueueStatsType: #{value}")
+  end
+end
 end

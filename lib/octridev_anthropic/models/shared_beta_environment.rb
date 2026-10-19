@@ -5,124 +5,123 @@
 
 # shared_beta_environment domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaEnvironmentMetadata
-    FIELDS = {
-      archived_at: 'archived_at',
-      config: 'config',
-      created_at: 'created_at',
-      description: 'description',
-      id: 'id',
-      metadata: 'metadata',
-      name: 'name',
-      scope: 'scope',
-      type: 'type',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      archived_at
-      config
-      created_at
-      description
-      id
-      metadata
-      name
-      type
-      updated_at
-    ].freeze
-    DECODERS = {
-      config: lambda do |value|
-        ::OctridevAnthropic::BetaEnvironmentConfig.from_hash(value)
-      end,
-      scope: lambda do |value|
-        ::OctridevAnthropic::BetaEnvironmentScope.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaEnvironmentType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      archived_at
-      description
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaEnvironmentMetadata
+  FIELDS = {
+    archived_at: "archived_at",
+    config: "config",
+    created_at: "created_at",
+    description: "description",
+    id: "id",
+    metadata: "metadata",
+    name: "name",
+    scope: "scope",
+    type: "type",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    archived_at
+    config
+    created_at
+    description
+    id
+    metadata
+    name
+    type
+    updated_at
+  ].freeze
+  DECODERS = {
+    config: lambda do |value|
+      ::OctridevAnthropic::BetaEnvironmentConfig.from_hash(value)
+    end,
+    scope: lambda do |value|
+      ::OctridevAnthropic::BetaEnvironmentScope.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaEnvironmentType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    archived_at
+    description
+  ].freeze
+end
+
+# API model for BetaEnvironment.
+# Unified Environment resource for both cloud and self-hosted environments.
+class BetaEnvironment
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaEnvironmentMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaEnvironmentMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaEnvironmentMetadata::DECODERS
+
+  # @return [String] RFC 3339 timestamp when environment was archived, or null if not archived
+  attr_reader :archived_at
+  # @return [BetaEnvironmentConfig] Environment configuration (either Anthropic Cloud or self-hosted)
+  attr_reader :config
+  # @return [String] RFC 3339 timestamp when environment was created
+  attr_reader :created_at
+  # @return [String] User-provided description for the environment; null when unset
+  attr_reader :description
+  # @return [String] Environment identifier (e.g., 'env_...')
+  attr_reader :id
+  # @return [Hash] User-provided metadata key-value pairs
+  attr_reader :metadata
+  # @return [String] Human-readable name for the environment
+  attr_reader :name
+  # @return [BetaEnvironmentScope] The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
+  attr_reader :scope
+  # @return [BetaEnvironmentType] The type of object (always 'environment')
+  attr_reader :type
+  # @return [String] RFC 3339 timestamp when environment was last updated
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaEnvironment.
-  # Unified Environment resource for both cloud and self-hosted environments.
-  class BetaEnvironment
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaEnvironmentMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaEnvironmentMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaEnvironmentMetadata::DECODERS
-
-    # @return [String] RFC 3339 timestamp when environment was archived, or null if not archived
-    attr_reader :archived_at
-    # @return [BetaEnvironmentConfig] Environment configuration (either Anthropic Cloud or self-hosted)
-    attr_reader :config
-    # @return [String] RFC 3339 timestamp when environment was created
-    attr_reader :created_at
-    # @return [String] User-provided description for the environment; null when unset
-    attr_reader :description
-    # @return [String] Environment identifier (e.g., 'env_...')
-    attr_reader :id
-    # @return [Hash] User-provided metadata key-value pairs
-    attr_reader :metadata
-    # @return [String] Human-readable name for the environment
-    attr_reader :name
-    # @return [BetaEnvironmentScope] The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
-    attr_reader :scope
-    # @return [BetaEnvironmentType] The type of object (always 'environment')
-    attr_reader :type
-    # @return [String] RFC 3339 timestamp when environment was last updated
-    attr_reader :updated_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEnvironmentMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEnvironmentMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaEnvironmentScope SDK namespace.
-  module BetaEnvironmentScope
-    ORGANIZATION = 'organization'
-    ACCOUNT = 'account'
-    VALUES = %w[organization account].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaEnvironmentType SDK namespace.
-  module BetaEnvironmentType
-    ENVIRONMENT = 'environment'
-    VALUES = ['environment'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaEnvironmentType', 'enum', "Unknown BetaEnvironmentType: #{value}")
-    end
+# Defines the BetaEnvironmentScope SDK namespace.
+module BetaEnvironmentScope
+  ORGANIZATION = 'organization'
+  ACCOUNT = 'account'
+  VALUES = ['organization', 'account'].freeze
+  def self.from_value(value)
+    value
   end
+end
 
-  # Defines the BetaEnvironmentConfig SDK namespace.
-  module BetaEnvironmentConfig
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaEnvironmentType SDK namespace.
+module BetaEnvironmentType
+  ENVIRONMENT = 'environment'
+  VALUES = ['environment'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      mapping = { 'cloud' => BetaCloudConfig, 'self_hosted' => BetaSelfHostedConfig }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaEnvironmentConfig', 'variant', "Unknown BetaEnvironmentConfig discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaEnvironmentType', 'enum', "Unknown BetaEnvironmentType: #{value}")
   end
+end
+
+# Defines the BetaEnvironmentConfig SDK namespace.
+module BetaEnvironmentConfig
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "cloud" => BetaCloudConfig, "self_hosted" => BetaSelfHostedConfig }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaEnvironmentConfig', 'variant', "Unknown BetaEnvironmentConfig discriminator: #{hash["type"].inspect}")
+  end
+end
 end

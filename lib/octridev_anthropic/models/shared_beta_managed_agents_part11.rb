@@ -5,668 +5,661 @@
 
 # shared_beta_managed_agents domain models (part 11)
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata
-    FIELDS = {
-      enabled: 'enabled',
-      permission_policy: 'permission_policy'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      enabled
-      permission_policy
-    ].freeze
-    DECODERS = {
-      permission_policy: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata
+  FIELDS = {
+    enabled: "enabled",
+    permission_policy: "permission_policy",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    enabled
+    permission_policy
+  ].freeze
+  DECODERS = {
+    permission_policy: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMCPToolsetDefaultConfig.
+# Resolved default configuration for all tools from an MCP server.
+class BetaManagedAgentsMCPToolsetDefaultConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::DECODERS
+
+  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+  attr_reader :permission_policy
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsMCPToolsetDefaultConfig.
-  # Resolved default configuration for all tools from an MCP server.
-  class BetaManagedAgentsMCPToolsetDefaultConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::DECODERS
-
-    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-    attr_reader :permission_policy
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata
-    FIELDS = {
-      enabled: 'enabled',
-      permission_policy: 'permission_policy'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      permission_policy: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata
+  FIELDS = {
+    enabled: "enabled",
+    permission_policy: "permission_policy",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    permission_policy: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMCPToolsetDefaultConfigParams.
+# Default configuration for all tools from an MCP server.
+class BetaManagedAgentsMCPToolsetDefaultConfigParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::DECODERS
+
+  # @return [Boolean] Whether tools are enabled by default. Defaults to true if not specified.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools from this server.
+  attr_reader :permission_policy
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsMCPToolsetDefaultConfigParams.
-  # Default configuration for all tools from an MCP server.
-  class BetaManagedAgentsMCPToolsetDefaultConfigParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::DECODERS
-
-    # @return [Boolean] Whether tools are enabled by default. Defaults to true if not specified.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools from this server.
-    attr_reader :permission_policy
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata
-    FIELDS = {
-      type: 'type',
-      mcp_server_name: 'mcp_server_name',
-      default_config: 'default_config',
-      configs: 'configs'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      mcp_server_name
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetParamsType.from_value(value)
-      end,
-      default_config: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfigParams.from_hash(value)
-      end,
-      configs: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfigParams.from_hash(item) }
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata
+  FIELDS = {
+    type: "type",
+    mcp_server_name: "mcp_server_name",
+    default_config: "default_config",
+    configs: "configs",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    mcp_server_name
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetParamsType.from_value(value)
+    end,
+    default_config: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfigParams.from_hash(value)
+    end,
+    configs: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfigParams.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMCPToolsetParams.
+# Configuration for tools from an MCP server defined in `mcp_servers`.
+class BetaManagedAgentsMCPToolsetParams
+  include BetaManagedAgentsAgentToolParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMCPToolsetParamsType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+  attr_reader :mcp_server_name
+  # @return [BetaManagedAgentsMCPToolsetDefaultConfigParams] Default configuration for all tools from this server.
+  attr_reader :default_config
+  # @return [Array_of_BetaManagedAgentsMCPToolConfigParams] Per-tool configuration overrides.
+  attr_reader :configs
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsMCPToolsetParams.
-  # Configuration for tools from an MCP server defined in `mcp_servers`.
-  class BetaManagedAgentsMCPToolsetParams
-    include BetaManagedAgentsAgentToolParams
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMCPToolsetParamsType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
-    attr_reader :mcp_server_name
-    # @return [BetaManagedAgentsMCPToolsetDefaultConfigParams] Default configuration for all tools from this server.
-    attr_reader :default_config
-    # @return [Array_of_BetaManagedAgentsMCPToolConfigParams] Per-tool configuration overrides.
-    attr_reader :configs
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsMCPToolsetParamsType SDK namespace.
-  module BetaManagedAgentsMCPToolsetParamsType
-    MCP_TOOLSET = 'mcp_toolset'
-    VALUES = ['mcp_toolset'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsMCPToolsetParamsType', 'enum', "Unknown BetaManagedAgentsMCPToolsetParamsType: #{value}")
-    end
+# Defines the BetaManagedAgentsMCPToolsetParamsType SDK namespace.
+module BetaManagedAgentsMCPToolsetParamsType
+  MCP_TOOLSET = 'mcp_toolset'
+  VALUES = ['mcp_toolset'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsMCPToolsetParamsType', 'enum', "Unknown BetaManagedAgentsMCPToolsetParamsType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    memory_store_id: "memory_store_id",
+    path: "path",
+    content: "content",
+    content_size_bytes: "content_size_bytes",
+    content_sha256: "content_sha256",
+    memory_version_id: "memory_version_id",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    memory_store_id
+    path
+    content_size_bytes
+    content_sha256
+    memory_version_id
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryType.from_value(value)
+    end,
+    created_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    updated_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMemory.
+# A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+class BetaManagedAgentsMemory
+  include BetaManagedAgentsMemoryListItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMemoryType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
+  attr_reader :id
+  # @return [String] ID of the memory store this memory belongs to (a `memstore_...` value).
+  attr_reader :memory_store_id
+  # @return [String] Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
+  attr_reader :path
+  # @return [String] The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
+  attr_reader :content
+  # @return [Integer] Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
+  attr_reader :content_size_bytes
+  # @return [String] Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
+  attr_reader :content_sha256
+  # @return [String] ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via List memory versions.
+  attr_reader :memory_version_id
+  # @return [BetaTimestamp] When this memory was created, in RFC 3339 format.
+  attr_reader :created_at
+  # @return [BetaTimestamp] When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via List memory versions.
+  attr_reader :updated_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      memory_store_id: 'memory_store_id',
-      path: 'path',
-      content: 'content',
-      content_size_bytes: 'content_size_bytes',
-      content_sha256: 'content_sha256',
-      memory_version_id: 'memory_version_id',
-      created_at: 'created_at',
-      updated_at: 'updated_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      memory_store_id
-      path
-      content_size_bytes
-      content_sha256
-      memory_version_id
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryType.from_value(value)
-      end,
-      created_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      updated_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsMemory.
-  # A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
-  class BetaManagedAgentsMemory
-    include BetaManagedAgentsMemoryListItem
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryMetadata::DECODERS
+# Defines the BetaManagedAgentsMemoryType SDK namespace.
+module BetaManagedAgentsMemoryType
+  MEMORY = 'memory'
+  VALUES = ['memory'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsMemoryType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-    attr_reader :id
-    # @return [String] ID of the memory store this memory belongs to (a `memstore_...` value).
-    attr_reader :memory_store_id
-    # @return [String] Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-    attr_reader :path
-    # @return [String] The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-    attr_reader :content
-    # @return [Integer] Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-    attr_reader :content_size_bytes
-    # @return [String] Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-    attr_reader :content_sha256
-    # @return [String] ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via List memory versions.
-    attr_reader :memory_version_id
-    # @return [BetaTimestamp] When this memory was created, in RFC 3339 format.
-    attr_reader :created_at
-    # @return [BetaTimestamp] When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via List memory versions.
-    attr_reader :updated_at
+    raise SdkValidationError.new('BetaManagedAgentsMemoryType', 'enum', "Unknown BetaManagedAgentsMemoryType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+    conflicting_path: "conflicting_path",
+    conflicting_memory_id: "conflicting_memory_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryPathConflictErrorType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsMemoryPathConflictError.
+# Typed representation of the `BetaManagedAgentsMemoryPathConflictError` API schema.
+class BetaManagedAgentsMemoryPathConflictError
+  include BetaManagedAgentsError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsMemoryPathConflictErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Optional `string` value serialized in the `message` wire field.
+  attr_reader :message
+  # @return [String] Optional `string` value serialized in the `conflicting_path` wire field.
+  attr_reader :conflicting_path
+  # @return [String] Optional `string` value serialized in the `conflicting_memory_id` wire field.
+  attr_reader :conflicting_memory_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsMemoryType SDK namespace.
-  module BetaManagedAgentsMemoryType
-    MEMORY = 'memory'
-    VALUES = ['memory'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsMemoryType', 'enum', "Unknown BetaManagedAgentsMemoryType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message',
-      conflicting_path: 'conflicting_path',
-      conflicting_memory_id: 'conflicting_memory_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryPathConflictErrorType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsMemoryPathConflictErrorType SDK namespace.
+module BetaManagedAgentsMemoryPathConflictErrorType
+  MEMORY_PATH_CONFLICT_ERROR = 'memory_path_conflict_error'
+  VALUES = ['memory_path_conflict_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsMemoryPathConflictErrorType', 'enum', "Unknown BetaManagedAgentsMemoryPathConflictErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryPreconditionFailedErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMemoryPreconditionFailedError.
+# Typed representation of the `BetaManagedAgentsMemoryPreconditionFailedError` API schema.
+class BetaManagedAgentsMemoryPreconditionFailedError
+  include BetaManagedAgentsError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMemoryPreconditionFailedErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Optional `string` value serialized in the `message` wire field.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsMemoryPathConflictError.
-  # Typed representation of the `BetaManagedAgentsMemoryPathConflictError` API schema.
-  class BetaManagedAgentsMemoryPathConflictError
-    include BetaManagedAgentsError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryPathConflictErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMemoryPathConflictErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Optional `string` value serialized in the `message` wire field.
-    attr_reader :message
-    # @return [String] Optional `string` value serialized in the `conflicting_path` wire field.
-    attr_reader :conflicting_path
-    # @return [String] Optional `string` value serialized in the `conflicting_memory_id` wire field.
-    attr_reader :conflicting_memory_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsMemoryPathConflictErrorType SDK namespace.
-  module BetaManagedAgentsMemoryPathConflictErrorType
-    MEMORY_PATH_CONFLICT_ERROR = 'memory_path_conflict_error'
-    VALUES = ['memory_path_conflict_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsMemoryPathConflictErrorType', 'enum', "Unknown BetaManagedAgentsMemoryPathConflictErrorType: #{value}")
-    end
+# Defines the BetaManagedAgentsMemoryPreconditionFailedErrorType SDK namespace.
+module BetaManagedAgentsMemoryPreconditionFailedErrorType
+  MEMORY_PRECONDITION_FAILED_ERROR = 'memory_precondition_failed_error'
+  VALUES = ['memory_precondition_failed_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsMemoryPreconditionFailedErrorType', 'enum', "Unknown BetaManagedAgentsMemoryPreconditionFailedErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryStoreMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    name: "name",
+    description: "description",
+    created_at: "created_at",
+    updated_at: "updated_at",
+    metadata: "metadata",
+    archived_at: "archived_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    name
+    created_at
+    updated_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryStoreType.from_value(value)
+    end,
+    created_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    updated_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    archived_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMemoryStore.
+# A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
+class BetaManagedAgentsMemoryStore
+  include BetaManagedAgentsArchiveMemoryStoreResponse
+  include BetaManagedAgentsCreateMemoryStoreResponse
+  include BetaManagedAgentsGetMemoryStoreResponse
+  include BetaManagedAgentsUpdateMemoryStoreResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMemoryStoreType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
+  attr_reader :id
+  # @return [String] Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
+  attr_reader :name
+  # @return [String] Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+  attr_reader :description
+  # @return [BetaTimestamp] Timestamp when the store was created.
+  attr_reader :created_at
+  # @return [BetaTimestamp] Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
+  attr_reader :updated_at
+  # @return [Hash] Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
+  attr_reader :metadata
+  # @return [BetaTimestamp] Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+  attr_reader :archived_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryPreconditionFailedErrorType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsMemoryPreconditionFailedError.
-  # Typed representation of the `BetaManagedAgentsMemoryPreconditionFailedError` API schema.
-  class BetaManagedAgentsMemoryPreconditionFailedError
-    include BetaManagedAgentsError
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryPreconditionFailedErrorMetadata::DECODERS
+# Defines the BetaManagedAgentsMemoryStoreType SDK namespace.
+module BetaManagedAgentsMemoryStoreType
+  MEMORY_STORE = 'memory_store'
+  VALUES = ['memory_store'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsMemoryPreconditionFailedErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Optional `string` value serialized in the `message` wire field.
-    attr_reader :message
+    raise SdkValidationError.new('BetaManagedAgentsMemoryStoreType', 'enum', "Unknown BetaManagedAgentsMemoryStoreType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError.
+# A memory store referenced by the deployment is archived.
+class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError
+  include BetaManagedAgentsDeploymentPausedReasonError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsMemoryPreconditionFailedErrorType SDK namespace.
-  module BetaManagedAgentsMemoryPreconditionFailedErrorType
-    MEMORY_PRECONDITION_FAILED_ERROR = 'memory_precondition_failed_error'
-    VALUES = ['memory_precondition_failed_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsMemoryPreconditionFailedErrorType', 'enum', "Unknown BetaManagedAgentsMemoryPreconditionFailedErrorType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryStoreMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      name: 'name',
-      description: 'description',
-      created_at: 'created_at',
-      updated_at: 'updated_at',
-      metadata: 'metadata',
-      archived_at: 'archived_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      name
-      created_at
-      updated_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryStoreType.from_value(value)
-      end,
-      created_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      updated_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      archived_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType SDK namespace.
+module BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType
+  MEMORY_STORE_ARCHIVED_ERROR = 'memory_store_archived_error'
+  VALUES = ['memory_store_archived_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryStoreArchivedRunErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMemoryStoreArchivedRunError.
+# A memory store referenced by the deployment is archived.
+class BetaManagedAgentsMemoryStoreArchivedRunError
+  include BetaManagedAgentsRunError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMemoryStoreArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Human-readable error description.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsMemoryStore.
-  # A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
-  class BetaManagedAgentsMemoryStore
-    include BetaManagedAgentsArchiveMemoryStoreResponse
-    include BetaManagedAgentsCreateMemoryStoreResponse
-    include BetaManagedAgentsGetMemoryStoreResponse
-    include BetaManagedAgentsUpdateMemoryStoreResponse
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryStoreMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMemoryStoreType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
-    attr_reader :id
-    # @return [String] Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-    attr_reader :name
-    # @return [String] Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-    attr_reader :description
-    # @return [BetaTimestamp] Timestamp when the store was created.
-    attr_reader :created_at
-    # @return [BetaTimestamp] Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-    attr_reader :updated_at
-    # @return [Hash] Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
-    attr_reader :metadata
-    # @return [BetaTimestamp] Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-    attr_reader :archived_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsMemoryStoreType SDK namespace.
-  module BetaManagedAgentsMemoryStoreType
-    MEMORY_STORE = 'memory_store'
-    VALUES = ['memory_store'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsMemoryStoreType', 'enum', "Unknown BetaManagedAgentsMemoryStoreType: #{value}")
-    end
+# Defines the BetaManagedAgentsMemoryStoreArchivedRunErrorType SDK namespace.
+module BetaManagedAgentsMemoryStoreArchivedRunErrorType
+  MEMORY_STORE_ARCHIVED_ERROR = 'memory_store_archived_error'
+  VALUES = ['memory_store_archived_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsMemoryStoreArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsMemoryStoreArchivedRunErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata
+  FIELDS = {
+    type: "type",
+    memory_store_id: "memory_store_id",
+    access: "access",
+    name: "name",
+    description: "description",
+    instructions: "instructions",
+    mount_path: "mount_path",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    memory_store_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryStoreResourceType.from_value(value)
+    end,
+    access: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMountMode.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsMemoryStoreResource.
+# A memory store attached to an agent session.
+class BetaManagedAgentsMemoryStoreResource
+  include BetaManagedAgentsGetSessionResource
+  include BetaManagedAgentsSessionResource
+  include BetaManagedAgentsUpdateSessionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::DECODERS
+
+  # @return [BetaManagedAgentsMemoryStoreResourceType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+  attr_reader :memory_store_id
+  # @return [BetaManagedAgentsMountMode] Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
+  attr_reader :access
+  # @return [String] Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
+  attr_reader :name
+  # @return [String] Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
+  attr_reader :description
+  # @return [String] Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+  attr_reader :instructions
+  # @return [String] Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
+  attr_reader :mount_path
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError.
-  # A memory store referenced by the deployment is archived.
-  class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError
-    include BetaManagedAgentsDeploymentPausedReasonError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType SDK namespace.
-  module BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType
-    MEMORY_STORE_ARCHIVED_ERROR = 'memory_store_archived_error'
-    VALUES = ['memory_store_archived_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaManagedAgentsMemoryStoreResourceType SDK namespace.
+module BetaManagedAgentsMemoryStoreResourceType
+  MEMORY_STORE = 'memory_store'
+  VALUES = ['memory_store'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType: #{value}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsMemoryStoreResourceType', 'enum', "Unknown BetaManagedAgentsMemoryStoreResourceType: #{value}")
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryStoreArchivedRunErrorType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsMemoryStoreArchivedRunError.
-  # A memory store referenced by the deployment is archived.
-  class BetaManagedAgentsMemoryStoreArchivedRunError
-    include BetaManagedAgentsRunError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryStoreArchivedRunErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMemoryStoreArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Human-readable error description.
-    attr_reader :message
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsMemoryStoreArchivedRunErrorType SDK namespace.
-  module BetaManagedAgentsMemoryStoreArchivedRunErrorType
-    MEMORY_STORE_ARCHIVED_ERROR = 'memory_store_archived_error'
-    VALUES = ['memory_store_archived_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsMemoryStoreArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsMemoryStoreArchivedRunErrorType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata
-    FIELDS = {
-      type: 'type',
-      memory_store_id: 'memory_store_id',
-      access: 'access',
-      name: 'name',
-      description: 'description',
-      instructions: 'instructions',
-      mount_path: 'mount_path'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      memory_store_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryStoreResourceType.from_value(value)
-      end,
-      access: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMountMode.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsMemoryStoreResource.
-  # A memory store attached to an agent session.
-  class BetaManagedAgentsMemoryStoreResource
-    include BetaManagedAgentsGetSessionResource
-    include BetaManagedAgentsSessionResource
-    include BetaManagedAgentsUpdateSessionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsMemoryStoreResourceMetadata::DECODERS
-
-    # @return [BetaManagedAgentsMemoryStoreResourceType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-    attr_reader :memory_store_id
-    # @return [BetaManagedAgentsMountMode] Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
-    attr_reader :access
-    # @return [String] Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-    attr_reader :name
-    # @return [String] Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
-    attr_reader :description
-    # @return [String] Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-    attr_reader :instructions
-    # @return [String] Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-    attr_reader :mount_path
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsMemoryStoreResourceType SDK namespace.
-  module BetaManagedAgentsMemoryStoreResourceType
-    MEMORY_STORE = 'memory_store'
-    VALUES = ['memory_store'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsMemoryStoreResourceType', 'enum', "Unknown BetaManagedAgentsMemoryStoreResourceType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsMemoryStoreResourceConfigMetadata
-    FIELDS = {
-      type: 'type',
-      memory_store_id: 'memory_store_id',
-      access: 'access',
-      instructions: 'instructions'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      memory_store_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMemoryStoreResourceConfigType.from_value(value)
-      end,
-      access: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsMountMode.from_value(value)
-      end
-    }.freeze
-  end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsMemoryStoreResourceConfigMetadata
+  FIELDS = {
+    type: "type",
+    memory_store_id: "memory_store_id",
+    access: "access",
+    instructions: "instructions",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    memory_store_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMemoryStoreResourceConfigType.from_value(value)
+    end,
+    access: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsMountMode.from_value(value)
+    end,
+  }.freeze
+end
 end

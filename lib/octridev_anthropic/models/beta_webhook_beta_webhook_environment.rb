@@ -5,263 +5,259 @@
 
 # beta_webhook_beta_webhook_environment domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEnvironmentArchivedEventDataType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEnvironmentArchivedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookEnvironmentArchivedEventData.
+# Typed representation of the `BetaWebhookEnvironmentArchivedEventData` API schema.
+class BetaWebhookEnvironmentArchivedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::DECODERS
+
+  # @return [BetaWebhookEnvironmentArchivedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the environment that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebhookEnvironmentArchivedEventData.
-  # Typed representation of the `BetaWebhookEnvironmentArchivedEventData` API schema.
-  class BetaWebhookEnvironmentArchivedEventData
-    include BetaWebhookEventData
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookEnvironmentArchivedEventDataMetadata::DECODERS
-
-    # @return [BetaWebhookEnvironmentArchivedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the environment that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebhookEnvironmentArchivedEventDataType SDK namespace.
-  module BetaWebhookEnvironmentArchivedEventDataType
-    ENVIRONMENT_ARCHIVED = 'environment.archived'
-    VALUES = ['environment.archived'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaWebhookEnvironmentArchivedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentArchivedEventDataType: #{value}")
-    end
+# Defines the BetaWebhookEnvironmentArchivedEventDataType SDK namespace.
+module BetaWebhookEnvironmentArchivedEventDataType
+  ENVIRONMENT_ARCHIVED = 'environment.archived'
+  VALUES = ['environment.archived'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebhookEnvironmentArchivedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentArchivedEventDataType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEnvironmentCreatedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookEnvironmentCreatedEventData.
+# Typed representation of the `BetaWebhookEnvironmentCreatedEventData` API schema.
+class BetaWebhookEnvironmentCreatedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::DECODERS
+
+  # @return [BetaWebhookEnvironmentCreatedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the environment that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEnvironmentCreatedEventDataType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaWebhookEnvironmentCreatedEventData.
-  # Typed representation of the `BetaWebhookEnvironmentCreatedEventData` API schema.
-  class BetaWebhookEnvironmentCreatedEventData
-    include BetaWebhookEventData
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookEnvironmentCreatedEventDataMetadata::DECODERS
+# Defines the BetaWebhookEnvironmentCreatedEventDataType SDK namespace.
+module BetaWebhookEnvironmentCreatedEventDataType
+  ENVIRONMENT_CREATED = 'environment.created'
+  VALUES = ['environment.created'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaWebhookEnvironmentCreatedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the environment that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
+    raise SdkValidationError.new('BetaWebhookEnvironmentCreatedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentCreatedEventDataType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEnvironmentDeletedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaWebhookEnvironmentDeletedEventData.
+# Typed representation of the `BetaWebhookEnvironmentDeletedEventData` API schema.
+class BetaWebhookEnvironmentDeletedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaWebhookEnvironmentDeletedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the environment that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaWebhookEnvironmentCreatedEventDataType SDK namespace.
-  module BetaWebhookEnvironmentCreatedEventDataType
-    ENVIRONMENT_CREATED = 'environment.created'
-    VALUES = ['environment.created'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookEnvironmentCreatedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentCreatedEventDataType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEnvironmentDeletedEventDataType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaWebhookEnvironmentDeletedEventDataType SDK namespace.
+module BetaWebhookEnvironmentDeletedEventDataType
+  ENVIRONMENT_DELETED = 'environment.deleted'
+  VALUES = ['environment.deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebhookEnvironmentDeletedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentDeletedEventDataType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookEnvironmentUpdatedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookEnvironmentUpdatedEventData.
+# Typed representation of the `BetaWebhookEnvironmentUpdatedEventData` API schema.
+class BetaWebhookEnvironmentUpdatedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::DECODERS
+
+  # @return [BetaWebhookEnvironmentUpdatedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the environment that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebhookEnvironmentDeletedEventData.
-  # Typed representation of the `BetaWebhookEnvironmentDeletedEventData` API schema.
-  class BetaWebhookEnvironmentDeletedEventData
-    include BetaWebhookEventData
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookEnvironmentDeletedEventDataMetadata::DECODERS
-
-    # @return [BetaWebhookEnvironmentDeletedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the environment that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebhookEnvironmentDeletedEventDataType SDK namespace.
-  module BetaWebhookEnvironmentDeletedEventDataType
-    ENVIRONMENT_DELETED = 'environment.deleted'
-    VALUES = ['environment.deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookEnvironmentDeletedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentDeletedEventDataType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookEnvironmentUpdatedEventDataType.from_value(value)
-      end
-    }.freeze
+# Defines the BetaWebhookEnvironmentUpdatedEventDataType SDK namespace.
+module BetaWebhookEnvironmentUpdatedEventDataType
+  ENVIRONMENT_UPDATED = 'environment.updated'
+  VALUES = ['environment.updated'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebhookEnvironmentUpdatedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentUpdatedEventDataType: #{value}")
   end
-
-  # API model for BetaWebhookEnvironmentUpdatedEventData.
-  # Typed representation of the `BetaWebhookEnvironmentUpdatedEventData` API schema.
-  class BetaWebhookEnvironmentUpdatedEventData
-    include BetaWebhookEventData
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookEnvironmentUpdatedEventDataMetadata::DECODERS
-
-    # @return [BetaWebhookEnvironmentUpdatedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the environment that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaWebhookEnvironmentUpdatedEventDataType SDK namespace.
-  module BetaWebhookEnvironmentUpdatedEventDataType
-    ENVIRONMENT_UPDATED = 'environment.updated'
-    VALUES = ['environment.updated'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookEnvironmentUpdatedEventDataType', 'enum', "Unknown BetaWebhookEnvironmentUpdatedEventDataType: #{value}")
-    end
-  end
+end
 end

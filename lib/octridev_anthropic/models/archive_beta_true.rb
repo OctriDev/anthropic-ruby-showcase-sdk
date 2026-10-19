@@ -5,18 +5,17 @@
 
 # archive_beta_true domain models
 module OctridevAnthropic
-  # Defines the BetaManagedAgentsArchiveMemoryStoreResponse SDK namespace.
-  module BetaManagedAgentsArchiveMemoryStoreResponse
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaManagedAgentsArchiveMemoryStoreResponse SDK namespace.
+module BetaManagedAgentsArchiveMemoryStoreResponse
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "memory_store" => BetaManagedAgentsMemoryStore }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-      mapping = { 'memory_store' => BetaManagedAgentsMemoryStore }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaManagedAgentsArchiveMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsArchiveMemoryStoreResponse discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsArchiveMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsArchiveMemoryStoreResponse discriminator: #{hash["type"].inspect}")
   end
+end
 end

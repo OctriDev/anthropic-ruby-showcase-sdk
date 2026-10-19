@@ -5,356 +5,356 @@
 
 # shared_beta_service domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountMetadata
-    FIELDS = {
-      archived_at: 'archived_at',
-      archived_by_actor_id: 'archived_by_actor_id',
-      created_at: 'created_at',
-      created_by_actor_id: 'created_by_actor_id',
-      description: 'description',
-      id: 'id',
-      name: 'name',
-      organization_role: 'organization_role',
-      type: 'type',
-      updated_at: 'updated_at',
-      updated_by_actor_id: 'updated_by_actor_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      archived_at
-      archived_by_actor_id
-      created_at
-      created_by_actor_id
-      description
-      id
-      name
-      organization_role
-      type
-      updated_at
-      updated_by_actor_id
-    ].freeze
-    DECODERS = {
-      organization_role: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountOrganizationRole.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      archived_at
-      archived_by_actor_id
-      created_by_actor_id
-      description
-      updated_by_actor_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountMetadata
+  FIELDS = {
+    archived_at: "archived_at",
+    archived_by_actor_id: "archived_by_actor_id",
+    created_at: "created_at",
+    created_by_actor_id: "created_by_actor_id",
+    description: "description",
+    id: "id",
+    name: "name",
+    organization_role: "organization_role",
+    type: "type",
+    updated_at: "updated_at",
+    updated_by_actor_id: "updated_by_actor_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    archived_at
+    archived_by_actor_id
+    created_at
+    created_by_actor_id
+    description
+    id
+    name
+    organization_role
+    type
+    updated_at
+    updated_by_actor_id
+  ].freeze
+  DECODERS = {
+    organization_role: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountOrganizationRole.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    archived_at
+    archived_by_actor_id
+    created_by_actor_id
+    description
+    updated_by_actor_id
+  ].freeze
+end
+
+# API model for BetaServiceAccount.
+# Named non-human identity within the caller's organization. A service account is a pure identity: name + org. Authorization lives on whatever references it (federation rules).
+class BetaServiceAccount
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountMetadata::DECODERS
+
+  # @return [String] If set, this service account is archived.
+  attr_reader :archived_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+  attr_reader :archived_by_actor_id
+  # @return [String] When this service account was created.
+  attr_reader :created_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+  attr_reader :created_by_actor_id
+  # @return [String] Optional free-text description.
+  attr_reader :description
+  # @return [String] Tagged ID of the service account.
+  attr_reader :id
+  # @return [String] Admin-chosen slug identifier.
+  attr_reader :name
+  # @return [BetaServiceAccountOrganizationRole] Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+  attr_reader :organization_role
+  # @return [BetaServiceAccountType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] When this service account was last updated.
+  attr_reader :updated_at
+  # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+  attr_reader :updated_by_actor_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaServiceAccount.
-  # Named non-human identity within the caller's organization. A service account is a pure identity: name + org. Authorization lives on whatever references it (federation rules).
-  class BetaServiceAccount
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountMetadata::DECODERS
-
-    # @return [String] If set, this service account is archived.
-    attr_reader :archived_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
-    attr_reader :archived_by_actor_id
-    # @return [String] When this service account was created.
-    attr_reader :created_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that created this service account.
-    attr_reader :created_by_actor_id
-    # @return [String] Optional free-text description.
-    attr_reader :description
-    # @return [String] Tagged ID of the service account.
-    attr_reader :id
-    # @return [String] Admin-chosen slug identifier.
-    attr_reader :name
-    # @return [BetaServiceAccountOrganizationRole] Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-    attr_reader :organization_role
-    # @return [BetaServiceAccountType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] When this service account was last updated.
-    attr_reader :updated_at
-    # @return [String] Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
-    attr_reader :updated_by_actor_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaServiceAccountOrganizationRole SDK namespace.
-  module BetaServiceAccountOrganizationRole
-    ADMIN = 'admin'
-    DEVELOPER = 'developer'
-    VALUES = %w[admin developer].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaServiceAccountOrganizationRole SDK namespace.
+module BetaServiceAccountOrganizationRole
+  ADMIN = 'admin'
+  DEVELOPER = 'developer'
+  VALUES = ['admin', 'developer'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the BetaServiceAccountType SDK namespace.
+module BetaServiceAccountType
+  SERVICE_ACCOUNT = 'service_account'
+  VALUES = ['service_account'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaServiceAccountType', 'enum', "Unknown BetaServiceAccountType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountTargetMetadata
+  FIELDS = {
+    service_account_id: "service_account_id",
+    service_account_name: "service_account_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    service_account_id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountTargetType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaServiceAccountTarget.
+# Bind to a fixed service account by ID.
+class BetaServiceAccountTarget
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountTargetMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountTargetMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountTargetMetadata::DECODERS
+
+  # @return [String] Tagged ID of the service account to mint tokens for.
+  attr_reader :service_account_id
+  # @return [String] Service account's display name at read time. Ignored on writes.
+  attr_reader :service_account_name
+  # @return [BetaServiceAccountTargetType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaServiceAccountType SDK namespace.
-  module BetaServiceAccountType
-    SERVICE_ACCOUNT = 'service_account'
-    VALUES = ['service_account'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaServiceAccountType', 'enum', "Unknown BetaServiceAccountType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountTargetMetadata
-    FIELDS = {
-      service_account_id: 'service_account_id',
-      service_account_name: 'service_account_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      service_account_id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountTargetType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaServiceAccountTargetType SDK namespace.
+module BetaServiceAccountTargetType
+  SERVICE_ACCOUNT = 'service_account'
+  VALUES = ['service_account'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaServiceAccountTargetType', 'enum', "Unknown BetaServiceAccountTargetType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountWorkspaceMemberMetadata
+  FIELDS = {
+    created_by_actor_id: "created_by_actor_id",
+    implicit: "implicit",
+    service_account_id: "service_account_id",
+    type: "type",
+    workspace_id: "workspace_id",
+    workspace_role: "workspace_role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    created_by_actor_id
+    implicit
+    service_account_id
+    type
+    workspace_id
+    workspace_role
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountWorkspaceMemberType.from_value(value)
+    end,
+    workspace_role: lambda do |value|
+      ::OctridevAnthropic::BetaWorkspaceRoleSchema.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    created_by_actor_id
+    implicit
+  ].freeze
+end
+
+# API model for BetaServiceAccountWorkspaceMember.
+# Typed representation of the `BetaServiceAccountWorkspaceMember` API schema.
+class BetaServiceAccountWorkspaceMember
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::DECODERS
+
+  # @return [String] Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+  attr_reader :created_by_actor_id
+  # @return [Boolean] True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+  attr_reader :implicit
+  # @return [String] Tagged service account ID (`svac_...`).
+  attr_reader :service_account_id
+  # @return [BetaServiceAccountWorkspaceMemberType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Tagged workspace ID (`wrkspc_...`).
+  attr_reader :workspace_id
+  # @return [BetaWorkspaceRoleSchema] Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+  attr_reader :workspace_role
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaServiceAccountTarget.
-  # Bind to a fixed service account by ID.
-  class BetaServiceAccountTarget
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountTargetMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountTargetMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountTargetMetadata::DECODERS
-
-    # @return [String] Tagged ID of the service account to mint tokens for.
-    attr_reader :service_account_id
-    # @return [String] Service account's display name at read time. Ignored on writes.
-    attr_reader :service_account_name
-    # @return [BetaServiceAccountTargetType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountWorkspaceMemberMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaServiceAccountTargetType SDK namespace.
-  module BetaServiceAccountTargetType
-    SERVICE_ACCOUNT = 'service_account'
-    VALUES = ['service_account'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaServiceAccountTargetType', 'enum', "Unknown BetaServiceAccountTargetType: #{value}")
-    end
+# Defines the BetaServiceAccountWorkspaceMemberType SDK namespace.
+module BetaServiceAccountWorkspaceMemberType
+  SERVICE_ACCOUNT_WORKSPACE_MEMBER = 'service_account_workspace_member'
+  VALUES = ['service_account_workspace_member'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaServiceAccountWorkspaceMemberType', 'enum', "Unknown BetaServiceAccountWorkspaceMemberType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata
+  FIELDS = {
+    service_account_id: "service_account_id",
+    type: "type",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    service_account_id
+    type
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountWorkspaceMemberDeleteResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaServiceAccountWorkspaceMemberDeleteResponse.
+# Typed representation of the `BetaServiceAccountWorkspaceMemberDeleteResponse` API schema.
+class BetaServiceAccountWorkspaceMemberDeleteResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::DECODERS
+
+  # @return [String] Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
+  attr_reader :service_account_id
+  # @return [BetaServiceAccountWorkspaceMemberDeleteResponseType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Tagged workspace ID (`wrkspc_...`) named in the delete request.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountWorkspaceMemberMetadata
-    FIELDS = {
-      created_by_actor_id: 'created_by_actor_id',
-      implicit: 'implicit',
-      service_account_id: 'service_account_id',
-      type: 'type',
-      workspace_id: 'workspace_id',
-      workspace_role: 'workspace_role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      created_by_actor_id
-      implicit
-      service_account_id
-      type
-      workspace_id
-      workspace_role
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountWorkspaceMemberType.from_value(value)
-      end,
-      workspace_role: lambda do |value|
-        ::OctridevAnthropic::BetaWorkspaceRoleSchema.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      created_by_actor_id
-      implicit
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaServiceAccountWorkspaceMember.
-  # Typed representation of the `BetaServiceAccountWorkspaceMember` API schema.
-  class BetaServiceAccountWorkspaceMember
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [String] Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
-    attr_reader :created_by_actor_id
-    # @return [Boolean] True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
-    attr_reader :implicit
-    # @return [String] Tagged service account ID (`svac_...`).
-    attr_reader :service_account_id
-    # @return [BetaServiceAccountWorkspaceMemberType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Tagged workspace ID (`wrkspc_...`).
-    attr_reader :workspace_id
-    # @return [BetaWorkspaceRoleSchema] Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
-    attr_reader :workspace_role
+# Defines the BetaServiceAccountWorkspaceMemberDeleteResponseType SDK namespace.
+module BetaServiceAccountWorkspaceMemberDeleteResponseType
+  SERVICE_ACCOUNT_WORKSPACE_MEMBER_DELETED = 'service_account_workspace_member_deleted'
+  VALUES = ['service_account_workspace_member_deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+    raise SdkValidationError.new('BetaServiceAccountWorkspaceMemberDeleteResponseType', 'enum', "Unknown BetaServiceAccountWorkspaceMemberDeleteResponseType: #{value}")
+  end
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountWorkspaceMemberMetadata::NULLABLE_FIELDS)
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaServiceAccountWorkspaceMember.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# API model for BetaServiceAccountWorkspaceMemberListResponse.
+# Typed representation of the `BetaServiceAccountWorkspaceMemberListResponse` API schema.
+class BetaServiceAccountWorkspaceMemberListResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaServiceAccountWorkspaceMember] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page, or null if no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaServiceAccountWorkspaceMemberType SDK namespace.
-  module BetaServiceAccountWorkspaceMemberType
-    SERVICE_ACCOUNT_WORKSPACE_MEMBER = 'service_account_workspace_member'
-    VALUES = ['service_account_workspace_member'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaServiceAccountWorkspaceMemberType', 'enum', "Unknown BetaServiceAccountWorkspaceMemberType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata
-    FIELDS = {
-      service_account_id: 'service_account_id',
-      type: 'type',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      service_account_id
-      type
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountWorkspaceMemberDeleteResponseType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # API model for BetaServiceAccountWorkspaceMemberDeleteResponse.
-  # Typed representation of the `BetaServiceAccountWorkspaceMemberDeleteResponse` API schema.
-  class BetaServiceAccountWorkspaceMemberDeleteResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberDeleteResponseMetadata::DECODERS
-
-    # @return [String] Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
-    attr_reader :service_account_id
-    # @return [BetaServiceAccountWorkspaceMemberDeleteResponseType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Tagged workspace ID (`wrkspc_...`) named in the delete request.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaServiceAccountWorkspaceMemberDeleteResponseType SDK namespace.
-  module BetaServiceAccountWorkspaceMemberDeleteResponseType
-    SERVICE_ACCOUNT_WORKSPACE_MEMBER_DELETED = 'service_account_workspace_member_deleted'
-    VALUES = ['service_account_workspace_member_deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaServiceAccountWorkspaceMemberDeleteResponseType', 'enum', "Unknown BetaServiceAccountWorkspaceMemberDeleteResponseType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaServiceAccountWorkspaceMember.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
-  end
-
-  # API model for BetaServiceAccountWorkspaceMemberListResponse.
-  # Typed representation of the `BetaServiceAccountWorkspaceMemberListResponse` API schema.
-  class BetaServiceAccountWorkspaceMemberListResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaServiceAccountWorkspaceMember] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page, or null if no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountWorkspaceMemberListResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end
