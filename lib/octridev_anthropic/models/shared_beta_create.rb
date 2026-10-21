@@ -5,190 +5,189 @@
 
 # shared_beta_create domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaCreateMessageParamsMetadata
-  FIELDS = {
-    model: "model",
-    messages: "messages",
-    cache_control: "cache_control",
-    container: "container",
-    context_management: "context_management",
-    diagnostics: "diagnostics",
-    fallback_credit_token: "fallback_credit_token",
-    fallbacks: "fallbacks",
-    inference_geo: "inference_geo",
-    max_tokens: "max_tokens",
-    mcp_servers: "mcp_servers",
-    metadata: "metadata",
-    output_config: "output_config",
-    output_format: "output_format",
-    service_tier: "service_tier",
-    speed: "speed",
-    stop_sequences: "stop_sequences",
-    stream: "stream",
-    system: "system",
-    temperature: "temperature",
-    thinking: "thinking",
-    tool_choice: "tool_choice",
-    tools: "tools",
-    top_k: "top_k",
-    top_p: "top_p",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    model
-    messages
-    max_tokens
-  ].freeze
-  DECODERS = {
-    model: lambda do |value|
-      ::OctridevAnthropic::Model.from_hash(value)
-    end,
-    messages: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaInputMessage.from_hash(item) }
-    end,
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    container: lambda do |value|
-      SdkModel.union_branch(value, [::OctridevAnthropic::BetaContainerParams])
-    end,
-    context_management: lambda do |value|
-      ::OctridevAnthropic::BetaContextManagementConfig.from_hash(value)
-    end,
-    diagnostics: lambda do |value|
-      ::OctridevAnthropic::BetaDiagnosticsParam.from_hash(value)
-    end,
-    fallback_credit_token: lambda do |value|
-      SdkModel.union_branch(value, [::OctridevAnthropic::BetaFallbackCreditTokenParam])
-    end,
-    mcp_servers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaRequestMCPServerURLDefinition.from_hash(item) }
-    end,
-    metadata: lambda do |value|
-      ::OctridevAnthropic::BetaMetadata.from_hash(value)
-    end,
-    output_config: lambda do |value|
-      ::OctridevAnthropic::BetaOutputConfig.from_hash(value)
-    end,
-    output_format: lambda do |value|
-      ::OctridevAnthropic::BetaJsonOutputFormat.from_hash(value)
-    end,
-    service_tier: lambda do |value|
-      ::OctridevAnthropic::BetaCreateMessageParamsServiceTier.from_value(value)
-    end,
-    speed: lambda do |value|
-      ::OctridevAnthropic::BetaSpeed.from_value(value)
-    end,
-    thinking: lambda do |value|
-      ::OctridevAnthropic::BetaThinkingConfigParam.from_hash(value)
-    end,
-    tool_choice: lambda do |value|
-      ::OctridevAnthropic::BetaToolChoice.from_hash(value)
-    end,
-    tools: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaCreateMessageParamsToolsItem.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaCreateMessageParams.
-# Typed representation of the `BetaCreateMessageParams` API schema.
-class BetaCreateMessageParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaCreateMessageParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaCreateMessageParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaCreateMessageParamsMetadata::DECODERS
-
-  # @return [Model] The model that will complete your prompt. See models for additional details and options.
-  attr_reader :model
-  # @return [Array_of_BetaInputMessage] Input messages. Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn. Each input message must be an object with a `role` and `content`. You can specify a single `user`-role…
-  attr_reader :messages
-  # @return [BetaCacheControlEphemeral] Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
-  attr_reader :cache_control
-  # @return [Object] Container identifier for reuse across requests.
-  attr_reader :container
-  # @return [BetaContextManagementConfig] Context management configuration. This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
-  attr_reader :context_management
-  # @return [BetaDiagnosticsParam] Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
-  attr_reader :diagnostics
-  # @return [Object] The `fallback_credit_token` from a prior refusal's `stop_details`. When a preceding request was refused and returned a `fallback_credit_token`, pass that code here on the retry to have the retry's cache-creation tokens for the prefix that was warm on the refused model billed at the cache-read rate. Must be redeemed by the same organization and workspace, with the same request body (optionally extended by one appended `assistant` message whose content is the partial text —…
-  attr_reader :fallback_credit_token
-  # @return [Object] Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
-  attr_reader :fallbacks
-  # @return [String] Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
-  attr_reader :inference_geo
-  # @return [Integer] The maximum number of tokens to generate before stopping. Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate. Set to `0` to populate the prompt cache without generating a response. Different models have different maximum values for this parameter. See models for details.
-  attr_reader :max_tokens
-  # @return [Array_of_BetaRequestMCPServerURLDefinition] MCP servers to be utilized in this request
-  attr_reader :mcp_servers
-  # @return [BetaMetadata] An object describing metadata about the request.
-  attr_reader :metadata
-  # @return [BetaOutputConfig] Configuration options for the model's output, such as the output format.
-  attr_reader :output_config
-  # @return [BetaJsonOutputFormat] Deprecated: Use `output_config.format` instead. See structured outputs A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-  attr_reader :output_format
-  # @return [BetaCreateMessageParamsServiceTier] Determines whether to use priority capacity (if available) or standard capacity for this request. Anthropic offers different levels of service for your API requests. See service-tiers for details.
-  attr_reader :service_tier
-  # @return [BetaSpeed] The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
-  attr_reader :speed
-  # @return [Array_of_String] Custom text sequences that will cause the model to stop generating. Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`. If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response…
-  attr_reader :stop_sequences
-  # @return [Boolean] Whether to incrementally stream the response using server-sent events. See streaming for details.
-  attr_reader :stream
-  # @return [Object] System prompt. A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our guide to system prompts.
-  attr_reader :system
-  # @return [Float] Amount of randomness injected into the response. Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks. Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-  attr_reader :temperature
-  # @return [BetaThinkingConfigParam] Configuration for enabling Claude's extended thinking. When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit. See extended thinking for details.
-  attr_reader :thinking
-  # @return [BetaToolChoice] How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
-  attr_reader :tool_choice
-  # @return [Array_of_BetaCreateMessageParamsToolsItem] Definitions of tools that the model may use. If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks. There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For server…
-  attr_reader :tools
-  # @return [Integer] Only sample from the top K options for each subsequent token. Used to remove "long tail" low probability responses. Learn more technical details here. Recommended for advanced use cases only.
-  attr_reader :top_k
-  # @return [Float] Use nucleus sampling. In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`. Recommended for advanced use cases only.
-  attr_reader :top_p
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaCreateMessageParamsMetadata
+    FIELDS = {
+      model: 'model',
+      messages: 'messages',
+      cache_control: 'cache_control',
+      container: 'container',
+      context_management: 'context_management',
+      diagnostics: 'diagnostics',
+      fallback_credit_token: 'fallback_credit_token',
+      fallbacks: 'fallbacks',
+      inference_geo: 'inference_geo',
+      max_tokens: 'max_tokens',
+      mcp_servers: 'mcp_servers',
+      metadata: 'metadata',
+      output_config: 'output_config',
+      output_format: 'output_format',
+      service_tier: 'service_tier',
+      speed: 'speed',
+      stop_sequences: 'stop_sequences',
+      stream: 'stream',
+      system: 'system',
+      temperature: 'temperature',
+      thinking: 'thinking',
+      tool_choice: 'tool_choice',
+      tools: 'tools',
+      top_k: 'top_k',
+      top_p: 'top_p'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      model
+      messages
+      max_tokens
+    ].freeze
+    DECODERS = {
+      model: lambda do |value|
+        ::OctridevAnthropic::Model.from_hash(value)
+      end,
+      messages: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaInputMessage.from_hash(item) }
+      end,
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      container: lambda do |value|
+        SdkModel.union_branch(value, [::OctridevAnthropic::BetaContainerParams])
+      end,
+      context_management: lambda do |value|
+        ::OctridevAnthropic::BetaContextManagementConfig.from_hash(value)
+      end,
+      diagnostics: lambda do |value|
+        ::OctridevAnthropic::BetaDiagnosticsParam.from_hash(value)
+      end,
+      fallback_credit_token: lambda do |value|
+        SdkModel.union_branch(value, [::OctridevAnthropic::BetaFallbackCreditTokenParam])
+      end,
+      mcp_servers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaRequestMCPServerURLDefinition.from_hash(item) }
+      end,
+      metadata: lambda do |value|
+        ::OctridevAnthropic::BetaMetadata.from_hash(value)
+      end,
+      output_config: lambda do |value|
+        ::OctridevAnthropic::BetaOutputConfig.from_hash(value)
+      end,
+      output_format: lambda do |value|
+        ::OctridevAnthropic::BetaJsonOutputFormat.from_hash(value)
+      end,
+      service_tier: lambda do |value|
+        ::OctridevAnthropic::BetaCreateMessageParamsServiceTier.from_value(value)
+      end,
+      speed: lambda do |value|
+        ::OctridevAnthropic::BetaSpeed.from_value(value)
+      end,
+      thinking: lambda do |value|
+        ::OctridevAnthropic::BetaThinkingConfigParam.from_hash(value)
+      end,
+      tool_choice: lambda do |value|
+        ::OctridevAnthropic::BetaToolChoice.from_hash(value)
+      end,
+      tools: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaCreateMessageParamsToolsItem.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaCreateMessageParams.
+  # Typed representation of the `BetaCreateMessageParams` API schema.
+  class BetaCreateMessageParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaCreateMessageParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaCreateMessageParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaCreateMessageParamsMetadata::DECODERS
+
+    # @return [Model] The model that will complete your prompt. See models for additional details and options.
+    attr_reader :model
+    # @return [Array_of_BetaInputMessage] Input messages. Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn. Each input message must be an object with a `role` and `content`. You can specify a single `user`-role…
+    attr_reader :messages
+    # @return [BetaCacheControlEphemeral] Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    attr_reader :cache_control
+    # @return [Object] Container identifier for reuse across requests.
+    attr_reader :container
+    # @return [BetaContextManagementConfig] Context management configuration. This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
+    attr_reader :context_management
+    # @return [BetaDiagnosticsParam] Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
+    attr_reader :diagnostics
+    # @return [Object] The `fallback_credit_token` from a prior refusal's `stop_details`. When a preceding request was refused and returned a `fallback_credit_token`, pass that code here on the retry to have the retry's cache-creation tokens for the prefix that was warm on the refused model billed at the cache-read rate. Must be redeemed by the same organization and workspace, with the same request body (optionally extended by one appended `assistant` message whose content is the partial text —…
+    attr_reader :fallback_credit_token
+    # @return [Object] Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
+    attr_reader :fallbacks
+    # @return [String] Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
+    attr_reader :inference_geo
+    # @return [Integer] The maximum number of tokens to generate before stopping. Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate. Set to `0` to populate the prompt cache without generating a response. Different models have different maximum values for this parameter. See models for details.
+    attr_reader :max_tokens
+    # @return [Array_of_BetaRequestMCPServerURLDefinition] MCP servers to be utilized in this request
+    attr_reader :mcp_servers
+    # @return [BetaMetadata] An object describing metadata about the request.
+    attr_reader :metadata
+    # @return [BetaOutputConfig] Configuration options for the model's output, such as the output format.
+    attr_reader :output_config
+    # @return [BetaJsonOutputFormat] Deprecated: Use `output_config.format` instead. See structured outputs A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+    attr_reader :output_format
+    # @return [BetaCreateMessageParamsServiceTier] Determines whether to use priority capacity (if available) or standard capacity for this request. Anthropic offers different levels of service for your API requests. See service-tiers for details.
+    attr_reader :service_tier
+    # @return [BetaSpeed] The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+    attr_reader :speed
+    # @return [Array_of_String] Custom text sequences that will cause the model to stop generating. Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`. If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response…
+    attr_reader :stop_sequences
+    # @return [Boolean] Whether to incrementally stream the response using server-sent events. See streaming for details.
+    attr_reader :stream
+    # @return [Object] System prompt. A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our guide to system prompts.
+    attr_reader :system
+    # @return [Float] Amount of randomness injected into the response. Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks. Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+    attr_reader :temperature
+    # @return [BetaThinkingConfigParam] Configuration for enabling Claude's extended thinking. When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit. See extended thinking for details.
+    attr_reader :thinking
+    # @return [BetaToolChoice] How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    attr_reader :tool_choice
+    # @return [Array_of_BetaCreateMessageParamsToolsItem] Definitions of tools that the model may use. If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks. There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For server…
+    attr_reader :tools
+    # @return [Integer] Only sample from the top K options for each subsequent token. Used to remove "long tail" low probability responses. Learn more technical details here. Recommended for advanced use cases only.
+    attr_reader :top_k
+    # @return [Float] Use nucleus sampling. In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`. Recommended for advanced use cases only.
+    attr_reader :top_p
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the Default SDK namespace.
+  module Default
+    DEFAULT = 'default'
+    VALUES = ['default'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('Default', 'enum', "Unknown Default: #{value}")
+    end
   end
-end
 
-# Defines the Default SDK namespace.
-module Default
-  DEFAULT = 'default'
-  VALUES = ['default'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('Default', 'enum', "Unknown Default: #{value}")
+  # Defines the BetaCreateMessageParamsServiceTier SDK namespace.
+  module BetaCreateMessageParamsServiceTier
+    AUTO = 'auto'
+    STANDARD_ONLY = 'standard_only'
+    VALUES = %w[auto standard_only].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaCreateMessageParamsServiceTier SDK namespace.
-module BetaCreateMessageParamsServiceTier
-  AUTO = 'auto'
-  STANDARD_ONLY = 'standard_only'
-  VALUES = ['auto', 'standard_only'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaCreateMessageParamsToolsItem SDK namespace.
-module BetaCreateMessageParamsToolsItem
-  UNDECIDED_VARIANTS = (
-    [
+  # Defines the BetaCreateMessageParamsToolsItem SDK namespace.
+  module BetaCreateMessageParamsToolsItem
+    UNDECIDED_VARIANTS = [
       -> { BetaBashTool20241022 },
       -> { BetaBashTool20250124 },
       -> { BetaCodeExecutionTool20250522 },
@@ -213,30 +212,30 @@ module BetaCreateMessageParamsToolsItem
       -> { BetaWebSearchTool20260318 },
       -> { BetaWebFetchTool20260318 },
       -> { BetaToolSearchToolBM2520251119 },
-      -> { BetaToolSearchToolRegex20251119 },
-    ]
-  ).freeze
+      -> { BetaToolSearchToolRegex20251119 }
+    ].freeze
 
-  def self.from_hash(hash)
-    shape_mapping = {
-      "input_schema" => BetaTool,
-      "model" => BetaAdvisorTool20260301,
-      "mcp_server_name" => BetaMCPToolset,
-    }
-    type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
-    decoded = type&.from_hash(hash)
-    return decoded unless type.nil?
-    lossy = nil
-    UNDECIDED_VARIANTS.each do |variant|
-      type = variant.call
-      decoded = type.from_hash(hash)
-      return decoded if SdkModel.keeps_every_key?(hash, decoded)
+    def self.from_hash(hash)
+      shape_mapping = {
+        'input_schema' => BetaTool,
+        'model' => BetaAdvisorTool20260301,
+        'mcp_server_name' => BetaMCPToolset
+      }
+      type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
+      decoded = type&.from_hash(hash)
+      return decoded unless type.nil?
 
-      lossy ||= decoded
-    rescue ::StandardError
-      next
+      lossy = nil
+      UNDECIDED_VARIANTS.each do |variant|
+        type = variant.call
+        decoded = type.from_hash(hash)
+        return decoded if SdkModel.keeps_every_key?(hash, decoded)
+
+        lossy ||= decoded
+      rescue ::StandardError
+        next
+      end
+      lossy unless lossy.nil?
     end
-    return lossy unless lossy.nil?
   end
-end
 end

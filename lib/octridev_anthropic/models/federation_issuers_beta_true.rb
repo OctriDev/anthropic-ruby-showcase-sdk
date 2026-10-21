@@ -5,122 +5,123 @@
 
 # federation_issuers_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaFederationIssuerCreateParamsMetadata
-  FIELDS = {
-    check_jti: "check_jti",
-    issuer_url: "issuer_url",
-    jwks: "jwks",
-    max_jwt_lifetime_seconds: "max_jwt_lifetime_seconds",
-    name: "name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    issuer_url
-    name
-  ].freeze
-  DECODERS = {
-    jwks: lambda do |value|
-      ::OctridevAnthropic::BetaFederationIssuerCreateParamsJwks.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaFederationIssuerCreateParams.
-# Typed representation of the `BetaFederationIssuerCreateParams` API schema.
-class BetaFederationIssuerCreateParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaFederationIssuerCreateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaFederationIssuerCreateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaFederationIssuerCreateParamsMetadata::DECODERS
-
-  # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Defaults to true. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
-  attr_reader :check_jti
-  # @return [String] The `iss` claim value to match against.
-  attr_reader :issuer_url
-  # @return [BetaFederationIssuerCreateParamsJwks] How signing keys are obtained. Defaults to OIDC discovery.
-  attr_reader :jwks
-  # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Defaults to 3600 (1h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
-  attr_reader :max_jwt_lifetime_seconds
-  # @return [String] Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
-  attr_reader :name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaFederationIssuerCreateParamsMetadata
+    FIELDS = {
+      check_jti: 'check_jti',
+      issuer_url: 'issuer_url',
+      jwks: 'jwks',
+      max_jwt_lifetime_seconds: 'max_jwt_lifetime_seconds',
+      name: 'name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      issuer_url
+      name
+    ].freeze
+    DECODERS = {
+      jwks: lambda do |value|
+        ::OctridevAnthropic::BetaFederationIssuerCreateParamsJwks.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaFederationIssuerCreateParams.
+  # Typed representation of the `BetaFederationIssuerCreateParams` API schema.
+  class BetaFederationIssuerCreateParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaFederationIssuerCreateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaFederationIssuerCreateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaFederationIssuerCreateParamsMetadata::DECODERS
+
+    # @return [Boolean] Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Defaults to true. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+    attr_reader :check_jti
+    # @return [String] The `iss` claim value to match against.
+    attr_reader :issuer_url
+    # @return [BetaFederationIssuerCreateParamsJwks] How signing keys are obtained. Defaults to OIDC discovery.
+    attr_reader :jwks
+    # @return [Integer] Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Defaults to 3600 (1h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+    attr_reader :max_jwt_lifetime_seconds
+    # @return [String] Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+    attr_reader :name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaFederationIssuerCreateParamsJwks SDK namespace.
+  module BetaFederationIssuerCreateParamsJwks
+    DISCRIMINATOR_MAPPING = {
+      'discovery' => -> { BetaJwksDiscovery },
+      'explicit_url' => -> { BetaJwksExplicitUrl },
+      'inline' => -> { BetaJwksInline }
+    }.freeze
 
-# Defines the BetaFederationIssuerCreateParamsJwks SDK namespace.
-module BetaFederationIssuerCreateParamsJwks
-  DISCRIMINATOR_MAPPING = {
-    "discovery" => -> { BetaJwksDiscovery },
-    "explicit_url" => -> { BetaJwksExplicitUrl },
-    "inline" => -> { BetaJwksInline },
-  }.freeze
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-    raise SdkValidationError.new('BetaFederationIssuerCreateParamsJwks', 'variant', "Unknown BetaFederationIssuerCreateParamsJwks discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaFederationIssuerListResponseMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaFederationIssuer.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
-
-# API model for BetaFederationIssuerListResponse.
-# Typed representation of the `BetaFederationIssuerListResponse` API schema.
-class BetaFederationIssuerListResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaFederationIssuerListResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaFederationIssuerListResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaFederationIssuerListResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaFederationIssuer] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [String] Opaque cursor for the next page, or null if no more results.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaFederationIssuerCreateParamsJwks', 'variant', "Unknown BetaFederationIssuerCreateParamsJwks discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationIssuerListResponseMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaFederationIssuerListResponseMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaFederationIssuer.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaFederationIssuerListResponse.
+  # Typed representation of the `BetaFederationIssuerListResponse` API schema.
+  class BetaFederationIssuerListResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaFederationIssuerListResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaFederationIssuerListResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaFederationIssuerListResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaFederationIssuer] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [String] Opaque cursor for the next page, or null if no more results.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaFederationIssuerListResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

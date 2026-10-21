@@ -5,143 +5,145 @@
 
 # memory_stores domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsDeletedMemoryStoreType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsDeletedMemoryStore.
-# Confirmation that a `memory_store` was deleted.
-class BetaManagedAgentsDeletedMemoryStore
-  include BetaManagedAgentsDeleteMemoryStoreResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::DECODERS
-
-  # @return [BetaManagedAgentsDeletedMemoryStoreType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] ID of the deleted memory store (a `memstore_...` identifier). The store and all its memories and versions are no longer retrievable.
-  attr_reader :id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsDeletedMemoryStoreType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsDeletedMemoryStore.
+  # Confirmation that a `memory_store` was deleted.
+  class BetaManagedAgentsDeletedMemoryStore
+    include BetaManagedAgentsDeleteMemoryStoreResponse
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsDeletedMemoryStoreMetadata::DECODERS
+
+    # @return [BetaManagedAgentsDeletedMemoryStoreType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] ID of the deleted memory store (a `memstore_...` identifier). The store and all its memories and versions are no longer retrievable.
+    attr_reader :id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsDeletedMemoryStoreType SDK namespace.
+  module BetaManagedAgentsDeletedMemoryStoreType
+    MEMORY_STORE_DELETED = 'memory_store_deleted'
+    VALUES = ['memory_store_deleted'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsDeletedMemoryStoreType SDK namespace.
-module BetaManagedAgentsDeletedMemoryStoreType
-  MEMORY_STORE_DELETED = 'memory_store_deleted'
-  VALUES = ['memory_store_deleted'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsDeletedMemoryStoreType', 'enum', "Unknown BetaManagedAgentsDeletedMemoryStoreType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsDeleteMemoryStoreResponse SDK namespace.
-module BetaManagedAgentsDeleteMemoryStoreResponse
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "memory_store_deleted" => BetaManagedAgentsDeletedMemoryStore }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsDeleteMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsDeleteMemoryStoreResponse discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsGetMemoryStoreResponse SDK namespace.
-module BetaManagedAgentsGetMemoryStoreResponse
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "memory_store" => BetaManagedAgentsMemoryStore }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsGetMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsGetMemoryStoreResponse discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata
-  FIELDS = {
-    name: "name",
-    description: "description",
-    metadata: "metadata",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUpdateMemoryStoreRequestBody.
-# Typed representation of the `BetaManagedAgentsUpdateMemoryStoreRequestBody` API schema.
-class BetaManagedAgentsUpdateMemoryStoreRequestBody
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::DECODERS
-
-  # @return [String] New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
-  attr_reader :name
-  # @return [String] New description for the store, up to 1024 characters. Pass an empty string to clear it.
-  attr_reader :description
-  # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
-  attr_reader :metadata
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsDeletedMemoryStoreType', 'enum', "Unknown BetaManagedAgentsDeletedMemoryStoreType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsDeleteMemoryStoreResponse SDK namespace.
+  module BetaManagedAgentsDeleteMemoryStoreResponse
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'memory_store_deleted' => BetaManagedAgentsDeletedMemoryStore }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsDeleteMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsDeleteMemoryStoreResponse discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsGetMemoryStoreResponse SDK namespace.
+  module BetaManagedAgentsGetMemoryStoreResponse
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'memory_store' => BetaManagedAgentsMemoryStore }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsGetMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsGetMemoryStoreResponse discriminator: #{hash['type'].inspect}")
+    end
   end
-end
 
-# Defines the BetaManagedAgentsUpdateMemoryStoreResponse SDK namespace.
-module BetaManagedAgentsUpdateMemoryStoreResponse
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "memory_store" => BetaManagedAgentsMemoryStore }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsUpdateMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsUpdateMemoryStoreResponse discriminator: #{hash["type"].inspect}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata
+    FIELDS = {
+      name: 'name',
+      description: 'description',
+      metadata: 'metadata'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
-end
+
+  # API model for BetaManagedAgentsUpdateMemoryStoreRequestBody.
+  # Typed representation of the `BetaManagedAgentsUpdateMemoryStoreRequestBody` API schema.
+  class BetaManagedAgentsUpdateMemoryStoreRequestBody
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUpdateMemoryStoreRequestBodyMetadata::DECODERS
+
+    # @return [String] New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
+    attr_reader :name
+    # @return [String] New description for the store, up to 1024 characters. Pass an empty string to clear it.
+    attr_reader :description
+    # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    attr_reader :metadata
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsUpdateMemoryStoreResponse SDK namespace.
+  module BetaManagedAgentsUpdateMemoryStoreResponse
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'memory_store' => BetaManagedAgentsMemoryStore }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsUpdateMemoryStoreResponse', 'variant', "Unknown BetaManagedAgentsUpdateMemoryStoreResponse discriminator: #{hash['type'].inspect}")
+    end
+  end
 end

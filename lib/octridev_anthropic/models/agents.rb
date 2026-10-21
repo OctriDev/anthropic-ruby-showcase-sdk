@@ -5,81 +5,80 @@
 
 # agents domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata
-  FIELDS = {
-    version: "version",
-    name: "name",
-    description: "description",
-    model: "model",
-    system: "system",
-    tools: "tools",
-    mcp_servers: "mcp_servers",
-    skills: "skills",
-    metadata: "metadata",
-    multiagent: "multiagent",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    model: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModelParams.from_hash(value)
-    end,
-    tools: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
-    end,
-    mcp_servers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
-    end,
-    skills: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSkillParams.from_hash(item) }
-    end,
-    multiagent: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMultiagentParams.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUpdateAgentParams.
-# Request parameters for updating an `agent`. Omit a field to preserve its current value.
-class BetaManagedAgentsUpdateAgentParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::DECODERS
-
-  # @return [Integer] The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
-  attr_reader :version
-  # @return [String] Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
-  attr_reader :name
-  # @return [String] Description. Omit to preserve; send empty string or null to clear.
-  attr_reader :description
-  # @return [BetaManagedAgentsModelParams] Model identifier. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
-  attr_reader :model
-  # @return [String] System prompt. Omit to preserve; send empty string or null to clear.
-  attr_reader :system
-  # @return [Array_of_BetaManagedAgentsAgentToolParams] Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
-  attr_reader :tools
-  # @return [Array_of_BetaManagedAgentsMCPServerParams] MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the MCP connector guide.
-  attr_reader :mcp_servers
-  # @return [Array_of_BetaManagedAgentsSkillParams] Skills. Full replacement. Omit to preserve; send empty array or null to clear.
-  attr_reader :skills
-  # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
-  attr_reader :metadata
-  # @return [BetaManagedAgentsMultiagentParams] Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
-  attr_reader :multiagent
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata
+    FIELDS = {
+      version: 'version',
+      name: 'name',
+      description: 'description',
+      model: 'model',
+      system: 'system',
+      tools: 'tools',
+      mcp_servers: 'mcp_servers',
+      skills: 'skills',
+      metadata: 'metadata',
+      multiagent: 'multiagent'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      model: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModelParams.from_hash(value)
+      end,
+      tools: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsAgentToolParams.from_hash(item) }
+      end,
+      mcp_servers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPServerParams.from_hash(item) }
+      end,
+      skills: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSkillParams.from_hash(item) }
+      end,
+      multiagent: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMultiagentParams.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BetaManagedAgentsUpdateAgentParams.
+  # Request parameters for updating an `agent`. Omit a field to preserve its current value.
+  class BetaManagedAgentsUpdateAgentParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUpdateAgentParamsMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Integer] The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
+    attr_reader :version
+    # @return [String] Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+    attr_reader :name
+    # @return [String] Description. Omit to preserve; send empty string or null to clear.
+    attr_reader :description
+    # @return [BetaManagedAgentsModelParams] Model identifier. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+    attr_reader :model
+    # @return [String] System prompt. Omit to preserve; send empty string or null to clear.
+    attr_reader :system
+    # @return [Array_of_BetaManagedAgentsAgentToolParams] Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+    attr_reader :tools
+    # @return [Array_of_BetaManagedAgentsMCPServerParams] MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the MCP connector guide.
+    attr_reader :mcp_servers
+    # @return [Array_of_BetaManagedAgentsSkillParams] Skills. Full replacement. Omit to preserve; send empty array or null to clear.
+    attr_reader :skills
+    # @return [Hash] Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    attr_reader :metadata
+    # @return [BetaManagedAgentsMultiagentParams] Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
+    attr_reader :multiagent
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

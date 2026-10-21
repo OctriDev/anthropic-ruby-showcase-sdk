@@ -5,119 +5,119 @@
 
 # invites_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaCreateInviteParamsMetadata
-  FIELDS = {
-    email: "email",
-    rbac_group_ids: "rbac_group_ids",
-    role: "role",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    email
-    role
-  ].freeze
-  DECODERS = {
-    role: lambda do |value|
-      ::OctridevAnthropic::BetaCreateInviteParamsRole.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaCreateInviteParams.
-# Typed representation of the `BetaCreateInviteParams` API schema.
-class BetaCreateInviteParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaCreateInviteParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaCreateInviteParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaCreateInviteParamsMetadata::DECODERS
-
-  # @return [String] Email of the User.
-  attr_reader :email
-  # @return [Array_of_String] RBAC group IDs to assign to the User when the Invite is accepted. A non-empty array is accepted only for a Claude Enterprise organization with RBAC groups, and requires the key to carry the `write:rbac_groups` scope.
-  attr_reader :rbac_group_ids
-  # @return [BetaCreateInviteParamsRole] Role for the invited User. The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
-  attr_reader :role
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaCreateInviteParamsMetadata
+    FIELDS = {
+      email: 'email',
+      rbac_group_ids: 'rbac_group_ids',
+      role: 'role'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      email
+      role
+    ].freeze
+    DECODERS = {
+      role: lambda do |value|
+        ::OctridevAnthropic::BetaCreateInviteParamsRole.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaCreateInviteParams.
+  # Typed representation of the `BetaCreateInviteParams` API schema.
+  class BetaCreateInviteParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaCreateInviteParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaCreateInviteParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaCreateInviteParamsMetadata::DECODERS
+
+    # @return [String] Email of the User.
+    attr_reader :email
+    # @return [Array_of_String] RBAC group IDs to assign to the User when the Invite is accepted. A non-empty array is accepted only for a Claude Enterprise organization with RBAC groups, and requires the key to carry the `write:rbac_groups` scope.
+    attr_reader :rbac_group_ids
+    # @return [BetaCreateInviteParamsRole] Role for the invited User. The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+    attr_reader :role
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaCreateInviteParamsRole SDK namespace.
-module BetaCreateInviteParamsRole
-  BILLING = 'billing'
-  CLAUDE_CODE_USER = 'claude_code_user'
-  DEVELOPER = 'developer'
-  MANAGED = 'managed'
-  USER = 'user'
-  VALUES = ['billing', 'claude_code_user', 'developer', 'managed', 'user'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaListResponseInviteSchemaMetadata
-  FIELDS = {
-    data: "data",
-    first_id: "first_id",
-    has_more: "has_more",
-    last_id: "last_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    first_id
-    has_more
-    last_id
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaInviteSchema.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    first_id
-    last_id
-  ].freeze
-end
-
-# API model for BetaListResponseInviteSchema.
-# Typed representation of the `BetaListResponse_InviteSchema_` API schema.
-class BetaListResponseInviteSchema
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaListResponseInviteSchemaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaListResponseInviteSchemaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaListResponseInviteSchemaMetadata::DECODERS
-
-  # @return [Array_of_BetaInviteSchema] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
-  attr_reader :first_id
-  # @return [Boolean] Indicates if there are more results in the requested page direction.
-  attr_reader :has_more
-  # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
-  attr_reader :last_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaCreateInviteParamsRole SDK namespace.
+  module BetaCreateInviteParamsRole
+    BILLING = 'billing'
+    CLAUDE_CODE_USER = 'claude_code_user'
+    DEVELOPER = 'developer'
+    MANAGED = 'managed'
+    USER = 'user'
+    VALUES = %w[billing claude_code_user developer managed user].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseInviteSchemaMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaListResponseInviteSchemaMetadata
+    FIELDS = {
+      data: 'data',
+      first_id: 'first_id',
+      has_more: 'has_more',
+      last_id: 'last_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      first_id
+      has_more
+      last_id
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaInviteSchema.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      first_id
+      last_id
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaListResponseInviteSchema.
+  # Typed representation of the `BetaListResponse_InviteSchema_` API schema.
+  class BetaListResponseInviteSchema
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaListResponseInviteSchemaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaListResponseInviteSchemaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaListResponseInviteSchemaMetadata::DECODERS
+
+    # @return [Array_of_BetaInviteSchema] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
+    attr_reader :first_id
+    # @return [Boolean] Indicates if there are more results in the requested page direction.
+    attr_reader :has_more
+    # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
+    attr_reader :last_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseInviteSchemaMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

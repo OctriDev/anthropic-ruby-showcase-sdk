@@ -17,7 +17,7 @@ module OctridevAnthropic
         SKILLS = 'skills'
         TOKEN_COUNT = 'token_count'
         WEB_SEARCH = 'web_search'
-        VALUES = ['batch', 'files', 'model_group', 'skills', 'token_count', 'web_search'].freeze
+        VALUES = %w[batch files model_group skills token_count web_search].freeze
         def self.from_value(value)
           value
         end
@@ -44,32 +44,31 @@ module OctridevAnthropic
         anthropic_version: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/v1/organizations/workspaces/",
+            '/v1/organizations/workspaces/',
             SdkClient.encode_path_segment(workspace_id),
-            "/rate_limits?beta=true"
+            '/rate_limits?beta=true'
           ].join,
           config: config,
           query: {
             'group_type' => QueryValue.new(group_type, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'page' => QueryValue.new(page, style: 'form', explode: true),
+            'page' => QueryValue.new(page, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaWorkspaceRateLimitListResponse,
           decoder: :json,
           operation_id: 'list_beta_organizations_workspaces_rate_limits',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
         ).data
       end
 
-    ListBetaOrganizationsWorkspacesRateLimitsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      ListBetaOrganizationsWorkspacesRateLimitsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # List rate-limit overrides configured for a workspace. Returns only the groups and limiter types that have a workspace-level override. Groups without overrides inherit the organization limits and are not listed; use `GET /v1/organizations/rate_limits` to see those. When `limit` is omitted, every matching entry is returned in a single page; when `limit` truncates the result, follow `next_page` to fetch the remaining entries.
       #
@@ -106,9 +105,11 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -137,10 +138,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaOrganizationsWorkspacesRateLimitsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end

@@ -5,345 +5,351 @@
 
 # compliance_settings_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsMetadata
-  FIELDS = {
-    state: "state",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    state
-    type
-  ].freeze
-  DECODERS = {
-    state: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsState.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComplianceSettings.
-# Typed representation of the `BetaComplianceSettings` API schema.
-class BetaComplianceSettings
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsMetadata::DECODERS
-
-  # @return [BetaComplianceSettingsState] Whether the Compliance API is enabled for this organization.
-  attr_reader :state
-  # @return [BetaComplianceSettingsType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsMetadata
+    FIELDS = {
+      state: 'state',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      state
+      type
+    ].freeze
+    DECODERS = {
+      state: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsState.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaComplianceSettings.
+  # Typed representation of the `BetaComplianceSettings` API schema.
+  class BetaComplianceSettings
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsMetadata::DECODERS
+
+    # @return [BetaComplianceSettingsState] Whether the Compliance API is enabled for this organization.
+    attr_reader :state
+    # @return [BetaComplianceSettingsType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaComplianceSettingsType SDK namespace.
+  module BetaComplianceSettingsType
+    COMPLIANCE_SETTINGS = 'compliance_settings'
+    VALUES = ['compliance_settings'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaComplianceSettingsType SDK namespace.
-module BetaComplianceSettingsType
-  COMPLIANCE_SETTINGS = 'compliance_settings'
-  VALUES = ['compliance_settings'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComplianceSettingsType', 'enum', "Unknown BetaComplianceSettingsType: #{value}")
-  end
-end
-
-# Defines the BetaComplianceSettingsState SDK namespace.
-module BetaComplianceSettingsState
-  DISCRIMINATOR_MAPPING = {
-    "disabled" => -> { BetaComplianceSettingsStateDisabled },
-    "enabled" => -> { BetaComplianceSettingsStateEnabled },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaComplianceSettingsState', 'variant', "Unknown BetaComplianceSettingsState discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsStateDisabledMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsStateDisabledType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComplianceSettingsStateDisabled.
-# Typed representation of the `BetaComplianceSettingsStateDisabled` API schema.
-class BetaComplianceSettingsStateDisabled
-  include BetaComplianceSettingsState
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::DECODERS
-
-  # @return [BetaComplianceSettingsStateDisabledType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaComplianceSettingsType', 'enum', "Unknown BetaComplianceSettingsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaComplianceSettingsState SDK namespace.
+  module BetaComplianceSettingsState
+    DISCRIMINATOR_MAPPING = {
+      'disabled' => -> { BetaComplianceSettingsStateDisabled },
+      'enabled' => -> { BetaComplianceSettingsStateEnabled }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaComplianceSettingsState', 'variant', "Unknown BetaComplianceSettingsState discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaComplianceSettingsStateDisabledType SDK namespace.
-module BetaComplianceSettingsStateDisabledType
-  DISABLED = 'disabled'
-  VALUES = ['disabled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComplianceSettingsStateDisabledType', 'enum', "Unknown BetaComplianceSettingsStateDisabledType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsStateDisabledParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComplianceSettingsStateDisabledParams.
-# Typed representation of the `BetaComplianceSettingsStateDisabledParams` API schema.
-class BetaComplianceSettingsStateDisabledParams
-  include BetaComplianceSettingsUpdateParamsState
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::DECODERS
-
-  # @return [BetaComplianceSettingsStateDisabledParamsType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsStateDisabledMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsStateDisabledType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaComplianceSettingsStateDisabled.
+  # Typed representation of the `BetaComplianceSettingsStateDisabled` API schema.
+  class BetaComplianceSettingsStateDisabled
+    include BetaComplianceSettingsState
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsStateDisabledMetadata::DECODERS
+
+    # @return [BetaComplianceSettingsStateDisabledType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaComplianceSettingsStateDisabledType SDK namespace.
+  module BetaComplianceSettingsStateDisabledType
+    DISABLED = 'disabled'
+    VALUES = ['disabled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaComplianceSettingsStateDisabledParamsType SDK namespace.
-module BetaComplianceSettingsStateDisabledParamsType
-  DISABLED = 'disabled'
-  VALUES = ['disabled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComplianceSettingsStateDisabledParamsType', 'enum', "Unknown BetaComplianceSettingsStateDisabledParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsStateEnabledMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsStateEnabledType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComplianceSettingsStateEnabled.
-# Typed representation of the `BetaComplianceSettingsStateEnabled` API schema.
-class BetaComplianceSettingsStateEnabled
-  include BetaComplianceSettingsState
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::DECODERS
-
-  # @return [BetaComplianceSettingsStateEnabledType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaComplianceSettingsStateDisabledType', 'enum', "Unknown BetaComplianceSettingsStateDisabledType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsStateDisabledParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaComplianceSettingsStateDisabledParams.
+  # Typed representation of the `BetaComplianceSettingsStateDisabledParams` API schema.
+  class BetaComplianceSettingsStateDisabledParams
+    include BetaComplianceSettingsUpdateParamsState
 
-# Defines the BetaComplianceSettingsStateEnabledType SDK namespace.
-module BetaComplianceSettingsStateEnabledType
-  ENABLED = 'enabled'
-  VALUES = ['enabled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsStateDisabledParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaComplianceSettingsStateEnabledType', 'enum', "Unknown BetaComplianceSettingsStateEnabledType: #{value}")
-  end
-end
+    # @return [BetaComplianceSettingsStateDisabledParamsType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsStateEnabledParamsType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaComplianceSettingsStateEnabledParams.
-# Typed representation of the `BetaComplianceSettingsStateEnabledParams` API schema.
-class BetaComplianceSettingsStateEnabledParams
-  include BetaComplianceSettingsUpdateParamsState
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaComplianceSettingsStateEnabledParamsType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaComplianceSettingsStateDisabledParamsType SDK namespace.
+  module BetaComplianceSettingsStateDisabledParamsType
+    DISABLED = 'disabled'
+    VALUES = ['disabled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComplianceSettingsStateDisabledParamsType', 'enum', "Unknown BetaComplianceSettingsStateDisabledParamsType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaComplianceSettingsStateEnabledParamsType SDK namespace.
-module BetaComplianceSettingsStateEnabledParamsType
-  ENABLED = 'enabled'
-  VALUES = ['enabled'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComplianceSettingsStateEnabledParamsType', 'enum', "Unknown BetaComplianceSettingsStateEnabledParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComplianceSettingsUpdateParamsMetadata
-  FIELDS = {
-    state: "state",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    state
-  ].freeze
-  DECODERS = {
-    state: lambda do |value|
-      ::OctridevAnthropic::BetaComplianceSettingsUpdateParamsState.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComplianceSettingsUpdateParams.
-# Typed representation of the `BetaComplianceSettingsUpdateParams` API schema.
-class BetaComplianceSettingsUpdateParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::DECODERS
-
-  # @return [BetaComplianceSettingsUpdateParamsState] Desired state. Accepts the string shorthand "enabled" or "disabled" in place of the object form; the response always returns the canonical object form.
-  attr_reader :state
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsStateEnabledMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsStateEnabledType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaComplianceSettingsStateEnabled.
+  # Typed representation of the `BetaComplianceSettingsStateEnabled` API schema.
+  class BetaComplianceSettingsStateEnabled
+    include BetaComplianceSettingsState
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsStateEnabledMetadata::DECODERS
+
+    # @return [BetaComplianceSettingsStateEnabledType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaComplianceSettingsStateEnabledType SDK namespace.
+  module BetaComplianceSettingsStateEnabledType
+    ENABLED = 'enabled'
+    VALUES = ['enabled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComplianceSettingsStateEnabledType', 'enum', "Unknown BetaComplianceSettingsStateEnabledType: #{value}")
+    end
   end
-end
 
-# Defines the BetaComplianceSettingsUpdateParamsState SDK namespace.
-module BetaComplianceSettingsUpdateParamsState
-  DISCRIMINATOR_MAPPING = {
-    "disabled" => -> { BetaComplianceSettingsStateDisabledParams },
-    "enabled" => -> { BetaComplianceSettingsStateEnabledParams },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaComplianceSettingsUpdateParamsState', 'variant', "Unknown BetaComplianceSettingsUpdateParamsState discriminator: #{hash["type"].inspect}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsStateEnabledParamsType.from_value(value)
+      end
+    }.freeze
   end
-end
+
+  # API model for BetaComplianceSettingsStateEnabledParams.
+  # Typed representation of the `BetaComplianceSettingsStateEnabledParams` API schema.
+  class BetaComplianceSettingsStateEnabledParams
+    include BetaComplianceSettingsUpdateParamsState
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsStateEnabledParamsMetadata::DECODERS
+
+    # @return [BetaComplianceSettingsStateEnabledParamsType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaComplianceSettingsStateEnabledParamsType SDK namespace.
+  module BetaComplianceSettingsStateEnabledParamsType
+    ENABLED = 'enabled'
+    VALUES = ['enabled'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComplianceSettingsStateEnabledParamsType', 'enum', "Unknown BetaComplianceSettingsStateEnabledParamsType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaComplianceSettingsUpdateParamsMetadata
+    FIELDS = {
+      state: 'state'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      state
+    ].freeze
+    DECODERS = {
+      state: lambda do |value|
+        ::OctridevAnthropic::BetaComplianceSettingsUpdateParamsState.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaComplianceSettingsUpdateParams.
+  # Typed representation of the `BetaComplianceSettingsUpdateParams` API schema.
+  class BetaComplianceSettingsUpdateParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComplianceSettingsUpdateParamsMetadata::DECODERS
+
+    # @return [BetaComplianceSettingsUpdateParamsState] Desired state. Accepts the string shorthand "enabled" or "disabled" in place of the object form; the response always returns the canonical object form.
+    attr_reader :state
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaComplianceSettingsUpdateParamsState SDK namespace.
+  module BetaComplianceSettingsUpdateParamsState
+    DISCRIMINATOR_MAPPING = {
+      'disabled' => -> { BetaComplianceSettingsStateDisabledParams },
+      'enabled' => -> { BetaComplianceSettingsStateEnabledParams }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaComplianceSettingsUpdateParamsState', 'variant', "Unknown BetaComplianceSettingsUpdateParamsState discriminator: #{hash['type'].inspect}")
+    end
+  end
 end

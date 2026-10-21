@@ -5,107 +5,107 @@
 
 # shared_beta_invite domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaInviteSchemaMetadata
-  FIELDS = {
-    accepted_at: "accepted_at",
-    email: "email",
-    expires_at: "expires_at",
-    id: "id",
-    invited_at: "invited_at",
-    rbac_group_ids: "rbac_group_ids",
-    role: "role",
-    status: "status",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    accepted_at
-    email
-    expires_at
-    id
-    invited_at
-    rbac_group_ids
-    role
-    status
-    type
-  ].freeze
-  DECODERS = {
-    role: lambda do |value|
-      ::OctridevAnthropic::BetaOrganizationRoleSchema.from_value(value)
-    end,
-    status: lambda do |value|
-      ::OctridevAnthropic::BetaInviteStatusSchema.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaInviteSchemaType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    accepted_at
-  ].freeze
-end
-
-# API model for BetaInviteSchema.
-# Typed representation of the `BetaInviteSchema` API schema.
-class BetaInviteSchema
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaInviteSchemaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaInviteSchemaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaInviteSchemaMetadata::DECODERS
-
-  # @return [String] RFC 3339 datetime string indicating when the Invite was accepted, or null.
-  attr_reader :accepted_at
-  # @return [String] Email of the User being invited.
-  attr_reader :email
-  # @return [String] RFC 3339 datetime string indicating when the Invite expires.
-  attr_reader :expires_at
-  # @return [String] ID of the Invite.
-  attr_reader :id
-  # @return [String] RFC 3339 datetime string indicating when the Invite was created.
-  attr_reader :invited_at
-  # @return [Array_of_String] RBAC group IDs recorded on the Invite (Claude Enterprise organizations), to be assigned to the User when the Invite is accepted. `[]` when none.
-  attr_reader :rbac_group_ids
-  # @return [BetaOrganizationRoleSchema] Organization role of the User.
-  attr_reader :role
-  # @return [BetaInviteStatusSchema] Status of the Invite.
-  attr_reader :status
-  # @return [BetaInviteSchemaType] Object type. For Invites, this is always `"invite"`.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaInviteSchemaMetadata
+    FIELDS = {
+      accepted_at: 'accepted_at',
+      email: 'email',
+      expires_at: 'expires_at',
+      id: 'id',
+      invited_at: 'invited_at',
+      rbac_group_ids: 'rbac_group_ids',
+      role: 'role',
+      status: 'status',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      accepted_at
+      email
+      expires_at
+      id
+      invited_at
+      rbac_group_ids
+      role
+      status
+      type
+    ].freeze
+    DECODERS = {
+      role: lambda do |value|
+        ::OctridevAnthropic::BetaOrganizationRoleSchema.from_value(value)
+      end,
+      status: lambda do |value|
+        ::OctridevAnthropic::BetaInviteStatusSchema.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaInviteSchemaType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      accepted_at
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaInviteSchemaMetadata::NULLABLE_FIELDS)
+  # API model for BetaInviteSchema.
+  # Typed representation of the `BetaInviteSchema` API schema.
+  class BetaInviteSchema
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaInviteSchemaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaInviteSchemaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaInviteSchemaMetadata::DECODERS
+
+    # @return [String] RFC 3339 datetime string indicating when the Invite was accepted, or null.
+    attr_reader :accepted_at
+    # @return [String] Email of the User being invited.
+    attr_reader :email
+    # @return [String] RFC 3339 datetime string indicating when the Invite expires.
+    attr_reader :expires_at
+    # @return [String] ID of the Invite.
+    attr_reader :id
+    # @return [String] RFC 3339 datetime string indicating when the Invite was created.
+    attr_reader :invited_at
+    # @return [Array_of_String] RBAC group IDs recorded on the Invite (Claude Enterprise organizations), to be assigned to the User when the Invite is accepted. `[]` when none.
+    attr_reader :rbac_group_ids
+    # @return [BetaOrganizationRoleSchema] Organization role of the User.
+    attr_reader :role
+    # @return [BetaInviteStatusSchema] Status of the Invite.
+    attr_reader :status
+    # @return [BetaInviteSchemaType] Object type. For Invites, this is always `"invite"`.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaInviteSchemaMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaInviteSchemaType SDK namespace.
+  module BetaInviteSchemaType
+    INVITE = 'invite'
+    VALUES = ['invite'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaInviteSchemaType SDK namespace.
-module BetaInviteSchemaType
-  INVITE = 'invite'
-  VALUES = ['invite'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaInviteSchemaType', 'enum', "Unknown BetaInviteSchemaType: #{value}")
+      raise SdkValidationError.new('BetaInviteSchemaType', 'enum', "Unknown BetaInviteSchemaType: #{value}")
+    end
   end
-end
 
-# Defines the BetaInviteStatusSchema SDK namespace.
-module BetaInviteStatusSchema
-  ACCEPTED = 'accepted'
-  DELETED = 'deleted'
-  EXPIRED = 'expired'
-  PENDING = 'pending'
-  VALUES = ['accepted', 'deleted', 'expired', 'pending'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaInviteStatusSchema SDK namespace.
+  module BetaInviteStatusSchema
+    ACCEPTED = 'accepted'
+    DELETED = 'deleted'
+    EXPIRED = 'expired'
+    PENDING = 'pending'
+    VALUES = %w[accepted deleted expired pending].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 end

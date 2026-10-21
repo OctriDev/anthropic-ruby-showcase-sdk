@@ -5,271 +5,275 @@
 
 # shared_response_code domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalResponseCodeExecutionOutputBlockMetadata
-  FIELDS = {
-    file_id: "file_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    file_id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseCodeExecutionOutputBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseCodeExecutionOutputBlock.
-# Typed representation of the `ResponseCodeExecutionOutputBlock` API schema.
-class ResponseCodeExecutionOutputBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseCodeExecutionOutputBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseCodeExecutionOutputBlockMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `file_id` wire field.
-  attr_reader :file_id
-  # @return [ResponseCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalResponseCodeExecutionOutputBlockMetadata
+    FIELDS = {
+      file_id: 'file_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      file_id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseCodeExecutionOutputBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for ResponseCodeExecutionOutputBlock.
+  # Typed representation of the `ResponseCodeExecutionOutputBlock` API schema.
+  class ResponseCodeExecutionOutputBlock
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseCodeExecutionOutputBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseCodeExecutionOutputBlockMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `file_id` wire field.
+    attr_reader :file_id
+    # @return [ResponseCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ResponseCodeExecutionOutputBlockType SDK namespace.
+  module ResponseCodeExecutionOutputBlockType
+    CODE_EXECUTION_OUTPUT = 'code_execution_output'
+    VALUES = ['code_execution_output'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the ResponseCodeExecutionOutputBlockType SDK namespace.
-module ResponseCodeExecutionOutputBlockType
-  CODE_EXECUTION_OUTPUT = 'code_execution_output'
-  VALUES = ['code_execution_output'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseCodeExecutionOutputBlockType', 'enum', "Unknown ResponseCodeExecutionOutputBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseCodeExecutionResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    return_code: "return_code",
-    stderr: "stderr",
-    stdout: "stdout",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    return_code
-    stderr
-    stdout
-    type
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::ResponseCodeExecutionOutputBlock.from_hash(item) }
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseCodeExecutionResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseCodeExecutionResultBlock.
-# Typed representation of the `ResponseCodeExecutionResultBlock` API schema.
-class ResponseCodeExecutionResultBlock
-  include ResponseCodeExecutionToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseCodeExecutionResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseCodeExecutionResultBlockMetadata::DECODERS
-
-  # @return [Array_of_ResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
-  attr_reader :return_code
-  # @return [String] Required `string` value serialized in the `stderr` wire field.
-  attr_reader :stderr
-  # @return [String] Required `string` value serialized in the `stdout` wire field.
-  attr_reader :stdout
-  # @return [ResponseCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('ResponseCodeExecutionOutputBlockType', 'enum', "Unknown ResponseCodeExecutionOutputBlockType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalResponseCodeExecutionResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      return_code: 'return_code',
+      stderr: 'stderr',
+      stdout: 'stdout',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      return_code
+      stderr
+      stdout
+      type
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::ResponseCodeExecutionOutputBlock.from_hash(item) }
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseCodeExecutionResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for ResponseCodeExecutionResultBlock.
+  # Typed representation of the `ResponseCodeExecutionResultBlock` API schema.
+  class ResponseCodeExecutionResultBlock
+    include ResponseCodeExecutionToolResultBlockContent
 
-# Defines the ResponseCodeExecutionResultBlockType SDK namespace.
-module ResponseCodeExecutionResultBlockType
-  CODE_EXECUTION_RESULT = 'code_execution_result'
-  VALUES = ['code_execution_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseCodeExecutionResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseCodeExecutionResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('ResponseCodeExecutionResultBlockType', 'enum', "Unknown ResponseCodeExecutionResultBlockType: #{value}")
-  end
-end
+    # @return [Array_of_ResponseCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
+    attr_reader :return_code
+    # @return [String] Required `string` value serialized in the `stderr` wire field.
+    attr_reader :stderr
+    # @return [String] Required `string` value serialized in the `stdout` wire field.
+    attr_reader :stdout
+    # @return [ResponseCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalResponseCodeExecutionToolResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      ::OctridevAnthropic::ResponseCodeExecutionToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseCodeExecutionToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for ResponseCodeExecutionToolResultBlock.
-# Typed representation of the `ResponseCodeExecutionToolResultBlock` API schema.
-class ResponseCodeExecutionToolResultBlock
-  include ContentBlock
-  include ContentBlockStartEventContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [ResponseCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [ResponseCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the ResponseCodeExecutionResultBlockType SDK namespace.
+  module ResponseCodeExecutionResultBlockType
+    CODE_EXECUTION_RESULT = 'code_execution_result'
+    VALUES = ['code_execution_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseCodeExecutionResultBlockType', 'enum', "Unknown ResponseCodeExecutionResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the ResponseCodeExecutionToolResultBlockType SDK namespace.
-module ResponseCodeExecutionToolResultBlockType
-  CODE_EXECUTION_TOOL_RESULT = 'code_execution_tool_result'
-  VALUES = ['code_execution_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseCodeExecutionToolResultBlockType', 'enum', "Unknown ResponseCodeExecutionToolResultBlockType: #{value}")
-  end
-end
-
-# Defines the ResponseCodeExecutionToolResultBlockContent SDK namespace.
-module ResponseCodeExecutionToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_tool_result_error" => -> { ResponseCodeExecutionToolResultError },
-    "code_execution_result" => -> { ResponseCodeExecutionResultBlock },
-    "encrypted_code_execution_result" => -> { ResponseEncryptedCodeExecutionResultBlock },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('ResponseCodeExecutionToolResultBlockContent', 'variant', "Unknown ResponseCodeExecutionToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalResponseCodeExecutionToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::CodeExecutionToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::ResponseCodeExecutionToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ResponseCodeExecutionToolResultError.
-# Typed representation of the `ResponseCodeExecutionToolResultError` API schema.
-class ResponseCodeExecutionToolResultError
-  include ResponseCodeExecutionToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::DECODERS
-
-  # @return [CodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [ResponseCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalResponseCodeExecutionToolResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        ::OctridevAnthropic::ResponseCodeExecutionToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseCodeExecutionToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for ResponseCodeExecutionToolResultBlock.
+  # Typed representation of the `ResponseCodeExecutionToolResultBlock` API schema.
+  class ResponseCodeExecutionToolResultBlock
+    include ContentBlock
+    include ContentBlockStartEventContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseCodeExecutionToolResultBlockMetadata::DECODERS
+
+    # @return [ResponseCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [ResponseCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the ResponseCodeExecutionToolResultBlockType SDK namespace.
+  module ResponseCodeExecutionToolResultBlockType
+    CODE_EXECUTION_TOOL_RESULT = 'code_execution_tool_result'
+    VALUES = ['code_execution_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the ResponseCodeExecutionToolResultErrorType SDK namespace.
-module ResponseCodeExecutionToolResultErrorType
-  CODE_EXECUTION_TOOL_RESULT_ERROR = 'code_execution_tool_result_error'
-  VALUES = ['code_execution_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ResponseCodeExecutionToolResultErrorType', 'enum', "Unknown ResponseCodeExecutionToolResultErrorType: #{value}")
+      raise SdkValidationError.new('ResponseCodeExecutionToolResultBlockType', 'enum', "Unknown ResponseCodeExecutionToolResultBlockType: #{value}")
+    end
   end
-end
+
+  # Defines the ResponseCodeExecutionToolResultBlockContent SDK namespace.
+  module ResponseCodeExecutionToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_tool_result_error' => -> { ResponseCodeExecutionToolResultError },
+      'code_execution_result' => -> { ResponseCodeExecutionResultBlock },
+      'encrypted_code_execution_result' => -> { ResponseEncryptedCodeExecutionResultBlock }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('ResponseCodeExecutionToolResultBlockContent', 'variant', "Unknown ResponseCodeExecutionToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalResponseCodeExecutionToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::CodeExecutionToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::ResponseCodeExecutionToolResultErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for ResponseCodeExecutionToolResultError.
+  # Typed representation of the `ResponseCodeExecutionToolResultError` API schema.
+  class ResponseCodeExecutionToolResultError
+    include ResponseCodeExecutionToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalResponseCodeExecutionToolResultErrorMetadata::DECODERS
+
+    # @return [CodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [ResponseCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the ResponseCodeExecutionToolResultErrorType SDK namespace.
+  module ResponseCodeExecutionToolResultErrorType
+    CODE_EXECUTION_TOOL_RESULT_ERROR = 'code_execution_tool_result_error'
+    VALUES = ['code_execution_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('ResponseCodeExecutionToolResultErrorType', 'enum', "Unknown ResponseCodeExecutionToolResultErrorType: #{value}")
+    end
+  end
 end

@@ -5,138 +5,140 @@
 
 # shared_beta_azure domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaAzureExternalKeyConfigMetadata
-  FIELDS = {
-    client_id: "client_id",
-    key_name: "key_name",
-    tenant_id: "tenant_id",
-    type: "type",
-    vault_uri: "vault_uri",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    key_name
-    tenant_id
-    type
-    vault_uri
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaAzureExternalKeyConfigType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaAzureExternalKeyConfig.
-# Typed representation of the `BetaAzureExternalKeyConfig` API schema.
-class BetaAzureExternalKeyConfig
-  include BetaExternalKeyProviderConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAzureExternalKeyConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAzureExternalKeyConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAzureExternalKeyConfigMetadata::DECODERS
-
-  # @return [String] Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
-  attr_reader :client_id
-  # @return [String] Name of the key within the vault.
-  attr_reader :key_name
-  # @return [String] Azure AD tenant ID.
-  attr_reader :tenant_id
-  # @return [BetaAzureExternalKeyConfigType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Key Vault data-plane URI — `{vault-name}.vault.azure.net` or `{hsm-name}.managedhsm.azure.net`.
-  attr_reader :vault_uri
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAzureExternalKeyConfigMetadata
+    FIELDS = {
+      client_id: 'client_id',
+      key_name: 'key_name',
+      tenant_id: 'tenant_id',
+      type: 'type',
+      vault_uri: 'vault_uri'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      key_name
+      tenant_id
+      type
+      vault_uri
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaAzureExternalKeyConfigType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaAzureExternalKeyConfig.
+  # Typed representation of the `BetaAzureExternalKeyConfig` API schema.
+  class BetaAzureExternalKeyConfig
+    include BetaExternalKeyProviderConfig
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAzureExternalKeyConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAzureExternalKeyConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAzureExternalKeyConfigMetadata::DECODERS
+
+    # @return [String] Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+    attr_reader :client_id
+    # @return [String] Name of the key within the vault.
+    attr_reader :key_name
+    # @return [String] Azure AD tenant ID.
+    attr_reader :tenant_id
+    # @return [BetaAzureExternalKeyConfigType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Key Vault data-plane URI — `{vault-name}.vault.azure.net` or `{hsm-name}.managedhsm.azure.net`.
+    attr_reader :vault_uri
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaAzureExternalKeyConfigType SDK namespace.
+  module BetaAzureExternalKeyConfigType
+    AZURE = 'azure'
+    VALUES = ['azure'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaAzureExternalKeyConfigType SDK namespace.
-module BetaAzureExternalKeyConfigType
-  AZURE = 'azure'
-  VALUES = ['azure'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaAzureExternalKeyConfigType', 'enum', "Unknown BetaAzureExternalKeyConfigType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAzureExternalKeyConfigParamsMetadata
-  FIELDS = {
-    client_id: "client_id",
-    key_name: "key_name",
-    tenant_id: "tenant_id",
-    type: "type",
-    vault_uri: "vault_uri",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    key_name
-    tenant_id
-    type
-    vault_uri
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaAzureExternalKeyConfigParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaAzureExternalKeyConfigParams.
-# Azure Key Vault provider configuration.
-class BetaAzureExternalKeyConfigParams
-  include BetaExternalKeyCreateParamsProviderConfig
-  include BetaExternalKeyUpdateParamsProviderConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::DECODERS
-
-  # @return [String] Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
-  attr_reader :client_id
-  # @return [String] Name of the key within the vault.
-  attr_reader :key_name
-  # @return [String] Azure AD tenant ID.
-  attr_reader :tenant_id
-  # @return [BetaAzureExternalKeyConfigParamsType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Key Vault data-plane URI — `{vault-name}.vault.azure.net` or `{hsm-name}.managedhsm.azure.net`.
-  attr_reader :vault_uri
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaAzureExternalKeyConfigType', 'enum', "Unknown BetaAzureExternalKeyConfigType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaAzureExternalKeyConfigParamsMetadata
+    FIELDS = {
+      client_id: 'client_id',
+      key_name: 'key_name',
+      tenant_id: 'tenant_id',
+      type: 'type',
+      vault_uri: 'vault_uri'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      key_name
+      tenant_id
+      type
+      vault_uri
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaAzureExternalKeyConfigParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaAzureExternalKeyConfigParams.
+  # Azure Key Vault provider configuration.
+  class BetaAzureExternalKeyConfigParams
+    include BetaExternalKeyCreateParamsProviderConfig
+    include BetaExternalKeyUpdateParamsProviderConfig
 
-# Defines the BetaAzureExternalKeyConfigParamsType SDK namespace.
-module BetaAzureExternalKeyConfigParamsType
-  AZURE = 'azure'
-  VALUES = ['azure'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAzureExternalKeyConfigParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaAzureExternalKeyConfigParamsType', 'enum', "Unknown BetaAzureExternalKeyConfigParamsType: #{value}")
+    # @return [String] Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+    attr_reader :client_id
+    # @return [String] Name of the key within the vault.
+    attr_reader :key_name
+    # @return [String] Azure AD tenant ID.
+    attr_reader :tenant_id
+    # @return [BetaAzureExternalKeyConfigParamsType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Key Vault data-plane URI — `{vault-name}.vault.azure.net` or `{hsm-name}.managedhsm.azure.net`.
+    attr_reader :vault_uri
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the BetaAzureExternalKeyConfigParamsType SDK namespace.
+  module BetaAzureExternalKeyConfigParamsType
+    AZURE = 'azure'
+    VALUES = ['azure'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaAzureExternalKeyConfigParamsType', 'enum', "Unknown BetaAzureExternalKeyConfigParamsType: #{value}")
+    end
+  end
 end

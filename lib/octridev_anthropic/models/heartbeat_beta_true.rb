@@ -5,86 +5,86 @@
 
 # heartbeat_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata
-  FIELDS = {
-    last_heartbeat: "last_heartbeat",
-    lease_extended: "lease_extended",
-    state: "state",
-    ttl_seconds: "ttl_seconds",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    last_heartbeat
-    lease_extended
-    state
-    ttl_seconds
-    type
-  ].freeze
-  DECODERS = {
-    state: lambda do |value|
-      ::OctridevAnthropic::BetaSelfHostedWorkHeartbeatResponseState.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaSelfHostedWorkHeartbeatResponseType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaSelfHostedWorkHeartbeatResponse.
-# Response after recording a heartbeat for a work item.
-class BetaSelfHostedWorkHeartbeatResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::DECODERS
-
-  # @return [String] RFC 3339 timestamp of the actual heartbeat from DB
-  attr_reader :last_heartbeat
-  # @return [Boolean] Whether the heartbeat succeeded in extending the lease
-  attr_reader :lease_extended
-  # @return [BetaSelfHostedWorkHeartbeatResponseState] Current state of the work item (active/stopping/stopped)
-  attr_reader :state
-  # @return [Integer] Effective TTL applied to the lease
-  attr_reader :ttl_seconds
-  # @return [BetaSelfHostedWorkHeartbeatResponseType] The type of response
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata
+    FIELDS = {
+      last_heartbeat: 'last_heartbeat',
+      lease_extended: 'lease_extended',
+      state: 'state',
+      ttl_seconds: 'ttl_seconds',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      last_heartbeat
+      lease_extended
+      state
+      ttl_seconds
+      type
+    ].freeze
+    DECODERS = {
+      state: lambda do |value|
+        ::OctridevAnthropic::BetaSelfHostedWorkHeartbeatResponseState.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaSelfHostedWorkHeartbeatResponseType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaSelfHostedWorkHeartbeatResponse.
+  # Response after recording a heartbeat for a work item.
+  class BetaSelfHostedWorkHeartbeatResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSelfHostedWorkHeartbeatResponseMetadata::DECODERS
+
+    # @return [String] RFC 3339 timestamp of the actual heartbeat from DB
+    attr_reader :last_heartbeat
+    # @return [Boolean] Whether the heartbeat succeeded in extending the lease
+    attr_reader :lease_extended
+    # @return [BetaSelfHostedWorkHeartbeatResponseState] Current state of the work item (active/stopping/stopped)
+    attr_reader :state
+    # @return [Integer] Effective TTL applied to the lease
+    attr_reader :ttl_seconds
+    # @return [BetaSelfHostedWorkHeartbeatResponseType] The type of response
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaSelfHostedWorkHeartbeatResponseState SDK namespace.
+  module BetaSelfHostedWorkHeartbeatResponseState
+    QUEUED = 'queued'
+    STARTING = 'starting'
+    ACTIVE = 'active'
+    STOPPING = 'stopping'
+    STOPPED = 'stopped'
+    VALUES = %w[queued starting active stopping stopped].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaSelfHostedWorkHeartbeatResponseState SDK namespace.
-module BetaSelfHostedWorkHeartbeatResponseState
-  QUEUED = 'queued'
-  STARTING = 'starting'
-  ACTIVE = 'active'
-  STOPPING = 'stopping'
-  STOPPED = 'stopped'
-  VALUES = ['queued', 'starting', 'active', 'stopping', 'stopped'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaSelfHostedWorkHeartbeatResponseType SDK namespace.
+  module BetaSelfHostedWorkHeartbeatResponseType
+    WORK_HEARTBEAT = 'work_heartbeat'
+    VALUES = ['work_heartbeat'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaSelfHostedWorkHeartbeatResponseType', 'enum', "Unknown BetaSelfHostedWorkHeartbeatResponseType: #{value}")
+    end
   end
-end
-
-# Defines the BetaSelfHostedWorkHeartbeatResponseType SDK namespace.
-module BetaSelfHostedWorkHeartbeatResponseType
-  WORK_HEARTBEAT = 'work_heartbeat'
-  VALUES = ['work_heartbeat'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaSelfHostedWorkHeartbeatResponseType', 'enum', "Unknown BetaSelfHostedWorkHeartbeatResponseType: #{value}")
-  end
-end
 end

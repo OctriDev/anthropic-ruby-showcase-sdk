@@ -5,388 +5,395 @@
 
 # beta_memory_tool domain models
 module OctridevAnthropic
-# Defines the BetaMemoryTool20250818Command SDK namespace.
-module BetaMemoryTool20250818Command
-  DISCRIMINATOR_MAPPING = {
-    "view" => -> { BetaMemoryTool20250818ViewCommand },
-    "create" => -> { BetaMemoryTool20250818CreateCommand },
-    "str_replace" => -> { BetaMemoryTool20250818StrReplaceCommand },
-    "insert" => -> { BetaMemoryTool20250818InsertCommand },
-    "delete" => -> { BetaMemoryTool20250818DeleteCommand },
-    "rename" => -> { BetaMemoryTool20250818RenameCommand },
-  }.freeze
+  # Defines the BetaMemoryTool20250818Command SDK namespace.
+  module BetaMemoryTool20250818Command
+    DISCRIMINATOR_MAPPING = {
+      'view' => -> { BetaMemoryTool20250818ViewCommand },
+      'create' => -> { BetaMemoryTool20250818CreateCommand },
+      'str_replace' => -> { BetaMemoryTool20250818StrReplaceCommand },
+      'insert' => -> { BetaMemoryTool20250818InsertCommand },
+      'delete' => -> { BetaMemoryTool20250818DeleteCommand },
+      'rename' => -> { BetaMemoryTool20250818RenameCommand }
+    }.freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["command"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["command"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['command']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaMemoryTool20250818Command', 'variant', "Unknown BetaMemoryTool20250818Command discriminator: #{hash["command"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['command'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818CreateCommandMetadata
-  FIELDS = {
-    command: "command",
-    path: "path",
-    file_text: "file_text",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    path
-    file_text
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818CreateCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaMemoryTool20250818CreateCommand.
-# Typed representation of the `BetaMemoryTool_20250818_CreateCommand` API schema.
-class BetaMemoryTool20250818CreateCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::DECODERS
-
-  # @return [BetaMemoryTool20250818CreateCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Path where the file should be created
-  attr_reader :path
-  # @return [String] Content to write to the file
-  attr_reader :file_text
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaMemoryTool20250818Command', 'variant', "Unknown BetaMemoryTool20250818Command discriminator: #{hash['command'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818CreateCommandMetadata
+    FIELDS = {
+      command: 'command',
+      path: 'path',
+      file_text: 'file_text'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      path
+      file_text
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818CreateCommandCommand.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaMemoryTool20250818CreateCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_CreateCommand` API schema.
+  class BetaMemoryTool20250818CreateCommand
+    include BetaMemoryTool20250818Command
 
-# Defines the BetaMemoryTool20250818CreateCommandCommand SDK namespace.
-module BetaMemoryTool20250818CreateCommandCommand
-  CREATE = 'create'
-  VALUES = ['create'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818CreateCommandMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaMemoryTool20250818CreateCommandCommand', 'enum', "Unknown BetaMemoryTool20250818CreateCommandCommand: #{value}")
-  end
-end
+    # @return [BetaMemoryTool20250818CreateCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Path where the file should be created
+    attr_reader :path
+    # @return [String] Content to write to the file
+    attr_reader :file_text
 
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818DeleteCommandMetadata
-  FIELDS = {
-    command: "command",
-    path: "path",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    path
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818DeleteCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaMemoryTool20250818DeleteCommand.
-# Typed representation of the `BetaMemoryTool_20250818_DeleteCommand` API schema.
-class BetaMemoryTool20250818DeleteCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaMemoryTool20250818DeleteCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Path to the file or directory to delete
-  attr_reader :path
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaMemoryTool20250818CreateCommandCommand SDK namespace.
+  module BetaMemoryTool20250818CreateCommandCommand
+    CREATE = 'create'
+    VALUES = ['create'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaMemoryTool20250818CreateCommandCommand', 'enum', "Unknown BetaMemoryTool20250818CreateCommandCommand: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaMemoryTool20250818DeleteCommandCommand SDK namespace.
-module BetaMemoryTool20250818DeleteCommandCommand
-  DELETE = 'delete'
-  VALUES = ['delete'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaMemoryTool20250818DeleteCommandCommand', 'enum', "Unknown BetaMemoryTool20250818DeleteCommandCommand: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818InsertCommandMetadata
-  FIELDS = {
-    command: "command",
-    path: "path",
-    insert_line: "insert_line",
-    insert_text: "insert_text",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    path
-    insert_line
-    insert_text
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818InsertCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaMemoryTool20250818InsertCommand.
-# Typed representation of the `BetaMemoryTool_20250818_InsertCommand` API schema.
-class BetaMemoryTool20250818InsertCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::DECODERS
-
-  # @return [BetaMemoryTool20250818InsertCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Path to the file where text should be inserted
-  attr_reader :path
-  # @return [Integer] Line number where text should be inserted
-  attr_reader :insert_line
-  # @return [String] Text to insert at the specified line
-  attr_reader :insert_text
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818DeleteCommandMetadata
+    FIELDS = {
+      command: 'command',
+      path: 'path'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      path
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818DeleteCommandCommand.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaMemoryTool20250818DeleteCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_DeleteCommand` API schema.
+  class BetaMemoryTool20250818DeleteCommand
+    include BetaMemoryTool20250818Command
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818DeleteCommandMetadata::DECODERS
+
+    # @return [BetaMemoryTool20250818DeleteCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Path to the file or directory to delete
+    attr_reader :path
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaMemoryTool20250818DeleteCommandCommand SDK namespace.
+  module BetaMemoryTool20250818DeleteCommandCommand
+    DELETE = 'delete'
+    VALUES = ['delete'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaMemoryTool20250818InsertCommandCommand SDK namespace.
-module BetaMemoryTool20250818InsertCommandCommand
-  INSERT = 'insert'
-  VALUES = ['insert'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaMemoryTool20250818InsertCommandCommand', 'enum', "Unknown BetaMemoryTool20250818InsertCommandCommand: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818RenameCommandMetadata
-  FIELDS = {
-    command: "command",
-    old_path: "old_path",
-    new_path: "new_path",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    old_path
-    new_path
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818RenameCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaMemoryTool20250818RenameCommand.
-# Typed representation of the `BetaMemoryTool_20250818_RenameCommand` API schema.
-class BetaMemoryTool20250818RenameCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::DECODERS
-
-  # @return [BetaMemoryTool20250818RenameCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Current path of the file or directory
-  attr_reader :old_path
-  # @return [String] New path for the file or directory
-  attr_reader :new_path
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaMemoryTool20250818DeleteCommandCommand', 'enum', "Unknown BetaMemoryTool20250818DeleteCommandCommand: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818InsertCommandMetadata
+    FIELDS = {
+      command: 'command',
+      path: 'path',
+      insert_line: 'insert_line',
+      insert_text: 'insert_text'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      path
+      insert_line
+      insert_text
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818InsertCommandCommand.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaMemoryTool20250818InsertCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_InsertCommand` API schema.
+  class BetaMemoryTool20250818InsertCommand
+    include BetaMemoryTool20250818Command
 
-# Defines the BetaMemoryTool20250818RenameCommandCommand SDK namespace.
-module BetaMemoryTool20250818RenameCommandCommand
-  RENAME = 'rename'
-  VALUES = ['rename'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818InsertCommandMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaMemoryTool20250818RenameCommandCommand', 'enum', "Unknown BetaMemoryTool20250818RenameCommandCommand: #{value}")
-  end
-end
+    # @return [BetaMemoryTool20250818InsertCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Path to the file where text should be inserted
+    attr_reader :path
+    # @return [Integer] Line number where text should be inserted
+    attr_reader :insert_line
+    # @return [String] Text to insert at the specified line
+    attr_reader :insert_text
 
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata
-  FIELDS = {
-    command: "command",
-    path: "path",
-    old_str: "old_str",
-    new_str: "new_str",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    path
-    old_str
-    new_str
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818StrReplaceCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaMemoryTool20250818StrReplaceCommand.
-# Typed representation of the `BetaMemoryTool_20250818_StrReplaceCommand` API schema.
-class BetaMemoryTool20250818StrReplaceCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaMemoryTool20250818StrReplaceCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Path to the file where text should be replaced
-  attr_reader :path
-  # @return [String] Text to search for and replace
-  attr_reader :old_str
-  # @return [String] Text to replace with
-  attr_reader :new_str
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaMemoryTool20250818InsertCommandCommand SDK namespace.
+  module BetaMemoryTool20250818InsertCommandCommand
+    INSERT = 'insert'
+    VALUES = ['insert'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaMemoryTool20250818InsertCommandCommand', 'enum', "Unknown BetaMemoryTool20250818InsertCommandCommand: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaMemoryTool20250818StrReplaceCommandCommand SDK namespace.
-module BetaMemoryTool20250818StrReplaceCommandCommand
-  STR_REPLACE = 'str_replace'
-  VALUES = ['str_replace'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaMemoryTool20250818StrReplaceCommandCommand', 'enum', "Unknown BetaMemoryTool20250818StrReplaceCommandCommand: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaMemoryTool20250818ViewCommandMetadata
-  FIELDS = {
-    command: "command",
-    path: "path",
-    view_range: "view_range",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    command
-    path
-  ].freeze
-  DECODERS = {
-    command: lambda do |value|
-      ::OctridevAnthropic::BetaMemoryTool20250818ViewCommandCommand.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaMemoryTool20250818ViewCommand.
-# Typed representation of the `BetaMemoryTool_20250818_ViewCommand` API schema.
-class BetaMemoryTool20250818ViewCommand
-  include BetaMemoryTool20250818Command
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::DECODERS
-
-  # @return [BetaMemoryTool20250818ViewCommandCommand] Command type identifier
-  attr_reader :command
-  # @return [String] Path to directory or file to view
-  attr_reader :path
-  # @return [Array_of_Integer] Optional line range for viewing specific lines
-  attr_reader :view_range
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818RenameCommandMetadata
+    FIELDS = {
+      command: 'command',
+      old_path: 'old_path',
+      new_path: 'new_path'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      old_path
+      new_path
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818RenameCommandCommand.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaMemoryTool20250818RenameCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_RenameCommand` API schema.
+  class BetaMemoryTool20250818RenameCommand
+    include BetaMemoryTool20250818Command
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818RenameCommandMetadata::DECODERS
+
+    # @return [BetaMemoryTool20250818RenameCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Current path of the file or directory
+    attr_reader :old_path
+    # @return [String] New path for the file or directory
+    attr_reader :new_path
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaMemoryTool20250818RenameCommandCommand SDK namespace.
+  module BetaMemoryTool20250818RenameCommandCommand
+    RENAME = 'rename'
+    VALUES = ['rename'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaMemoryTool20250818ViewCommandCommand SDK namespace.
-module BetaMemoryTool20250818ViewCommandCommand
-  VIEW = 'view'
-  VALUES = ['view'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaMemoryTool20250818ViewCommandCommand', 'enum', "Unknown BetaMemoryTool20250818ViewCommandCommand: #{value}")
+      raise SdkValidationError.new('BetaMemoryTool20250818RenameCommandCommand', 'enum', "Unknown BetaMemoryTool20250818RenameCommandCommand: #{value}")
+    end
   end
-end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata
+    FIELDS = {
+      command: 'command',
+      path: 'path',
+      old_str: 'old_str',
+      new_str: 'new_str'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      path
+      old_str
+      new_str
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818StrReplaceCommandCommand.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaMemoryTool20250818StrReplaceCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_StrReplaceCommand` API schema.
+  class BetaMemoryTool20250818StrReplaceCommand
+    include BetaMemoryTool20250818Command
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818StrReplaceCommandMetadata::DECODERS
+
+    # @return [BetaMemoryTool20250818StrReplaceCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Path to the file where text should be replaced
+    attr_reader :path
+    # @return [String] Text to search for and replace
+    attr_reader :old_str
+    # @return [String] Text to replace with
+    attr_reader :new_str
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaMemoryTool20250818StrReplaceCommandCommand SDK namespace.
+  module BetaMemoryTool20250818StrReplaceCommandCommand
+    STR_REPLACE = 'str_replace'
+    VALUES = ['str_replace'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaMemoryTool20250818StrReplaceCommandCommand', 'enum', "Unknown BetaMemoryTool20250818StrReplaceCommandCommand: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaMemoryTool20250818ViewCommandMetadata
+    FIELDS = {
+      command: 'command',
+      path: 'path',
+      view_range: 'view_range'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      command
+      path
+    ].freeze
+    DECODERS = {
+      command: lambda do |value|
+        ::OctridevAnthropic::BetaMemoryTool20250818ViewCommandCommand.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaMemoryTool20250818ViewCommand.
+  # Typed representation of the `BetaMemoryTool_20250818_ViewCommand` API schema.
+  class BetaMemoryTool20250818ViewCommand
+    include BetaMemoryTool20250818Command
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMemoryTool20250818ViewCommandMetadata::DECODERS
+
+    # @return [BetaMemoryTool20250818ViewCommandCommand] Command type identifier
+    attr_reader :command
+    # @return [String] Path to directory or file to view
+    attr_reader :path
+    # @return [Array_of_Integer] Optional line range for viewing specific lines
+    attr_reader :view_range
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaMemoryTool20250818ViewCommandCommand SDK namespace.
+  module BetaMemoryTool20250818ViewCommandCommand
+    VIEW = 'view'
+    VALUES = ['view'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaMemoryTool20250818ViewCommandCommand', 'enum', "Unknown BetaMemoryTool20250818ViewCommandCommand: #{value}")
+    end
+  end
 end
