@@ -9,8 +9,8 @@ module OctridevAnthropic
   module Methods
     # Defines the BetaOrganizationsAnalyticsPlugins SDK namespace.
     module BetaOrganizationsAnalyticsPlugins
-      # Defines the ListBetaOrganizationsAnalyticsPluginsParameterVariant0 SDK namespace.
-      module ListBetaOrganizationsAnalyticsPluginsParameterVariant0
+      # Defines the ListBetaOrganizationAnalyticsPluginsParameterVariant0 SDK namespace.
+      module ListBetaOrganizationAnalyticsPluginsParameterVariant0
         ASC = 'asc'
         DESC = 'desc'
         VALUES = ['asc', 'desc'].freeze
@@ -19,8 +19,8 @@ module OctridevAnthropic
         end
       end
 
-      # Defines the ListBetaOrganizationsAnalyticsPluginsParameterItem SDK namespace.
-      module ListBetaOrganizationsAnalyticsPluginsParameterItem
+      # Defines the ListBetaOrganizationAnalyticsPluginsParameterItem SDK namespace.
+      module ListBetaOrganizationAnalyticsPluginsParameterItem
         PRODUCT = 'product'
         RBAC_GROUP_ID = 'rbac_group_id'
         USER_ID = 'user_id'
@@ -54,12 +54,11 @@ module OctridevAnthropic
       # @param limit [Integer] Number of results per page (1-1000, default 100).
       # @param page [String] Opaque cursor from a previous response's `next_page`
       #   field.
-      # @param group_by
-      #   [Array_of_ListBetaOrganizationsAnalyticsPluginsParameterItem] Dimensions to
-      #   break results out by (e.g. `group_by[]=user_id`). Supported on this
-      #   endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product`
-      #   takes the values `claude_code` or `cowork` only (the surfaces with plugin
-      #   attribution). Grouped rows carry the requested dimension values as
+      # @param group_by [Array_of_ListBetaOrganizationAnalyticsPluginsParameterItem]
+      #   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on
+      #   this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint
+      #   `product` takes the values `claude_code` or `cowork` only (the surfaces with
+      #   plugin attribution). Grouped rows carry the requested dimension values as
       #   additional fields and paginate like ungrouped responses via `next_page`; an
       #   unsupported dimension returns 400. `rbac_group_id` attributes a user to
       #   every group they held at any…
@@ -75,12 +74,12 @@ module OctridevAnthropic
       #   column plus its rankable metrics (metrics default to descending; a few
       #   metrics rank in date-range mode only, per the endpoint's documented
       #   orderable set).
-      # @param order [ListBetaOrganizationsAnalyticsPluginsParameterVariant0] Sort
+      # @param order [ListBetaOrganizationAnalyticsPluginsParameterVariant0] Sort
       #   direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column
       #   and to `desc` when `order_by` names a metric (a top-N ranking). Applies to
       #   `order_by`, or to the endpoint's default sort field when `order_by` is
       #   omitted.
-      def self.list_beta_organizations_analytics_plugins(
+      def self.list_beta_organization_analytics_plugins(
         config:,
         date: NOT_GIVEN,
         starting_date: NOT_GIVEN,
@@ -115,13 +114,13 @@ module OctridevAnthropic
           },
           return_type: ::OctridevAnthropic::BetaAnalyticsPluginsResponse,
           decoder: :json,
-          operation_id: 'list_beta_organizations_analytics_plugins',
+          operation_id: 'list_beta_organization_analytics_plugins',
           request_options: request_options,
           errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
-    ListBetaOrganizationsAnalyticsPluginsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    ListBetaOrganizationAnalyticsPluginsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use…
       #
@@ -147,12 +146,11 @@ module OctridevAnthropic
       # @param limit [Integer] Number of results per page (1-1000, default 100).
       # @param page [String] Opaque cursor from a previous response's `next_page`
       #   field.
-      # @param group_by
-      #   [Array_of_ListBetaOrganizationsAnalyticsPluginsParameterItem] Dimensions to
-      #   break results out by (e.g. `group_by[]=user_id`). Supported on this
-      #   endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product`
-      #   takes the values `claude_code` or `cowork` only (the surfaces with plugin
-      #   attribution). Grouped rows carry the requested dimension values as
+      # @param group_by [Array_of_ListBetaOrganizationAnalyticsPluginsParameterItem]
+      #   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on
+      #   this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint
+      #   `product` takes the values `claude_code` or `cowork` only (the surfaces with
+      #   plugin attribution). Grouped rows carry the requested dimension values as
       #   additional fields and paginate like ungrouped responses via `next_page`; an
       #   unsupported dimension returns 400. `rbac_group_id` attributes a user to
       #   every group they held at any…
@@ -168,12 +166,12 @@ module OctridevAnthropic
       #   column plus its rankable metrics (metrics default to descending; a few
       #   metrics rank in date-range mode only, per the endpoint's documented
       #   orderable set).
-      # @param order [ListBetaOrganizationsAnalyticsPluginsParameterVariant0] Sort
+      # @param order [ListBetaOrganizationAnalyticsPluginsParameterVariant0] Sort
       #   direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column
       #   and to `desc` when `order_by` names a metric (a top-N ranking). Applies to
       #   `order_by`, or to the endpoint's default sort field when `order_by` is
       #   omitted.
-      def self.list_beta_organizations_analytics_plugins_paginated(
+      def self.list_beta_organization_analytics_plugins_paginated(
         config:,
         date: nil,
         starting_date: nil,
@@ -189,7 +187,7 @@ module OctridevAnthropic
         Enumerator.new do |y|
           cursor = page
           loop do
-            page = list_beta_organizations_analytics_plugins(
+            page = list_beta_organization_analytics_plugins(
               config: config,
               date: date,
               starting_date: starting_date,
@@ -212,7 +210,7 @@ module OctridevAnthropic
         end
       end
 
-      def self.list_beta_organizations_analytics_plugins_pages(
+      def self.list_beta_organization_analytics_plugins_pages(
         config:,
         date: nil,
         starting_date: nil,
@@ -228,7 +226,7 @@ module OctridevAnthropic
         Enumerator.new do |y|
           cursor = page
           loop do
-            page = list_beta_organizations_analytics_plugins(
+            page = list_beta_organization_analytics_plugins(
               config: config,
               date: date,
               starting_date: starting_date,
@@ -245,7 +243,7 @@ module OctridevAnthropic
             break if items.empty?
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
-            y << ListBetaOrganizationsAnalyticsPluginsPage.new(data: page, items: items, has_more: has_more)
+            y << ListBetaOrganizationAnalyticsPluginsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
             cursor = next_cursor
           end
