@@ -6697,7 +6697,7 @@ module OctridevAnthropic
       order: NOT_GIVEN,
       request_options: nil
     )
-      ::OctridevAnthropic::Methods::BetaOrganizationsAnalyticsPlugins.list_beta_organizations_analytics_plugins(
+      ::OctridevAnthropic::Methods::BetaOrganizationsAnalyticsPlugins.list_beta_organization_analytics_plugins(
         config: @config,
         date: date,
         starting_date: starting_date,
@@ -6714,7 +6714,7 @@ module OctridevAnthropic
 
     # Get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use…
     def list_paginated(date: nil, starting_date: nil, ending_date: nil, limit: nil, page: nil, group_by: nil, filter: nil, order_by: nil, order: nil, request_options: nil)
-      ::OctridevAnthropic::Methods::BetaOrganizationsAnalyticsPlugins.list_beta_organizations_analytics_plugins_paginated(
+      ::OctridevAnthropic::Methods::BetaOrganizationsAnalyticsPlugins.list_beta_organization_analytics_plugins_paginated(
         config: @config,
         date: date,
         starting_date: starting_date,
