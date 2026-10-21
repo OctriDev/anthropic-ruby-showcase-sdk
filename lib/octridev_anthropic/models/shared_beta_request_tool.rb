@@ -5,645 +5,632 @@
 
 # shared_beta_request_tool domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolAdditionBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      tool: 'tool',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      tool: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolAdditionBlockTool.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolAdditionBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolAdditionBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    tool: "tool",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    tool: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolAdditionBlockTool.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolAdditionBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolAdditionBlock.
+# Mid-conversation directive to surface a declared tool. ``tool`` references a tool (or MCP toolset) by name from the request's ``tools``; it is offered to the model from this point in the conversation onward.
+class BetaRequestToolAdditionBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolAdditionBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolAdditionBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolAdditionBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestToolAdditionBlockTool] Required API value serialized in the `tool` wire field.
+  attr_reader :tool
+  # @return [BetaRequestToolAdditionBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestToolAdditionBlock.
-  # Mid-conversation directive to surface a declared tool. ``tool`` references a tool (or MCP toolset) by name from the request's ``tools``; it is offered to the model from this point in the conversation onward.
-  class BetaRequestToolAdditionBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolAdditionBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolAdditionBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolAdditionBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestToolAdditionBlockTool] Required API value serialized in the `tool` wire field.
-    attr_reader :tool
-    # @return [BetaRequestToolAdditionBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestToolAdditionBlockType SDK namespace.
-  module BetaRequestToolAdditionBlockType
-    TOOL_ADDITION = 'tool_addition'
-    VALUES = ['tool_addition'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestToolAdditionBlockType', 'enum', "Unknown BetaRequestToolAdditionBlockType: #{value}")
-    end
+# Defines the BetaRequestToolAdditionBlockType SDK namespace.
+module BetaRequestToolAdditionBlockType
+  TOOL_ADDITION = 'tool_addition'
+  VALUES = ['tool_addition'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestToolAdditionBlockType', 'enum', "Unknown BetaRequestToolAdditionBlockType: #{value}")
+  end
+end
+
+# Defines the BetaRequestToolAdditionBlockTool SDK namespace.
+module BetaRequestToolAdditionBlockTool
+  DISCRIMINATOR_MAPPING = {
+    "mcp_tool_reference" => -> { BetaToolChangeMCPToolReference },
+    "mcp_toolset_reference" => -> { BetaToolChangeMCPToolsetReference },
+    "tool_reference" => -> { BetaToolChangeToolReference },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestToolAdditionBlockTool', 'variant', "Unknown BetaRequestToolAdditionBlockTool discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolReferenceBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    tool_name: "tool_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool_name
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolReferenceBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolReferenceBlock.
+# Tool reference block that can be included in tool_result content.
+class BetaRequestToolReferenceBlock
+  include BetaRequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolReferenceBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolReferenceBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolReferenceBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [String] Required `string` value serialized in the `tool_name` wire field.
+  attr_reader :tool_name
+  # @return [BetaRequestToolReferenceBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestToolAdditionBlockTool SDK namespace.
-  module BetaRequestToolAdditionBlockTool
-    DISCRIMINATOR_MAPPING = {
-      'mcp_tool_reference' => -> { BetaToolChangeMCPToolReference },
-      'mcp_toolset_reference' => -> { BetaToolChangeMCPToolsetReference },
-      'tool_reference' => -> { BetaToolChangeToolReference }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestToolAdditionBlockTool', 'variant', "Unknown BetaRequestToolAdditionBlockTool discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolReferenceBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      tool_name: 'tool_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool_name
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolReferenceBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaRequestToolReferenceBlockType SDK namespace.
+module BetaRequestToolReferenceBlockType
+  TOOL_REFERENCE = 'tool_reference'
+  VALUES = ['tool_reference'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestToolReferenceBlockType', 'enum', "Unknown BetaRequestToolReferenceBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolRemovalBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    tool: "tool",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    tool: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolRemovalBlockTool.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolRemovalBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolRemovalBlock.
+# Mid-conversation directive to withdraw a tool. ``tool`` references a tool (or MCP toolset) by name from the request's ``tools``; it is no longer offered to the model from this point in the conversation onward.
+class BetaRequestToolRemovalBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolRemovalBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolRemovalBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolRemovalBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestToolRemovalBlockTool] Required API value serialized in the `tool` wire field.
+  attr_reader :tool
+  # @return [BetaRequestToolRemovalBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestToolReferenceBlock.
-  # Tool reference block that can be included in tool_result content.
-  class BetaRequestToolReferenceBlock
-    include BetaRequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolReferenceBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolReferenceBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolReferenceBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [String] Required `string` value serialized in the `tool_name` wire field.
-    attr_reader :tool_name
-    # @return [BetaRequestToolReferenceBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestToolReferenceBlockType SDK namespace.
-  module BetaRequestToolReferenceBlockType
-    TOOL_REFERENCE = 'tool_reference'
-    VALUES = ['tool_reference'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestToolReferenceBlockType', 'enum', "Unknown BetaRequestToolReferenceBlockType: #{value}")
-    end
+# Defines the BetaRequestToolRemovalBlockType SDK namespace.
+module BetaRequestToolRemovalBlockType
+  TOOL_REMOVAL = 'tool_removal'
+  VALUES = ['tool_removal'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestToolRemovalBlockType', 'enum', "Unknown BetaRequestToolRemovalBlockType: #{value}")
+  end
+end
+
+# Defines the BetaRequestToolRemovalBlockTool SDK namespace.
+module BetaRequestToolRemovalBlockTool
+  DISCRIMINATOR_MAPPING = {
+    "mcp_tool_reference" => -> { BetaToolChangeMCPToolReference },
+    "mcp_toolset_reference" => -> { BetaToolChangeMCPToolsetReference },
+    "tool_reference" => -> { BetaToolChangeToolReference },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestToolRemovalBlockTool', 'variant', "Unknown BetaRequestToolRemovalBlockTool discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    content: "content",
+    is_error: "is_error",
+    tool_use_id: "tool_use_id",
+    toolset_name: "toolset_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool_use_id
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolResultBlock.
+# Typed representation of the `BetaRequestToolResultBlock` API schema.
+class BetaRequestToolResultBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolResultBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Object] Optional API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
+  attr_reader :is_error
+  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+  attr_reader :tool_use_id
+  # @return [String] For a toolset member tool_result, the toolset family of the paired tool_use.
+  attr_reader :toolset_name
+  # @return [BetaRequestToolResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolRemovalBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      tool: 'tool',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      tool: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolRemovalBlockTool.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolRemovalBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestToolRemovalBlock.
-  # Mid-conversation directive to withdraw a tool. ``tool`` references a tool (or MCP toolset) by name from the request's ``tools``; it is no longer offered to the model from this point in the conversation onward.
-  class BetaRequestToolRemovalBlock
-    include BetaInputContentBlock
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolRemovalBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolRemovalBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolRemovalBlockMetadata::DECODERS
+# Defines the BetaRequestToolResultBlockType SDK namespace.
+module BetaRequestToolResultBlockType
+  TOOL_RESULT = 'tool_result'
+  VALUES = ['tool_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestToolRemovalBlockTool] Required API value serialized in the `tool` wire field.
-    attr_reader :tool
-    # @return [BetaRequestToolRemovalBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaRequestToolResultBlockType', 'enum', "Unknown BetaRequestToolResultBlockType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Defines the BetaRequestToolResultBlockContentItem SDK namespace.
+module BetaRequestToolResultBlockContentItem
+  DISCRIMINATOR_MAPPING = {
+    "browser_state" => -> { BetaRequestBrowserStateBlock },
+    "document" => -> { BetaRequestDocumentBlock },
+    "image" => -> { BetaRequestImageBlock },
+    "search_result" => -> { BetaRequestSearchResultBlock },
+    "text" => -> { BetaRequestTextBlock },
+    "tool_reference" => -> { BetaRequestToolReferenceBlock },
+  }.freeze
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestToolResultBlockContentItem', 'variant', "Unknown BetaRequestToolResultBlockContentItem discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolSearchToolResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    content: "content",
+    tool_use_id: "tool_use_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    tool_use_id
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    content: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolSearchToolResultBlockContent.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolSearchToolResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolSearchToolResultBlock.
+# Typed representation of the `BetaRequestToolSearchToolResultBlock` API schema.
+class BetaRequestToolSearchToolResultBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestToolSearchToolResultBlockContent] Required API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+  attr_reader :tool_use_id
+  # @return [BetaRequestToolSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestToolRemovalBlockType SDK namespace.
-  module BetaRequestToolRemovalBlockType
-    TOOL_REMOVAL = 'tool_removal'
-    VALUES = ['tool_removal'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestToolRemovalBlockType', 'enum', "Unknown BetaRequestToolRemovalBlockType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestToolRemovalBlockTool SDK namespace.
-  module BetaRequestToolRemovalBlockTool
-    DISCRIMINATOR_MAPPING = {
-      'mcp_tool_reference' => -> { BetaToolChangeMCPToolReference },
-      'mcp_toolset_reference' => -> { BetaToolChangeMCPToolsetReference },
-      'tool_reference' => -> { BetaToolChangeToolReference }
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaRequestToolSearchToolResultBlockType SDK namespace.
+module BetaRequestToolSearchToolResultBlockType
+  TOOL_SEARCH_TOOL_RESULT = 'tool_search_tool_result'
+  VALUES = ['tool_search_tool_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    raise SdkValidationError.new('BetaRequestToolSearchToolResultBlockType', 'enum', "Unknown BetaRequestToolSearchToolResultBlockType: #{value}")
+  end
+end
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+# Defines the BetaRequestToolSearchToolResultBlockContent SDK namespace.
+module BetaRequestToolSearchToolResultBlockContent
+  DISCRIMINATOR_MAPPING = {
+    "tool_search_tool_result_error" => -> { BetaRequestToolSearchToolResultError },
+    "tool_search_tool_search_result" => -> { BetaRequestToolSearchToolSearchResultBlock },
+  }.freeze
 
-      raise SdkValidationError.new('BetaRequestToolRemovalBlockTool', 'variant', "Unknown BetaRequestToolRemovalBlockTool discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestToolSearchToolResultBlockContent', 'variant', "Unknown BetaRequestToolSearchToolResultBlockContent discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolSearchToolResultErrorMetadata
+  FIELDS = {
+    error_code: "error_code",
+    error_message: "error_message",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    error_code
+    type
+  ].freeze
+  DECODERS = {
+    error_code: lambda do |value|
+      ::OctridevAnthropic::BetaToolSearchToolResultErrorCode.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolSearchToolResultErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestToolSearchToolResultError.
+# Typed representation of the `BetaRequestToolSearchToolResultError` API schema.
+class BetaRequestToolSearchToolResultError
+  include BetaRequestToolSearchToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::DECODERS
+
+  # @return [BetaToolSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+  attr_reader :error_code
+  # @return [String] Optional `string` value serialized in the `error_message` wire field.
+  attr_reader :error_message
+  # @return [BetaRequestToolSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      content: 'content',
-      is_error: 'is_error',
-      tool_use_id: 'tool_use_id',
-      toolset_name: 'toolset_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool_use_id
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolResultBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestToolResultBlock.
-  # Typed representation of the `BetaRequestToolResultBlock` API schema.
-  class BetaRequestToolResultBlock
-    include BetaInputContentBlock
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolResultBlockMetadata::DECODERS
+# Defines the BetaRequestToolSearchToolResultErrorType SDK namespace.
+module BetaRequestToolSearchToolResultErrorType
+  TOOL_SEARCH_TOOL_RESULT_ERROR = 'tool_search_tool_result_error'
+  VALUES = ['tool_search_tool_result_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Object] Optional API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
-    attr_reader :is_error
-    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-    attr_reader :tool_use_id
-    # @return [String] For a toolset member tool_result, the toolset family of the paired tool_use.
-    attr_reader :toolset_name
-    # @return [BetaRequestToolResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaRequestToolSearchToolResultErrorType', 'enum', "Unknown BetaRequestToolSearchToolResultErrorType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata
+  FIELDS = {
+    tool_references: "tool_references",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool_references
+    type
+  ].freeze
+  DECODERS = {
+    tool_references: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRequestToolReferenceBlock.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolSearchToolSearchResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaRequestToolSearchToolSearchResultBlock.
+# Typed representation of the `BetaRequestToolSearchToolSearchResultBlock` API schema.
+class BetaRequestToolSearchToolSearchResultBlock
+  include BetaRequestToolSearchToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [Array_of_BetaRequestToolReferenceBlock] Required array value serialized in the `tool_references` wire field.
+  attr_reader :tool_references
+  # @return [BetaRequestToolSearchToolSearchResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestToolResultBlockType SDK namespace.
-  module BetaRequestToolResultBlockType
-    TOOL_RESULT = 'tool_result'
-    VALUES = ['tool_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestToolResultBlockType', 'enum', "Unknown BetaRequestToolResultBlockType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestToolResultBlockContentItem SDK namespace.
-  module BetaRequestToolResultBlockContentItem
-    DISCRIMINATOR_MAPPING = {
-      'browser_state' => -> { BetaRequestBrowserStateBlock },
-      'document' => -> { BetaRequestDocumentBlock },
-      'image' => -> { BetaRequestImageBlock },
-      'search_result' => -> { BetaRequestSearchResultBlock },
-      'text' => -> { BetaRequestTextBlock },
-      'tool_reference' => -> { BetaRequestToolReferenceBlock }
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaRequestToolSearchToolSearchResultBlockType SDK namespace.
+module BetaRequestToolSearchToolSearchResultBlockType
+  TOOL_SEARCH_TOOL_SEARCH_RESULT = 'tool_search_tool_search_result'
+  VALUES = ['tool_search_tool_search_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    raise SdkValidationError.new('BetaRequestToolSearchToolSearchResultBlockType', 'enum', "Unknown BetaRequestToolSearchToolSearchResultBlockType: #{value}")
+  end
+end
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+# Internal model hydration metadata.
+class SdkInternalBetaRequestToolUseBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    caller: "caller",
+    id: "id",
+    input: "input",
+    name: "name",
+    toolset_name: "toolset_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    input
+    name
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    caller: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolUseBlockCaller.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestToolUseBlockType.from_value(value)
+    end,
+  }.freeze
+end
 
-      raise SdkValidationError.new('BetaRequestToolResultBlockContentItem', 'variant', "Unknown BetaRequestToolResultBlockContentItem discriminator: #{hash['type'].inspect}")
-    end
+# API model for BetaRequestToolUseBlock.
+# Typed representation of the `BetaRequestToolUseBlock` API schema.
+class BetaRequestToolUseBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestToolUseBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestToolUseBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestToolUseBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
+  attr_reader :caller
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [Hash] Required object value serialized in the `input` wire field.
+  attr_reader :input
+  # @return [String] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [String] For a toolset member tool_use, the toolset family this member belongs to.
+  attr_reader :toolset_name
+  # @return [BetaRequestToolUseBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolSearchToolResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      content: 'content',
-      tool_use_id: 'tool_use_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      tool_use_id
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      content: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolSearchToolResultBlockContent.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolSearchToolResultBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestToolSearchToolResultBlock.
-  # Typed representation of the `BetaRequestToolSearchToolResultBlock` API schema.
-  class BetaRequestToolSearchToolResultBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolSearchToolResultBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestToolSearchToolResultBlockContent] Required API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-    attr_reader :tool_use_id
-    # @return [BetaRequestToolSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestToolSearchToolResultBlockType SDK namespace.
-  module BetaRequestToolSearchToolResultBlockType
-    TOOL_SEARCH_TOOL_RESULT = 'tool_search_tool_result'
-    VALUES = ['tool_search_tool_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaRequestToolUseBlockType SDK namespace.
+module BetaRequestToolUseBlockType
+  TOOL_USE = 'tool_use'
+  VALUES = ['tool_use'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaRequestToolSearchToolResultBlockType', 'enum', "Unknown BetaRequestToolSearchToolResultBlockType: #{value}")
-    end
+    raise SdkValidationError.new('BetaRequestToolUseBlockType', 'enum', "Unknown BetaRequestToolUseBlockType: #{value}")
   end
+end
 
-  # Defines the BetaRequestToolSearchToolResultBlockContent SDK namespace.
-  module BetaRequestToolSearchToolResultBlockContent
-    DISCRIMINATOR_MAPPING = {
-      'tool_search_tool_result_error' => -> { BetaRequestToolSearchToolResultError },
-      'tool_search_tool_search_result' => -> { BetaRequestToolSearchToolSearchResultBlock }
-    }.freeze
+# Defines the BetaRequestToolUseBlockCaller SDK namespace.
+module BetaRequestToolUseBlockCaller
+  DISCRIMINATOR_MAPPING = {
+    "code_execution_20250825" => -> { BetaServerToolCaller },
+    "code_execution_20260120" => -> { BetaServerToolCaller20260120 },
+    "direct" => -> { BetaDirectCaller },
+  }.freeze
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestToolSearchToolResultBlockContent', 'variant', "Unknown BetaRequestToolSearchToolResultBlockContent discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaRequestToolUseBlockCaller', 'variant', "Unknown BetaRequestToolUseBlockCaller discriminator: #{hash["type"].inspect}")
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolSearchToolResultErrorMetadata
-    FIELDS = {
-      error_code: 'error_code',
-      error_message: 'error_message',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      error_code
-      type
-    ].freeze
-    DECODERS = {
-      error_code: lambda do |value|
-        ::OctridevAnthropic::BetaToolSearchToolResultErrorCode.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolSearchToolResultErrorType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaRequestToolSearchToolResultError.
-  # Typed representation of the `BetaRequestToolSearchToolResultError` API schema.
-  class BetaRequestToolSearchToolResultError
-    include BetaRequestToolSearchToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolSearchToolResultErrorMetadata::DECODERS
-
-    # @return [BetaToolSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-    attr_reader :error_code
-    # @return [String] Optional `string` value serialized in the `error_message` wire field.
-    attr_reader :error_message
-    # @return [BetaRequestToolSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRequestToolSearchToolResultErrorType SDK namespace.
-  module BetaRequestToolSearchToolResultErrorType
-    TOOL_SEARCH_TOOL_RESULT_ERROR = 'tool_search_tool_result_error'
-    VALUES = ['tool_search_tool_result_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestToolSearchToolResultErrorType', 'enum', "Unknown BetaRequestToolSearchToolResultErrorType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata
-    FIELDS = {
-      tool_references: 'tool_references',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool_references
-      type
-    ].freeze
-    DECODERS = {
-      tool_references: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRequestToolReferenceBlock.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolSearchToolSearchResultBlockType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaRequestToolSearchToolSearchResultBlock.
-  # Typed representation of the `BetaRequestToolSearchToolSearchResultBlock` API schema.
-  class BetaRequestToolSearchToolSearchResultBlock
-    include BetaRequestToolSearchToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolSearchToolSearchResultBlockMetadata::DECODERS
-
-    # @return [Array_of_BetaRequestToolReferenceBlock] Required array value serialized in the `tool_references` wire field.
-    attr_reader :tool_references
-    # @return [BetaRequestToolSearchToolSearchResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRequestToolSearchToolSearchResultBlockType SDK namespace.
-  module BetaRequestToolSearchToolSearchResultBlockType
-    TOOL_SEARCH_TOOL_SEARCH_RESULT = 'tool_search_tool_search_result'
-    VALUES = ['tool_search_tool_search_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestToolSearchToolSearchResultBlockType', 'enum', "Unknown BetaRequestToolSearchToolSearchResultBlockType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestToolUseBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      caller: 'caller',
-      id: 'id',
-      input: 'input',
-      name: 'name',
-      toolset_name: 'toolset_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-      input
-      name
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      caller: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolUseBlockCaller.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestToolUseBlockType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaRequestToolUseBlock.
-  # Typed representation of the `BetaRequestToolUseBlock` API schema.
-  class BetaRequestToolUseBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestToolUseBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestToolUseBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestToolUseBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
-    attr_reader :caller
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [Hash] Required object value serialized in the `input` wire field.
-    attr_reader :input
-    # @return [String] Required `string` value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [String] For a toolset member tool_use, the toolset family this member belongs to.
-    attr_reader :toolset_name
-    # @return [BetaRequestToolUseBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRequestToolUseBlockType SDK namespace.
-  module BetaRequestToolUseBlockType
-    TOOL_USE = 'tool_use'
-    VALUES = ['tool_use'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRequestToolUseBlockType', 'enum', "Unknown BetaRequestToolUseBlockType: #{value}")
-    end
-  end
-
-  # Defines the BetaRequestToolUseBlockCaller SDK namespace.
-  module BetaRequestToolUseBlockCaller
-    DISCRIMINATOR_MAPPING = {
-      'code_execution_20250825' => -> { BetaServerToolCaller },
-      'code_execution_20260120' => -> { BetaServerToolCaller20260120 },
-      'direct' => -> { BetaDirectCaller }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestToolUseBlockCaller', 'variant', "Unknown BetaRequestToolUseBlockCaller discriminator: #{hash['type'].inspect}")
-    end
-  end
+end
 end

@@ -5,91 +5,90 @@
 
 # shared_beta_response_document domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaResponseDocumentBlockMetadata
-    FIELDS = {
-      citations: 'citations',
-      source: 'source',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      citations
-      source
-      title
-      type
-    ].freeze
-    DECODERS = {
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaResponseCitationsConfig.from_hash(value)
-      end,
-      source: lambda do |value|
-        ::OctridevAnthropic::BetaResponseDocumentBlockSource.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaResponseDocumentBlockType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      citations
-      title
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaResponseDocumentBlockMetadata
+  FIELDS = {
+    citations: "citations",
+    source: "source",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    citations
+    source
+    title
+    type
+  ].freeze
+  DECODERS = {
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaResponseCitationsConfig.from_hash(value)
+    end,
+    source: lambda do |value|
+      ::OctridevAnthropic::BetaResponseDocumentBlockSource.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaResponseDocumentBlockType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    citations
+    title
+  ].freeze
+end
+
+# API model for BetaResponseDocumentBlock.
+# Typed representation of the `BetaResponseDocumentBlock` API schema.
+class BetaResponseDocumentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaResponseDocumentBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaResponseDocumentBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaResponseDocumentBlockMetadata::DECODERS
+
+  # @return [BetaResponseCitationsConfig] Citation configuration for the document
+  attr_reader :citations
+  # @return [BetaResponseDocumentBlockSource] Required API value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [String] The title of the document
+  attr_reader :title
+  # @return [BetaResponseDocumentBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaResponseDocumentBlock.
-  # Typed representation of the `BetaResponseDocumentBlock` API schema.
-  class BetaResponseDocumentBlock
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaResponseDocumentBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaResponseDocumentBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaResponseDocumentBlockMetadata::DECODERS
-
-    # @return [BetaResponseCitationsConfig] Citation configuration for the document
-    attr_reader :citations
-    # @return [BetaResponseDocumentBlockSource] Required API value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [String] The title of the document
-    attr_reader :title
-    # @return [BetaResponseDocumentBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseDocumentBlockMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaResponseDocumentBlockMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaResponseDocumentBlockType SDK namespace.
-  module BetaResponseDocumentBlockType
-    DOCUMENT = 'document'
-    VALUES = ['document'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaResponseDocumentBlockType', 'enum', "Unknown BetaResponseDocumentBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaResponseDocumentBlockSource SDK namespace.
-  module BetaResponseDocumentBlockSource
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaResponseDocumentBlockType SDK namespace.
+module BetaResponseDocumentBlockType
+  DOCUMENT = 'document'
+  VALUES = ['document'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      mapping = { 'base64' => BetaBase64PDFSource, 'text' => BetaPlainTextSource }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaResponseDocumentBlockSource', 'variant', "Unknown BetaResponseDocumentBlockSource discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaResponseDocumentBlockType', 'enum', "Unknown BetaResponseDocumentBlockType: #{value}")
   end
+end
+
+# Defines the BetaResponseDocumentBlockSource SDK namespace.
+module BetaResponseDocumentBlockSource
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "base64" => BetaBase64PDFSource, "text" => BetaPlainTextSource }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaResponseDocumentBlockSource', 'variant', "Unknown BetaResponseDocumentBlockSource discriminator: #{hash["type"].inspect}")
+  end
+end
 end

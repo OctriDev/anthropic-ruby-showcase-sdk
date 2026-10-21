@@ -5,161 +5,161 @@
 
 # members domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaDeleteRbacGroupMemberResponseMetadata
-    FIELDS = {
-      group_id: 'group_id',
-      type: 'type',
-      user_id: 'user_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      group_id
-      type
-      user_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDeleteRbacGroupMemberResponseType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaDeleteRbacGroupMemberResponseMetadata
+  FIELDS = {
+    group_id: "group_id",
+    type: "type",
+    user_id: "user_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    group_id
+    type
+    user_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDeleteRbacGroupMemberResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDeleteRbacGroupMemberResponse.
+# Typed representation of the `BetaDeleteRbacGroupMemberResponse` API schema.
+class BetaDeleteRbacGroupMemberResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::DECODERS
+
+  # @return [String] ID of the RBAC Group.
+  attr_reader :group_id
+  # @return [BetaDeleteRbacGroupMemberResponseType] Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
+  attr_reader :type
+  # @return [String] ID of the User.
+  attr_reader :user_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDeleteRbacGroupMemberResponse.
-  # Typed representation of the `BetaDeleteRbacGroupMemberResponse` API schema.
-  class BetaDeleteRbacGroupMemberResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDeleteRbacGroupMemberResponseMetadata::DECODERS
-
-    # @return [String] ID of the RBAC Group.
-    attr_reader :group_id
-    # @return [BetaDeleteRbacGroupMemberResponseType] Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
-    attr_reader :type
-    # @return [String] ID of the User.
-    attr_reader :user_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaDeleteRbacGroupMemberResponseType SDK namespace.
-  module BetaDeleteRbacGroupMemberResponseType
-    RBAC_GROUP_MEMBER_DELETED = 'rbac_group_member_deleted'
-    VALUES = ['rbac_group_member_deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaDeleteRbacGroupMemberResponseType', 'enum', "Unknown BetaDeleteRbacGroupMemberResponseType: #{value}")
-    end
+# Defines the BetaDeleteRbacGroupMemberResponseType SDK namespace.
+module BetaDeleteRbacGroupMemberResponseType
+  RBAC_GROUP_MEMBER_DELETED = 'rbac_group_member_deleted'
+  VALUES = ['rbac_group_member_deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaDeleteRbacGroupMemberResponseType', 'enum', "Unknown BetaDeleteRbacGroupMemberResponseType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaDeleteWorkspaceMemberResponseMetadata
+  FIELDS = {
+    type: "type",
+    user_id: "user_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    user_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDeleteWorkspaceMemberResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDeleteWorkspaceMemberResponse.
+# Typed representation of the `BetaDeleteWorkspaceMemberResponse` API schema.
+class BetaDeleteWorkspaceMemberResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::DECODERS
+
+  # @return [BetaDeleteWorkspaceMemberResponseType] Deleted object type. For Workspace Members, this is always `"workspace_member_deleted"`.
+  attr_reader :type
+  # @return [String] ID of the User.
+  attr_reader :user_id
+  # @return [String] ID of the Workspace.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaDeleteWorkspaceMemberResponseMetadata
-    FIELDS = {
-      type: 'type',
-      user_id: 'user_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      user_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDeleteWorkspaceMemberResponseType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaDeleteWorkspaceMemberResponse.
-  # Typed representation of the `BetaDeleteWorkspaceMemberResponse` API schema.
-  class BetaDeleteWorkspaceMemberResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDeleteWorkspaceMemberResponseMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [BetaDeleteWorkspaceMemberResponseType] Deleted object type. For Workspace Members, this is always `"workspace_member_deleted"`.
-    attr_reader :type
-    # @return [String] ID of the User.
-    attr_reader :user_id
-    # @return [String] ID of the Workspace.
-    attr_reader :workspace_id
+# Defines the BetaDeleteWorkspaceMemberResponseType SDK namespace.
+module BetaDeleteWorkspaceMemberResponseType
+  WORKSPACE_MEMBER_DELETED = 'workspace_member_deleted'
+  VALUES = ['workspace_member_deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+    raise SdkValidationError.new('BetaDeleteWorkspaceMemberResponseType', 'enum', "Unknown BetaDeleteWorkspaceMemberResponseType: #{value}")
+  end
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaUpdateWorkspaceMemberParamsMetadata
+  FIELDS = {
+    workspace_role: "workspace_role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    workspace_role
+  ].freeze
+  DECODERS = {
+    workspace_role: lambda do |value|
+      ::OctridevAnthropic::BetaWorkspaceRoleSchema.from_value(value)
+    end,
+  }.freeze
+end
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# API model for BetaUpdateWorkspaceMemberParams.
+# Typed representation of the `BetaUpdateWorkspaceMemberParams` API schema.
+class BetaUpdateWorkspaceMemberParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::DECODERS
+
+  # @return [BetaWorkspaceRoleSchema] New workspace role for the User.
+  attr_reader :workspace_role
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaDeleteWorkspaceMemberResponseType SDK namespace.
-  module BetaDeleteWorkspaceMemberResponseType
-    WORKSPACE_MEMBER_DELETED = 'workspace_member_deleted'
-    VALUES = ['workspace_member_deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaDeleteWorkspaceMemberResponseType', 'enum', "Unknown BetaDeleteWorkspaceMemberResponseType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaUpdateWorkspaceMemberParamsMetadata
-    FIELDS = {
-      workspace_role: 'workspace_role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      workspace_role
-    ].freeze
-    DECODERS = {
-      workspace_role: lambda do |value|
-        ::OctridevAnthropic::BetaWorkspaceRoleSchema.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # API model for BetaUpdateWorkspaceMemberParams.
-  # Typed representation of the `BetaUpdateWorkspaceMemberParams` API schema.
-  class BetaUpdateWorkspaceMemberParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaUpdateWorkspaceMemberParamsMetadata::DECODERS
-
-    # @return [BetaWorkspaceRoleSchema] New workspace role for the User.
-    attr_reader :workspace_role
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

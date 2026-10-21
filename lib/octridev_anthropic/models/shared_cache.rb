@@ -5,110 +5,111 @@
 
 # shared_cache domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalCacheControlEphemeralMetadata
-    FIELDS = {
-      ttl: 'ttl',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      ttl: lambda do |value|
-        ::OctridevAnthropic::CacheControlEphemeralTtl.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::CacheControlEphemeralType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalCacheControlEphemeralMetadata
+  FIELDS = {
+    ttl: "ttl",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    ttl: lambda do |value|
+      ::OctridevAnthropic::CacheControlEphemeralTtl.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::CacheControlEphemeralType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for CacheControlEphemeral.
+# Typed representation of the `CacheControlEphemeral` API schema.
+class CacheControlEphemeral
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalCacheControlEphemeralMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalCacheControlEphemeralMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalCacheControlEphemeralMetadata::DECODERS
+
+  # @return [CacheControlEphemeralTtl] The time-to-live for the cache control breakpoint. This may be one the following values: - `5m`: 5 minutes - `1h`: 1 hour Defaults to `5m`. See prompt caching pricing for details.
+  attr_reader :ttl
+  # @return [CacheControlEphemeralType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for CacheControlEphemeral.
-  # Typed representation of the `CacheControlEphemeral` API schema.
-  class CacheControlEphemeral
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalCacheControlEphemeralMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalCacheControlEphemeralMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalCacheControlEphemeralMetadata::DECODERS
-
-    # @return [CacheControlEphemeralTtl] The time-to-live for the cache control breakpoint. This may be one the following values: - `5m`: 5 minutes - `1h`: 1 hour Defaults to `5m`. See prompt caching pricing for details.
-    attr_reader :ttl
-    # @return [CacheControlEphemeralType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the CacheControlEphemeralTtl SDK namespace.
-  module CacheControlEphemeralTtl
-    V_5_M = '5m'
-    V_1_H = '1h'
-    VALUES = %w[5m 1h].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the CacheControlEphemeralTtl SDK namespace.
+module CacheControlEphemeralTtl
+  V_5_M = '5m'
+  V_1_H = '1h'
+  VALUES = ['5m', '1h'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the CacheControlEphemeralType SDK namespace.
+module CacheControlEphemeralType
+  EPHEMERAL = 'ephemeral'
+  VALUES = ['ephemeral'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('CacheControlEphemeralType', 'enum', "Unknown CacheControlEphemeralType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalCacheCreationMetadata
+  FIELDS = {
+    ephemeral1h_input_tokens: "ephemeral_1h_input_tokens",
+    ephemeral5m_input_tokens: "ephemeral_5m_input_tokens",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    ephemeral1h_input_tokens
+    ephemeral5m_input_tokens
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for CacheCreation.
+# Typed representation of the `CacheCreation` API schema.
+class CacheCreation
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalCacheCreationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalCacheCreationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalCacheCreationMetadata::DECODERS
+
+  # @return [Integer] The number of input tokens used to create the 1 hour cache entry.
+  attr_reader :ephemeral1h_input_tokens
+  # @return [Integer] The number of input tokens used to create the 5 minute cache entry.
+  attr_reader :ephemeral5m_input_tokens
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the CacheControlEphemeralType SDK namespace.
-  module CacheControlEphemeralType
-    EPHEMERAL = 'ephemeral'
-    VALUES = ['ephemeral'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('CacheControlEphemeralType', 'enum', "Unknown CacheControlEphemeralType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalCacheCreationMetadata
-    FIELDS = {
-      ephemeral1h_input_tokens: 'ephemeral_1h_input_tokens',
-      ephemeral5m_input_tokens: 'ephemeral_5m_input_tokens'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      ephemeral1h_input_tokens
-      ephemeral5m_input_tokens
-    ].freeze
-    DECODERS = {}.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # API model for CacheCreation.
-  # Typed representation of the `CacheCreation` API schema.
-  class CacheCreation
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalCacheCreationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalCacheCreationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalCacheCreationMetadata::DECODERS
-
-    # @return [Integer] The number of input tokens used to create the 1 hour cache entry.
-    attr_reader :ephemeral1h_input_tokens
-    # @return [Integer] The number of input tokens used to create the 5 minute cache entry.
-    attr_reader :ephemeral5m_input_tokens
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

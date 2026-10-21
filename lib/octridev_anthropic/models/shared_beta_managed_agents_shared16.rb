@@ -5,676 +5,664 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-  # API model for BetaManagedAgentsSessionMultiagentCoordinator.
-  # Resolved coordinator topology with full agent definitions for each roster member.
-  class BetaManagedAgentsSessionMultiagentCoordinator
-    include BetaManagedAgentsSessionMultiagent
+# API model for BetaManagedAgentsSessionMultiagentCoordinator.
+# Resolved coordinator topology with full agent definitions for each roster member.
+class BetaManagedAgentsSessionMultiagentCoordinator
+  include BetaManagedAgentsSessionMultiagent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::DECODERS
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionMultiagentCoordinatorMetadata::DECODERS
+  # @return [BetaManagedAgentsSessionMultiagentCoordinatorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Array_of_BetaManagedAgentsSessionRosterEntry] Full `agent` definitions the coordinator may spawn as session threads.
+  attr_reader :agents
 
-    # @return [BetaManagedAgentsSessionMultiagentCoordinatorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Array_of_BetaManagedAgentsSessionRosterEntry] Full `agent` definitions the coordinator may spawn as session threads.
-    attr_reader :agents
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSessionMultiagentCoordinatorType SDK namespace.
-  module BetaManagedAgentsSessionMultiagentCoordinatorType
-    COORDINATOR = 'coordinator'
-    VALUES = ['coordinator'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionMultiagentCoordinatorType', 'enum', "Unknown BetaManagedAgentsSessionMultiagentCoordinatorType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionRateLimitedRunErrorType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsSessionMultiagentCoordinatorType SDK namespace.
+module BetaManagedAgentsSessionMultiagentCoordinatorType
+  COORDINATOR = 'coordinator'
+  VALUES = ['coordinator'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionMultiagentCoordinatorType', 'enum', "Unknown BetaManagedAgentsSessionMultiagentCoordinatorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionRateLimitedRunErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionRateLimitedRunError.
+# Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
+class BetaManagedAgentsSessionRateLimitedRunError
+  include BetaManagedAgentsRunError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionRateLimitedRunErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Human-readable error description.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsSessionRateLimitedRunError.
-  # Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
-  class BetaManagedAgentsSessionRateLimitedRunError
-    include BetaManagedAgentsRunError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionRateLimitedRunErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSessionRateLimitedRunErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Human-readable error description.
-    attr_reader :message
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSessionRateLimitedRunErrorType SDK namespace.
-  module BetaManagedAgentsSessionRateLimitedRunErrorType
-    SESSION_RATE_LIMITED_ERROR = 'session_rate_limited_error'
-    VALUES = ['session_rate_limited_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSessionRateLimitedRunErrorType', 'enum', "Unknown BetaManagedAgentsSessionRateLimitedRunErrorType: #{value}")
-    end
+# Defines the BetaManagedAgentsSessionRateLimitedRunErrorType SDK namespace.
+module BetaManagedAgentsSessionRateLimitedRunErrorType
+  SESSION_RATE_LIMITED_ERROR = 'session_rate_limited_error'
+  VALUES = ['session_rate_limited_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionRateLimitedRunErrorType', 'enum', "Unknown BetaManagedAgentsSessionRateLimitedRunErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionRequiresActionMetadata
+  FIELDS = {
+    type: "type",
+    event_ids: "event_ids",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    event_ids
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionRequiresActionType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionRequiresAction.
+# The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
+class BetaManagedAgentsSessionRequiresAction
+  include BetaManagedAgentsSessionStatusIdleEventStopReason
+  include BetaManagedAgentsSessionThreadStatusIdleEventStopReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionRequiresActionType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Array_of_String] The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder.
+  attr_reader :event_ids
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionRequiresActionMetadata
-    FIELDS = {
-      type: 'type',
-      event_ids: 'event_ids'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      event_ids
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionRequiresActionType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSessionRequiresAction.
-  # The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
-  class BetaManagedAgentsSessionRequiresAction
-    include BetaManagedAgentsSessionStatusIdleEventStopReason
-    include BetaManagedAgentsSessionThreadStatusIdleEventStopReason
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionRequiresActionMetadata::DECODERS
+# Defines the BetaManagedAgentsSessionRequiresActionType SDK namespace.
+module BetaManagedAgentsSessionRequiresActionType
+  REQUIRES_ACTION = 'requires_action'
+  VALUES = ['requires_action'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsSessionRequiresActionType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Array_of_String] The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder.
-    attr_reader :event_ids
+    raise SdkValidationError.new('BetaManagedAgentsSessionRequiresActionType', 'enum', "Unknown BetaManagedAgentsSessionRequiresActionType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Defines the BetaManagedAgentsSessionResource SDK namespace.
+module BetaManagedAgentsSessionResource
+  DISCRIMINATOR_MAPPING = {
+    "github_repository" => -> { BetaManagedAgentsGitHubRepositoryResource },
+    "file" => -> { BetaManagedAgentsFileResource },
+    "memory_store" => -> { BetaManagedAgentsMemoryStoreResource },
+  }.freeze
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionResource', 'variant', "Unknown BetaManagedAgentsSessionResource discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Defines the BetaManagedAgentsSessionResourceConfig SDK namespace.
+module BetaManagedAgentsSessionResourceConfig
+  DISCRIMINATOR_MAPPING = {
+    "github_repository" => -> { BetaManagedAgentsGitHubRepositoryResourceConfig },
+    "file" => -> { BetaManagedAgentsFileResourceConfig },
+    "memory_store" => -> { BetaManagedAgentsMemoryStoreResourceConfig },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionResourceConfig', 'variant', "Unknown BetaManagedAgentsSessionResourceConfig discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError.
+# A referenced resource no longer exists and its kind was not reported.
+class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError
+  include BetaManagedAgentsDeploymentPausedReasonError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSessionRequiresActionType SDK namespace.
-  module BetaManagedAgentsSessionRequiresActionType
-    REQUIRES_ACTION = 'requires_action'
-    VALUES = ['requires_action'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionRequiresActionType', 'enum', "Unknown BetaManagedAgentsSessionRequiresActionType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSessionResource SDK namespace.
-  module BetaManagedAgentsSessionResource
-    DISCRIMINATOR_MAPPING = {
-      'github_repository' => -> { BetaManagedAgentsGitHubRepositoryResource },
-      'file' => -> { BetaManagedAgentsFileResource },
-      'memory_store' => -> { BetaManagedAgentsMemoryStoreResource }
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType SDK namespace.
+module BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType
+  SESSION_RESOURCE_NOT_FOUND_ERROR = 'session_resource_not_found_error'
+  VALUES = ['session_resource_not_found_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    raise SdkValidationError.new('BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType: #{value}")
+  end
+end
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionResourceNotFoundRunErrorType.from_value(value)
+    end,
+  }.freeze
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSessionResource', 'variant', "Unknown BetaManagedAgentsSessionResource discriminator: #{hash['type'].inspect}")
-    end
+# API model for BetaManagedAgentsSessionResourceNotFoundRunError.
+# A referenced resource no longer exists and its kind was not reported.
+class BetaManagedAgentsSessionResourceNotFoundRunError
+  include BetaManagedAgentsRunError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionResourceNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Human-readable error description.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSessionResourceConfig SDK namespace.
-  module BetaManagedAgentsSessionResourceConfig
-    DISCRIMINATOR_MAPPING = {
-      'github_repository' => -> { BetaManagedAgentsGitHubRepositoryResourceConfig },
-      'file' => -> { BetaManagedAgentsFileResourceConfig },
-      'memory_store' => -> { BetaManagedAgentsMemoryStoreResourceConfig }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionResourceConfig', 'variant', "Unknown BetaManagedAgentsSessionResourceConfig discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsSessionResourceNotFoundRunErrorType SDK namespace.
+module BetaManagedAgentsSessionResourceNotFoundRunErrorType
+  SESSION_RESOURCE_NOT_FOUND_ERROR = 'session_resource_not_found_error'
+  VALUES = ['session_resource_not_found_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionResourceNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsSessionResourceNotFoundRunErrorType: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsSessionResourceParams SDK namespace.
+module BetaManagedAgentsSessionResourceParams
+  DISCRIMINATOR_MAPPING = {
+    "github_repository" => -> { BetaManagedAgentsGitHubRepositoryResourceParams },
+    "file" => -> { BetaManagedAgentsFileResourceParams },
+    "memory_store" => -> { BetaManagedAgentsMemoryStoreResourceParam },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionResourceParams', 'variant', "Unknown BetaManagedAgentsSessionResourceParams discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionRetriesExhaustedType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionRetriesExhausted.
+# The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+class BetaManagedAgentsSessionRetriesExhausted
+  include BetaManagedAgentsSessionStatusIdleEventStopReason
+  include BetaManagedAgentsSessionThreadStatusIdleEventStopReason
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionRetriesExhaustedType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError.
-  # A referenced resource no longer exists and its kind was not reported.
-  class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError
-    include BetaManagedAgentsDeploymentPausedReasonError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType SDK namespace.
-  module BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType
-    SESSION_RESOURCE_NOT_FOUND_ERROR = 'session_resource_not_found_error'
-    VALUES = ['session_resource_not_found_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType: #{value}")
-    end
+# Defines the BetaManagedAgentsSessionRetriesExhaustedType SDK namespace.
+module BetaManagedAgentsSessionRetriesExhaustedType
+  RETRIES_EXHAUSTED = 'retries_exhausted'
+  VALUES = ['retries_exhausted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionRetriesExhaustedType', 'enum', "Unknown BetaManagedAgentsSessionRetriesExhaustedType: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsSessionRosterEntry SDK namespace.
+module BetaManagedAgentsSessionRosterEntry
+  DISCRIMINATOR_MAPPING = {
+    "agent" => -> { BetaManagedAgentsSessionThreadAgent },
+    "advisor" => -> { BetaManagedAgentsAdvisor },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionRosterEntry', 'variant', "Unknown BetaManagedAgentsSessionRosterEntry discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionStatsMetadata
+  FIELDS = {
+    duration_seconds: "duration_seconds",
+    active_seconds: "active_seconds",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionStats.
+# Timing statistics for a session.
+class BetaManagedAgentsSessionStats
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionStatsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionStatsMetadata::DECODERS
+
+  # @return [Float] Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+  attr_reader :duration_seconds
+  # @return [Float] Cumulative time in seconds the session spent in `running` status. Excludes idle time.
+  attr_reader :active_seconds
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionResourceNotFoundRunErrorType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSessionResourceNotFoundRunError.
-  # A referenced resource no longer exists and its kind was not reported.
-  class BetaManagedAgentsSessionResourceNotFoundRunError
-    include BetaManagedAgentsRunError
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionResourceNotFoundRunErrorMetadata::DECODERS
+# Defines the BetaManagedAgentsSessionStatus SDK namespace.
+module BetaManagedAgentsSessionStatus
+  RESCHEDULING = 'rescheduling'
+  RUNNING = 'running'
+  IDLE = 'idle'
+  TERMINATED = 'terminated'
+  VALUES = ['rescheduling', 'running', 'idle', 'terminated'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 
-    # @return [BetaManagedAgentsSessionResourceNotFoundRunErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Human-readable error description.
-    attr_reader :message
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+    stop_reason: "stop_reason",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+    stop_reason
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionStatusIdleEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    stop_reason: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionStatusIdleEventStopReason.from_hash(value)
+    end,
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for BetaManagedAgentsSessionStatusIdleEvent.
+# Indicates the agent has paused and is awaiting user input.
+class BetaManagedAgentsSessionStatusIdleEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+  # @return [BetaManagedAgentsSessionStatusIdleEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp of status change.
+  attr_reader :processed_at
+  # @return [BetaManagedAgentsSessionStatusIdleEventStopReason] Required object value serialized in the `stop_reason` wire field.
+  attr_reader :stop_reason
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSessionResourceNotFoundRunErrorType SDK namespace.
-  module BetaManagedAgentsSessionResourceNotFoundRunErrorType
-    SESSION_RESOURCE_NOT_FOUND_ERROR = 'session_resource_not_found_error'
-    VALUES = ['session_resource_not_found_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionResourceNotFoundRunErrorType', 'enum', "Unknown BetaManagedAgentsSessionResourceNotFoundRunErrorType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSessionResourceParams SDK namespace.
-  module BetaManagedAgentsSessionResourceParams
-    DISCRIMINATOR_MAPPING = {
-      'github_repository' => -> { BetaManagedAgentsGitHubRepositoryResourceParams },
-      'file' => -> { BetaManagedAgentsFileResourceParams },
-      'memory_store' => -> { BetaManagedAgentsMemoryStoreResourceParam }
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaManagedAgentsSessionStatusIdleEventType SDK namespace.
+module BetaManagedAgentsSessionStatusIdleEventType
+  SESSION_STATUS_IDLE = 'session.status_idle'
+  VALUES = ['session.status_idle'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    raise SdkValidationError.new('BetaManagedAgentsSessionStatusIdleEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusIdleEventType: #{value}")
+  end
+end
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+# Defines the BetaManagedAgentsSessionStatusIdleEventStopReason SDK namespace.
+module BetaManagedAgentsSessionStatusIdleEventStopReason
+  DISCRIMINATOR_MAPPING = {
+    "end_turn" => -> { BetaManagedAgentsSessionEndTurn },
+    "requires_action" => -> { BetaManagedAgentsSessionRequiresAction },
+    "retries_exhausted" => -> { BetaManagedAgentsSessionRetriesExhausted },
+    "budget_reached" => -> { BetaManagedAgentsSessionBudgetReached },
+  }.freeze
 
-      raise SdkValidationError.new('BetaManagedAgentsSessionResourceParams', 'variant', "Unknown BetaManagedAgentsSessionResourceParams discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionStatusIdleEventStopReason', 'variant', "Unknown BetaManagedAgentsSessionStatusIdleEventStopReason discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionStatusRescheduledEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSessionStatusRescheduledEvent.
+# Indicates the session is recovering from an error state and is rescheduled for execution.
+class BetaManagedAgentsSessionStatusRescheduledEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSessionStatusRescheduledEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp of status change.
+  attr_reader :processed_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionRetriesExhaustedType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSessionRetriesExhausted.
-  # The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
-  class BetaManagedAgentsSessionRetriesExhausted
-    include BetaManagedAgentsSessionStatusIdleEventStopReason
-    include BetaManagedAgentsSessionThreadStatusIdleEventStopReason
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionRetriesExhaustedMetadata::DECODERS
+# Defines the BetaManagedAgentsSessionStatusRescheduledEventType SDK namespace.
+module BetaManagedAgentsSessionStatusRescheduledEventType
+  SESSION_STATUS_RESCHEDULED = 'session.status_rescheduled'
+  VALUES = ['session.status_rescheduled'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsSessionRetriesExhaustedType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaManagedAgentsSessionStatusRescheduledEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusRescheduledEventType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSessionStatusRunningEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsSessionStatusRunningEvent.
+# Indicates the session is actively running and the agent is working.
+class BetaManagedAgentsSessionStatusRunningEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsSessionStatusRunningEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp of status change.
+  attr_reader :processed_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSessionRetriesExhaustedType SDK namespace.
-  module BetaManagedAgentsSessionRetriesExhaustedType
-    RETRIES_EXHAUSTED = 'retries_exhausted'
-    VALUES = ['retries_exhausted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionRetriesExhaustedType', 'enum', "Unknown BetaManagedAgentsSessionRetriesExhaustedType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSessionRosterEntry SDK namespace.
-  module BetaManagedAgentsSessionRosterEntry
-    DISCRIMINATOR_MAPPING = {
-      'agent' => -> { BetaManagedAgentsSessionThreadAgent },
-      'advisor' => -> { BetaManagedAgentsAdvisor }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionRosterEntry', 'variant', "Unknown BetaManagedAgentsSessionRosterEntry discriminator: #{hash['type'].inspect}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionStatsMetadata
-    FIELDS = {
-      duration_seconds: 'duration_seconds',
-      active_seconds: 'active_seconds'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+# Defines the BetaManagedAgentsSessionStatusRunningEventType SDK namespace.
+module BetaManagedAgentsSessionStatusRunningEventType
+  SESSION_STATUS_RUNNING = 'session.status_running'
+  VALUES = ['session.status_running'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSessionStatusRunningEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusRunningEventType: #{value}")
   end
-
-  # API model for BetaManagedAgentsSessionStats.
-  # Timing statistics for a session.
-  class BetaManagedAgentsSessionStats
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionStatsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionStatsMetadata::DECODERS
-
-    # @return [Float] Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
-    attr_reader :duration_seconds
-    # @return [Float] Cumulative time in seconds the session spent in `running` status. Excludes idle time.
-    attr_reader :active_seconds
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsSessionStatus SDK namespace.
-  module BetaManagedAgentsSessionStatus
-    RESCHEDULING = 'rescheduling'
-    RUNNING = 'running'
-    IDLE = 'idle'
-    TERMINATED = 'terminated'
-    VALUES = %w[rescheduling running idle terminated].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at',
-      stop_reason: 'stop_reason'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-      stop_reason
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionStatusIdleEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      stop_reason: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionStatusIdleEventStopReason.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsSessionStatusIdleEvent.
-  # Indicates the agent has paused and is awaiting user input.
-  class BetaManagedAgentsSessionStatusIdleEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionStatusIdleEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSessionStatusIdleEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp of status change.
-    attr_reader :processed_at
-    # @return [BetaManagedAgentsSessionStatusIdleEventStopReason] Required object value serialized in the `stop_reason` wire field.
-    attr_reader :stop_reason
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsSessionStatusIdleEventType SDK namespace.
-  module BetaManagedAgentsSessionStatusIdleEventType
-    SESSION_STATUS_IDLE = 'session.status_idle'
-    VALUES = ['session.status_idle'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionStatusIdleEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusIdleEventType: #{value}")
-    end
-  end
-
-  # Defines the BetaManagedAgentsSessionStatusIdleEventStopReason SDK namespace.
-  module BetaManagedAgentsSessionStatusIdleEventStopReason
-    DISCRIMINATOR_MAPPING = {
-      'end_turn' => -> { BetaManagedAgentsSessionEndTurn },
-      'requires_action' => -> { BetaManagedAgentsSessionRequiresAction },
-      'retries_exhausted' => -> { BetaManagedAgentsSessionRetriesExhausted },
-      'budget_reached' => -> { BetaManagedAgentsSessionBudgetReached }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionStatusIdleEventStopReason', 'variant', "Unknown BetaManagedAgentsSessionStatusIdleEventStopReason discriminator: #{hash['type'].inspect}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionStatusRescheduledEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsSessionStatusRescheduledEvent.
-  # Indicates the session is recovering from an error state and is rescheduled for execution.
-  class BetaManagedAgentsSessionStatusRescheduledEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionStatusRescheduledEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSessionStatusRescheduledEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp of status change.
-    attr_reader :processed_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsSessionStatusRescheduledEventType SDK namespace.
-  module BetaManagedAgentsSessionStatusRescheduledEventType
-    SESSION_STATUS_RESCHEDULED = 'session.status_rescheduled'
-    VALUES = ['session.status_rescheduled'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionStatusRescheduledEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusRescheduledEventType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSessionStatusRunningEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsSessionStatusRunningEvent.
-  # Indicates the session is actively running and the agent is working.
-  class BetaManagedAgentsSessionStatusRunningEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSessionStatusRunningEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSessionStatusRunningEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp of status change.
-    attr_reader :processed_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsSessionStatusRunningEventType SDK namespace.
-  module BetaManagedAgentsSessionStatusRunningEventType
-    SESSION_STATUS_RUNNING = 'session.status_running'
-    VALUES = ['session.status_running'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSessionStatusRunningEventType', 'enum', "Unknown BetaManagedAgentsSessionStatusRunningEventType: #{value}")
-    end
-  end
+end
 end

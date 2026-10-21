@@ -5,149 +5,148 @@
 
 # shared_beta_usage domain models
 module OctridevAnthropic
-  # Defines the BetaUsageServiceTierVariant0 SDK namespace.
-  module BetaUsageServiceTierVariant0
-    STANDARD = 'standard'
-    PRIORITY = 'priority'
-    BATCH = 'batch'
-    VALUES = %w[standard priority batch].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaUsageServiceTierVariant0 SDK namespace.
+module BetaUsageServiceTierVariant0
+  STANDARD = 'standard'
+  PRIORITY = 'priority'
+  BATCH = 'batch'
+  VALUES = ['standard', 'priority', 'batch'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaUsageMetadata
+  FIELDS = {
+    cache_creation: "cache_creation",
+    cache_creation_input_tokens: "cache_creation_input_tokens",
+    cache_read_input_tokens: "cache_read_input_tokens",
+    fallback_credit: "fallback_credit",
+    inference_geo: "inference_geo",
+    input_tokens: "input_tokens",
+    iterations: "iterations",
+    output_tokens: "output_tokens",
+    output_tokens_details: "output_tokens_details",
+    server_tool_use: "server_tool_use",
+    service_tier: "service_tier",
+    speed: "speed",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cache_creation
+    cache_creation_input_tokens
+    cache_read_input_tokens
+    fallback_credit
+    inference_geo
+    input_tokens
+    iterations
+    output_tokens
+    output_tokens_details
+    server_tool_use
+    service_tier
+    speed
+  ].freeze
+  DECODERS = {
+    cache_creation: lambda do |value|
+      ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
+    end,
+    fallback_credit: lambda do |value|
+      ::OctridevAnthropic::BetaFallbackCreditUsage.from_hash(value)
+    end,
+    iterations: lambda do |value|
+      ::OctridevAnthropic::BetaIterationsUsage.from_hash(value)
+    end,
+    output_tokens_details: lambda do |value|
+      ::OctridevAnthropic::BetaOutputTokensDetails.from_hash(value)
+    end,
+    server_tool_use: lambda do |value|
+      ::OctridevAnthropic::BetaServerToolUsage.from_hash(value)
+    end,
+    service_tier: lambda do |value|
+      ::OctridevAnthropic::BetaUsageServiceTierVariant0.from_value(value)
+    end,
+    speed: lambda do |value|
+      ::OctridevAnthropic::BetaSpeed.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    cache_creation
+    cache_creation_input_tokens
+    cache_read_input_tokens
+    fallback_credit
+    inference_geo
+    iterations
+    output_tokens_details
+    server_tool_use
+    service_tier
+    speed
+  ].freeze
+end
+
+# API model for BetaUsage.
+# Typed representation of the `BetaUsage` API schema.
+class BetaUsage
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaUsageMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaUsageMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaUsageMetadata::DECODERS
+
+  # @return [BetaCacheCreation] Breakdown of cached tokens by TTL
+  attr_reader :cache_creation
+  # @return [Integer] The number of input tokens used to create the cache entry.
+  attr_reader :cache_creation_input_tokens
+  # @return [Integer] The number of input tokens read from the cache.
+  attr_reader :cache_read_input_tokens
+  # @return [BetaFallbackCreditUsage] Outcome of the `fallback_credit_token` presented on this request. Present on every response to a non-batch request that carried a `fallback_credit_token`, in either redemption mode; absent otherwise (batch items accept and ignore the token and carry no outcome object).
+  attr_reader :fallback_credit
+  # @return [String] The geographic region where inference was performed for this request.
+  attr_reader :inference_geo
+  # @return [Integer] The number of input tokens which were used.
+  attr_reader :input_tokens
+  # @return [BetaIterationsUsage] Per-iteration token usage breakdown. Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to: - Determine which iterations exceeded long context thresholds (>=200k tokens) - Calculate the context window size from the last `message` entry - Understand token accumulation across…
+  attr_reader :iterations
+  # @return [Integer] The number of output tokens which were used.
+  attr_reader :output_tokens
+  # @return [BetaOutputTokensDetails] Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you.
+  attr_reader :output_tokens_details
+  # @return [BetaServerToolUsage] The number of server tool requests.
+  attr_reader :server_tool_use
+  # @return [BetaUsageServiceTierVariant0] If the request used the priority, standard, or batch tier.
+  attr_reader :service_tier
+  # @return [BetaSpeed] The inference speed mode used for this request.
+  attr_reader :speed
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaUsageMetadata
-    FIELDS = {
-      cache_creation: 'cache_creation',
-      cache_creation_input_tokens: 'cache_creation_input_tokens',
-      cache_read_input_tokens: 'cache_read_input_tokens',
-      fallback_credit: 'fallback_credit',
-      inference_geo: 'inference_geo',
-      input_tokens: 'input_tokens',
-      iterations: 'iterations',
-      output_tokens: 'output_tokens',
-      output_tokens_details: 'output_tokens_details',
-      server_tool_use: 'server_tool_use',
-      service_tier: 'service_tier',
-      speed: 'speed'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cache_creation
-      cache_creation_input_tokens
-      cache_read_input_tokens
-      fallback_credit
-      inference_geo
-      input_tokens
-      iterations
-      output_tokens
-      output_tokens_details
-      server_tool_use
-      service_tier
-      speed
-    ].freeze
-    DECODERS = {
-      cache_creation: lambda do |value|
-        ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
-      end,
-      fallback_credit: lambda do |value|
-        ::OctridevAnthropic::BetaFallbackCreditUsage.from_hash(value)
-      end,
-      iterations: lambda do |value|
-        ::OctridevAnthropic::BetaIterationsUsage.from_hash(value)
-      end,
-      output_tokens_details: lambda do |value|
-        ::OctridevAnthropic::BetaOutputTokensDetails.from_hash(value)
-      end,
-      server_tool_use: lambda do |value|
-        ::OctridevAnthropic::BetaServerToolUsage.from_hash(value)
-      end,
-      service_tier: lambda do |value|
-        ::OctridevAnthropic::BetaUsageServiceTierVariant0.from_value(value)
-      end,
-      speed: lambda do |value|
-        ::OctridevAnthropic::BetaSpeed.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      cache_creation
-      cache_creation_input_tokens
-      cache_read_input_tokens
-      fallback_credit
-      inference_geo
-      iterations
-      output_tokens_details
-      server_tool_use
-      service_tier
-      speed
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaUsageMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaUsage.
-  # Typed representation of the `BetaUsage` API schema.
-  class BetaUsage
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaUsageMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaUsageMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaUsageMetadata::DECODERS
-
-    # @return [BetaCacheCreation] Breakdown of cached tokens by TTL
-    attr_reader :cache_creation
-    # @return [Integer] The number of input tokens used to create the cache entry.
-    attr_reader :cache_creation_input_tokens
-    # @return [Integer] The number of input tokens read from the cache.
-    attr_reader :cache_read_input_tokens
-    # @return [BetaFallbackCreditUsage] Outcome of the `fallback_credit_token` presented on this request. Present on every response to a non-batch request that carried a `fallback_credit_token`, in either redemption mode; absent otherwise (batch items accept and ignore the token and carry no outcome object).
-    attr_reader :fallback_credit
-    # @return [String] The geographic region where inference was performed for this request.
-    attr_reader :inference_geo
-    # @return [Integer] The number of input tokens which were used.
-    attr_reader :input_tokens
-    # @return [BetaIterationsUsage] Per-iteration token usage breakdown. Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to: - Determine which iterations exceeded long context thresholds (>=200k tokens) - Calculate the context window size from the last `message` entry - Understand token accumulation across…
-    attr_reader :iterations
-    # @return [Integer] The number of output tokens which were used.
-    attr_reader :output_tokens
-    # @return [BetaOutputTokensDetails] Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you.
-    attr_reader :output_tokens_details
-    # @return [BetaServerToolUsage] The number of server tool requests.
-    attr_reader :server_tool_use
-    # @return [BetaUsageServiceTierVariant0] If the request used the priority, standard, or batch tier.
-    attr_reader :service_tier
-    # @return [BetaSpeed] The inference speed mode used for this request.
-    attr_reader :speed
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaUsageMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaUsageIterationsItem SDK namespace.
-  module BetaUsageIterationsItem
-    DISCRIMINATOR_MAPPING = {
-      'advisor_message' => -> { BetaAdvisorMessageIterationUsage },
-      'compaction' => -> { BetaCompactionIterationUsage },
-      'fallback_message' => -> { BetaFallbackMessageIterationUsage },
-      'message' => -> { BetaMessageIterationUsage }
-    }.freeze
+# Defines the BetaUsageIterationsItem SDK namespace.
+module BetaUsageIterationsItem
+  DISCRIMINATOR_MAPPING = {
+    "advisor_message" => -> { BetaAdvisorMessageIterationUsage },
+    "compaction" => -> { BetaCompactionIterationUsage },
+    "fallback_message" => -> { BetaFallbackMessageIterationUsage },
+    "message" => -> { BetaMessageIterationUsage },
+  }.freeze
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
 
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaUsageIterationsItem', 'variant', "Unknown BetaUsageIterationsItem discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaUsageIterationsItem', 'variant', "Unknown BetaUsageIterationsItem discriminator: #{hash["type"].inspect}")
   end
+end
 end

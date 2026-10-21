@@ -5,145 +5,144 @@
 
 # shared_beta_request_image domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestImageBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      source: 'source',
-      transformations: 'transformations',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      source
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      source: lambda do |value|
-        ::OctridevAnthropic::BetaRequestImageBlockSource.from_hash(value)
-      end,
-      transformations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestImageTransformations.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestImageBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestImageBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    source: "source",
+    transformations: "transformations",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    source
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    source: lambda do |value|
+      ::OctridevAnthropic::BetaRequestImageBlockSource.from_hash(value)
+    end,
+    transformations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestImageTransformations.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestImageBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestImageBlock.
+# Typed representation of the `BetaRequestImageBlock` API schema.
+class BetaRequestImageBlock
+  include BetaInputContentBlock
+  include BetaContentBlockSourceContentItem
+  include BetaRequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestImageBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestImageBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestImageBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestImageBlockSource] Required API value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [BetaRequestImageTransformations] Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+  attr_reader :transformations
+  # @return [BetaRequestImageBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestImageBlock.
-  # Typed representation of the `BetaRequestImageBlock` API schema.
-  class BetaRequestImageBlock
-    include BetaInputContentBlock
-    include BetaContentBlockSourceContentItem
-    include BetaRequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestImageBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestImageBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestImageBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestImageBlockSource] Required API value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [BetaRequestImageTransformations] Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-    attr_reader :transformations
-    # @return [BetaRequestImageBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestImageBlockType SDK namespace.
-  module BetaRequestImageBlockType
-    IMAGE = 'image'
-    VALUES = ['image'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestImageBlockType', 'enum', "Unknown BetaRequestImageBlockType: #{value}")
-    end
+# Defines the BetaRequestImageBlockType SDK namespace.
+module BetaRequestImageBlockType
+  IMAGE = 'image'
+  VALUES = ['image'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestImageBlockType', 'enum', "Unknown BetaRequestImageBlockType: #{value}")
+  end
+end
+
+# Defines the BetaRequestImageBlockSource SDK namespace.
+module BetaRequestImageBlockSource
+  DISCRIMINATOR_MAPPING = {
+    "base64" => -> { BetaBase64ImageSource },
+    "file" => -> { BetaFileImageSource },
+    "url" => -> { BetaURLImageSource },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRequestImageBlockSource', 'variant', "Unknown BetaRequestImageBlockSource discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestImageTransformationsMetadata
+  FIELDS = {
+    oversized_image: "oversized_image",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    oversized_image: lambda do |value|
+      ::OctridevAnthropic::BetaRequestImageTransformationsOversizedImage.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestImageTransformations.
+# Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+class BetaRequestImageTransformations
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestImageTransformationsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestImageTransformationsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestImageTransformationsMetadata::DECODERS
+
+  # @return [BetaRequestImageTransformationsOversizedImage] What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+  attr_reader :oversized_image
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaRequestImageBlockSource SDK namespace.
-  module BetaRequestImageBlockSource
-    DISCRIMINATOR_MAPPING = {
-      'base64' => -> { BetaBase64ImageSource },
-      'file' => -> { BetaFileImageSource },
-      'url' => -> { BetaURLImageSource }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRequestImageBlockSource', 'variant', "Unknown BetaRequestImageBlockSource discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestImageTransformationsMetadata
-    FIELDS = {
-      oversized_image: 'oversized_image'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      oversized_image: lambda do |value|
-        ::OctridevAnthropic::BetaRequestImageTransformationsOversizedImage.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaRequestImageTransformations.
-  # Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-  class BetaRequestImageTransformations
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestImageTransformationsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestImageTransformationsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestImageTransformationsMetadata::DECODERS
-
-    # @return [BetaRequestImageTransformationsOversizedImage] What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-    attr_reader :oversized_image
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# Defines the BetaRequestImageTransformationsOversizedImage SDK namespace.
+module BetaRequestImageTransformationsOversizedImage
+  DOWNSIZE = 'downsize'
+  ERROR = 'error'
+  VALUES = ['downsize', 'error'].freeze
+  def self.from_value(value)
+    value
   end
-
-  # Defines the BetaRequestImageTransformationsOversizedImage SDK namespace.
-  module BetaRequestImageTransformationsOversizedImage
-    DOWNSIZE = 'downsize'
-    ERROR = 'error'
-    VALUES = %w[downsize error].freeze
-    def self.from_value(value)
-      value
-    end
-  end
+end
 end

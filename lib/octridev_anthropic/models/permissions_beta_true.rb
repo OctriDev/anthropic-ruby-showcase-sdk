@@ -5,427 +5,421 @@
 
 # permissions_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaAllConnectorsPermissionResourceMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaAllConnectorsPermissionResourceType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaAllConnectorsPermissionResourceMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaAllConnectorsPermissionResourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaAllConnectorsPermissionResource.
+# Typed representation of the `BetaAllConnectorsPermissionResource` API schema.
+class BetaAllConnectorsPermissionResource
+  include BetaRbacRolePermissionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::DECODERS
+
+  # @return [BetaAllConnectorsPermissionResourceType] Kind of resource the permission applies to.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaAllConnectorsPermissionResource.
-  # Typed representation of the `BetaAllConnectorsPermissionResource` API schema.
-  class BetaAllConnectorsPermissionResource
-    include BetaRbacRolePermissionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaAllConnectorsPermissionResourceMetadata::DECODERS
-
-    # @return [BetaAllConnectorsPermissionResourceType] Kind of resource the permission applies to.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaAllConnectorsPermissionResourceType SDK namespace.
-  module BetaAllConnectorsPermissionResourceType
-    ALL_CONNECTORS = 'all_connectors'
-    VALUES = ['all_connectors'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaAllConnectorsPermissionResourceType', 'enum', "Unknown BetaAllConnectorsPermissionResourceType: #{value}")
-    end
+# Defines the BetaAllConnectorsPermissionResourceType SDK namespace.
+module BetaAllConnectorsPermissionResourceType
+  ALL_CONNECTORS = 'all_connectors'
+  VALUES = ['all_connectors'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaAllConnectorsPermissionResourceType', 'enum', "Unknown BetaAllConnectorsPermissionResourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaConnectorPermissionResourceMetadata
+  FIELDS = {
+    connector_id: "connector_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    connector_id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaConnectorPermissionResourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaConnectorPermissionResource.
+# Typed representation of the `BetaConnectorPermissionResource` API schema.
+class BetaConnectorPermissionResource
+  include BetaRbacRolePermissionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaConnectorPermissionResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaConnectorPermissionResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaConnectorPermissionResourceMetadata::DECODERS
+
+  # @return [String] ID of the connector the permission applies to.
+  attr_reader :connector_id
+  # @return [BetaConnectorPermissionResourceType] Kind of resource the permission applies to.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaConnectorPermissionResourceMetadata
-    FIELDS = {
-      connector_id: 'connector_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      connector_id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaConnectorPermissionResourceType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaConnectorPermissionResource.
-  # Typed representation of the `BetaConnectorPermissionResource` API schema.
-  class BetaConnectorPermissionResource
-    include BetaRbacRolePermissionResource
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaConnectorPermissionResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaConnectorPermissionResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaConnectorPermissionResourceMetadata::DECODERS
+# Defines the BetaConnectorPermissionResourceType SDK namespace.
+module BetaConnectorPermissionResourceType
+  CONNECTOR = 'connector'
+  VALUES = ['connector'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [String] ID of the connector the permission applies to.
-    attr_reader :connector_id
-    # @return [BetaConnectorPermissionResourceType] Kind of resource the permission applies to.
-    attr_reader :type
+    raise SdkValidationError.new('BetaConnectorPermissionResourceType', 'enum', "Unknown BetaConnectorPermissionResourceType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaConnectorScopePermissionResourceMetadata
+  FIELDS = {
+    connector_id: "connector_id",
+    scope: "scope",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    connector_id
+    scope
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaConnectorScopePermissionResourceType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaConnectorScopePermissionResource.
+# Typed representation of the `BetaConnectorScopePermissionResource` API schema.
+class BetaConnectorScopePermissionResource
+  include BetaRbacRolePermissionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaConnectorScopePermissionResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaConnectorScopePermissionResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaConnectorScopePermissionResourceMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] ID of the connector the permission applies to.
+  attr_reader :connector_id
+  # @return [String] OAuth scope the permission names — the role may receive this scope when tokens are minted for the connector. Subject to the same encoding rule as `tool_name`: a scope containing characters outside `[a-zA-Z0-9_-]` (or colliding with a reserved form) appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth scopes routinely contain `:` and `/`, so most appear encoded.
+  attr_reader :scope
+  # @return [BetaConnectorScopePermissionResourceType] Kind of resource the permission applies to.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaConnectorPermissionResourceType SDK namespace.
-  module BetaConnectorPermissionResourceType
-    CONNECTOR = 'connector'
-    VALUES = ['connector'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaConnectorPermissionResourceType', 'enum', "Unknown BetaConnectorPermissionResourceType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaConnectorScopePermissionResourceMetadata
-    FIELDS = {
-      connector_id: 'connector_id',
-      scope: 'scope',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      connector_id
-      scope
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaConnectorScopePermissionResourceType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaConnectorScopePermissionResourceType SDK namespace.
+module BetaConnectorScopePermissionResourceType
+  CONNECTOR_SCOPE = 'connector_scope'
+  VALUES = ['connector_scope'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaConnectorScopePermissionResourceType', 'enum', "Unknown BetaConnectorScopePermissionResourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaConnectorToolPermissionResourceMetadata
+  FIELDS = {
+    connector_id: "connector_id",
+    tool_name: "tool_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    connector_id
+    tool_name
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaConnectorToolPermissionResourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaConnectorToolPermissionResource.
+# Typed representation of the `BetaConnectorToolPermissionResource` API schema.
+class BetaConnectorToolPermissionResource
+  include BetaRbacRolePermissionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaConnectorToolPermissionResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaConnectorToolPermissionResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaConnectorToolPermissionResourceMetadata::DECODERS
+
+  # @return [String] ID of the connector the permission applies to.
+  attr_reader :connector_id
+  # @return [String] Published name of the connector tool the permission applies to. When the published name contains characters outside `[a-zA-Z0-9_-]` (or collides with a reserved form), it is server-encoded into a stable `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus a hash — from which the published name is not recoverable.
+  attr_reader :tool_name
+  # @return [BetaConnectorToolPermissionResourceType] Kind of resource the permission applies to.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaConnectorScopePermissionResource.
-  # Typed representation of the `BetaConnectorScopePermissionResource` API schema.
-  class BetaConnectorScopePermissionResource
-    include BetaRbacRolePermissionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaConnectorScopePermissionResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaConnectorScopePermissionResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaConnectorScopePermissionResourceMetadata::DECODERS
-
-    # @return [String] ID of the connector the permission applies to.
-    attr_reader :connector_id
-    # @return [String] OAuth scope the permission names — the role may receive this scope when tokens are minted for the connector. Subject to the same encoding rule as `tool_name`: a scope containing characters outside `[a-zA-Z0-9_-]` (or colliding with a reserved form) appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth scopes routinely contain `:` and `/`, so most appear encoded.
-    attr_reader :scope
-    # @return [BetaConnectorScopePermissionResourceType] Kind of resource the permission applies to.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaConnectorScopePermissionResourceType SDK namespace.
-  module BetaConnectorScopePermissionResourceType
-    CONNECTOR_SCOPE = 'connector_scope'
-    VALUES = ['connector_scope'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaConnectorScopePermissionResourceType', 'enum', "Unknown BetaConnectorScopePermissionResourceType: #{value}")
-    end
+# Defines the BetaConnectorToolPermissionResourceType SDK namespace.
+module BetaConnectorToolPermissionResourceType
+  CONNECTOR_TOOL = 'connector_tool'
+  VALUES = ['connector_tool'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaConnectorToolPermissionResourceType', 'enum', "Unknown BetaConnectorToolPermissionResourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaOrganizationPermissionResourceMetadata
+  FIELDS = {
+    organization_id: "organization_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    organization_id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaOrganizationPermissionResourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaOrganizationPermissionResource.
+# Typed representation of the `BetaOrganizationPermissionResource` API schema.
+class BetaOrganizationPermissionResource
+  include BetaRbacRolePermissionResource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaOrganizationPermissionResourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaOrganizationPermissionResourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaOrganizationPermissionResourceMetadata::DECODERS
+
+  # @return [String] UUID of the organization the permission applies to.
+  attr_reader :organization_id
+  # @return [BetaOrganizationPermissionResourceType] Kind of resource the permission applies to.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaConnectorToolPermissionResourceMetadata
-    FIELDS = {
-      connector_id: 'connector_id',
-      tool_name: 'tool_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      connector_id
-      tool_name
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaConnectorToolPermissionResourceType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaConnectorToolPermissionResource.
-  # Typed representation of the `BetaConnectorToolPermissionResource` API schema.
-  class BetaConnectorToolPermissionResource
-    include BetaRbacRolePermissionResource
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaConnectorToolPermissionResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaConnectorToolPermissionResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaConnectorToolPermissionResourceMetadata::DECODERS
+# Defines the BetaOrganizationPermissionResourceType SDK namespace.
+module BetaOrganizationPermissionResourceType
+  ORGANIZATION = 'organization'
+  VALUES = ['organization'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [String] ID of the connector the permission applies to.
-    attr_reader :connector_id
-    # @return [String] Published name of the connector tool the permission applies to. When the published name contains characters outside `[a-zA-Z0-9_-]` (or collides with a reserved form), it is server-encoded into a stable `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus a hash — from which the published name is not recoverable.
-    attr_reader :tool_name
-    # @return [BetaConnectorToolPermissionResourceType] Kind of resource the permission applies to.
-    attr_reader :type
+    raise SdkValidationError.new('BetaOrganizationPermissionResourceType', 'enum', "Unknown BetaOrganizationPermissionResourceType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaRbacRolePermissionMetadata
+  FIELDS = {
+    action: "action",
+    resource: "resource",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    action
+    resource
+    type
+  ].freeze
+  DECODERS = {
+    resource: lambda do |value|
+      ::OctridevAnthropic::BetaRbacRolePermissionResource.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRbacRolePermissionType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaRbacRolePermission.
+# Typed representation of the `BetaRbacRolePermission` API schema.
+class BetaRbacRolePermission
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRbacRolePermissionMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRbacRolePermissionMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRbacRolePermissionMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [String] Action the permission grants on the resource. The vocabulary follows the resource: an `organization` grant carries a product-feature entitlement (for example `chat`), an admin-panel permission entitlement (`permission_*`), or a blanket capability-access mode — `capability_access_all` grants every product-feature entitlement, and `capability_access_all_ga` grants the generally-available subset as it stands at permission-check time; neither mode grants model-access…
+  attr_reader :action
+  # @return [BetaRbacRolePermissionResource] What the permission applies to. A tagged union: `type` names the kind of resource and determines which identifier fields are present.
+  attr_reader :resource
+  # @return [BetaRbacRolePermissionType] Object type. For RBAC Role Permissions, this is always `"rbac_role_permission"`.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaConnectorToolPermissionResourceType SDK namespace.
-  module BetaConnectorToolPermissionResourceType
-    CONNECTOR_TOOL = 'connector_tool'
-    VALUES = ['connector_tool'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaConnectorToolPermissionResourceType', 'enum', "Unknown BetaConnectorToolPermissionResourceType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaOrganizationPermissionResourceMetadata
-    FIELDS = {
-      organization_id: 'organization_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      organization_id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaOrganizationPermissionResourceType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaRbacRolePermissionType SDK namespace.
+module BetaRbacRolePermissionType
+  RBAC_ROLE_PERMISSION = 'rbac_role_permission'
+  VALUES = ['rbac_role_permission'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRbacRolePermissionType', 'enum', "Unknown BetaRbacRolePermissionType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRbacRolePermissionListMetadata
+  FIELDS = {
+    data: "data",
+    has_more: "has_more",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    has_more
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRbacRolePermission.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaRbacRolePermissionList.
+# Typed representation of the `BetaRbacRolePermissionList` API schema.
+class BetaRbacRolePermissionList
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRbacRolePermissionListMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRbacRolePermissionListMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRbacRolePermissionListMetadata::DECODERS
+
+  # @return [Array_of_BetaRbacRolePermission] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Boolean] Indicates whether there are more results beyond this page.
+  attr_reader :has_more
+  # @return [String] Opaque cursor for the next page. Pass as the `page` parameter on the next request.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaOrganizationPermissionResource.
-  # Typed representation of the `BetaOrganizationPermissionResource` API schema.
-  class BetaOrganizationPermissionResource
-    include BetaRbacRolePermissionResource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaOrganizationPermissionResourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaOrganizationPermissionResourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaOrganizationPermissionResourceMetadata::DECODERS
-
-    # @return [String] UUID of the organization the permission applies to.
-    attr_reader :organization_id
-    # @return [BetaOrganizationPermissionResourceType] Kind of resource the permission applies to.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacRolePermissionListMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaOrganizationPermissionResourceType SDK namespace.
-  module BetaOrganizationPermissionResourceType
-    ORGANIZATION = 'organization'
-    VALUES = ['organization'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaOrganizationPermissionResourceType', 'enum', "Unknown BetaOrganizationPermissionResourceType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRbacRolePermissionMetadata
-    FIELDS = {
-      action: 'action',
-      resource: 'resource',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      action
-      resource
-      type
-    ].freeze
-    DECODERS = {
-      resource: lambda do |value|
-        ::OctridevAnthropic::BetaRbacRolePermissionResource.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRbacRolePermissionType.from_value(value)
-      end
-    }.freeze
+# Defines the BetaRbacRolePermissionResource SDK namespace.
+module BetaRbacRolePermissionResource
+  DISCRIMINATOR_MAPPING = {
+    "all_connectors" => -> { BetaAllConnectorsPermissionResource },
+    "connector" => -> { BetaConnectorPermissionResource },
+    "connector_scope" => -> { BetaConnectorScopePermissionResource },
+    "connector_tool" => -> { BetaConnectorToolPermissionResource },
+    "organization" => -> { BetaOrganizationPermissionResource },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaRbacRolePermissionResource', 'variant', "Unknown BetaRbacRolePermissionResource discriminator: #{hash["type"].inspect}")
   end
-
-  # API model for BetaRbacRolePermission.
-  # Typed representation of the `BetaRbacRolePermission` API schema.
-  class BetaRbacRolePermission
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRbacRolePermissionMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRbacRolePermissionMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRbacRolePermissionMetadata::DECODERS
-
-    # @return [String] Action the permission grants on the resource. The vocabulary follows the resource: an `organization` grant carries a product-feature entitlement (for example `chat`), an admin-panel permission entitlement (`permission_*`), or a blanket capability-access mode — `capability_access_all` grants every product-feature entitlement, and `capability_access_all_ga` grants the generally-available subset as it stands at permission-check time; neither mode grants model-access…
-    attr_reader :action
-    # @return [BetaRbacRolePermissionResource] What the permission applies to. A tagged union: `type` names the kind of resource and determines which identifier fields are present.
-    attr_reader :resource
-    # @return [BetaRbacRolePermissionType] Object type. For RBAC Role Permissions, this is always `"rbac_role_permission"`.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRbacRolePermissionType SDK namespace.
-  module BetaRbacRolePermissionType
-    RBAC_ROLE_PERMISSION = 'rbac_role_permission'
-    VALUES = ['rbac_role_permission'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaRbacRolePermissionType', 'enum', "Unknown BetaRbacRolePermissionType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaRbacRolePermissionListMetadata
-    FIELDS = {
-      data: 'data',
-      has_more: 'has_more',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      has_more
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRbacRolePermission.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
-  end
-
-  # API model for BetaRbacRolePermissionList.
-  # Typed representation of the `BetaRbacRolePermissionList` API schema.
-  class BetaRbacRolePermissionList
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRbacRolePermissionListMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRbacRolePermissionListMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRbacRolePermissionListMetadata::DECODERS
-
-    # @return [Array_of_BetaRbacRolePermission] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Boolean] Indicates whether there are more results beyond this page.
-    attr_reader :has_more
-    # @return [String] Opaque cursor for the next page. Pass as the `page` parameter on the next request.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRbacRolePermissionListMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaRbacRolePermissionResource SDK namespace.
-  module BetaRbacRolePermissionResource
-    DISCRIMINATOR_MAPPING = {
-      'all_connectors' => -> { BetaAllConnectorsPermissionResource },
-      'connector' => -> { BetaConnectorPermissionResource },
-      'connector_scope' => -> { BetaConnectorScopePermissionResource },
-      'connector_tool' => -> { BetaConnectorToolPermissionResource },
-      'organization' => -> { BetaOrganizationPermissionResource }
-    }.freeze
-
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaRbacRolePermissionResource', 'variant', "Unknown BetaRbacRolePermissionResource discriminator: #{hash['type'].inspect}")
-    end
-  end
+end
 end

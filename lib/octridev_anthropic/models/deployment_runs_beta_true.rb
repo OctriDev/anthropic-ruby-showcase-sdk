@@ -5,56 +5,56 @@
 
 # deployment_runs_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsDeploymentRun.from_hash(item) }
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsDeploymentRun.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsListDeploymentRunsData.
+# Paginated list of deployment runs. Sorted by `created_at` descending (most recent first).
+class BetaManagedAgentsListDeploymentRunsData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::DECODERS
+
+  # @return [Array_of_BetaManagedAgentsDeploymentRun] List of deployment runs.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page. Null when no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsListDeploymentRunsData.
-  # Paginated list of deployment runs. Sorted by `created_at` descending (most recent first).
-  class BetaManagedAgentsListDeploymentRunsData
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsListDeploymentRunsDataMetadata::DECODERS
-
-    # @return [Array_of_BetaManagedAgentsDeploymentRun] List of deployment runs.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page. Null when no more results.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsTriggerType SDK namespace.
-  module BetaManagedAgentsTriggerType
-    SCHEDULE = 'schedule'
-    MANUAL = 'manual'
-    VALUES = %w[schedule manual].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
+
+# Defines the BetaManagedAgentsTriggerType SDK namespace.
+module BetaManagedAgentsTriggerType
+  SCHEDULE = 'schedule'
+  MANUAL = 'manual'
+  VALUES = ['schedule', 'manual'].freeze
+  def self.from_value(value)
+    value
+  end
+end
 end

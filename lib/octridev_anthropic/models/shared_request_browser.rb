@@ -5,96 +5,94 @@
 
 # shared_request_browser domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalRequestBrowserStateBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      state_changes: 'state_changes',
-      tabs: 'tabs',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tabs
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-      end,
-      state_changes: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::RequestBrowserStateBlockStateChangesItem.from_hash(item) }
-      end,
-      tabs: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BrowserStateTabEntry.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::RequestBrowserStateBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalRequestBrowserStateBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    state_changes: "state_changes",
+    tabs: "tabs",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tabs
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+    end,
+    state_changes: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::RequestBrowserStateBlockStateChangesItem.from_hash(item) }
+    end,
+    tabs: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BrowserStateTabEntry.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::RequestBrowserStateBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for RequestBrowserStateBlock.
+# The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields.
+class RequestBrowserStateBlock
+  include RequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRequestBrowserStateBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRequestBrowserStateBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRequestBrowserStateBlockMetadata::DECODERS
+
+  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Array_of_RequestBrowserStateBlockStateChangesItem] Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+  attr_reader :state_changes
+  # @return [Array_of_BrowserStateTabEntry] All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+  attr_reader :tabs
+  # @return [RequestBrowserStateBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for RequestBrowserStateBlock.
-  # The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields.
-  class RequestBrowserStateBlock
-    include RequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRequestBrowserStateBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRequestBrowserStateBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRequestBrowserStateBlockMetadata::DECODERS
-
-    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Array_of_RequestBrowserStateBlockStateChangesItem] Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
-    attr_reader :state_changes
-    # @return [Array_of_BrowserStateTabEntry] All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
-    attr_reader :tabs
-    # @return [RequestBrowserStateBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the RequestBrowserStateBlockType SDK namespace.
-  module RequestBrowserStateBlockType
-    BROWSER_STATE = 'browser_state'
-    VALUES = ['browser_state'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('RequestBrowserStateBlockType', 'enum', "Unknown RequestBrowserStateBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the RequestBrowserStateBlockStateChangesItem SDK namespace.
-  module RequestBrowserStateBlockStateChangesItem
-    DISCRIMINATOR_MAPPING = {
-      'download_completed' => -> { BrowserStateChangeDownloadCompleted },
-      'download_failed' => -> { BrowserStateChangeDownloadFailed },
-      'download_started' => -> { BrowserStateChangeDownloadStarted },
-      'tab_opened' => -> { BrowserStateChangeTabOpened }
-    }.freeze
+# Defines the RequestBrowserStateBlockType SDK namespace.
+module RequestBrowserStateBlockType
+  BROWSER_STATE = 'browser_state'
+  VALUES = ['browser_state'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('RequestBrowserStateBlockStateChangesItem', 'variant', "Unknown RequestBrowserStateBlockStateChangesItem discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('RequestBrowserStateBlockType', 'enum', "Unknown RequestBrowserStateBlockType: #{value}")
   end
+end
+
+# Defines the RequestBrowserStateBlockStateChangesItem SDK namespace.
+module RequestBrowserStateBlockStateChangesItem
+  DISCRIMINATOR_MAPPING = {
+    "download_completed" => -> { BrowserStateChangeDownloadCompleted },
+    "download_failed" => -> { BrowserStateChangeDownloadFailed },
+    "download_started" => -> { BrowserStateChangeDownloadStarted },
+    "tab_opened" => -> { BrowserStateChangeTabOpened },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('RequestBrowserStateBlockStateChangesItem', 'variant', "Unknown RequestBrowserStateBlockStateChangesItem discriminator: #{hash["type"].inspect}")
+  end
+end
 end

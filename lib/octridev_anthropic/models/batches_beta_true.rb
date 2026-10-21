@@ -5,143 +5,143 @@
 
 # batches_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaCreateMessageBatchParamsMetadata
-    FIELDS = {
-      requests: 'requests'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      requests
-    ].freeze
-    DECODERS = {
-      requests: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaMessageBatchIndividualRequestParams.from_hash(item) }
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaCreateMessageBatchParamsMetadata
+  FIELDS = {
+    requests: "requests",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    requests
+  ].freeze
+  DECODERS = {
+    requests: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaMessageBatchIndividualRequestParams.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaCreateMessageBatchParams.
+# Typed representation of the `BetaCreateMessageBatchParams` API schema.
+class BetaCreateMessageBatchParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaCreateMessageBatchParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaCreateMessageBatchParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaCreateMessageBatchParamsMetadata::DECODERS
+
+  # @return [Array_of_BetaMessageBatchIndividualRequestParams] List of requests for prompt completion. Each is an individual request to create a Message.
+  attr_reader :requests
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaCreateMessageBatchParams.
-  # Typed representation of the `BetaCreateMessageBatchParams` API schema.
-  class BetaCreateMessageBatchParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaCreateMessageBatchParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaCreateMessageBatchParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaCreateMessageBatchParamsMetadata::DECODERS
-
-    # @return [Array_of_BetaMessageBatchIndividualRequestParams] List of requests for prompt completion. Each is an individual request to create a Message.
-    attr_reader :requests
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaListResponseMessageBatchMetadata
-    FIELDS = {
-      data: 'data',
-      first_id: 'first_id',
-      has_more: 'has_more',
-      last_id: 'last_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      first_id
-      has_more
-      last_id
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaMessageBatch.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      first_id
-      last_id
-    ].freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaListResponseMessageBatchMetadata
+  FIELDS = {
+    data: "data",
+    first_id: "first_id",
+    has_more: "has_more",
+    last_id: "last_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    first_id
+    has_more
+    last_id
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaMessageBatch.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    first_id
+    last_id
+  ].freeze
+end
+
+# API model for BetaListResponseMessageBatch.
+# Typed representation of the `BetaListResponse_MessageBatch_` API schema.
+class BetaListResponseMessageBatch
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaListResponseMessageBatchMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaListResponseMessageBatchMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaListResponseMessageBatchMetadata::DECODERS
+
+  # @return [Array_of_BetaMessageBatch] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
+  attr_reader :first_id
+  # @return [Boolean] Indicates if there are more results in the requested page direction.
+  attr_reader :has_more
+  # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
+  attr_reader :last_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaListResponseMessageBatch.
-  # Typed representation of the `BetaListResponse_MessageBatch_` API schema.
-  class BetaListResponseMessageBatch
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaListResponseMessageBatchMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaListResponseMessageBatchMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaListResponseMessageBatchMetadata::DECODERS
-
-    # @return [Array_of_BetaMessageBatch] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] First ID in the `data` list. Can be used as the `before_id` for the previous page.
-    attr_reader :first_id
-    # @return [Boolean] Indicates if there are more results in the requested page direction.
-    attr_reader :has_more
-    # @return [String] Last ID in the `data` list. Can be used as the `after_id` for the next page.
-    attr_reader :last_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseMessageBatchMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaListResponseMessageBatchMetadata::NULLABLE_FIELDS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaMessageBatchIndividualRequestParamsMetadata
-    FIELDS = {
-      custom_id: 'custom_id',
-      params: 'params'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      custom_id
-      params
-    ].freeze
-    DECODERS = {
-      params: lambda do |value|
-        ::OctridevAnthropic::BetaCreateMessageParams.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaMessageBatchIndividualRequestParamsMetadata
+  FIELDS = {
+    custom_id: "custom_id",
+    params: "params",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    custom_id
+    params
+  ].freeze
+  DECODERS = {
+    params: lambda do |value|
+      ::OctridevAnthropic::BetaCreateMessageParams.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaMessageBatchIndividualRequestParams.
+# Typed representation of the `BetaMessageBatchIndividualRequestParams` API schema.
+class BetaMessageBatchIndividualRequestParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::DECODERS
+
+  # @return [String] Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order. Must be unique for each request within the Message Batch.
+  attr_reader :custom_id
+  # @return [BetaCreateMessageParams] Messages API creation parameters for the individual request. See the Messages API reference for full documentation on available parameters.
+  attr_reader :params
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaMessageBatchIndividualRequestParams.
-  # Typed representation of the `BetaMessageBatchIndividualRequestParams` API schema.
-  class BetaMessageBatchIndividualRequestParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaMessageBatchIndividualRequestParamsMetadata::DECODERS
-
-    # @return [String] Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order. Must be unique for each request within the Message Batch.
-    attr_reader :custom_id
-    # @return [BetaCreateMessageParams] Messages API creation parameters for the individual request. See the Messages API reference for full documentation on available parameters.
-    attr_reader :params
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
+
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 end

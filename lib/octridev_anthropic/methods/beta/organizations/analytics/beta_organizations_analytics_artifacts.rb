@@ -14,7 +14,7 @@ module OctridevAnthropic
         PRODUCT = 'product'
         RBAC_GROUP_ID = 'rbac_group_id'
         USER_ID = 'user_id'
-        VALUES = %w[product rbac_group_id user_id].freeze
+        VALUES = ['product', 'rbac_group_id', 'user_id'].freeze
         def self.from_value(value)
           value
         end
@@ -57,6 +57,7 @@ module OctridevAnthropic
         filter: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_date('date', date)
 
         Validation.if_given(group_by) { Validation.validate_items('group_by[]', group_by, max: 100) }
@@ -65,24 +66,24 @@ module OctridevAnthropic
 
         SdkClient.request(
           'GET',
-          '/v1/organizations/analytics/artifacts?beta=true',
+          "/v1/organizations/analytics/artifacts?beta=true",
           config: config,
           query: {
             'date' => QueryValue.new(date, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'page' => QueryValue.new(page, style: 'form', explode: true),
             'group_by[]' => QueryValue.new(group_by, style: 'form', explode: true),
-            'filter[]' => QueryValue.new(filter, style: 'form', explode: true)
+            'filter[]' => QueryValue.new(filter, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaAnalyticsArtifactsResponse,
           decoder: :json,
           operation_id: 'list_beta_organizations_analytics_artifacts',
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
-      ListBetaOrganizationsAnalyticsArtifactsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    ListBetaOrganizationsAnalyticsArtifactsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Get artifact-creation activity for a given day, broken out by MIME type. Returns the full (`artifact_type`, `is_shared`) cube for the organization; `next_page` is null except for grouped queries, which paginate. The cube can be broken out per product, per member, or per RBAC group via `group_by[]`, and scoped via `filter[]`. Requires an API key with the `read:analytics` scope.
       #
@@ -135,11 +136,9 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
-
             cursor = next_cursor
           end
         end
@@ -168,12 +167,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaOrganizationsAnalyticsArtifactsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
-
             cursor = next_cursor
           end
         end

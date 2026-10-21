@@ -5,198 +5,195 @@
 
 # beta_webhook_beta_webhook_memory domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookMemoryStoreArchivedEventDataType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookMemoryStoreArchivedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookMemoryStoreArchivedEventData.
+# Typed representation of the `BetaWebhookMemoryStoreArchivedEventData` API schema.
+class BetaWebhookMemoryStoreArchivedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::DECODERS
+
+  # @return [BetaWebhookMemoryStoreArchivedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the memory store that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebhookMemoryStoreArchivedEventData.
-  # Typed representation of the `BetaWebhookMemoryStoreArchivedEventData` API schema.
-  class BetaWebhookMemoryStoreArchivedEventData
-    include BetaWebhookEventData
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookMemoryStoreArchivedEventDataMetadata::DECODERS
-
-    # @return [BetaWebhookMemoryStoreArchivedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the memory store that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebhookMemoryStoreArchivedEventDataType SDK namespace.
-  module BetaWebhookMemoryStoreArchivedEventDataType
-    MEMORY_STORE_ARCHIVED = 'memory_store.archived'
-    VALUES = ['memory_store.archived'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaWebhookMemoryStoreArchivedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreArchivedEventDataType: #{value}")
-    end
+# Defines the BetaWebhookMemoryStoreArchivedEventDataType SDK namespace.
+module BetaWebhookMemoryStoreArchivedEventDataType
+  MEMORY_STORE_ARCHIVED = 'memory_store.archived'
+  VALUES = ['memory_store.archived'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebhookMemoryStoreArchivedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreArchivedEventDataType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookMemoryStoreCreatedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebhookMemoryStoreCreatedEventData.
+# Typed representation of the `BetaWebhookMemoryStoreCreatedEventData` API schema.
+class BetaWebhookMemoryStoreCreatedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::DECODERS
+
+  # @return [BetaWebhookMemoryStoreCreatedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the memory store that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookMemoryStoreCreatedEventDataType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaWebhookMemoryStoreCreatedEventData.
-  # Typed representation of the `BetaWebhookMemoryStoreCreatedEventData` API schema.
-  class BetaWebhookMemoryStoreCreatedEventData
-    include BetaWebhookEventData
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookMemoryStoreCreatedEventDataMetadata::DECODERS
+# Defines the BetaWebhookMemoryStoreCreatedEventDataType SDK namespace.
+module BetaWebhookMemoryStoreCreatedEventDataType
+  MEMORY_STORE_CREATED = 'memory_store.created'
+  VALUES = ['memory_store.created'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaWebhookMemoryStoreCreatedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the memory store that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
+    raise SdkValidationError.new('BetaWebhookMemoryStoreCreatedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreCreatedEventDataType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    organization_id: "organization_id",
+    workspace_id: "workspace_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    organization_id
+    workspace_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebhookMemoryStoreDeletedEventDataType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaWebhookMemoryStoreDeletedEventData.
+# Typed representation of the `BetaWebhookMemoryStoreDeletedEventData` API schema.
+class BetaWebhookMemoryStoreDeletedEventData
+  include BetaWebhookEventData
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaWebhookMemoryStoreDeletedEventDataType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] ID of the memory store that triggered the event.
+  attr_reader :id
+  # @return [String] Required `string` value serialized in the `organization_id` wire field.
+  attr_reader :organization_id
+  # @return [String] Required `string` value serialized in the `workspace_id` wire field.
+  attr_reader :workspace_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaWebhookMemoryStoreCreatedEventDataType SDK namespace.
-  module BetaWebhookMemoryStoreCreatedEventDataType
-    MEMORY_STORE_CREATED = 'memory_store.created'
-    VALUES = ['memory_store.created'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookMemoryStoreCreatedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreCreatedEventDataType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      organization_id: 'organization_id',
-      workspace_id: 'workspace_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      organization_id
-      workspace_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebhookMemoryStoreDeletedEventDataType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaWebhookMemoryStoreDeletedEventData.
-  # Typed representation of the `BetaWebhookMemoryStoreDeletedEventData` API schema.
-  class BetaWebhookMemoryStoreDeletedEventData
-    include BetaWebhookEventData
+# Defines the BetaWebhookMemoryStoreDeletedEventDataType SDK namespace.
+module BetaWebhookMemoryStoreDeletedEventDataType
+  MEMORY_STORE_DELETED = 'memory_store.deleted'
+  VALUES = ['memory_store.deleted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebhookMemoryStoreDeletedEventDataMetadata::DECODERS
-
-    # @return [BetaWebhookMemoryStoreDeletedEventDataType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] ID of the memory store that triggered the event.
-    attr_reader :id
-    # @return [String] Required `string` value serialized in the `organization_id` wire field.
-    attr_reader :organization_id
-    # @return [String] Required `string` value serialized in the `workspace_id` wire field.
-    attr_reader :workspace_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaWebhookMemoryStoreDeletedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreDeletedEventDataType: #{value}")
   end
-
-  # Defines the BetaWebhookMemoryStoreDeletedEventDataType SDK namespace.
-  module BetaWebhookMemoryStoreDeletedEventDataType
-    MEMORY_STORE_DELETED = 'memory_store.deleted'
-    VALUES = ['memory_store.deleted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebhookMemoryStoreDeletedEventDataType', 'enum', "Unknown BetaWebhookMemoryStoreDeletedEventDataType: #{value}")
-    end
-  end
+end
 end

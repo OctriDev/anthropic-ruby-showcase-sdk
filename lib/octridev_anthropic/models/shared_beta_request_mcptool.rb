@@ -5,147 +5,145 @@
 
 # shared_beta_request_mcptool domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestMCPToolResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      content: 'content',
-      is_error: 'is_error',
-      tool_use_id: 'tool_use_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      tool_use_id
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestMCPToolResultBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestMCPToolResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    content: "content",
+    is_error: "is_error",
+    tool_use_id: "tool_use_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    tool_use_id
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestMCPToolResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestMCPToolResultBlock.
+# Typed representation of the `BetaRequestMCPToolResultBlock` API schema.
+class BetaRequestMCPToolResultBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestMCPToolResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestMCPToolResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestMCPToolResultBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Object] Optional API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
+  attr_reader :is_error
+  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+  attr_reader :tool_use_id
+  # @return [BetaRequestMCPToolResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestMCPToolResultBlock.
-  # Typed representation of the `BetaRequestMCPToolResultBlock` API schema.
-  class BetaRequestMCPToolResultBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestMCPToolResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestMCPToolResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestMCPToolResultBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Object] Optional API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
-    attr_reader :is_error
-    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-    attr_reader :tool_use_id
-    # @return [BetaRequestMCPToolResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestMCPToolResultBlockType SDK namespace.
-  module BetaRequestMCPToolResultBlockType
-    MCP_TOOL_RESULT = 'mcp_tool_result'
-    VALUES = ['mcp_tool_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestMCPToolResultBlockType', 'enum', "Unknown BetaRequestMCPToolResultBlockType: #{value}")
-    end
+# Defines the BetaRequestMCPToolResultBlockType SDK namespace.
+module BetaRequestMCPToolResultBlockType
+  MCP_TOOL_RESULT = 'mcp_tool_result'
+  VALUES = ['mcp_tool_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestMCPToolResultBlockType', 'enum', "Unknown BetaRequestMCPToolResultBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestMCPToolUseBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    id: "id",
+    input: "input",
+    name: "name",
+    server_name: "server_name",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    input
+    name
+    server_name
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestMCPToolUseBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestMCPToolUseBlock.
+# Typed representation of the `BetaRequestMCPToolUseBlock` API schema.
+class BetaRequestMCPToolUseBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestMCPToolUseBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestMCPToolUseBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestMCPToolUseBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [Hash] Required object value serialized in the `input` wire field.
+  attr_reader :input
+  # @return [String] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [String] The name of the MCP server
+  attr_reader :server_name
+  # @return [BetaRequestMCPToolUseBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestMCPToolUseBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      id: 'id',
-      input: 'input',
-      name: 'name',
-      server_name: 'server_name',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-      input
-      name
-      server_name
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestMCPToolUseBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestMCPToolUseBlock.
-  # Typed representation of the `BetaRequestMCPToolUseBlock` API schema.
-  class BetaRequestMCPToolUseBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestMCPToolUseBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestMCPToolUseBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestMCPToolUseBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [Hash] Required object value serialized in the `input` wire field.
-    attr_reader :input
-    # @return [String] Required `string` value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [String] The name of the MCP server
-    attr_reader :server_name
-    # @return [BetaRequestMCPToolUseBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestMCPToolUseBlockType SDK namespace.
-  module BetaRequestMCPToolUseBlockType
-    MCP_TOOL_USE = 'mcp_tool_use'
-    VALUES = ['mcp_tool_use'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaRequestMCPToolUseBlockType SDK namespace.
+module BetaRequestMCPToolUseBlockType
+  MCP_TOOL_USE = 'mcp_tool_use'
+  VALUES = ['mcp_tool_use'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaRequestMCPToolUseBlockType', 'enum', "Unknown BetaRequestMCPToolUseBlockType: #{value}")
-    end
+    raise SdkValidationError.new('BetaRequestMCPToolUseBlockType', 'enum', "Unknown BetaRequestMCPToolUseBlockType: #{value}")
   end
+end
 end

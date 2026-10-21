@@ -37,25 +37,26 @@ module OctridevAnthropic
         display_name: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'POST',
-          '/v1/skills?beta=true',
+          "/v1/skills?beta=true",
           config: config,
           body: {
             'files' => SdkClient.upload(files, 'files'),
-            'display_name' => display_name
+            'display_name' => display_name,
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevAnthropic::BetaSkill,
           decoder: :json,
           operation_id: 'create_beta_skills',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
@@ -90,31 +91,32 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 1000) }
 
         SdkClient.request(
           'GET',
-          '/v1/skills?beta=true',
+          "/v1/skills?beta=true",
           config: config,
           query: {
             'page' => QueryValue.new(page, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'source' => QueryValue.new(source, style: 'form', explode: true)
+            'source' => QueryValue.new(source, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaListSkillsResponse,
           decoder: :json,
           operation_id: 'list_beta_skills',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
-      ListBetaSkillsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    ListBetaSkillsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Lists skills available to the authenticated user. Use `source` to filter the results to custom or Anthropic-created skills, and use the pagination token to retrieve additional pages. Use `page` and `limit` to paginate the results.
       #
@@ -162,11 +164,9 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
-
             cursor = next_cursor
           end
         end
@@ -197,12 +197,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaSkillsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
-
             cursor = next_cursor
           end
         end
@@ -231,24 +229,25 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'GET',
           [
-            '/v1/skills/',
+            "/v1/skills/",
             SdkClient.encode_path_segment(skill_id),
-            '?beta=true'
+            "?beta=true"
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::BetaSkill,
           decoder: :json,
           operation_id: 'retrieve_beta_skills',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
@@ -275,24 +274,25 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
+
         SdkClient.request(
           'DELETE',
           [
-            '/v1/skills/',
+            "/v1/skills/",
             SdkClient.encode_path_segment(skill_id),
-            '?beta=true'
+            "?beta=true"
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::BetaDeletedSkill,
           decoder: :json,
           operation_id: 'delete_beta_skills',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
     end

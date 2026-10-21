@@ -5,486 +5,483 @@
 
 # shared_beta_dream domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      inputs: 'inputs',
-      outputs: 'outputs',
-      status: 'status',
-      created_at: 'created_at',
-      ended_at: 'ended_at',
-      archived_at: 'archived_at',
-      error: 'error',
-      model: 'model',
-      instructions: 'instructions',
-      session_id: 'session_id',
-      usage: 'usage',
-      output_behavior: 'output_behavior'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      inputs
-      outputs
-      status
-      created_at
-      ended_at
-      archived_at
-      error
-      model
-      instructions
-      session_id
-      usage
-      output_behavior
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDreamType.from_value(value)
-      end,
-      inputs: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaDreamInput.from_hash(item) }
-      end,
-      outputs: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaDreamOutput.from_hash(item) }
-      end,
-      status: lambda do |value|
-        ::OctridevAnthropic::BetaDreamStatus.from_value(value)
-      end,
-      created_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      ended_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      archived_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      error: lambda do |value|
-        ::OctridevAnthropic::BetaDreamError.from_hash(value)
-      end,
-      model: lambda do |value|
-        ::OctridevAnthropic::BetaDreamModelConfig.from_hash(value)
-      end,
-      usage: lambda do |value|
-        ::OctridevAnthropic::BetaDreamUsage.from_hash(value)
-      end,
-      output_behavior: lambda do |value|
-        ::OctridevAnthropic::BetaOutputBehavior.from_hash(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      ended_at
-      archived_at
-      error
-      instructions
-      session_id
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaDreamMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    inputs: "inputs",
+    outputs: "outputs",
+    status: "status",
+    created_at: "created_at",
+    ended_at: "ended_at",
+    archived_at: "archived_at",
+    error: "error",
+    model: "model",
+    instructions: "instructions",
+    session_id: "session_id",
+    usage: "usage",
+    output_behavior: "output_behavior",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    inputs
+    outputs
+    status
+    created_at
+    ended_at
+    archived_at
+    error
+    model
+    instructions
+    session_id
+    usage
+    output_behavior
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDreamType.from_value(value)
+    end,
+    inputs: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaDreamInput.from_hash(item) }
+    end,
+    outputs: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaDreamOutput.from_hash(item) }
+    end,
+    status: lambda do |value|
+      ::OctridevAnthropic::BetaDreamStatus.from_value(value)
+    end,
+    created_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    ended_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    archived_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    error: lambda do |value|
+      ::OctridevAnthropic::BetaDreamError.from_hash(value)
+    end,
+    model: lambda do |value|
+      ::OctridevAnthropic::BetaDreamModelConfig.from_hash(value)
+    end,
+    usage: lambda do |value|
+      ::OctridevAnthropic::BetaDreamUsage.from_hash(value)
+    end,
+    output_behavior: lambda do |value|
+      ::OctridevAnthropic::BetaOutputBehavior.from_hash(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    ended_at
+    archived_at
+    error
+    instructions
+    session_id
+  ].freeze
+end
+
+# API model for BetaDream.
+# An asynchronous memory-consolidation job that reads a memory store plus a set of session transcripts and writes consolidated memories into an output memory store — a new store by default, or an existing store chosen via output_behavior. The Dreams API is in research preview: the request and response shapes are volatile and may change without the deprecation period that applies to generally-available endpoints.
+class BetaDream
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamMetadata::DECODERS
+
+  # @return [BetaDreamType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `id` wire field.
+  attr_reader :id
+  # @return [Array_of_BetaDreamInput] Required array value serialized in the `inputs` wire field.
+  attr_reader :inputs
+  # @return [Array_of_BetaDreamOutput] Required array value serialized in the `outputs` wire field.
+  attr_reader :outputs
+  # @return [BetaDreamStatus] Lifecycle status of a Dream.
+  attr_reader :status
+  # @return [BetaTimestamp] A timestamp in RFC 3339 format
+  attr_reader :created_at
+  # @return [BetaTimestamp] Required API value serialized in the `ended_at` wire field.
+  attr_reader :ended_at
+  # @return [BetaTimestamp] Required API value serialized in the `archived_at` wire field.
+  attr_reader :archived_at
+  # @return [BetaDreamError] Required API value serialized in the `error` wire field.
+  attr_reader :error
+  # @return [BetaDreamModelConfig] Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
+  attr_reader :model
+  # @return [String] Required `string` value serialized in the `instructions` wire field.
+  attr_reader :instructions
+  # @return [String] Required `string` value serialized in the `session_id` wire field.
+  attr_reader :session_id
+  # @return [BetaDreamUsage] Cumulative token usage for the dream across every pipeline stage.
+  attr_reader :usage
+  # @return [BetaOutputBehavior] Required object value serialized in the `output_behavior` wire field.
+  attr_reader :output_behavior
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDream.
-  # An asynchronous memory-consolidation job that reads a memory store plus a set of session transcripts and writes consolidated memories into an output memory store — a new store by default, or an existing store chosen via output_behavior. The Dreams API is in research preview: the request and response shapes are volatile and may change without the deprecation period that applies to generally-available endpoints.
-  class BetaDream
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamMetadata::DECODERS
-
-    # @return [BetaDreamType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `id` wire field.
-    attr_reader :id
-    # @return [Array_of_BetaDreamInput] Required array value serialized in the `inputs` wire field.
-    attr_reader :inputs
-    # @return [Array_of_BetaDreamOutput] Required array value serialized in the `outputs` wire field.
-    attr_reader :outputs
-    # @return [BetaDreamStatus] Lifecycle status of a Dream.
-    attr_reader :status
-    # @return [BetaTimestamp] A timestamp in RFC 3339 format
-    attr_reader :created_at
-    # @return [BetaTimestamp] Required API value serialized in the `ended_at` wire field.
-    attr_reader :ended_at
-    # @return [BetaTimestamp] Required API value serialized in the `archived_at` wire field.
-    attr_reader :archived_at
-    # @return [BetaDreamError] Required API value serialized in the `error` wire field.
-    attr_reader :error
-    # @return [BetaDreamModelConfig] Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
-    attr_reader :model
-    # @return [String] Required `string` value serialized in the `instructions` wire field.
-    attr_reader :instructions
-    # @return [String] Required `string` value serialized in the `session_id` wire field.
-    attr_reader :session_id
-    # @return [BetaDreamUsage] Cumulative token usage for the dream across every pipeline stage.
-    attr_reader :usage
-    # @return [BetaOutputBehavior] Required object value serialized in the `output_behavior` wire field.
-    attr_reader :output_behavior
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaDreamMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaDreamMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaDreamType SDK namespace.
-  module BetaDreamType
-    DREAM = 'dream'
-    VALUES = ['dream'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaDreamType SDK namespace.
+module BetaDreamType
+  DREAM = 'dream'
+  VALUES = ['dream'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaDreamErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaDreamError.
+# Failure detail for a Dream whose `status` is `failed`.
+class BetaDreamError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamErrorMetadata::DECODERS
+
+  # @return [String] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `message` wire field.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaDreamError.
-  # Failure detail for a Dream whose `status` is `failed`.
-  class BetaDreamError
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamErrorMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [String] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `message` wire field.
-    attr_reader :message
+# Defines the BetaDreamInput SDK namespace.
+module BetaDreamInput
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "memory_store" => BetaDreamMemoryStoreInput, "sessions" => BetaDreamSessionsInput }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+    raise SdkValidationError.new('BetaDreamInput', 'variant', "Unknown BetaDreamInput discriminator: #{hash["type"].inspect}")
+  end
+end
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaDreamMemoryStoreInputMetadata
+  FIELDS = {
+    type: "type",
+    memory_store_id: "memory_store_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    memory_store_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDreamMemoryStoreInputType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDreamMemoryStoreInput.
+# An input memory store the dream reads from. The dream never mutates this store unless it is also the destination: with output_behavior {type: "update_existing"} the job consolidates this store in place.
+class BetaDreamMemoryStoreInput
+  include BetaDreamInput
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamMemoryStoreInputMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamMemoryStoreInputMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamMemoryStoreInputMetadata::DECODERS
+
+  # @return [BetaDreamMemoryStoreInputType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `memory_store_id` wire field.
+  attr_reader :memory_store_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaDreamInput SDK namespace.
-  module BetaDreamInput
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'memory_store' => BetaDreamMemoryStoreInput, 'sessions' => BetaDreamSessionsInput }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaDreamInput', 'variant', "Unknown BetaDreamInput discriminator: #{hash['type'].inspect}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamMemoryStoreInputMetadata
-    FIELDS = {
-      type: 'type',
-      memory_store_id: 'memory_store_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      memory_store_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDreamMemoryStoreInputType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaDreamMemoryStoreInputType SDK namespace.
+module BetaDreamMemoryStoreInputType
+  MEMORY_STORE = 'memory_store'
+  VALUES = ['memory_store'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaDreamMemoryStoreInputType', 'enum', "Unknown BetaDreamMemoryStoreInputType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaDreamMemoryStoreOutputMetadata
+  FIELDS = {
+    type: "type",
+    memory_store_id: "memory_store_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    memory_store_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDreamMemoryStoreOutputType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDreamMemoryStoreOutput.
+# An output memory store the dream writes consolidated memories into.
+class BetaDreamMemoryStoreOutput
+  include BetaDreamOutput
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamMemoryStoreOutputMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamMemoryStoreOutputMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamMemoryStoreOutputMetadata::DECODERS
+
+  # @return [BetaDreamMemoryStoreOutputType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `memory_store_id` wire field.
+  attr_reader :memory_store_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDreamMemoryStoreInput.
-  # An input memory store the dream reads from. The dream never mutates this store unless it is also the destination: with output_behavior {type: "update_existing"} the job consolidates this store in place.
-  class BetaDreamMemoryStoreInput
-    include BetaDreamInput
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamMemoryStoreInputMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamMemoryStoreInputMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamMemoryStoreInputMetadata::DECODERS
-
-    # @return [BetaDreamMemoryStoreInputType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `memory_store_id` wire field.
-    attr_reader :memory_store_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaDreamMemoryStoreInputType SDK namespace.
-  module BetaDreamMemoryStoreInputType
-    MEMORY_STORE = 'memory_store'
-    VALUES = ['memory_store'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaDreamMemoryStoreInputType', 'enum', "Unknown BetaDreamMemoryStoreInputType: #{value}")
-    end
+# Defines the BetaDreamMemoryStoreOutputType SDK namespace.
+module BetaDreamMemoryStoreOutputType
+  MEMORY_STORE = 'memory_store'
+  VALUES = ['memory_store'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaDreamMemoryStoreOutputType', 'enum', "Unknown BetaDreamMemoryStoreOutputType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaDreamModelConfigMetadata
+  FIELDS = {
+    id: "id",
+    speed: "speed",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+  ].freeze
+  DECODERS = {
+    speed: lambda do |value|
+      ::OctridevAnthropic::BetaSpeed.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaDreamModelConfig.
+# Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
+class BetaDreamModelConfig
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamModelConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamModelConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamModelConfigMetadata::DECODERS
+
+  # @return [String] Model identifier, e.g. "claude-opus-5". 1-256 characters.
+  attr_reader :id
+  # @return [BetaSpeed] Inference speed mode. Defaults to `standard`.
+  attr_reader :speed
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamMemoryStoreOutputMetadata
-    FIELDS = {
-      type: 'type',
-      memory_store_id: 'memory_store_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      memory_store_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDreamMemoryStoreOutputType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaDreamMemoryStoreOutput.
-  # An output memory store the dream writes consolidated memories into.
-  class BetaDreamMemoryStoreOutput
-    include BetaDreamOutput
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamMemoryStoreOutputMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamMemoryStoreOutputMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamMemoryStoreOutputMetadata::DECODERS
+# Defines the BetaDreamOutput SDK namespace.
+module BetaDreamOutput
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "memory_store" => BetaDreamMemoryStoreOutput }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-    # @return [BetaDreamMemoryStoreOutputType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `memory_store_id` wire field.
-    attr_reader :memory_store_id
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+    raise SdkValidationError.new('BetaDreamOutput', 'variant', "Unknown BetaDreamOutput discriminator: #{hash["type"].inspect}")
+  end
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaDreamSessionsInputMetadata
+  FIELDS = {
+    type: "type",
+    session_ids: "session_ids",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    session_ids
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaDreamSessionsInputType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# API model for BetaDreamSessionsInput.
+# Input session transcripts the dream reads.
+class BetaDreamSessionsInput
+  include BetaDreamInput
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamSessionsInputMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamSessionsInputMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamSessionsInputMetadata::DECODERS
+
+  # @return [BetaDreamSessionsInputType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Array_of_String] Required array value serialized in the `session_ids` wire field.
+  attr_reader :session_ids
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaDreamMemoryStoreOutputType SDK namespace.
-  module BetaDreamMemoryStoreOutputType
-    MEMORY_STORE = 'memory_store'
-    VALUES = ['memory_store'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaDreamMemoryStoreOutputType', 'enum', "Unknown BetaDreamMemoryStoreOutputType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamModelConfigMetadata
-    FIELDS = {
-      id: 'id',
-      speed: 'speed'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-    ].freeze
-    DECODERS = {
-      speed: lambda do |value|
-        ::OctridevAnthropic::BetaSpeed.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaDreamSessionsInputType SDK namespace.
+module BetaDreamSessionsInputType
+  SESSIONS = 'sessions'
+  VALUES = ['sessions'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaDreamSessionsInputType', 'enum', "Unknown BetaDreamSessionsInputType: #{value}")
+  end
+end
+
+# Defines the BetaDreamStatus SDK namespace.
+module BetaDreamStatus
+  PENDING = 'pending'
+  RUNNING = 'running'
+  COMPLETED = 'completed'
+  FAILED = 'failed'
+  CANCELED = 'canceled'
+  VALUES = ['pending', 'running', 'completed', 'failed', 'canceled'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaDreamUsageMetadata
+  FIELDS = {
+    input_tokens: "input_tokens",
+    output_tokens: "output_tokens",
+    cache_read_input_tokens: "cache_read_input_tokens",
+    cache_creation_input_tokens: "cache_creation_input_tokens",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    input_tokens
+    output_tokens
+    cache_read_input_tokens
+    cache_creation_input_tokens
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaDreamUsage.
+# Cumulative token usage for the dream across every pipeline stage.
+class BetaDreamUsage
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaDreamUsageMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaDreamUsageMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaDreamUsageMetadata::DECODERS
+
+  # @return [Integer] Total uncached input tokens consumed across every pipeline stage.
+  attr_reader :input_tokens
+  # @return [Integer] Total output tokens generated across every pipeline stage.
+  attr_reader :output_tokens
+  # @return [Integer] Total tokens read from prompt cache.
+  attr_reader :cache_read_input_tokens
+  # @return [Integer] Total tokens used to create prompt-cache entries (sum of all TTL tiers).
+  attr_reader :cache_creation_input_tokens
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaDreamModelConfig.
-  # Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
-  class BetaDreamModelConfig
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamModelConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamModelConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamModelConfigMetadata::DECODERS
-
-    # @return [String] Model identifier, e.g. "claude-opus-5". 1-256 characters.
-    attr_reader :id
-    # @return [BetaSpeed] Inference speed mode. Defaults to `standard`.
-    attr_reader :speed
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaDreamOutput SDK namespace.
-  module BetaDreamOutput
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'memory_store' => BetaDreamMemoryStoreOutput }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaDreamOutput', 'variant', "Unknown BetaDreamOutput discriminator: #{hash['type'].inspect}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamSessionsInputMetadata
-    FIELDS = {
-      type: 'type',
-      session_ids: 'session_ids'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      session_ids
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaDreamSessionsInputType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaDreamSessionsInput.
-  # Input session transcripts the dream reads.
-  class BetaDreamSessionsInput
-    include BetaDreamInput
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamSessionsInputMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamSessionsInputMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamSessionsInputMetadata::DECODERS
-
-    # @return [BetaDreamSessionsInputType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Array_of_String] Required array value serialized in the `session_ids` wire field.
-    attr_reader :session_ids
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaDreamSessionsInputType SDK namespace.
-  module BetaDreamSessionsInputType
-    SESSIONS = 'sessions'
-    VALUES = ['sessions'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaDreamSessionsInputType', 'enum', "Unknown BetaDreamSessionsInputType: #{value}")
-    end
-  end
-
-  # Defines the BetaDreamStatus SDK namespace.
-  module BetaDreamStatus
-    PENDING = 'pending'
-    RUNNING = 'running'
-    COMPLETED = 'completed'
-    FAILED = 'failed'
-    CANCELED = 'canceled'
-    VALUES = %w[pending running completed failed canceled].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaDreamUsageMetadata
-    FIELDS = {
-      input_tokens: 'input_tokens',
-      output_tokens: 'output_tokens',
-      cache_read_input_tokens: 'cache_read_input_tokens',
-      cache_creation_input_tokens: 'cache_creation_input_tokens'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      input_tokens
-      output_tokens
-      cache_read_input_tokens
-      cache_creation_input_tokens
-    ].freeze
-    DECODERS = {}.freeze
-  end
-
-  # API model for BetaDreamUsage.
-  # Cumulative token usage for the dream across every pipeline stage.
-  class BetaDreamUsage
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaDreamUsageMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaDreamUsageMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaDreamUsageMetadata::DECODERS
-
-    # @return [Integer] Total uncached input tokens consumed across every pipeline stage.
-    attr_reader :input_tokens
-    # @return [Integer] Total output tokens generated across every pipeline stage.
-    attr_reader :output_tokens
-    # @return [Integer] Total tokens read from prompt cache.
-    attr_reader :cache_read_input_tokens
-    # @return [Integer] Total tokens used to create prompt-cache entries (sum of all TTL tiers).
-    attr_reader :cache_creation_input_tokens
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
+end
 end

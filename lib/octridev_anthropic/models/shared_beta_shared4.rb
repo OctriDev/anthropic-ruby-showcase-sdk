@@ -5,182 +5,179 @@
 
 # shared_beta domain models
 module OctridevAnthropic
-  # Defines the BetaUnattachedAttachmentType SDK namespace.
-  module BetaUnattachedAttachmentType
-    UNATTACHED = 'unattached'
-    VALUES = ['unattached'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaUnattachedAttachmentType SDK namespace.
+module BetaUnattachedAttachmentType
+  UNATTACHED = 'unattached'
+  VALUES = ['unattached'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaUnattachedAttachmentType', 'enum', "Unknown BetaUnattachedAttachmentType: #{value}")
-    end
+    raise SdkValidationError.new('BetaUnattachedAttachmentType', 'enum', "Unknown BetaUnattachedAttachmentType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaUnrestrictedNetworkMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaUnrestrictedNetworkType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaUnrestrictedNetwork.
+# Unrestricted network access.
+class BetaUnrestrictedNetwork
+  include BetaCloudConfigNetworking
+  include BetaCloudConfigParamsNetworking
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaUnrestrictedNetworkMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaUnrestrictedNetworkMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaUnrestrictedNetworkMetadata::DECODERS
+
+  # @return [BetaUnrestrictedNetworkType] Network policy type
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaUnrestrictedNetworkMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaUnrestrictedNetworkType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaUnrestrictedNetwork.
-  # Unrestricted network access.
-  class BetaUnrestrictedNetwork
-    include BetaCloudConfigNetworking
-    include BetaCloudConfigParamsNetworking
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaUnrestrictedNetworkMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaUnrestrictedNetworkMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaUnrestrictedNetworkMetadata::DECODERS
+# Defines the BetaUnrestrictedNetworkType SDK namespace.
+module BetaUnrestrictedNetworkType
+  UNRESTRICTED = 'unrestricted'
+  VALUES = ['unrestricted'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaUnrestrictedNetworkType] Network policy type
-    attr_reader :type
+    raise SdkValidationError.new('BetaUnrestrictedNetworkType', 'enum', "Unknown BetaUnrestrictedNetworkType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaURLImageSourceMetadata
+  FIELDS = {
+    type: "type",
+    url: "url",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    url
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaURLImageSourceType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaURLImageSource.
+# Typed representation of the `BetaURLImageSource` API schema.
+class BetaURLImageSource
+  include BetaRequestImageBlockSource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaURLImageSourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaURLImageSourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaURLImageSourceMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaURLImageSourceType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `url` wire field.
+  attr_reader :url
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaUnrestrictedNetworkType SDK namespace.
-  module BetaUnrestrictedNetworkType
-    UNRESTRICTED = 'unrestricted'
-    VALUES = ['unrestricted'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaUnrestrictedNetworkType', 'enum', "Unknown BetaUnrestrictedNetworkType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaURLImageSourceMetadata
-    FIELDS = {
-      type: 'type',
-      url: 'url'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      url
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaURLImageSourceType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaURLImageSourceType SDK namespace.
+module BetaURLImageSourceType
+  URL = 'url'
+  VALUES = ['url'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaURLImageSourceType', 'enum', "Unknown BetaURLImageSourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaURLPDFSourceMetadata
+  FIELDS = {
+    type: "type",
+    url: "url",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    url
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaURLPDFSourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaURLPDFSource.
+# Typed representation of the `BetaURLPDFSource` API schema.
+class BetaURLPDFSource
+  include BetaRequestDocumentBlockSource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaURLPDFSourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaURLPDFSourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaURLPDFSourceMetadata::DECODERS
+
+  # @return [BetaURLPDFSourceType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Required `string` value serialized in the `url` wire field.
+  attr_reader :url
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaURLImageSource.
-  # Typed representation of the `BetaURLImageSource` API schema.
-  class BetaURLImageSource
-    include BetaRequestImageBlockSource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaURLImageSourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaURLImageSourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaURLImageSourceMetadata::DECODERS
-
-    # @return [BetaURLImageSourceType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `url` wire field.
-    attr_reader :url
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaURLImageSourceType SDK namespace.
-  module BetaURLImageSourceType
-    URL = 'url'
-    VALUES = ['url'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaURLImageSourceType', 'enum', "Unknown BetaURLImageSourceType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaURLPDFSourceMetadata
-    FIELDS = {
-      type: 'type',
-      url: 'url'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      url
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaURLPDFSourceType.from_value(value)
-      end
-    }.freeze
+# Defines the BetaURLPDFSourceType SDK namespace.
+module BetaURLPDFSourceType
+  URL = 'url'
+  VALUES = ['url'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaURLPDFSourceType', 'enum', "Unknown BetaURLPDFSourceType: #{value}")
   end
-
-  # API model for BetaURLPDFSource.
-  # Typed representation of the `BetaURLPDFSource` API schema.
-  class BetaURLPDFSource
-    include BetaRequestDocumentBlockSource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaURLPDFSourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaURLPDFSourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaURLPDFSourceMetadata::DECODERS
-
-    # @return [BetaURLPDFSourceType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Required `string` value serialized in the `url` wire field.
-    attr_reader :url
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaURLPDFSourceType SDK namespace.
-  module BetaURLPDFSourceType
-    URL = 'url'
-    VALUES = ['url'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaURLPDFSourceType', 'enum', "Unknown BetaURLPDFSourceType: #{value}")
-    end
-  end
+end
 end

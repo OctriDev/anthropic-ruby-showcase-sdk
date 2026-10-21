@@ -5,688 +5,682 @@
 
 # shared_beta_web domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebFetchTool20250910Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      citations: 'citations',
-      defer_loading: 'defer_loading',
-      max_content_tokens: 'max_content_tokens',
-      max_uses: 'max_uses',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20250910Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20250910Type.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaWebFetchTool20250910Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    citations: "citations",
+    defer_loading: "defer_loading",
+    max_content_tokens: "max_content_tokens",
+    max_uses: "max_uses",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20250910Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20250910Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebFetchTool20250910.
+# Typed representation of the `BetaWebFetchTool_20250910` API schema.
+class BetaWebFetchTool20250910
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebFetchTool20250910Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20250910Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebFetchTool20250910Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] List of domains to allow fetching from
+  attr_reader :allowed_domains
+  # @return [Array_of_String] List of domains to block fetching from
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
+  attr_reader :citations
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+  attr_reader :max_content_tokens
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebFetchTool20250910Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebFetchTool20250910Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebFetchTool20250910.
-  # Typed representation of the `BetaWebFetchTool_20250910` API schema.
-  class BetaWebFetchTool20250910
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebFetchTool20250910Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20250910Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebFetchTool20250910Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] List of domains to allow fetching from
-    attr_reader :allowed_domains
-    # @return [Array_of_String] List of domains to block fetching from
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
-    attr_reader :citations
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-    attr_reader :max_content_tokens
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebFetchTool20250910Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebFetchTool20250910Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebFetchTool20250910Name SDK namespace.
-  module BetaWebFetchTool20250910Name
-    WEB_FETCH = 'web_fetch'
-    VALUES = ['web_fetch'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaWebFetchTool20250910Name', 'enum', "Unknown BetaWebFetchTool20250910Name: #{value}")
-    end
+# Defines the BetaWebFetchTool20250910Name SDK namespace.
+module BetaWebFetchTool20250910Name
+  WEB_FETCH = 'web_fetch'
+  VALUES = ['web_fetch'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20250910Name', 'enum', "Unknown BetaWebFetchTool20250910Name: #{value}")
+  end
+end
+
+# Defines the BetaWebFetchTool20250910Type SDK namespace.
+module BetaWebFetchTool20250910Type
+  WEB_FETCH_20250910 = 'web_fetch_20250910'
+  VALUES = ['web_fetch_20250910'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20250910Type', 'enum', "Unknown BetaWebFetchTool20250910Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebFetchTool20260209Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    citations: "citations",
+    defer_loading: "defer_loading",
+    max_content_tokens: "max_content_tokens",
+    max_uses: "max_uses",
+    name: "name",
+    strict: "strict",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260209Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260209Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebFetchTool20260209.
+# Typed representation of the `BetaWebFetchTool_20260209` API schema.
+class BetaWebFetchTool20260209
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebFetchTool20260209Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260209Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebFetchTool20260209Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] List of domains to allow fetching from
+  attr_reader :allowed_domains
+  # @return [Array_of_String] List of domains to block fetching from
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
+  attr_reader :citations
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+  attr_reader :max_content_tokens
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebFetchTool20260209Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebFetchTool20260209Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaWebFetchTool20250910Type SDK namespace.
-  module BetaWebFetchTool20250910Type
-    WEB_FETCH_20250910 = 'web_fetch_20250910'
-    VALUES = ['web_fetch_20250910'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebFetchTool20250910Type', 'enum', "Unknown BetaWebFetchTool20250910Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebFetchTool20260209Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      citations: 'citations',
-      defer_loading: 'defer_loading',
-      max_content_tokens: 'max_content_tokens',
-      max_uses: 'max_uses',
-      name: 'name',
-      strict: 'strict',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260209Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260209Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaWebFetchTool20260209Name SDK namespace.
+module BetaWebFetchTool20260209Name
+  WEB_FETCH = 'web_fetch'
+  VALUES = ['web_fetch'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260209Name', 'enum', "Unknown BetaWebFetchTool20260209Name: #{value}")
+  end
+end
+
+# Defines the BetaWebFetchTool20260209Type SDK namespace.
+module BetaWebFetchTool20260209Type
+  WEB_FETCH_20260209 = 'web_fetch_20260209'
+  VALUES = ['web_fetch_20260209'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260209Type', 'enum', "Unknown BetaWebFetchTool20260209Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebFetchTool20260309Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    citations: "citations",
+    defer_loading: "defer_loading",
+    max_content_tokens: "max_content_tokens",
+    max_uses: "max_uses",
+    name: "name",
+    strict: "strict",
+    type: "type",
+    use_cache: "use_cache",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260309Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260309Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebFetchTool20260309.
+# Web fetch tool with use_cache parameter for bypassing cached content.
+class BetaWebFetchTool20260309
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebFetchTool20260309Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260309Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebFetchTool20260309Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] List of domains to allow fetching from
+  attr_reader :allowed_domains
+  # @return [Array_of_String] List of domains to block fetching from
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
+  attr_reader :citations
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+  attr_reader :max_content_tokens
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebFetchTool20260309Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebFetchTool20260309Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Boolean] Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+  attr_reader :use_cache
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebFetchTool20260209.
-  # Typed representation of the `BetaWebFetchTool_20260209` API schema.
-  class BetaWebFetchTool20260209
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebFetchTool20260209Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260209Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebFetchTool20260209Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] List of domains to allow fetching from
-    attr_reader :allowed_domains
-    # @return [Array_of_String] List of domains to block fetching from
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
-    attr_reader :citations
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-    attr_reader :max_content_tokens
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebFetchTool20260209Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebFetchTool20260209Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebFetchTool20260209Name SDK namespace.
-  module BetaWebFetchTool20260209Name
-    WEB_FETCH = 'web_fetch'
-    VALUES = ['web_fetch'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaWebFetchTool20260209Name', 'enum', "Unknown BetaWebFetchTool20260209Name: #{value}")
-    end
+# Defines the BetaWebFetchTool20260309Name SDK namespace.
+module BetaWebFetchTool20260309Name
+  WEB_FETCH = 'web_fetch'
+  VALUES = ['web_fetch'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260309Name', 'enum', "Unknown BetaWebFetchTool20260309Name: #{value}")
+  end
+end
+
+# Defines the BetaWebFetchTool20260309Type SDK namespace.
+module BetaWebFetchTool20260309Type
+  WEB_FETCH_20260309 = 'web_fetch_20260309'
+  VALUES = ['web_fetch_20260309'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260309Type', 'enum', "Unknown BetaWebFetchTool20260309Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebFetchTool20260318Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    citations: "citations",
+    defer_loading: "defer_loading",
+    max_content_tokens: "max_content_tokens",
+    max_uses: "max_uses",
+    name: "name",
+    response_inclusion: "response_inclusion",
+    strict: "strict",
+    type: "type",
+    use_cache: "use_cache",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260318Name.from_value(value)
+    end,
+    response_inclusion: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260318ResponseInclusion.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebFetchTool20260318Type.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebFetchTool20260318.
+# Typed representation of the `BetaWebFetchTool_20260318` API schema.
+class BetaWebFetchTool20260318
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebFetchTool20260318Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260318Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebFetchTool20260318Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] List of domains to allow fetching from
+  attr_reader :allowed_domains
+  # @return [Array_of_String] List of domains to block fetching from
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
+  attr_reader :citations
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+  attr_reader :max_content_tokens
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebFetchTool20260318Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [BetaWebFetchTool20260318ResponseInclusion] How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+  attr_reader :response_inclusion
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebFetchTool20260318Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Boolean] Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+  attr_reader :use_cache
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaWebFetchTool20260209Type SDK namespace.
-  module BetaWebFetchTool20260209Type
-    WEB_FETCH_20260209 = 'web_fetch_20260209'
-    VALUES = ['web_fetch_20260209'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebFetchTool20260209Type', 'enum', "Unknown BetaWebFetchTool20260209Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebFetchTool20260309Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      citations: 'citations',
-      defer_loading: 'defer_loading',
-      max_content_tokens: 'max_content_tokens',
-      max_uses: 'max_uses',
-      name: 'name',
-      strict: 'strict',
-      type: 'type',
-      use_cache: 'use_cache'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260309Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260309Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaWebFetchTool20260318Name SDK namespace.
+module BetaWebFetchTool20260318Name
+  WEB_FETCH = 'web_fetch'
+  VALUES = ['web_fetch'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260318Name', 'enum', "Unknown BetaWebFetchTool20260318Name: #{value}")
+  end
+end
+
+# Defines the BetaWebFetchTool20260318ResponseInclusion SDK namespace.
+module BetaWebFetchTool20260318ResponseInclusion
+  FULL = 'full'
+  EXCLUDED = 'excluded'
+  VALUES = ['full', 'excluded'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the BetaWebFetchTool20260318Type SDK namespace.
+module BetaWebFetchTool20260318Type
+  WEB_FETCH_20260318 = 'web_fetch_20260318'
+  VALUES = ['web_fetch_20260318'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebFetchTool20260318Type', 'enum', "Unknown BetaWebFetchTool20260318Type: #{value}")
+  end
+end
+
+# Defines the BetaWebFetchToolResultErrorCode SDK namespace.
+module BetaWebFetchToolResultErrorCode
+  INVALID_TOOL_INPUT = 'invalid_tool_input'
+  URL_TOO_LONG = 'url_too_long'
+  URL_NOT_ALLOWED = 'url_not_allowed'
+  URL_NOT_IN_PRIOR_CONTEXT = 'url_not_in_prior_context'
+  URL_NOT_ACCESSIBLE = 'url_not_accessible'
+  UNSUPPORTED_CONTENT_TYPE = 'unsupported_content_type'
+  TOO_MANY_REQUESTS = 'too_many_requests'
+  MAX_USES_EXCEEDED = 'max_uses_exceeded'
+  UNAVAILABLE = 'unavailable'
+  VALUES = [
+    'invalid_tool_input', 'url_too_long', 'url_not_allowed', 'url_not_in_prior_context',
+    'url_not_accessible', 'unsupported_content_type', 'too_many_requests', 'max_uses_exceeded',
+    'unavailable'
+  ].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebSearchTool20250305Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    max_uses: "max_uses",
+    name: "name",
+    strict: "strict",
+    type: "type",
+    user_location: "user_location",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebSearchTool20250305Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebSearchTool20250305Type.from_value(value)
+    end,
+    user_location: lambda do |value|
+      ::OctridevAnthropic::BetaUserLocation.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebSearchTool20250305.
+# Typed representation of the `BetaWebSearchTool_20250305` API schema.
+class BetaWebSearchTool20250305
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebSearchTool20250305Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebSearchTool20250305Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebSearchTool20250305Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+  attr_reader :allowed_domains
+  # @return [Array_of_String] If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebSearchTool20250305Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebSearchTool20250305Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaUserLocation] Parameters for the user's location. Used to provide more relevant search results.
+  attr_reader :user_location
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaWebFetchTool20260309.
-  # Web fetch tool with use_cache parameter for bypassing cached content.
-  class BetaWebFetchTool20260309
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebFetchTool20260309Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260309Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebFetchTool20260309Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] List of domains to allow fetching from
-    attr_reader :allowed_domains
-    # @return [Array_of_String] List of domains to block fetching from
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
-    attr_reader :citations
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-    attr_reader :max_content_tokens
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebFetchTool20260309Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebFetchTool20260309Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Boolean] Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-    attr_reader :use_cache
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaWebFetchTool20260309Name SDK namespace.
-  module BetaWebFetchTool20260309Name
-    WEB_FETCH = 'web_fetch'
-    VALUES = ['web_fetch'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaWebFetchTool20260309Name', 'enum', "Unknown BetaWebFetchTool20260309Name: #{value}")
-    end
+# Defines the BetaWebSearchTool20250305Name SDK namespace.
+module BetaWebSearchTool20250305Name
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebSearchTool20250305Name', 'enum', "Unknown BetaWebSearchTool20250305Name: #{value}")
+  end
+end
+
+# Defines the BetaWebSearchTool20250305Type SDK namespace.
+module BetaWebSearchTool20250305Type
+  WEB_SEARCH_20250305 = 'web_search_20250305'
+  VALUES = ['web_search_20250305'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaWebSearchTool20250305Type', 'enum', "Unknown BetaWebSearchTool20250305Type: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaWebSearchTool20260209Metadata
+  FIELDS = {
+    allowed_callers: "allowed_callers",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    cache_control: "cache_control",
+    defer_loading: "defer_loading",
+    max_uses: "max_uses",
+    name: "name",
+    strict: "strict",
+    type: "type",
+    user_location: "user_location",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+    type
+  ].freeze
+  DECODERS = {
+    allowed_callers: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+    end,
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaWebSearchTool20260209Name.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaWebSearchTool20260209Type.from_value(value)
+    end,
+    user_location: lambda do |value|
+      ::OctridevAnthropic::BetaUserLocation.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaWebSearchTool20260209.
+# Typed representation of the `BetaWebSearchTool_20260209` API schema.
+class BetaWebSearchTool20260209
+  include BetaCountMessageTokensParamsToolsItem
+  include BetaCreateMessageParamsToolsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaWebSearchTool20260209Metadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaWebSearchTool20260209Metadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaWebSearchTool20260209Metadata::DECODERS
+
+  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+  attr_reader :allowed_callers
+  # @return [Array_of_String] If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+  attr_reader :allowed_domains
+  # @return [Array_of_String] If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+  attr_reader :blocked_domains
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+  attr_reader :defer_loading
+  # @return [Integer] Maximum number of times the tool can be used in the API request.
+  attr_reader :max_uses
+  # @return [BetaWebSearchTool20260209Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+  attr_reader :name
+  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+  attr_reader :strict
+  # @return [BetaWebSearchTool20260209Type] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaUserLocation] Parameters for the user's location. Used to provide more relevant search results.
+  attr_reader :user_location
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaWebFetchTool20260309Type SDK namespace.
-  module BetaWebFetchTool20260309Type
-    WEB_FETCH_20260309 = 'web_fetch_20260309'
-    VALUES = ['web_fetch_20260309'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebFetchTool20260309Type', 'enum', "Unknown BetaWebFetchTool20260309Type: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebFetchTool20260318Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      citations: 'citations',
-      defer_loading: 'defer_loading',
-      max_content_tokens: 'max_content_tokens',
-      max_uses: 'max_uses',
-      name: 'name',
-      response_inclusion: 'response_inclusion',
-      strict: 'strict',
-      type: 'type',
-      use_cache: 'use_cache'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260318Name.from_value(value)
-      end,
-      response_inclusion: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260318ResponseInclusion.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebFetchTool20260318Type.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaWebFetchTool20260318.
-  # Typed representation of the `BetaWebFetchTool_20260318` API schema.
-  class BetaWebFetchTool20260318
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
+# Defines the BetaWebSearchTool20260209Name SDK namespace.
+module BetaWebSearchTool20260209Name
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebFetchTool20260318Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebFetchTool20260318Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebFetchTool20260318Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] List of domains to allow fetching from
-    attr_reader :allowed_domains
-    # @return [Array_of_String] List of domains to block fetching from
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Citations configuration for fetched documents. Citations are disabled by default.
-    attr_reader :citations
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-    attr_reader :max_content_tokens
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebFetchTool20260318Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [BetaWebFetchTool20260318ResponseInclusion] How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
-    attr_reader :response_inclusion
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebFetchTool20260318Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Boolean] Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-    attr_reader :use_cache
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaWebSearchTool20260209Name', 'enum', "Unknown BetaWebSearchTool20260209Name: #{value}")
   end
+end
 
-  # Defines the BetaWebFetchTool20260318Name SDK namespace.
-  module BetaWebFetchTool20260318Name
-    WEB_FETCH = 'web_fetch'
-    VALUES = ['web_fetch'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaWebSearchTool20260209Type SDK namespace.
+module BetaWebSearchTool20260209Type
+  WEB_SEARCH_20260209 = 'web_search_20260209'
+  VALUES = ['web_search_20260209'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaWebFetchTool20260318Name', 'enum', "Unknown BetaWebFetchTool20260318Name: #{value}")
-    end
+    raise SdkValidationError.new('BetaWebSearchTool20260209Type', 'enum', "Unknown BetaWebSearchTool20260209Type: #{value}")
   end
-
-  # Defines the BetaWebFetchTool20260318ResponseInclusion SDK namespace.
-  module BetaWebFetchTool20260318ResponseInclusion
-    FULL = 'full'
-    EXCLUDED = 'excluded'
-    VALUES = %w[full excluded].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Defines the BetaWebFetchTool20260318Type SDK namespace.
-  module BetaWebFetchTool20260318Type
-    WEB_FETCH_20260318 = 'web_fetch_20260318'
-    VALUES = ['web_fetch_20260318'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebFetchTool20260318Type', 'enum', "Unknown BetaWebFetchTool20260318Type: #{value}")
-    end
-  end
-
-  # Defines the BetaWebFetchToolResultErrorCode SDK namespace.
-  module BetaWebFetchToolResultErrorCode
-    INVALID_TOOL_INPUT = 'invalid_tool_input'
-    URL_TOO_LONG = 'url_too_long'
-    URL_NOT_ALLOWED = 'url_not_allowed'
-    URL_NOT_IN_PRIOR_CONTEXT = 'url_not_in_prior_context'
-    URL_NOT_ACCESSIBLE = 'url_not_accessible'
-    UNSUPPORTED_CONTENT_TYPE = 'unsupported_content_type'
-    TOO_MANY_REQUESTS = 'too_many_requests'
-    MAX_USES_EXCEEDED = 'max_uses_exceeded'
-    UNAVAILABLE = 'unavailable'
-    VALUES = %w[
-      invalid_tool_input url_too_long url_not_allowed url_not_in_prior_context
-      url_not_accessible unsupported_content_type too_many_requests max_uses_exceeded
-      unavailable
-    ].freeze
-    def self.from_value(value)
-      value
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebSearchTool20250305Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      max_uses: 'max_uses',
-      name: 'name',
-      strict: 'strict',
-      type: 'type',
-      user_location: 'user_location'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebSearchTool20250305Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebSearchTool20250305Type.from_value(value)
-      end,
-      user_location: lambda do |value|
-        ::OctridevAnthropic::BetaUserLocation.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaWebSearchTool20250305.
-  # Typed representation of the `BetaWebSearchTool_20250305` API schema.
-  class BetaWebSearchTool20250305
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebSearchTool20250305Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebSearchTool20250305Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebSearchTool20250305Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-    attr_reader :allowed_domains
-    # @return [Array_of_String] If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebSearchTool20250305Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebSearchTool20250305Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaUserLocation] Parameters for the user's location. Used to provide more relevant search results.
-    attr_reader :user_location
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaWebSearchTool20250305Name SDK namespace.
-  module BetaWebSearchTool20250305Name
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebSearchTool20250305Name', 'enum', "Unknown BetaWebSearchTool20250305Name: #{value}")
-    end
-  end
-
-  # Defines the BetaWebSearchTool20250305Type SDK namespace.
-  module BetaWebSearchTool20250305Type
-    WEB_SEARCH_20250305 = 'web_search_20250305'
-    VALUES = ['web_search_20250305'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebSearchTool20250305Type', 'enum', "Unknown BetaWebSearchTool20250305Type: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaWebSearchTool20260209Metadata
-    FIELDS = {
-      allowed_callers: 'allowed_callers',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      cache_control: 'cache_control',
-      defer_loading: 'defer_loading',
-      max_uses: 'max_uses',
-      name: 'name',
-      strict: 'strict',
-      type: 'type',
-      user_location: 'user_location'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-      type
-    ].freeze
-    DECODERS = {
-      allowed_callers: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-      end,
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaWebSearchTool20260209Name.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaWebSearchTool20260209Type.from_value(value)
-      end,
-      user_location: lambda do |value|
-        ::OctridevAnthropic::BetaUserLocation.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaWebSearchTool20260209.
-  # Typed representation of the `BetaWebSearchTool_20260209` API schema.
-  class BetaWebSearchTool20260209
-    include BetaCountMessageTokensParamsToolsItem
-    include BetaCreateMessageParamsToolsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaWebSearchTool20260209Metadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaWebSearchTool20260209Metadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaWebSearchTool20260209Metadata::DECODERS
-
-    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-    attr_reader :allowed_callers
-    # @return [Array_of_String] If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-    attr_reader :allowed_domains
-    # @return [Array_of_String] If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-    attr_reader :blocked_domains
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-    attr_reader :defer_loading
-    # @return [Integer] Maximum number of times the tool can be used in the API request.
-    attr_reader :max_uses
-    # @return [BetaWebSearchTool20260209Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-    attr_reader :name
-    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-    attr_reader :strict
-    # @return [BetaWebSearchTool20260209Type] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaUserLocation] Parameters for the user's location. Used to provide more relevant search results.
-    attr_reader :user_location
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaWebSearchTool20260209Name SDK namespace.
-  module BetaWebSearchTool20260209Name
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebSearchTool20260209Name', 'enum', "Unknown BetaWebSearchTool20260209Name: #{value}")
-    end
-  end
-
-  # Defines the BetaWebSearchTool20260209Type SDK namespace.
-  module BetaWebSearchTool20260209Type
-    WEB_SEARCH_20260209 = 'web_search_20260209'
-    VALUES = ['web_search_20260209'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaWebSearchTool20260209Type', 'enum', "Unknown BetaWebSearchTool20260209Type: #{value}")
-    end
-  end
+end
 end

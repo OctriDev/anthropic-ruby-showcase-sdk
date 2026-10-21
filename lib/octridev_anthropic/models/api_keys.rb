@@ -5,55 +5,56 @@
 
 # api_keys domain models
 module OctridevAnthropic
-  # Defines the BetaApiKeyUpdateParamsStatusVariant0 SDK namespace.
-  module BetaApiKeyUpdateParamsStatusVariant0
-    ACTIVE = 'active'
-    ARCHIVED = 'archived'
-    INACTIVE = 'inactive'
-    VALUES = %w[active archived inactive].freeze
-    def self.from_value(value)
-      value
-    end
+# Defines the BetaApiKeyUpdateParamsStatusVariant0 SDK namespace.
+module BetaApiKeyUpdateParamsStatusVariant0
+  ACTIVE = 'active'
+  ARCHIVED = 'archived'
+  INACTIVE = 'inactive'
+  VALUES = ['active', 'archived', 'inactive'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaApiKeyUpdateParamsMetadata
+  FIELDS = {
+    name: "name",
+    status: "status",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    status: lambda do |value|
+      ::OctridevAnthropic::BetaApiKeyUpdateParamsStatusVariant0.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaApiKeyUpdateParams.
+# Typed representation of the `BetaApiKeyUpdateParams` API schema.
+class BetaApiKeyUpdateParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaApiKeyUpdateParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaApiKeyUpdateParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaApiKeyUpdateParamsMetadata::DECODERS
+
+  # @return [String] Name of the API key.
+  attr_reader :name
+  # @return [BetaApiKeyUpdateParamsStatusVariant0] Status of the API key.
+  attr_reader :status
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaApiKeyUpdateParamsMetadata
-    FIELDS = {
-      name: 'name',
-      status: 'status'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      status: lambda do |value|
-        ::OctridevAnthropic::BetaApiKeyUpdateParamsStatusVariant0.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaApiKeyUpdateParams.
-  # Typed representation of the `BetaApiKeyUpdateParams` API schema.
-  class BetaApiKeyUpdateParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaApiKeyUpdateParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaApiKeyUpdateParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaApiKeyUpdateParamsMetadata::DECODERS
-
-    # @return [String] Name of the API key.
-    attr_reader :name
-    # @return [BetaApiKeyUpdateParamsStatusVariant0] Status of the API key.
-    attr_reader :status
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

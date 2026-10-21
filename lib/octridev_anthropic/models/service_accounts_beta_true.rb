@@ -5,150 +5,150 @@
 
 # service_accounts_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountCreateParamsMetadata
-    FIELDS = {
-      description: 'description',
-      name: 'name',
-      organization_role: 'organization_role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-    ].freeze
-    DECODERS = {
-      organization_role: lambda do |value|
-        ::OctridevAnthropic::BetaServiceAccountCreateParamsOrganizationRole.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountCreateParamsMetadata
+  FIELDS = {
+    description: "description",
+    name: "name",
+    organization_role: "organization_role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+  ].freeze
+  DECODERS = {
+    organization_role: lambda do |value|
+      ::OctridevAnthropic::BetaServiceAccountCreateParamsOrganizationRole.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaServiceAccountCreateParams.
+# Typed representation of the `BetaServiceAccountCreateParams` API schema.
+class BetaServiceAccountCreateParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountCreateParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountCreateParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountCreateParamsMetadata::DECODERS
+
+  # @return [String] Optional free-text description.
+  attr_reader :description
+  # @return [String] Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+  attr_reader :name
+  # @return [BetaServiceAccountCreateParamsOrganizationRole] Org-level role. Defaults to `developer`.
+  attr_reader :organization_role
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaServiceAccountCreateParams.
-  # Typed representation of the `BetaServiceAccountCreateParams` API schema.
-  class BetaServiceAccountCreateParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountCreateParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountCreateParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountCreateParamsMetadata::DECODERS
-
-    # @return [String] Optional free-text description.
-    attr_reader :description
-    # @return [String] Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
-    attr_reader :name
-    # @return [BetaServiceAccountCreateParamsOrganizationRole] Org-level role. Defaults to `developer`.
-    attr_reader :organization_role
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaServiceAccountCreateParamsOrganizationRole SDK namespace.
-  module BetaServiceAccountCreateParamsOrganizationRole
-    ADMIN = 'admin'
-    DEVELOPER = 'developer'
-    VALUES = %w[admin developer].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaServiceAccountCreateParamsOrganizationRole SDK namespace.
+module BetaServiceAccountCreateParamsOrganizationRole
+  ADMIN = 'admin'
+  DEVELOPER = 'developer'
+  VALUES = ['admin', 'developer'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountListResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaServiceAccount.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaServiceAccountListResponse.
+# Typed representation of the `BetaServiceAccountListResponse` API schema.
+class BetaServiceAccountListResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountListResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountListResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountListResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaServiceAccount] Required array value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [String] Opaque cursor for the next page, or null if no more results.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountListResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaServiceAccount.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountListResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaServiceAccountListResponse.
-  # Typed representation of the `BetaServiceAccountListResponse` API schema.
-  class BetaServiceAccountListResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountListResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountListResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountListResponseMetadata::DECODERS
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    # @return [Array_of_BetaServiceAccount] Required array value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [String] Opaque cursor for the next page, or null if no more results.
-    attr_reader :next_page
+# Internal model hydration metadata.
+class SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata
+  FIELDS = {
+    service_account_id: "service_account_id",
+    workspace_role: "workspace_role",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    service_account_id
+    workspace_role
+  ].freeze
+  DECODERS = {
+    workspace_role: lambda do |value|
+      ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
+    end,
+  }.freeze
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# API model for BetaServiceAccountWorkspaceMemberCreateParams.
+# Typed representation of the `BetaServiceAccountWorkspaceMemberCreateParams` API schema.
+class BetaServiceAccountWorkspaceMemberCreateParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::DECODERS
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaServiceAccountListResponseMetadata::NULLABLE_FIELDS)
-    end
+  # @return [String] Tagged service account ID to add.
+  attr_reader :service_account_id
+  # @return [BetaNoBillingWorkspaceRoleSchema] Role to assign to the service account in this workspace.
+  attr_reader :workspace_role
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata
-    FIELDS = {
-      service_account_id: 'service_account_id',
-      workspace_role: 'workspace_role'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      service_account_id
-      workspace_role
-    ].freeze
-    DECODERS = {
-      workspace_role: lambda do |value|
-        ::OctridevAnthropic::BetaNoBillingWorkspaceRoleSchema.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaServiceAccountWorkspaceMemberCreateParams.
-  # Typed representation of the `BetaServiceAccountWorkspaceMemberCreateParams` API schema.
-  class BetaServiceAccountWorkspaceMemberCreateParams
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaServiceAccountWorkspaceMemberCreateParamsMetadata::DECODERS
-
-    # @return [String] Tagged service account ID to add.
-    attr_reader :service_account_id
-    # @return [BetaNoBillingWorkspaceRoleSchema] Role to assign to the service account in this workspace.
-    attr_reader :workspace_role
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

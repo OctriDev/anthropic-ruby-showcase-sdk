@@ -5,279 +5,275 @@
 
 # shared_request_bash domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalRequestBashCodeExecutionOutputBlockMetadata
-    FIELDS = {
-      file_id: 'file_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      file_id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::RequestBashCodeExecutionOutputBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalRequestBashCodeExecutionOutputBlockMetadata
+  FIELDS = {
+    file_id: "file_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    file_id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::RequestBashCodeExecutionOutputBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for RequestBashCodeExecutionOutputBlock.
+# Typed representation of the `RequestBashCodeExecutionOutputBlock` API schema.
+class RequestBashCodeExecutionOutputBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::DECODERS
+
+  # @return [String] Required `string` value serialized in the `file_id` wire field.
+  attr_reader :file_id
+  # @return [RequestBashCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for RequestBashCodeExecutionOutputBlock.
-  # Typed representation of the `RequestBashCodeExecutionOutputBlock` API schema.
-  class RequestBashCodeExecutionOutputBlock
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRequestBashCodeExecutionOutputBlockMetadata::DECODERS
-
-    # @return [String] Required `string` value serialized in the `file_id` wire field.
-    attr_reader :file_id
-    # @return [RequestBashCodeExecutionOutputBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the RequestBashCodeExecutionOutputBlockType SDK namespace.
-  module RequestBashCodeExecutionOutputBlockType
-    BASH_CODE_EXECUTION_OUTPUT = 'bash_code_execution_output'
-    VALUES = ['bash_code_execution_output'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('RequestBashCodeExecutionOutputBlockType', 'enum', "Unknown RequestBashCodeExecutionOutputBlockType: #{value}")
-    end
+# Defines the RequestBashCodeExecutionOutputBlockType SDK namespace.
+module RequestBashCodeExecutionOutputBlockType
+  BASH_CODE_EXECUTION_OUTPUT = 'bash_code_execution_output'
+  VALUES = ['bash_code_execution_output'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('RequestBashCodeExecutionOutputBlockType', 'enum', "Unknown RequestBashCodeExecutionOutputBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalRequestBashCodeExecutionResultBlockMetadata
+  FIELDS = {
+    content: "content",
+    return_code: "return_code",
+    stderr: "stderr",
+    stdout: "stdout",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    return_code
+    stderr
+    stdout
+    type
+  ].freeze
+  DECODERS = {
+    content: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::RequestBashCodeExecutionOutputBlock.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::RequestBashCodeExecutionResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for RequestBashCodeExecutionResultBlock.
+# Typed representation of the `RequestBashCodeExecutionResultBlock` API schema.
+class RequestBashCodeExecutionResultBlock
+  include RequestBashCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::DECODERS
+
+  # @return [Array_of_RequestBashCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
+  attr_reader :return_code
+  # @return [String] Required `string` value serialized in the `stderr` wire field.
+  attr_reader :stderr
+  # @return [String] Required `string` value serialized in the `stdout` wire field.
+  attr_reader :stdout
+  # @return [RequestBashCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalRequestBashCodeExecutionResultBlockMetadata
-    FIELDS = {
-      content: 'content',
-      return_code: 'return_code',
-      stderr: 'stderr',
-      stdout: 'stdout',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      return_code
-      stderr
-      stdout
-      type
-    ].freeze
-    DECODERS = {
-      content: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::RequestBashCodeExecutionOutputBlock.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::RequestBashCodeExecutionResultBlockType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for RequestBashCodeExecutionResultBlock.
-  # Typed representation of the `RequestBashCodeExecutionResultBlock` API schema.
-  class RequestBashCodeExecutionResultBlock
-    include RequestBashCodeExecutionToolResultBlockContent
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRequestBashCodeExecutionResultBlockMetadata::DECODERS
+# Defines the RequestBashCodeExecutionResultBlockType SDK namespace.
+module RequestBashCodeExecutionResultBlockType
+  BASH_CODE_EXECUTION_RESULT = 'bash_code_execution_result'
+  VALUES = ['bash_code_execution_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [Array_of_RequestBashCodeExecutionOutputBlock] Required array value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [Integer] Required `integer` value serialized in the `return_code` wire field.
-    attr_reader :return_code
-    # @return [String] Required `string` value serialized in the `stderr` wire field.
-    attr_reader :stderr
-    # @return [String] Required `string` value serialized in the `stdout` wire field.
-    attr_reader :stdout
-    # @return [RequestBashCodeExecutionResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('RequestBashCodeExecutionResultBlockType', 'enum', "Unknown RequestBashCodeExecutionResultBlockType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalRequestBashCodeExecutionToolResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    content: "content",
+    tool_use_id: "tool_use_id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    tool_use_id
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+    end,
+    content: lambda do |value|
+      ::OctridevAnthropic::RequestBashCodeExecutionToolResultBlockContent.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::RequestBashCodeExecutionToolResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for RequestBashCodeExecutionToolResultBlock.
+# Typed representation of the `RequestBashCodeExecutionToolResultBlock` API schema.
+class RequestBashCodeExecutionToolResultBlock
+  include InputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [RequestBashCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+  attr_reader :tool_use_id
+  # @return [RequestBashCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the RequestBashCodeExecutionResultBlockType SDK namespace.
-  module RequestBashCodeExecutionResultBlockType
-    BASH_CODE_EXECUTION_RESULT = 'bash_code_execution_result'
-    VALUES = ['bash_code_execution_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('RequestBashCodeExecutionResultBlockType', 'enum', "Unknown RequestBashCodeExecutionResultBlockType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalRequestBashCodeExecutionToolResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      content: 'content',
-      tool_use_id: 'tool_use_id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      tool_use_id
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-      end,
-      content: lambda do |value|
-        ::OctridevAnthropic::RequestBashCodeExecutionToolResultBlockContent.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::RequestBashCodeExecutionToolResultBlockType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the RequestBashCodeExecutionToolResultBlockType SDK namespace.
+module RequestBashCodeExecutionToolResultBlockType
+  BASH_CODE_EXECUTION_TOOL_RESULT = 'bash_code_execution_tool_result'
+  VALUES = ['bash_code_execution_tool_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('RequestBashCodeExecutionToolResultBlockType', 'enum', "Unknown RequestBashCodeExecutionToolResultBlockType: #{value}")
+  end
+end
+
+# Defines the RequestBashCodeExecutionToolResultBlockContent SDK namespace.
+module RequestBashCodeExecutionToolResultBlockContent
+  DISCRIMINATOR_MAPPING = {
+    "bash_code_execution_tool_result_error" => -> { RequestBashCodeExecutionToolResultError },
+    "bash_code_execution_result" => -> { RequestBashCodeExecutionResultBlock },
+  }.freeze
+
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('RequestBashCodeExecutionToolResultBlockContent', 'variant', "Unknown RequestBashCodeExecutionToolResultBlockContent discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalRequestBashCodeExecutionToolResultErrorMetadata
+  FIELDS = {
+    error_code: "error_code",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    error_code
+    type
+  ].freeze
+  DECODERS = {
+    error_code: lambda do |value|
+      ::OctridevAnthropic::BashCodeExecutionToolResultErrorCode.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::RequestBashCodeExecutionToolResultErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for RequestBashCodeExecutionToolResultError.
+# Typed representation of the `RequestBashCodeExecutionToolResultError` API schema.
+class RequestBashCodeExecutionToolResultError
+  include RequestBashCodeExecutionToolResultBlockContent
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::DECODERS
+
+  # @return [BashCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+  attr_reader :error_code
+  # @return [RequestBashCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for RequestBashCodeExecutionToolResultBlock.
-  # Typed representation of the `RequestBashCodeExecutionToolResultBlock` API schema.
-  class RequestBashCodeExecutionToolResultBlock
-    include InputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRequestBashCodeExecutionToolResultBlockMetadata::DECODERS
-
-    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [RequestBashCodeExecutionToolResultBlockContent] Required API value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-    attr_reader :tool_use_id
-    # @return [RequestBashCodeExecutionToolResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the RequestBashCodeExecutionToolResultBlockType SDK namespace.
-  module RequestBashCodeExecutionToolResultBlockType
-    BASH_CODE_EXECUTION_TOOL_RESULT = 'bash_code_execution_tool_result'
-    VALUES = ['bash_code_execution_tool_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('RequestBashCodeExecutionToolResultBlockType', 'enum', "Unknown RequestBashCodeExecutionToolResultBlockType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the RequestBashCodeExecutionToolResultBlockContent SDK namespace.
-  module RequestBashCodeExecutionToolResultBlockContent
-    DISCRIMINATOR_MAPPING = {
-      'bash_code_execution_tool_result_error' => -> { RequestBashCodeExecutionToolResultError },
-      'bash_code_execution_result' => -> { RequestBashCodeExecutionResultBlock }
-    }.freeze
+# Defines the RequestBashCodeExecutionToolResultErrorType SDK namespace.
+module RequestBashCodeExecutionToolResultErrorType
+  BASH_CODE_EXECUTION_TOOL_RESULT_ERROR = 'bash_code_execution_tool_result_error'
+  VALUES = ['bash_code_execution_tool_result_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('RequestBashCodeExecutionToolResultBlockContent', 'variant', "Unknown RequestBashCodeExecutionToolResultBlockContent discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('RequestBashCodeExecutionToolResultErrorType', 'enum', "Unknown RequestBashCodeExecutionToolResultErrorType: #{value}")
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalRequestBashCodeExecutionToolResultErrorMetadata
-    FIELDS = {
-      error_code: 'error_code',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      error_code
-      type
-    ].freeze
-    DECODERS = {
-      error_code: lambda do |value|
-        ::OctridevAnthropic::BashCodeExecutionToolResultErrorCode.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::RequestBashCodeExecutionToolResultErrorType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for RequestBashCodeExecutionToolResultError.
-  # Typed representation of the `RequestBashCodeExecutionToolResultError` API schema.
-  class RequestBashCodeExecutionToolResultError
-    include RequestBashCodeExecutionToolResultBlockContent
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalRequestBashCodeExecutionToolResultErrorMetadata::DECODERS
-
-    # @return [BashCodeExecutionToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-    attr_reader :error_code
-    # @return [RequestBashCodeExecutionToolResultErrorType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the RequestBashCodeExecutionToolResultErrorType SDK namespace.
-  module RequestBashCodeExecutionToolResultErrorType
-    BASH_CODE_EXECUTION_TOOL_RESULT_ERROR = 'bash_code_execution_tool_result_error'
-    VALUES = ['bash_code_execution_tool_result_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('RequestBashCodeExecutionToolResultErrorType', 'enum', "Unknown RequestBashCodeExecutionToolResultErrorType: #{value}")
-    end
-  end
+end
 end

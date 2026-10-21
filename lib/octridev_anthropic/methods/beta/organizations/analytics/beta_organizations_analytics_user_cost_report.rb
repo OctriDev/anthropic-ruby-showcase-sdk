@@ -14,7 +14,7 @@ module OctridevAnthropic
         V_1_D = '1d'
         V_1_H = '1h'
         V_1_M = '1m'
-        VALUES = %w[1d 1h 1m].freeze
+        VALUES = ['1d', '1h', '1m'].freeze
         def self.from_value(value)
           value
         end
@@ -31,9 +31,9 @@ module OctridevAnthropic
         SLACK_CHANNEL_ID = 'slack_channel_id'
         SPEED = 'speed'
         TOKEN_TYPE = 'token_type'
-        VALUES = %w[
-          context_window cost_type inference_geo model product rbac_group_id
-          slack_channel_id speed token_type
+        VALUES = [
+          'context_window', 'cost_type', 'inference_geo', 'model', 'product', 'rbac_group_id',
+          'slack_channel_id', 'speed', 'token_type'
         ].freeze
         def self.from_value(value)
           value
@@ -44,7 +44,7 @@ module OctridevAnthropic
       module RetrieveBetaOrganizationsAnalyticsUserCostReportParameterItem9503b853
         FAST = 'fast'
         STANDARD = 'standard'
-        VALUES = %w[fast standard].freeze
+        VALUES = ['fast', 'standard'].freeze
         def self.from_value(value)
           value
         end
@@ -132,6 +132,7 @@ module OctridevAnthropic
         group_by: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_date_time('starting_at', starting_at)
 
         Validation.if_given(products) { Validation.validate_items('products[]', products, max: 100) }
@@ -164,7 +165,7 @@ module OctridevAnthropic
 
         SdkClient.request(
           'GET',
-          '/v1/organizations/analytics/user_cost_report?beta=true',
+          "/v1/organizations/analytics/user_cost_report?beta=true",
           config: config,
           query: {
             'starting_at' => QueryValue.new(starting_at, style: 'form', explode: true),
@@ -183,17 +184,17 @@ module OctridevAnthropic
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'page' => QueryValue.new(page, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
-            'group_by[]' => QueryValue.new(group_by, style: 'form', explode: true)
+            'group_by[]' => QueryValue.new(group_by, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaAnalyticsCostUsersResponse,
           decoder: :json,
           operation_id: 'retrieve_beta_organizations_analytics_user_cost_report',
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
-      RetrieveBetaOrganizationsAnalyticsUserCostReportPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    RetrieveBetaOrganizationsAnalyticsUserCostReportPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Get per-user cost in USD across a date range. Returns one row per user, ranked by spend. Use this to see which users account for the most cost. Only cost attributable to a seat user is included; for organization-wide totals including direct API-key and automation traffic, use the bucketed `/v1/organizations/analytics/cost_report` endpoint. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
       #
@@ -303,13 +304,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             items.each { |item| y << item }
             break unless page.has_more
-
             next_cursor = page.next_page
             break if next_cursor.nil?
-
             cursor = next_cursor
           end
         end
@@ -362,12 +360,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             next_cursor = page.next_page
             has_more = page.has_more && !next_cursor.nil?
             y << RetrieveBetaOrganizationsAnalyticsUserCostReportPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
-
             cursor = next_cursor
           end
         end

@@ -5,426 +5,420 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-  # API model for BetaManagedAgentsWebSearchToolConfig.
-  # Configuration for the web_search tool.
-  class BetaManagedAgentsWebSearchToolConfig
-    include BetaManagedAgentsAgentToolConfigUnion
+# API model for BetaManagedAgentsWebSearchToolConfig.
+# Configuration for the web_search tool.
+class BetaManagedAgentsWebSearchToolConfig
+  include BetaManagedAgentsAgentToolConfigUnion
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::DECODERS
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWebSearchToolConfigMetadata::DECODERS
+  # @return [BetaManagedAgentsWebSearchToolConfigType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaManagedAgentsWebSearchToolConfigName] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+  attr_reader :permission_policy
+  # @return [Array_of_String] Optional array value serialized in the `allowed_domains` wire field.
+  attr_reader :allowed_domains
+  # @return [Array_of_String] Optional array value serialized in the `blocked_domains` wire field.
+  attr_reader :blocked_domains
+  # @return [BetaManagedAgentsUserLocation] Optional API value serialized in the `user_location` wire field.
+  attr_reader :user_location
 
-    # @return [BetaManagedAgentsWebSearchToolConfigType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaManagedAgentsWebSearchToolConfigName] Required `string` value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-    attr_reader :permission_policy
-    # @return [Array_of_String] Optional array value serialized in the `allowed_domains` wire field.
-    attr_reader :allowed_domains
-    # @return [Array_of_String] Optional array value serialized in the `blocked_domains` wire field.
-    attr_reader :blocked_domains
-    # @return [BetaManagedAgentsUserLocation] Optional API value serialized in the `user_location` wire field.
-    attr_reader :user_location
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsWebSearchToolConfigName SDK namespace.
-  module BetaManagedAgentsWebSearchToolConfigName
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigName', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigName: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsWebSearchToolConfigType SDK namespace.
-  module BetaManagedAgentsWebSearchToolConfigType
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigType', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigType: #{value}")
-    end
+# Defines the BetaManagedAgentsWebSearchToolConfigName SDK namespace.
+module BetaManagedAgentsWebSearchToolConfigName
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigName', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigName: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsWebSearchToolConfigType SDK namespace.
+module BetaManagedAgentsWebSearchToolConfigType
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigType', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata
+  FIELDS = {
+    type: "type",
+    name: "name",
+    enabled: "enabled",
+    permission_policy: "permission_policy",
+    allowed_domains: "allowed_domains",
+    blocked_domains: "blocked_domains",
+    user_location: "user_location",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigParamsType.from_value(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigParamsName.from_value(value)
+    end,
+    permission_policy: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+    end,
+    user_location: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsUserLocation.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsWebSearchToolConfigParams.
+# Configuration override for the web_search tool.
+class BetaManagedAgentsWebSearchToolConfigParams
+  include BetaManagedAgentsAgentToolConfigUnionParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::DECODERS
+
+  # @return [BetaManagedAgentsWebSearchToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaManagedAgentsWebSearchToolConfigParamsName] Must be "web_search".
+  attr_reader :name
+  # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
+  attr_reader :permission_policy
+  # @return [Array_of_String] Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+  attr_reader :allowed_domains
+  # @return [Array_of_String] Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+  attr_reader :blocked_domains
+  # @return [BetaManagedAgentsUserLocation] Approximate user location for search result localization.
+  attr_reader :user_location
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata
-    FIELDS = {
-      type: 'type',
-      name: 'name',
-      enabled: 'enabled',
-      permission_policy: 'permission_policy',
-      allowed_domains: 'allowed_domains',
-      blocked_domains: 'blocked_domains',
-      user_location: 'user_location'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigParamsType.from_value(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWebSearchToolConfigParamsName.from_value(value)
-      end,
-      permission_policy: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-      end,
-      user_location: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsUserLocation.from_hash(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsWebSearchToolConfigParams.
-  # Configuration override for the web_search tool.
-  class BetaManagedAgentsWebSearchToolConfigParams
-    include BetaManagedAgentsAgentToolConfigUnionParams
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWebSearchToolConfigParamsMetadata::DECODERS
+# Defines the BetaManagedAgentsWebSearchToolConfigParamsName SDK namespace.
+module BetaManagedAgentsWebSearchToolConfigParamsName
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsWebSearchToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaManagedAgentsWebSearchToolConfigParamsName] Must be "web_search".
-    attr_reader :name
-    # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
-    attr_reader :permission_policy
-    # @return [Array_of_String] Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-    attr_reader :allowed_domains
-    # @return [Array_of_String] Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-    attr_reader :blocked_domains
-    # @return [BetaManagedAgentsUserLocation] Approximate user location for search result localization.
-    attr_reader :user_location
+    raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigParamsName: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Defines the BetaManagedAgentsWebSearchToolConfigParamsType SDK namespace.
+module BetaManagedAgentsWebSearchToolConfigParamsType
+  WEB_SEARCH = 'web_search'
+  VALUES = ['web_search'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+    raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigParamsType: #{value}")
+  end
+end
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata
+  FIELDS = {
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError.
+# The deployment's workspace was archived.
+class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError
+  include BetaManagedAgentsDeploymentPausedReasonError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsWebSearchToolConfigParamsName SDK namespace.
-  module BetaManagedAgentsWebSearchToolConfigParamsName
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigParamsName: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsWebSearchToolConfigParamsType SDK namespace.
-  module BetaManagedAgentsWebSearchToolConfigParamsType
-    WEB_SEARCH = 'web_search'
-    VALUES = ['web_search'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsWebSearchToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWebSearchToolConfigParamsType: #{value}")
-    end
+# Defines the BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType SDK namespace.
+module BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType
+  WORKSPACE_ARCHIVED_ERROR = 'workspace_archived_error'
+  VALUES = ['workspace_archived_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata
+  FIELDS = {
+    type: "type",
+    message: "message",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    message
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWorkspaceArchivedRunErrorType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsWorkspaceArchivedRunError.
+# The deployment's workspace was archived.
+class BetaManagedAgentsWorkspaceArchivedRunError
+  include BetaManagedAgentsRunError
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::DECODERS
+
+  # @return [BetaManagedAgentsWorkspaceArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Human-readable error description.
+  attr_reader :message
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata
-    FIELDS = {
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError.
-  # The deployment's workspace was archived.
-  class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError
-    include BetaManagedAgentsDeploymentPausedReasonError
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorMetadata::DECODERS
+# Defines the BetaManagedAgentsWorkspaceArchivedRunErrorType SDK namespace.
+module BetaManagedAgentsWorkspaceArchivedRunErrorType
+  WORKSPACE_ARCHIVED_ERROR = 'workspace_archived_error'
+  VALUES = ['workspace_archived_error'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
+    raise SdkValidationError.new('BetaManagedAgentsWorkspaceArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsWorkspaceArchivedRunErrorType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsWriteToolConfigMetadata
+  FIELDS = {
+    type: "type",
+    name: "name",
+    enabled: "enabled",
+    permission_policy: "permission_policy",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    name
+    enabled
+    permission_policy
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigType.from_value(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigName.from_value(value)
+    end,
+    permission_policy: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsWriteToolConfig.
+# Configuration for the write tool.
+class BetaManagedAgentsWriteToolConfig
+  include BetaManagedAgentsAgentToolConfigUnion
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsWriteToolConfigType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaManagedAgentsWriteToolConfigName] Required `string` value serialized in the `name` wire field.
+  attr_reader :name
+  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+  attr_reader :permission_policy
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType SDK namespace.
-  module BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType
-    WORKSPACE_ARCHIVED_ERROR = 'workspace_archived_error'
-    VALUES = ['workspace_archived_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata
-    FIELDS = {
-      type: 'type',
-      message: 'message'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      message
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWorkspaceArchivedRunErrorType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsWriteToolConfigName SDK namespace.
+module BetaManagedAgentsWriteToolConfigName
+  WRITE = 'write'
+  VALUES = ['write'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigName', 'enum', "Unknown BetaManagedAgentsWriteToolConfigName: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsWriteToolConfigType SDK namespace.
+module BetaManagedAgentsWriteToolConfigType
+  WRITE = 'write'
+  VALUES = ['write'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigType', 'enum', "Unknown BetaManagedAgentsWriteToolConfigType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata
+  FIELDS = {
+    type: "type",
+    name: "name",
+    enabled: "enabled",
+    permission_policy: "permission_policy",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigParamsType.from_value(value)
+    end,
+    name: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigParamsName.from_value(value)
+    end,
+    permission_policy: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsWriteToolConfigParams.
+# Configuration override for the write tool.
+class BetaManagedAgentsWriteToolConfigParams
+  include BetaManagedAgentsAgentToolConfigUnionParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::DECODERS
+
+  # @return [BetaManagedAgentsWriteToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [BetaManagedAgentsWriteToolConfigParamsName] Must be "write".
+  attr_reader :name
+  # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+  attr_reader :enabled
+  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
+  attr_reader :permission_policy
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsWorkspaceArchivedRunError.
-  # The deployment's workspace was archived.
-  class BetaManagedAgentsWorkspaceArchivedRunError
-    include BetaManagedAgentsRunError
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWorkspaceArchivedRunErrorMetadata::DECODERS
-
-    # @return [BetaManagedAgentsWorkspaceArchivedRunErrorType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Human-readable error description.
-    attr_reader :message
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsWorkspaceArchivedRunErrorType SDK namespace.
-  module BetaManagedAgentsWorkspaceArchivedRunErrorType
-    WORKSPACE_ARCHIVED_ERROR = 'workspace_archived_error'
-    VALUES = ['workspace_archived_error'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWorkspaceArchivedRunErrorType', 'enum', "Unknown BetaManagedAgentsWorkspaceArchivedRunErrorType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsWriteToolConfigMetadata
-    FIELDS = {
-      type: 'type',
-      name: 'name',
-      enabled: 'enabled',
-      permission_policy: 'permission_policy'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      name
-      enabled
-      permission_policy
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigType.from_value(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigName.from_value(value)
-      end,
-      permission_policy: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-      end
-    }.freeze
+# Defines the BetaManagedAgentsWriteToolConfigParamsName SDK namespace.
+module BetaManagedAgentsWriteToolConfigParamsName
+  WRITE = 'write'
+  VALUES = ['write'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWriteToolConfigParamsName: #{value}")
   end
+end
 
-  # API model for BetaManagedAgentsWriteToolConfig.
-  # Configuration for the write tool.
-  class BetaManagedAgentsWriteToolConfig
-    include BetaManagedAgentsAgentToolConfigUnion
+# Defines the BetaManagedAgentsWriteToolConfigParamsType SDK namespace.
+module BetaManagedAgentsWriteToolConfigParamsType
+  WRITE = 'write'
+  VALUES = ['write'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWriteToolConfigMetadata::DECODERS
-
-    # @return [BetaManagedAgentsWriteToolConfigType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaManagedAgentsWriteToolConfigName] Required `string` value serialized in the `name` wire field.
-    attr_reader :name
-    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-    attr_reader :permission_policy
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWriteToolConfigParamsType: #{value}")
   end
-
-  # Defines the BetaManagedAgentsWriteToolConfigName SDK namespace.
-  module BetaManagedAgentsWriteToolConfigName
-    WRITE = 'write'
-    VALUES = ['write'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigName', 'enum', "Unknown BetaManagedAgentsWriteToolConfigName: #{value}")
-    end
-  end
-
-  # Defines the BetaManagedAgentsWriteToolConfigType SDK namespace.
-  module BetaManagedAgentsWriteToolConfigType
-    WRITE = 'write'
-    VALUES = ['write'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigType', 'enum', "Unknown BetaManagedAgentsWriteToolConfigType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata
-    FIELDS = {
-      type: 'type',
-      name: 'name',
-      enabled: 'enabled',
-      permission_policy: 'permission_policy'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigParamsType.from_value(value)
-      end,
-      name: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsWriteToolConfigParamsName.from_value(value)
-      end,
-      permission_policy: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsWriteToolConfigParams.
-  # Configuration override for the write tool.
-  class BetaManagedAgentsWriteToolConfigParams
-    include BetaManagedAgentsAgentToolConfigUnionParams
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsWriteToolConfigParamsMetadata::DECODERS
-
-    # @return [BetaManagedAgentsWriteToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [BetaManagedAgentsWriteToolConfigParamsName] Must be "write".
-    attr_reader :name
-    # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-    attr_reader :enabled
-    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
-    attr_reader :permission_policy
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsWriteToolConfigParamsName SDK namespace.
-  module BetaManagedAgentsWriteToolConfigParamsName
-    WRITE = 'write'
-    VALUES = ['write'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsWriteToolConfigParamsName: #{value}")
-    end
-  end
-
-  # Defines the BetaManagedAgentsWriteToolConfigParamsType SDK namespace.
-  module BetaManagedAgentsWriteToolConfigParamsType
-    WRITE = 'write'
-    VALUES = ['write'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsWriteToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsWriteToolConfigParamsType: #{value}")
-    end
-  end
+end
 end

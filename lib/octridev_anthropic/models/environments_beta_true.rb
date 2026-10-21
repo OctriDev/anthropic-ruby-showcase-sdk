@@ -5,130 +5,129 @@
 
 # environments_beta_true domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaEnvironmentListResponseMetadata
-    FIELDS = {
-      data: 'data',
-      next_page: 'next_page'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      next_page
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaEnvironment.from_hash(item) }
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      next_page
-    ].freeze
+# Internal model hydration metadata.
+class SdkInternalBetaEnvironmentListResponseMetadata
+  FIELDS = {
+    data: "data",
+    next_page: "next_page",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    next_page
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaEnvironment.from_hash(item) }
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    next_page
+  ].freeze
+end
+
+# API model for BetaEnvironmentListResponse.
+# Response when listing environments. This response model uses opaque cursor-based pagination. Use the `page` query parameter with the value from `next_page` to fetch the next page.
+class BetaEnvironmentListResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaEnvironmentListResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaEnvironmentListResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaEnvironmentListResponseMetadata::DECODERS
+
+  # @return [Array_of_BetaEnvironment] List of environments.
+  attr_reader :data
+  # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
+  attr_reader :next_page
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaEnvironmentListResponse.
-  # Response when listing environments. This response model uses opaque cursor-based pagination. Use the `page` query parameter with the value from `next_page` to fetch the next page.
-  class BetaEnvironmentListResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaEnvironmentListResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaEnvironmentListResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaEnvironmentListResponseMetadata::DECODERS
-
-    # @return [Array_of_BetaEnvironment] List of environments.
-    attr_reader :data
-    # @return [String] Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
-    attr_reader :next_page
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEnvironmentListResponseMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaEnvironmentListResponseMetadata::NULLABLE_FIELDS)
   end
 
-  # Defines the BetaPublicEnvironmentCreateRequestScopeVariant0 SDK namespace.
-  module BetaPublicEnvironmentCreateRequestScopeVariant0
-    ORGANIZATION = 'organization'
-    ACCOUNT = 'account'
-    VALUES = %w[organization account].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaPublicEnvironmentCreateRequestScopeVariant0 SDK namespace.
+module BetaPublicEnvironmentCreateRequestScopeVariant0
+  ORGANIZATION = 'organization'
+  ACCOUNT = 'account'
+  VALUES = ['organization', 'account'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaPublicEnvironmentCreateRequestMetadata
+  FIELDS = {
+    config: "config",
+    description: "description",
+    metadata: "metadata",
+    name: "name",
+    scope: "scope",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    name
+  ].freeze
+  DECODERS = {
+    config: lambda do |value|
+      ::OctridevAnthropic::BetaPublicEnvironmentCreateRequestConfig.from_hash(value)
+    end,
+    scope: lambda do |value|
+      ::OctridevAnthropic::BetaPublicEnvironmentCreateRequestScopeVariant0.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaPublicEnvironmentCreateRequest.
+# Public API request to create a new environment (without org/account fields).
+class BetaPublicEnvironmentCreateRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::DECODERS
+
+  # @return [BetaPublicEnvironmentCreateRequestConfig] Environment configuration
+  attr_reader :config
+  # @return [String] Optional description of the environment
+  attr_reader :description
+  # @return [Hash] User-provided metadata key-value pairs
+  attr_reader :metadata
+  # @return [String] Human-readable name for the environment
+  attr_reader :name
+  # @return [BetaPublicEnvironmentCreateRequestScopeVariant0] The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
+  attr_reader :scope
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaPublicEnvironmentCreateRequestMetadata
-    FIELDS = {
-      config: 'config',
-      description: 'description',
-      metadata: 'metadata',
-      name: 'name',
-      scope: 'scope'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      name
-    ].freeze
-    DECODERS = {
-      config: lambda do |value|
-        ::OctridevAnthropic::BetaPublicEnvironmentCreateRequestConfig.from_hash(value)
-      end,
-      scope: lambda do |value|
-        ::OctridevAnthropic::BetaPublicEnvironmentCreateRequestScopeVariant0.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaPublicEnvironmentCreateRequest.
-  # Public API request to create a new environment (without org/account fields).
-  class BetaPublicEnvironmentCreateRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaPublicEnvironmentCreateRequestMetadata::DECODERS
-
-    # @return [BetaPublicEnvironmentCreateRequestConfig] Environment configuration
-    attr_reader :config
-    # @return [String] Optional description of the environment
-    attr_reader :description
-    # @return [Hash] User-provided metadata key-value pairs
-    attr_reader :metadata
-    # @return [String] Human-readable name for the environment
-    attr_reader :name
-    # @return [BetaPublicEnvironmentCreateRequestScopeVariant0] The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
-    attr_reader :scope
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaPublicEnvironmentCreateRequestConfig SDK namespace.
-  module BetaPublicEnvironmentCreateRequestConfig
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+# Defines the BetaPublicEnvironmentCreateRequestConfig SDK namespace.
+module BetaPublicEnvironmentCreateRequestConfig
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "cloud" => BetaCloudConfigParams, "self_hosted" => BetaSelfHostedConfigParams }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-      mapping = { 'cloud' => BetaCloudConfigParams, 'self_hosted' => BetaSelfHostedConfigParams }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaPublicEnvironmentCreateRequestConfig', 'variant', "Unknown BetaPublicEnvironmentCreateRequestConfig discriminator: #{hash['type'].inspect}")
-    end
+    raise SdkValidationError.new('BetaPublicEnvironmentCreateRequestConfig', 'variant', "Unknown BetaPublicEnvironmentCreateRequestConfig discriminator: #{hash["type"].inspect}")
   end
+end
 end

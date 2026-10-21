@@ -5,113 +5,112 @@
 
 # shared_beta_request_fallback domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestFallbackBlockMetadata
-    FIELDS = {
-      from: 'from',
-      to: 'to',
-      trigger: 'trigger',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      from
-      to
-      type
-    ].freeze
-    DECODERS = {
-      from: lambda do |value|
-        ::OctridevAnthropic::BetaRequestFallbackHopInfo.from_hash(value)
-      end,
-      to: lambda do |value|
-        ::OctridevAnthropic::BetaRequestFallbackHopInfo.from_hash(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestFallbackBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestFallbackBlockMetadata
+  FIELDS = {
+    from: "from",
+    to: "to",
+    trigger: "trigger",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    from
+    to
+    type
+  ].freeze
+  DECODERS = {
+    from: lambda do |value|
+      ::OctridevAnthropic::BetaRequestFallbackHopInfo.from_hash(value)
+    end,
+    to: lambda do |value|
+      ::OctridevAnthropic::BetaRequestFallbackHopInfo.from_hash(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestFallbackBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestFallbackBlock.
+# A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. Echo the assistant turn back verbatim, including this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting…
+class BetaRequestFallbackBlock
+  include BetaInputContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestFallbackBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestFallbackBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestFallbackBlockMetadata::DECODERS
+
+  # @return [BetaRequestFallbackHopInfo] Identifies one hop of a fallback transition.
+  attr_reader :from
+  # @return [BetaRequestFallbackHopInfo] Identifies one hop of a fallback transition.
+  attr_reader :to
+  # @return [Object] The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
+  attr_reader :trigger
+  # @return [BetaRequestFallbackBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestFallbackBlock.
-  # A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. Echo the assistant turn back verbatim, including this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting…
-  class BetaRequestFallbackBlock
-    include BetaInputContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestFallbackBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestFallbackBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestFallbackBlockMetadata::DECODERS
-
-    # @return [BetaRequestFallbackHopInfo] Identifies one hop of a fallback transition.
-    attr_reader :from
-    # @return [BetaRequestFallbackHopInfo] Identifies one hop of a fallback transition.
-    attr_reader :to
-    # @return [Object] The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
-    attr_reader :trigger
-    # @return [BetaRequestFallbackBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestFallbackBlockType SDK namespace.
-  module BetaRequestFallbackBlockType
-    FALLBACK = 'fallback'
-    VALUES = ['fallback'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestFallbackBlockType', 'enum', "Unknown BetaRequestFallbackBlockType: #{value}")
-    end
+# Defines the BetaRequestFallbackBlockType SDK namespace.
+module BetaRequestFallbackBlockType
+  FALLBACK = 'fallback'
+  VALUES = ['fallback'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestFallbackBlockType', 'enum', "Unknown BetaRequestFallbackBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestFallbackHopInfoMetadata
+  FIELDS = {
+    model: "model",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    model
+  ].freeze
+  DECODERS = {
+    model: lambda do |value|
+      ::OctridevAnthropic::Model.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestFallbackHopInfo.
+# Identifies one hop of a fallback transition.
+class BetaRequestFallbackHopInfo
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestFallbackHopInfoMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestFallbackHopInfoMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestFallbackHopInfoMetadata::DECODERS
+
+  # @return [Model] The model that will complete your prompt. See models for additional details and options.
+  attr_reader :model
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestFallbackHopInfoMetadata
-    FIELDS = {
-      model: 'model'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      model
-    ].freeze
-    DECODERS = {
-      model: lambda do |value|
-        ::OctridevAnthropic::Model.from_hash(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaRequestFallbackHopInfo.
-  # Identifies one hop of a fallback transition.
-  class BetaRequestFallbackHopInfo
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestFallbackHopInfoMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestFallbackHopInfoMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestFallbackHopInfoMetadata::DECODERS
-
-    # @return [Model] The model that will complete your prompt. See models for additional details and options.
-    attr_reader :model
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

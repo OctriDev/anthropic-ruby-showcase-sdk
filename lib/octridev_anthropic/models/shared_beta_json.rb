@@ -5,87 +5,91 @@
 
 # shared_beta_json domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaJsonOutputFormatMetadata
-    FIELDS = {
-      schema: 'schema',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      schema
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaJsonOutputFormatType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaJsonOutputFormatMetadata
+  FIELDS = {
+    schema: "schema",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    schema
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaJsonOutputFormatType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaJsonOutputFormat.
+# Typed representation of the `BetaJsonOutputFormat` API schema.
+class BetaJsonOutputFormat
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaJsonOutputFormatMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaJsonOutputFormatMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaJsonOutputFormatMetadata::DECODERS
+
+  # @return [Hash] The JSON schema of the format
+  attr_reader :schema
+  # @return [BetaJsonOutputFormatType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaJsonOutputFormat.
-  # Typed representation of the `BetaJsonOutputFormat` API schema.
-  class BetaJsonOutputFormat
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaJsonOutputFormatMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaJsonOutputFormatMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaJsonOutputFormatMetadata::DECODERS
-
-    # @return [Hash] The JSON schema of the format
-    attr_reader :schema
-    # @return [BetaJsonOutputFormatType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaJsonOutputFormatType SDK namespace.
-  module BetaJsonOutputFormatType
-    JSON_SCHEMA = 'json_schema'
-    VALUES = ['json_schema'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaJsonOutputFormatType', 'enum', "Unknown BetaJsonOutputFormatType: #{value}")
-    end
+# Defines the BetaJsonOutputFormatType SDK namespace.
+module BetaJsonOutputFormatType
+  JSON_SCHEMA = 'json_schema'
+  VALUES = ['json_schema'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaJsonOutputFormatType', 'enum', "Unknown BetaJsonOutputFormatType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaJsonValueMetadata
+  FIELDS = {
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+  }.freeze
+end
+
+# API model for BetaJsonValue.
+# Typed representation of the `BetaJsonValue` API schema.
+class BetaJsonValue
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaJsonValueMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaJsonValueMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaJsonValueMetadata::DECODERS
+
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaJsonValueMetadata
-    FIELDS = {}.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {}.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaJsonValue.
-  # Typed representation of the `BetaJsonValue` API schema.
-  class BetaJsonValue
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaJsonValueMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaJsonValueMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaJsonValueMetadata::DECODERS
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 end

@@ -5,163 +5,161 @@
 
 # shared_base64 domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBase64ImageSourceMetadata
-    FIELDS = {
-      data: 'data',
-      media_type: 'media_type',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      media_type
-      type
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        Validation.validate_byte('data', value) if value.is_a?(String)
-        value
-      end,
-      media_type: lambda do |value|
-        ::OctridevAnthropic::Base64ImageSourceMediaType.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::Base64ImageSourceType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for Base64ImageSource.
-  # Typed representation of the `Base64ImageSource` API schema.
-  class Base64ImageSource
-    include RequestImageBlockSource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBase64ImageSourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBase64ImageSourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBase64ImageSourceMetadata::DECODERS
-
-    # @return [String] Required `byte`-formatted value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Base64ImageSourceMediaType] Required enumerated value serialized in the `media_type` wire field.
-    attr_reader :media_type
-    # @return [Base64ImageSourceType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the Base64ImageSourceMediaType SDK namespace.
-  module Base64ImageSourceMediaType
-    IMAGE_JPEG = 'image/jpeg'
-    IMAGE_PNG = 'image/png'
-    IMAGE_GIF = 'image/gif'
-    IMAGE_WEBP = 'image/webp'
-    VALUES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
-    def self.from_value(value)
+# Internal model hydration metadata.
+class SdkInternalBase64ImageSourceMetadata
+  FIELDS = {
+    data: "data",
+    media_type: "media_type",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    media_type
+    type
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      Validation.validate_byte('data', value) if value.is_a?(String)
       value
-    end
+    end,
+    media_type: lambda do |value|
+      ::OctridevAnthropic::Base64ImageSourceMediaType.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::Base64ImageSourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for Base64ImageSource.
+# Typed representation of the `Base64ImageSource` API schema.
+class Base64ImageSource
+  include RequestImageBlockSource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBase64ImageSourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBase64ImageSourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBase64ImageSourceMetadata::DECODERS
+
+  # @return [String] Required `byte`-formatted value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Base64ImageSourceMediaType] Required enumerated value serialized in the `media_type` wire field.
+  attr_reader :media_type
+  # @return [Base64ImageSourceType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the Base64ImageSourceType SDK namespace.
-  module Base64ImageSourceType
-    BASE64 = 'base64'
-    VALUES = ['base64'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('Base64ImageSourceType', 'enum', "Unknown Base64ImageSourceType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBase64PDFSourceMetadata
-    FIELDS = {
-      data: 'data',
-      media_type: 'media_type',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      data
-      media_type
-      type
-    ].freeze
-    DECODERS = {
-      data: lambda do |value|
-        Validation.validate_byte('data', value) if value.is_a?(String)
-        value
-      end,
-      media_type: lambda do |value|
-        ::OctridevAnthropic::Base64PDFSourceMediaType.from_value(value)
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::Base64PDFSourceType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the Base64ImageSourceMediaType SDK namespace.
+module Base64ImageSourceMediaType
+  IMAGE_JPEG = 'image/jpeg'
+  IMAGE_PNG = 'image/png'
+  IMAGE_GIF = 'image/gif'
+  IMAGE_WEBP = 'image/webp'
+  VALUES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the Base64ImageSourceType SDK namespace.
+module Base64ImageSourceType
+  BASE64 = 'base64'
+  VALUES = ['base64'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('Base64ImageSourceType', 'enum', "Unknown Base64ImageSourceType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBase64PDFSourceMetadata
+  FIELDS = {
+    data: "data",
+    media_type: "media_type",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    data
+    media_type
+    type
+  ].freeze
+  DECODERS = {
+    data: lambda do |value|
+      Validation.validate_byte('data', value) if value.is_a?(String)
+      value
+    end,
+    media_type: lambda do |value|
+      ::OctridevAnthropic::Base64PDFSourceMediaType.from_value(value)
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::Base64PDFSourceType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for Base64PDFSource.
+# Typed representation of the `Base64PDFSource` API schema.
+class Base64PDFSource
+  include ResponseDocumentBlockSource
+  include RequestDocumentBlockSource
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBase64PDFSourceMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBase64PDFSourceMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBase64PDFSourceMetadata::DECODERS
+
+  # @return [String] Required `byte`-formatted value serialized in the `data` wire field.
+  attr_reader :data
+  # @return [Base64PDFSourceMediaType] Required `string` value serialized in the `media_type` wire field.
+  attr_reader :media_type
+  # @return [Base64PDFSourceType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for Base64PDFSource.
-  # Typed representation of the `Base64PDFSource` API schema.
-  class Base64PDFSource
-    include ResponseDocumentBlockSource
-    include RequestDocumentBlockSource
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBase64PDFSourceMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBase64PDFSourceMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBase64PDFSourceMetadata::DECODERS
-
-    # @return [String] Required `byte`-formatted value serialized in the `data` wire field.
-    attr_reader :data
-    # @return [Base64PDFSourceMediaType] Required `string` value serialized in the `media_type` wire field.
-    attr_reader :media_type
-    # @return [Base64PDFSourceType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the Base64PDFSourceMediaType SDK namespace.
-  module Base64PDFSourceMediaType
-    APPLICATION_PDF = 'application/pdf'
-    VALUES = ['application/pdf'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('Base64PDFSourceMediaType', 'enum', "Unknown Base64PDFSourceMediaType: #{value}")
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the Base64PDFSourceType SDK namespace.
-  module Base64PDFSourceType
-    BASE64 = 'base64'
-    VALUES = ['base64'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the Base64PDFSourceMediaType SDK namespace.
+module Base64PDFSourceMediaType
+  APPLICATION_PDF = 'application/pdf'
+  VALUES = ['application/pdf'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('Base64PDFSourceType', 'enum', "Unknown Base64PDFSourceType: #{value}")
-    end
+    raise SdkValidationError.new('Base64PDFSourceMediaType', 'enum', "Unknown Base64PDFSourceMediaType: #{value}")
   end
+end
+
+# Defines the Base64PDFSourceType SDK namespace.
+module Base64PDFSourceType
+  BASE64 = 'base64'
+  VALUES = ['base64'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('Base64PDFSourceType', 'enum', "Unknown Base64PDFSourceType: #{value}")
+  end
+end
 end

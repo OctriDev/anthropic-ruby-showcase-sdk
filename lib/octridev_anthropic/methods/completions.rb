@@ -69,6 +69,7 @@ module OctridevAnthropic
         stream: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.validate_length('prompt', prompt, min: 1)
 
         Validation.validate_range('max_tokens_to_sample', max_tokens_to_sample, min: 1)
@@ -81,7 +82,7 @@ module OctridevAnthropic
 
         SdkClient.request(
           'POST',
-          '/v1/complete',
+          "/v1/complete",
           config: config,
           body: {
             'model' => model,
@@ -92,18 +93,18 @@ module OctridevAnthropic
             'top_p' => top_p,
             'top_k' => top_k,
             'metadata' => metadata,
-            'stream' => stream
+            'stream' => stream,
           },
           return_type: ::OctridevAnthropic::CompletionResponse,
           decoder: :json,
           operation_id: 'create_completions',
           extra_headers: SdkClient.serialize_headers({
-                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
-                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
-                                                     }),
+            'anthropic-version' => SdkClient.header_value(anthropic_version),
+            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
+            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
+          }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
         ).data
       end
     end

@@ -5,134 +5,134 @@
 
 # environments domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaEnvironmentDeleteResponseMetadata
-    FIELDS = {
-      id: 'id',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      id
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaEnvironmentDeleteResponseType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaEnvironmentDeleteResponseMetadata
+  FIELDS = {
+    id: "id",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    id
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaEnvironmentDeleteResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaEnvironmentDeleteResponse.
+# Response after deleting an environment.
+class BetaEnvironmentDeleteResponse
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaEnvironmentDeleteResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaEnvironmentDeleteResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaEnvironmentDeleteResponseMetadata::DECODERS
+
+  # @return [String] Environment identifier
+  attr_reader :id
+  # @return [BetaEnvironmentDeleteResponseType] The type of response
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaEnvironmentDeleteResponse.
-  # Response after deleting an environment.
-  class BetaEnvironmentDeleteResponse
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaEnvironmentDeleteResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaEnvironmentDeleteResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaEnvironmentDeleteResponseMetadata::DECODERS
-
-    # @return [String] Environment identifier
-    attr_reader :id
-    # @return [BetaEnvironmentDeleteResponseType] The type of response
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaEnvironmentDeleteResponseType SDK namespace.
-  module BetaEnvironmentDeleteResponseType
-    ENVIRONMENT_DELETED = 'environment_deleted'
-    VALUES = ['environment_deleted'].freeze
-    def self.from_value(value)
-      value
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaEnvironmentDeleteResponseType SDK namespace.
+module BetaEnvironmentDeleteResponseType
+  ENVIRONMENT_DELETED = 'environment_deleted'
+  VALUES = ['environment_deleted'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Defines the BetaPublicEnvironmentUpdateRequestScopeVariant0 SDK namespace.
+module BetaPublicEnvironmentUpdateRequestScopeVariant0
+  ORGANIZATION = 'organization'
+  ACCOUNT = 'account'
+  VALUES = ['organization', 'account'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaPublicEnvironmentUpdateRequestMetadata
+  FIELDS = {
+    config: "config",
+    description: "description",
+    metadata: "metadata",
+    name: "name",
+    scope: "scope",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+  ].freeze
+  DECODERS = {
+    config: lambda do |value|
+      ::OctridevAnthropic::BetaPublicEnvironmentUpdateRequestConfig.from_hash(value)
+    end,
+    scope: lambda do |value|
+      ::OctridevAnthropic::BetaPublicEnvironmentUpdateRequestScopeVariant0.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaPublicEnvironmentUpdateRequest.
+# Public API request to update an environment (without org/account fields).
+class BetaPublicEnvironmentUpdateRequest
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::DECODERS
+
+  # @return [BetaPublicEnvironmentUpdateRequestConfig] Updated environment configuration
+  attr_reader :config
+  # @return [String] Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+  attr_reader :description
+  # @return [Hash] User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
+  attr_reader :metadata
+  # @return [String] Updated name for the environment
+  attr_reader :name
+  # @return [BetaPublicEnvironmentUpdateRequestScopeVariant0] The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
+  attr_reader :scope
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaPublicEnvironmentUpdateRequestScopeVariant0 SDK namespace.
-  module BetaPublicEnvironmentUpdateRequestScopeVariant0
-    ORGANIZATION = 'organization'
-    ACCOUNT = 'account'
-    VALUES = %w[organization account].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaPublicEnvironmentUpdateRequestMetadata
-    FIELDS = {
-      config: 'config',
-      description: 'description',
-      metadata: 'metadata',
-      name: 'name',
-      scope: 'scope'
-    }.freeze
-    REQUIRED_FIELDS = %i[].freeze
-    DECODERS = {
-      config: lambda do |value|
-        ::OctridevAnthropic::BetaPublicEnvironmentUpdateRequestConfig.from_hash(value)
-      end,
-      scope: lambda do |value|
-        ::OctridevAnthropic::BetaPublicEnvironmentUpdateRequestScopeVariant0.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # API model for BetaPublicEnvironmentUpdateRequest.
-  # Public API request to update an environment (without org/account fields).
-  class BetaPublicEnvironmentUpdateRequest
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaPublicEnvironmentUpdateRequestMetadata::DECODERS
+# Defines the BetaPublicEnvironmentUpdateRequestConfig SDK namespace.
+module BetaPublicEnvironmentUpdateRequestConfig
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "cloud" => BetaCloudConfigParams, "self_hosted" => BetaSelfHostedConfigParams }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
 
-    # @return [BetaPublicEnvironmentUpdateRequestConfig] Updated environment configuration
-    attr_reader :config
-    # @return [String] Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
-    attr_reader :description
-    # @return [Hash] User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
-    attr_reader :metadata
-    # @return [String] Updated name for the environment
-    attr_reader :name
-    # @return [BetaPublicEnvironmentUpdateRequestScopeVariant0] The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
-    attr_reader :scope
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+    raise SdkValidationError.new('BetaPublicEnvironmentUpdateRequestConfig', 'variant', "Unknown BetaPublicEnvironmentUpdateRequestConfig discriminator: #{hash["type"].inspect}")
   end
-
-  # Defines the BetaPublicEnvironmentUpdateRequestConfig SDK namespace.
-  module BetaPublicEnvironmentUpdateRequestConfig
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
-
-      mapping = { 'cloud' => BetaCloudConfigParams, 'self_hosted' => BetaSelfHostedConfigParams }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
-
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
-
-      raise SdkValidationError.new('BetaPublicEnvironmentUpdateRequestConfig', 'variant', "Unknown BetaPublicEnvironmentUpdateRequestConfig discriminator: #{hash['type'].inspect}")
-    end
-  end
+end
 end

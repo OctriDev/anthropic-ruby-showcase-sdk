@@ -14,7 +14,7 @@ module OctridevAnthropic
         PRODUCT = 'product'
         RBAC_GROUP_ID = 'rbac_group_id'
         USER_ID = 'user_id'
-        VALUES = %w[product rbac_group_id user_id].freeze
+        VALUES = ['product', 'rbac_group_id', 'user_id'].freeze
         def self.from_value(value)
           value
         end
@@ -24,7 +24,7 @@ module OctridevAnthropic
       module ListBetaOrganizationsAnalyticsConnectorsParameterVariant0
         ASC = 'asc'
         DESC = 'desc'
-        VALUES = %w[asc desc].freeze
+        VALUES = ['asc', 'desc'].freeze
         def self.from_value(value)
           value
         end
@@ -92,13 +92,14 @@ module OctridevAnthropic
         order: NOT_GIVEN,
         request_options: nil
       )
+
         Validation.if_given(group_by) { Validation.validate_items('group_by[]', group_by, max: 100) }
 
         Validation.if_given(filter) { Validation.validate_items('filter[]', filter, max: 100) }
 
         SdkClient.request(
           'GET',
-          '/v1/organizations/analytics/connectors?beta=true',
+          "/v1/organizations/analytics/connectors?beta=true",
           config: config,
           query: {
             'date' => QueryValue.new(date, style: 'form', explode: true),
@@ -109,17 +110,17 @@ module OctridevAnthropic
             'group_by[]' => QueryValue.new(group_by, style: 'form', explode: true),
             'filter[]' => QueryValue.new(filter, style: 'form', explode: true),
             'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
-            'order' => QueryValue.new(order, style: 'form', explode: true)
+            'order' => QueryValue.new(order, style: 'form', explode: true),
           },
           return_type: ::OctridevAnthropic::BetaAnalyticsConnectorsResponse,
           decoder: :json,
           operation_id: 'list_beta_organizations_analytics_connectors',
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
         ).data
       end
 
-      ListBetaOrganizationsAnalyticsConnectorsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+    ListBetaOrganizationsAnalyticsConnectorsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Get per-connector usage for a given day, with cursor-based pagination. Returns connector usage metrics for the organization, sorted by connector name. Connector names are normalized from their various sources — for example, "Atlassian MCP server" and "mcp-atlassian" both appear as "atlassian". Use `group_by[]` to break usage out per member, per RBAC group, or per product surface, and `filter[]` to scope results; the parameter descriptions list the supported dimensions.…
       #
@@ -201,11 +202,9 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
-
             cursor = next_cursor
           end
         end
@@ -242,12 +241,10 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
-
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaOrganizationsAnalyticsConnectorsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
-
             cursor = next_cursor
           end
         end

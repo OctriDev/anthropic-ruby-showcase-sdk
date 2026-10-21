@@ -5,164 +5,162 @@
 
 # shared_beta_request_search domain models
 module OctridevAnthropic
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestSearchResultBlockMetadata
-    FIELDS = {
-      cache_control: 'cache_control',
-      citations: 'citations',
-      content: 'content',
-      source: 'source',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      content
-      source
-      title
-      type
-    ].freeze
-    DECODERS = {
-      cache_control: lambda do |value|
-        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-      end,
-      citations: lambda do |value|
-        ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
-      end,
-      content: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaRequestTextBlock.from_hash(item) }
-      end,
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestSearchResultBlockType.from_value(value)
-      end
-    }.freeze
+# Internal model hydration metadata.
+class SdkInternalBetaRequestSearchResultBlockMetadata
+  FIELDS = {
+    cache_control: "cache_control",
+    citations: "citations",
+    content: "content",
+    source: "source",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    content
+    source
+    title
+    type
+  ].freeze
+  DECODERS = {
+    cache_control: lambda do |value|
+      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+    end,
+    citations: lambda do |value|
+      ::OctridevAnthropic::BetaRequestCitationsConfig.from_hash(value)
+    end,
+    content: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaRequestTextBlock.from_hash(item) }
+    end,
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestSearchResultBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaRequestSearchResultBlock.
+# Typed representation of the `BetaRequestSearchResultBlock` API schema.
+class BetaRequestSearchResultBlock
+  include BetaInputContentBlock
+  include BetaRequestToolResultBlockContentItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestSearchResultBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestSearchResultBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestSearchResultBlockMetadata::DECODERS
+
+  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+  attr_reader :cache_control
+  # @return [BetaRequestCitationsConfig] Optional object value serialized in the `citations` wire field.
+  attr_reader :citations
+  # @return [Array_of_BetaRequestTextBlock] Required array value serialized in the `content` wire field.
+  attr_reader :content
+  # @return [String] Required `string` value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [String] Required `string` value serialized in the `title` wire field.
+  attr_reader :title
+  # @return [BetaRequestSearchResultBlockType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaRequestSearchResultBlock.
-  # Typed representation of the `BetaRequestSearchResultBlock` API schema.
-  class BetaRequestSearchResultBlock
-    include BetaInputContentBlock
-    include BetaRequestToolResultBlockContentItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestSearchResultBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestSearchResultBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestSearchResultBlockMetadata::DECODERS
-
-    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-    attr_reader :cache_control
-    # @return [BetaRequestCitationsConfig] Optional object value serialized in the `citations` wire field.
-    attr_reader :citations
-    # @return [Array_of_BetaRequestTextBlock] Required array value serialized in the `content` wire field.
-    attr_reader :content
-    # @return [String] Required `string` value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [String] Required `string` value serialized in the `title` wire field.
-    attr_reader :title
-    # @return [BetaRequestSearchResultBlockType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaRequestSearchResultBlockType SDK namespace.
-  module BetaRequestSearchResultBlockType
-    SEARCH_RESULT = 'search_result'
-    VALUES = ['search_result'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaRequestSearchResultBlockType', 'enum', "Unknown BetaRequestSearchResultBlockType: #{value}")
-    end
+# Defines the BetaRequestSearchResultBlockType SDK namespace.
+module BetaRequestSearchResultBlockType
+  SEARCH_RESULT = 'search_result'
+  VALUES = ['search_result'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaRequestSearchResultBlockType', 'enum', "Unknown BetaRequestSearchResultBlockType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaRequestSearchResultLocationCitationMetadata
+  FIELDS = {
+    cited_text: "cited_text",
+    end_block_index: "end_block_index",
+    search_result_index: "search_result_index",
+    source: "source",
+    start_block_index: "start_block_index",
+    title: "title",
+    type: "type",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    cited_text
+    end_block_index
+    search_result_index
+    source
+    start_block_index
+    title
+    type
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaRequestSearchResultLocationCitationType.from_value(value)
+    end,
+  }.freeze
+  NULLABLE_FIELDS = %i[
+    title
+  ].freeze
+end
+
+# API model for BetaRequestSearchResultLocationCitation.
+# Typed representation of the `BetaRequestSearchResultLocationCitation` API schema.
+class BetaRequestSearchResultLocationCitation
+  include BetaRequestTextBlockCitationsItem
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::DECODERS
+
+  # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+  attr_reader :cited_text
+  # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+  attr_reader :end_block_index
+  # @return [Integer] 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count.
+  attr_reader :search_result_index
+  # @return [String] Required `string` value serialized in the `source` wire field.
+  attr_reader :source
+  # @return [Integer] 0-based index of the first cited block in the source's `content` array.
+  attr_reader :start_block_index
+  # @return [String] Required `string` value serialized in the `title` wire field.
+  attr_reader :title
+  # @return [BetaRequestSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
+  attr_reader :type
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaRequestSearchResultLocationCitationMetadata
-    FIELDS = {
-      cited_text: 'cited_text',
-      end_block_index: 'end_block_index',
-      search_result_index: 'search_result_index',
-      source: 'source',
-      start_block_index: 'start_block_index',
-      title: 'title',
-      type: 'type'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      cited_text
-      end_block_index
-      search_result_index
-      source
-      start_block_index
-      title
-      type
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaRequestSearchResultLocationCitationType.from_value(value)
-      end
-    }.freeze
-    NULLABLE_FIELDS = %i[
-      title
-    ].freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRequestSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
   end
 
-  # API model for BetaRequestSearchResultLocationCitation.
-  # Typed representation of the `BetaRequestSearchResultLocationCitation` API schema.
-  class BetaRequestSearchResultLocationCitation
-    include BetaRequestTextBlockCitationsItem
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaRequestSearchResultLocationCitationMetadata::DECODERS
-
-    # @return [String] The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-    attr_reader :cited_text
-    # @return [Integer] Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-    attr_reader :end_block_index
-    # @return [Integer] 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count.
-    attr_reader :search_result_index
-    # @return [String] Required `string` value serialized in the `source` wire field.
-    attr_reader :source
-    # @return [Integer] 0-based index of the first cited block in the source's `content` array.
-    attr_reader :start_block_index
-    # @return [String] Required `string` value serialized in the `title` wire field.
-    attr_reader :title
-    # @return [BetaRequestSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
-    attr_reader :type
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRequestSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaRequestSearchResultLocationCitationType SDK namespace.
-  module BetaRequestSearchResultLocationCitationType
-    SEARCH_RESULT_LOCATION = 'search_result_location'
-    VALUES = ['search_result_location'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaRequestSearchResultLocationCitationType SDK namespace.
+module BetaRequestSearchResultLocationCitationType
+  SEARCH_RESULT_LOCATION = 'search_result_location'
+  VALUES = ['search_result_location'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaRequestSearchResultLocationCitationType', 'enum', "Unknown BetaRequestSearchResultLocationCitationType: #{value}")
-    end
+    raise SdkValidationError.new('BetaRequestSearchResultLocationCitationType', 'enum', "Unknown BetaRequestSearchResultLocationCitationType: #{value}")
   end
+end
 end

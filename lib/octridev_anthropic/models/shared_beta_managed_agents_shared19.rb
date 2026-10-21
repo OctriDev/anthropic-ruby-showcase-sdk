@@ -5,685 +5,674 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-  # API model for BetaManagedAgentsSpanModelRequestStartEvent.
-  # Emitted when a model request is initiated by the agent.
-  class BetaManagedAgentsSpanModelRequestStartEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
+# API model for BetaManagedAgentsSpanModelRequestStartEvent.
+# Emitted when a model request is initiated by the agent.
+class BetaManagedAgentsSpanModelRequestStartEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::DECODERS
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSpanModelRequestStartEventMetadata::DECODERS
+  # @return [BetaManagedAgentsSpanModelRequestStartEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp when the model request started.
+  attr_reader :processed_at
 
-    # @return [BetaManagedAgentsSpanModelRequestStartEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp when the model request started.
-    attr_reader :processed_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSpanModelRequestStartEventType SDK namespace.
-  module BetaManagedAgentsSpanModelRequestStartEventType
-    SPAN_MODEL_REQUEST_START = 'span.model_request_start'
-    VALUES = ['span.model_request_start'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSpanModelRequestStartEventType', 'enum', "Unknown BetaManagedAgentsSpanModelRequestStartEventType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSpanModelUsageMetadata
-    FIELDS = {
-      input_tokens: 'input_tokens',
-      output_tokens: 'output_tokens',
-      cache_creation_input_tokens: 'cache_creation_input_tokens',
-      cache_read_input_tokens: 'cache_read_input_tokens',
-      speed: 'speed'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      input_tokens
-      output_tokens
-      cache_creation_input_tokens
-      cache_read_input_tokens
-    ].freeze
-    DECODERS = {
-      speed: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsSpanModelRequestStartEventType SDK namespace.
+module BetaManagedAgentsSpanModelRequestStartEventType
+  SPAN_MODEL_REQUEST_START = 'span.model_request_start'
+  VALUES = ['span.model_request_start'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSpanModelRequestStartEventType', 'enum', "Unknown BetaManagedAgentsSpanModelRequestStartEventType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSpanModelUsageMetadata
+  FIELDS = {
+    input_tokens: "input_tokens",
+    output_tokens: "output_tokens",
+    cache_creation_input_tokens: "cache_creation_input_tokens",
+    cache_read_input_tokens: "cache_read_input_tokens",
+    speed: "speed",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    input_tokens
+    output_tokens
+    cache_creation_input_tokens
+    cache_read_input_tokens
+  ].freeze
+  DECODERS = {
+    speed: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSpanModelUsage.
+# Token usage for a single model request.
+class BetaManagedAgentsSpanModelUsage
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::DECODERS
+
+  # @return [Integer] Input tokens consumed by this request.
+  attr_reader :input_tokens
+  # @return [Integer] Output tokens generated by this request.
+  attr_reader :output_tokens
+  # @return [Integer] Tokens used to create prompt cache in this request.
+  attr_reader :cache_creation_input_tokens
+  # @return [Integer] Tokens read from prompt cache in this request.
+  attr_reader :cache_read_input_tokens
+  # @return [BetaManagedAgentsSpeed] Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
+  attr_reader :speed
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsSpanModelUsage.
-  # Token usage for a single model request.
-  class BetaManagedAgentsSpanModelUsage
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSpanModelUsageMetadata::DECODERS
-
-    # @return [Integer] Input tokens consumed by this request.
-    attr_reader :input_tokens
-    # @return [Integer] Output tokens generated by this request.
-    attr_reader :output_tokens
-    # @return [Integer] Tokens used to create prompt cache in this request.
-    attr_reader :cache_creation_input_tokens
-    # @return [Integer] Tokens read from prompt cache in this request.
-    attr_reader :cache_read_input_tokens
-    # @return [BetaManagedAgentsSpeed] Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
-    attr_reader :speed
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at',
-      outcome_evaluation_start_id: 'outcome_evaluation_start_id',
-      iteration: 'iteration',
-      result: 'result',
-      explanation: 'explanation',
-      usage: 'usage',
-      outcome_id: 'outcome_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-      outcome_evaluation_start_id
-      iteration
-      result
-      explanation
-      usage
-      outcome_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationEndEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end,
-      usage: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSpanModelUsage.from_hash(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+    outcome_evaluation_start_id: "outcome_evaluation_start_id",
+    iteration: "iteration",
+    result: "result",
+    explanation: "explanation",
+    usage: "usage",
+    outcome_id: "outcome_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+    outcome_evaluation_start_id
+    iteration
+    result
+    explanation
+    usage
+    outcome_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationEndEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+    usage: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSpanModelUsage.from_hash(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSpanOutcomeEvaluationEndEvent.
+# Emitted when an outcome evaluation cycle completes. Carries the verdict and aggregate token usage. A verdict of `needs_revision` means another evaluation cycle follows; `satisfied`, `max_iterations_reached`, `failed`, or `interrupted` are terminal — no further evaluation cycles follow.
+class BetaManagedAgentsSpanOutcomeEvaluationEndEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSpanOutcomeEvaluationEndEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp when outcome evaluation ended.
+  attr_reader :processed_at
+  # @return [String] The id of the corresponding `span.outcome_evaluation_start` event.
+  attr_reader :outcome_evaluation_start_id
+  # @return [Integer] 0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
+  attr_reader :iteration
+  # @return [String] Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
+  attr_reader :result
+  # @return [String] Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
+  attr_reader :explanation
+  # @return [BetaManagedAgentsSpanModelUsage] Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
+  attr_reader :usage
+  # @return [String] The `outc_` ID of the outcome being evaluated.
+  attr_reader :outcome_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsSpanOutcomeEvaluationEndEvent.
-  # Emitted when an outcome evaluation cycle completes. Carries the verdict and aggregate token usage. A verdict of `needs_revision` means another evaluation cycle follows; `satisfied`, `max_iterations_reached`, `failed`, or `interrupted` are terminal — no further evaluation cycles follow.
-  class BetaManagedAgentsSpanOutcomeEvaluationEndEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationEndEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSpanOutcomeEvaluationEndEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp when outcome evaluation ended.
-    attr_reader :processed_at
-    # @return [String] The id of the corresponding `span.outcome_evaluation_start` event.
-    attr_reader :outcome_evaluation_start_id
-    # @return [Integer] 0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-    attr_reader :iteration
-    # @return [String] Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
-    attr_reader :result
-    # @return [String] Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
-    attr_reader :explanation
-    # @return [BetaManagedAgentsSpanModelUsage] Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
-    attr_reader :usage
-    # @return [String] The `outc_` ID of the outcome being evaluated.
-    attr_reader :outcome_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSpanOutcomeEvaluationEndEventType SDK namespace.
-  module BetaManagedAgentsSpanOutcomeEvaluationEndEventType
-    SPAN_OUTCOME_EVALUATION_END = 'span.outcome_evaluation_end'
-    VALUES = ['span.outcome_evaluation_end'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationEndEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationEndEventType: #{value}")
-    end
+# Defines the BetaManagedAgentsSpanOutcomeEvaluationEndEventType SDK namespace.
+module BetaManagedAgentsSpanOutcomeEvaluationEndEventType
+  SPAN_OUTCOME_EVALUATION_END = 'span.outcome_evaluation_end'
+  VALUES = ['span.outcome_evaluation_end'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationEndEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationEndEventType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+    iteration: "iteration",
+    outcome_id: "outcome_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+    iteration
+    outcome_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent.
+# Periodic heartbeat emitted while an outcome evaluation cycle is in progress. Distinguishes 'evaluation is actively running' from 'evaluation is stuck' between the corresponding `span.outcome_evaluation_start` and `span.outcome_evaluation_end` events.
+class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp when this heartbeat was emitted.
+  attr_reader :processed_at
+  # @return [Integer] 0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
+  attr_reader :iteration
+  # @return [String] The `outc_` ID of the outcome being evaluated.
+  attr_reader :outcome_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at',
-      iteration: 'iteration',
-      outcome_id: 'outcome_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-      iteration
-      outcome_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent.
-  # Periodic heartbeat emitted while an outcome evaluation cycle is in progress. Distinguishes 'evaluation is actively running' from 'evaluation is stuck' between the corresponding `span.outcome_evaluation_start` and `span.outcome_evaluation_end` events.
-  class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationOngoingEventMetadata::DECODERS
+# Defines the BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType SDK namespace.
+module BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType
+  SPAN_OUTCOME_EVALUATION_ONGOING = 'span.outcome_evaluation_ongoing'
+  VALUES = ['span.outcome_evaluation_ongoing'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-    # @return [BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp when this heartbeat was emitted.
-    attr_reader :processed_at
-    # @return [Integer] 0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-    attr_reader :iteration
-    # @return [String] The `outc_` ID of the outcome being evaluated.
-    attr_reader :outcome_id
+    raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType: #{value}")
+  end
+end
 
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    processed_at: "processed_at",
+    iteration: "iteration",
+    outcome_id: "outcome_id",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    processed_at
+    iteration
+    outcome_id
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationStartEventType.from_value(value)
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
 
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
+# API model for BetaManagedAgentsSpanOutcomeEvaluationStartEvent.
+# Emitted when an outcome evaluation cycle begins.
+class BetaManagedAgentsSpanOutcomeEvaluationStartEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::DECODERS
 
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  # @return [BetaManagedAgentsSpanOutcomeEvaluationStartEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [BetaTimestamp] Timestamp when outcome evaluation started.
+  attr_reader :processed_at
+  # @return [Integer] 0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
+  attr_reader :iteration
+  # @return [String] The `outc_` ID of the outcome being evaluated.
+  attr_reader :outcome_id
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType SDK namespace.
-  module BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType
-    SPAN_OUTCOME_EVALUATION_ONGOING = 'span.outcome_evaluation_ongoing'
-    VALUES = ['span.outcome_evaluation_ongoing'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationOngoingEventType: #{value}")
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      processed_at: 'processed_at',
-      iteration: 'iteration',
-      outcome_id: 'outcome_id'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      processed_at
-      iteration
-      outcome_id
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSpanOutcomeEvaluationStartEventType.from_value(value)
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsSpanOutcomeEvaluationStartEventType SDK namespace.
+module BetaManagedAgentsSpanOutcomeEvaluationStartEventType
+  SPAN_OUTCOME_EVALUATION_START = 'span.outcome_evaluation_start'
+  VALUES = ['span.outcome_evaluation_start'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationStartEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationStartEventType: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsSpeed SDK namespace.
+module BetaManagedAgentsSpeed
+  STANDARD = 'standard'
+  FAST = 'fast'
+  VALUES = ['standard', 'fast'].freeze
+  def self.from_value(value)
+    value
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata
+  FIELDS = {
+    type: "type",
+    mcp_server_url: "mcp_server_url",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    mcp_server_url
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsStaticBearerAuthResponseType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsStaticBearerAuthResponse.
+# Static bearer token credential details for an MCP server.
+class BetaManagedAgentsStaticBearerAuthResponse
+  include BetaManagedAgentsCredentialAuth
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::DECODERS
+
+  # @return [BetaManagedAgentsStaticBearerAuthResponseType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] URL of the MCP server this credential authenticates against.
+  attr_reader :mcp_server_url
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsSpanOutcomeEvaluationStartEvent.
-  # Emitted when an outcome evaluation cycle begins.
-  class BetaManagedAgentsSpanOutcomeEvaluationStartEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSpanOutcomeEvaluationStartEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSpanOutcomeEvaluationStartEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [BetaTimestamp] Timestamp when outcome evaluation started.
-    attr_reader :processed_at
-    # @return [Integer] 0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
-    attr_reader :iteration
-    # @return [String] The `outc_` ID of the outcome being evaluated.
-    attr_reader :outcome_id
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSpanOutcomeEvaluationStartEventType SDK namespace.
-  module BetaManagedAgentsSpanOutcomeEvaluationStartEventType
-    SPAN_OUTCOME_EVALUATION_START = 'span.outcome_evaluation_start'
-    VALUES = ['span.outcome_evaluation_start'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSpanOutcomeEvaluationStartEventType', 'enum', "Unknown BetaManagedAgentsSpanOutcomeEvaluationStartEventType: #{value}")
-    end
+# Defines the BetaManagedAgentsStaticBearerAuthResponseType SDK namespace.
+module BetaManagedAgentsStaticBearerAuthResponseType
+  STATIC_BEARER = 'static_bearer'
+  VALUES = ['static_bearer'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsStaticBearerAuthResponseType', 'enum', "Unknown BetaManagedAgentsStaticBearerAuthResponseType: #{value}")
+  end
+end
+
+# Defines the BetaManagedAgentsStruct SDK value decoder.
+module BetaManagedAgentsStruct
+  def self.from_hash(value)
+    return nil if value.nil?
+    value
+  end
+end
+
+# Defines the BetaManagedAgentsSystemContentBlock SDK namespace.
+module BetaManagedAgentsSystemContentBlock
+  def self.from_hash(hash)
+    return hash unless hash.is_a?(::Hash)
+    mapping = { "text" => BetaManagedAgentsTextBlock }
+    type = mapping[hash["type"]]
+    return type.from_hash(hash) if type
+
+    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+
+    raise SdkValidationError.new('BetaManagedAgentsSystemContentBlock', 'variant', "Unknown BetaManagedAgentsSystemContentBlock discriminator: #{hash["type"].inspect}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSystemMessageEventMetadata
+  FIELDS = {
+    type: "type",
+    id: "id",
+    content: "content",
+    processed_at: "processed_at",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    id
+    content
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSystemMessageEventType.from_value(value)
+    end,
+    content: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSystemContentBlock.from_hash(item) }
+    end,
+    processed_at: lambda do |value|
+      ::OctridevAnthropic::BetaTimestamp.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSystemMessageEvent.
+# A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
+class BetaManagedAgentsSystemMessageEvent
+  include BetaManagedAgentsInputEvent
+  include BetaManagedAgentsSessionEvent
+  include BetaManagedAgentsStreamSessionEvents
+  include BetaManagedAgentsStreamSessionThreadEvents
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSystemMessageEventType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Unique identifier for this event.
+  attr_reader :id
+  # @return [Array_of_BetaManagedAgentsSystemContentBlock] System content blocks. Text-only.
+  attr_reader :content
+  # @return [BetaTimestamp] Timestamp when this system message was processed.
+  attr_reader :processed_at
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsSpeed SDK namespace.
-  module BetaManagedAgentsSpeed
-    STANDARD = 'standard'
-    FAST = 'fast'
-    VALUES = %w[standard fast].freeze
-    def self.from_value(value)
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata
-    FIELDS = {
-      type: 'type',
-      mcp_server_url: 'mcp_server_url'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      mcp_server_url
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsStaticBearerAuthResponseType.from_value(value)
-      end
-    }.freeze
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
+
+# Defines the BetaManagedAgentsSystemMessageEventType SDK namespace.
+module BetaManagedAgentsSystemMessageEventType
+  SYSTEM_MESSAGE = 'system.message'
+  VALUES = ['system.message'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSystemMessageEventType', 'enum', "Unknown BetaManagedAgentsSystemMessageEventType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata
+  FIELDS = {
+    type: "type",
+    content: "content",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    content
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsSystemMessageEventParamsType.from_value(value)
+    end,
+    content: lambda do |value|
+      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSystemContentBlock.from_hash(item) }
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsSystemMessageEventParams.
+# Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages.
+class BetaManagedAgentsSystemMessageEventParams
+  include BetaManagedAgentsDeploymentInitialEventParams
+  include BetaManagedAgentsEventParams
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::DECODERS
+
+  # @return [BetaManagedAgentsSystemMessageEventParamsType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [Array_of_BetaManagedAgentsSystemContentBlock] System content blocks to append. Text-only.
+  attr_reader :content
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # API model for BetaManagedAgentsStaticBearerAuthResponse.
-  # Static bearer token credential details for an MCP server.
-  class BetaManagedAgentsStaticBearerAuthResponse
-    include BetaManagedAgentsCredentialAuth
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsStaticBearerAuthResponseMetadata::DECODERS
-
-    # @return [BetaManagedAgentsStaticBearerAuthResponseType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] URL of the MCP server this credential authenticates against.
-    attr_reader :mcp_server_url
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsStaticBearerAuthResponseType SDK namespace.
-  module BetaManagedAgentsStaticBearerAuthResponseType
-    STATIC_BEARER = 'static_bearer'
-    VALUES = ['static_bearer'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsStaticBearerAuthResponseType', 'enum', "Unknown BetaManagedAgentsStaticBearerAuthResponseType: #{value}")
-    end
+# Defines the BetaManagedAgentsSystemMessageEventParamsType SDK namespace.
+module BetaManagedAgentsSystemMessageEventParamsType
+  SYSTEM_MESSAGE = 'system.message'
+  VALUES = ['system.message'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
+
+    raise SdkValidationError.new('BetaManagedAgentsSystemMessageEventParamsType', 'enum', "Unknown BetaManagedAgentsSystemMessageEventParamsType: #{value}")
+  end
+end
+
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsTextBlockMetadata
+  FIELDS = {
+    type: "type",
+    text: "text",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    text
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsTextBlockType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsTextBlock.
+# Regular text content.
+class BetaManagedAgentsTextBlock
+  include BetaManagedAgentsAgentMessageContentBlock
+  include BetaManagedAgentsSystemContentBlock
+  include BetaManagedAgentsToolResultContentBlock
+  include BetaManagedAgentsUserContentBlock
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsTextBlockMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTextBlockMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsTextBlockMetadata::DECODERS
+
+  # @return [BetaManagedAgentsTextBlockType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] The text content.
+  attr_reader :text
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Defines the BetaManagedAgentsStruct SDK value decoder.
-  module BetaManagedAgentsStruct
-    def self.from_hash(value)
-      return nil if value.nil?
-
-      value
-    end
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # Defines the BetaManagedAgentsSystemContentBlock SDK namespace.
-  module BetaManagedAgentsSystemContentBlock
-    def self.from_hash(hash)
-      return hash unless hash.is_a?(::Hash)
+  def to_h
+    SdkModel.to_h(self, FIELDS)
+  end
+end
 
-      mapping = { 'text' => BetaManagedAgentsTextBlock }
-      type = mapping[hash['type']]
-      return type.from_hash(hash) if type
+# Defines the BetaManagedAgentsTextBlockType SDK namespace.
+module BetaManagedAgentsTextBlockType
+  TEXT = 'text'
+  VALUES = ['text'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+    raise SdkValidationError.new('BetaManagedAgentsTextBlockType', 'enum', "Unknown BetaManagedAgentsTextBlockType: #{value}")
+  end
+end
 
-      raise SdkValidationError.new('BetaManagedAgentsSystemContentBlock', 'variant', "Unknown BetaManagedAgentsSystemContentBlock discriminator: #{hash['type'].inspect}")
-    end
+# Internal model hydration metadata.
+class SdkInternalBetaManagedAgentsTextRubricMetadata
+  FIELDS = {
+    type: "type",
+    content: "content",
+  }.freeze
+  REQUIRED_FIELDS = %i[
+    type
+    content
+  ].freeze
+  DECODERS = {
+    type: lambda do |value|
+      ::OctridevAnthropic::BetaManagedAgentsTextRubricType.from_value(value)
+    end,
+  }.freeze
+end
+
+# API model for BetaManagedAgentsTextRubric.
+# Rubric content provided inline as text.
+class BetaManagedAgentsTextRubric
+  include BetaManagedAgentsRubric
+  CONSTRUCTION_SURFACE = :named
+  FIELDS = SdkInternalBetaManagedAgentsTextRubricMetadata::FIELDS
+  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTextRubricMetadata::REQUIRED_FIELDS
+  DECODERS = SdkInternalBetaManagedAgentsTextRubricMetadata::DECODERS
+
+  # @return [BetaManagedAgentsTextRubricType] Required enumerated value serialized in the `type` wire field.
+  attr_reader :type
+  # @return [String] Rubric content. Plain text or markdown — the grader treats it as freeform text.
+  attr_reader :content
+
+  def initialize(**attributes)
+    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+    freeze
   end
 
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSystemMessageEventMetadata
-    FIELDS = {
-      type: 'type',
-      id: 'id',
-      content: 'content',
-      processed_at: 'processed_at'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      id
-      content
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSystemMessageEventType.from_value(value)
-      end,
-      content: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSystemContentBlock.from_hash(item) }
-      end,
-      processed_at: lambda do |value|
-        ::OctridevAnthropic::BetaTimestamp.from_value(value)
-      end
-    }.freeze
+  def self.from_hash(data)
+    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
   end
 
-  # API model for BetaManagedAgentsSystemMessageEvent.
-  # A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
-  class BetaManagedAgentsSystemMessageEvent
-    include BetaManagedAgentsInputEvent
-    include BetaManagedAgentsSessionEvent
-    include BetaManagedAgentsStreamSessionEvents
-    include BetaManagedAgentsStreamSessionThreadEvents
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSystemMessageEventMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSystemMessageEventType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Unique identifier for this event.
-    attr_reader :id
-    # @return [Array_of_BetaManagedAgentsSystemContentBlock] System content blocks. Text-only.
-    attr_reader :content
-    # @return [BetaTimestamp] Timestamp when this system message was processed.
-    attr_reader :processed_at
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
+  def to_h
+    SdkModel.to_h(self, FIELDS)
   end
+end
 
-  # Defines the BetaManagedAgentsSystemMessageEventType SDK namespace.
-  module BetaManagedAgentsSystemMessageEventType
-    SYSTEM_MESSAGE = 'system.message'
-    VALUES = ['system.message'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
+# Defines the BetaManagedAgentsTextRubricType SDK namespace.
+module BetaManagedAgentsTextRubricType
+  TEXT = 'text'
+  VALUES = ['text'].freeze
+  def self.from_value(value)
+    return value if VALUES.include?(value)
 
-      raise SdkValidationError.new('BetaManagedAgentsSystemMessageEventType', 'enum', "Unknown BetaManagedAgentsSystemMessageEventType: #{value}")
-    end
+    raise SdkValidationError.new('BetaManagedAgentsTextRubricType', 'enum', "Unknown BetaManagedAgentsTextRubricType: #{value}")
   end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata
-    FIELDS = {
-      type: 'type',
-      content: 'content'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      content
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsSystemMessageEventParamsType.from_value(value)
-      end,
-      content: lambda do |value|
-        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSystemContentBlock.from_hash(item) }
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsSystemMessageEventParams.
-  # Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages.
-  class BetaManagedAgentsSystemMessageEventParams
-    include BetaManagedAgentsDeploymentInitialEventParams
-    include BetaManagedAgentsEventParams
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsSystemMessageEventParamsMetadata::DECODERS
-
-    # @return [BetaManagedAgentsSystemMessageEventParamsType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [Array_of_BetaManagedAgentsSystemContentBlock] System content blocks to append. Text-only.
-    attr_reader :content
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsSystemMessageEventParamsType SDK namespace.
-  module BetaManagedAgentsSystemMessageEventParamsType
-    SYSTEM_MESSAGE = 'system.message'
-    VALUES = ['system.message'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsSystemMessageEventParamsType', 'enum', "Unknown BetaManagedAgentsSystemMessageEventParamsType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsTextBlockMetadata
-    FIELDS = {
-      type: 'type',
-      text: 'text'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      text
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsTextBlockType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsTextBlock.
-  # Regular text content.
-  class BetaManagedAgentsTextBlock
-    include BetaManagedAgentsAgentMessageContentBlock
-    include BetaManagedAgentsSystemContentBlock
-    include BetaManagedAgentsToolResultContentBlock
-    include BetaManagedAgentsUserContentBlock
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsTextBlockMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTextBlockMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsTextBlockMetadata::DECODERS
-
-    # @return [BetaManagedAgentsTextBlockType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] The text content.
-    attr_reader :text
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsTextBlockType SDK namespace.
-  module BetaManagedAgentsTextBlockType
-    TEXT = 'text'
-    VALUES = ['text'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsTextBlockType', 'enum', "Unknown BetaManagedAgentsTextBlockType: #{value}")
-    end
-  end
-
-  # Internal model hydration metadata.
-  class SdkInternalBetaManagedAgentsTextRubricMetadata
-    FIELDS = {
-      type: 'type',
-      content: 'content'
-    }.freeze
-    REQUIRED_FIELDS = %i[
-      type
-      content
-    ].freeze
-    DECODERS = {
-      type: lambda do |value|
-        ::OctridevAnthropic::BetaManagedAgentsTextRubricType.from_value(value)
-      end
-    }.freeze
-  end
-
-  # API model for BetaManagedAgentsTextRubric.
-  # Rubric content provided inline as text.
-  class BetaManagedAgentsTextRubric
-    include BetaManagedAgentsRubric
-
-    CONSTRUCTION_SURFACE = :named
-    FIELDS = SdkInternalBetaManagedAgentsTextRubricMetadata::FIELDS
-    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsTextRubricMetadata::REQUIRED_FIELDS
-    DECODERS = SdkInternalBetaManagedAgentsTextRubricMetadata::DECODERS
-
-    # @return [BetaManagedAgentsTextRubricType] Required enumerated value serialized in the `type` wire field.
-    attr_reader :type
-    # @return [String] Rubric content. Plain text or markdown — the grader treats it as freeform text.
-    attr_reader :content
-
-    def initialize(**attributes)
-      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-      freeze
-    end
-
-    def self.from_hash(data)
-      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-    end
-
-    def to_h
-      SdkModel.to_h(self, FIELDS)
-    end
-  end
-
-  # Defines the BetaManagedAgentsTextRubricType SDK namespace.
-  module BetaManagedAgentsTextRubricType
-    TEXT = 'text'
-    VALUES = ['text'].freeze
-    def self.from_value(value)
-      return value if VALUES.include?(value)
-
-      raise SdkValidationError.new('BetaManagedAgentsTextRubricType', 'enum', "Unknown BetaManagedAgentsTextRubricType: #{value}")
-    end
-  end
+end
 end
