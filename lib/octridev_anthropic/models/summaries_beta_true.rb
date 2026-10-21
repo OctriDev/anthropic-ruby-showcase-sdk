@@ -5,183 +5,182 @@
 
 # summaries_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsActivitySummaryResponseMetadata
-  FIELDS = {
-    summaries: "summaries",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    summaries
-  ].freeze
-  DECODERS = {
-    summaries: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsSingleDayActivitySummary.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaAnalyticsActivitySummaryResponse.
-# Response for GET /v1/organizations/analytics/summaries.
-class BetaAnalyticsActivitySummaryResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaAnalyticsSingleDayActivitySummary] Required array value serialized in the `summaries` wire field.
-  attr_reader :summaries
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsActivitySummaryResponseMetadata
+    FIELDS = {
+      summaries: 'summaries'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      summaries
+    ].freeze
+    DECODERS = {
+      summaries: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsSingleDayActivitySummary.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaAnalyticsActivitySummaryResponse.
+  # Response for GET /v1/organizations/analytics/summaries.
+  class BetaAnalyticsActivitySummaryResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsActivitySummaryResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaAnalyticsSingleDayActivitySummary] Required array value serialized in the `summaries` wire field.
+    attr_reader :summaries
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata
-  FIELDS = {
-    assigned_seat_count: "assigned_seat_count",
-    chat_daily_active_user_count: "chat_daily_active_user_count",
-    chat_monthly_active_user_count: "chat_monthly_active_user_count",
-    chat_weekly_active_user_count: "chat_weekly_active_user_count",
-    claude_code_daily_active_user_count: "claude_code_daily_active_user_count",
-    claude_code_monthly_active_user_count: "claude_code_monthly_active_user_count",
-    claude_code_weekly_active_user_count: "claude_code_weekly_active_user_count",
-    claude_design_daily_active_user_count: "claude_design_daily_active_user_count",
-    claude_design_monthly_active_user_count: "claude_design_monthly_active_user_count",
-    claude_design_weekly_active_user_count: "claude_design_weekly_active_user_count",
-    cowork_daily_active_user_count: "cowork_daily_active_user_count",
-    cowork_monthly_active_user_count: "cowork_monthly_active_user_count",
-    cowork_weekly_active_user_count: "cowork_weekly_active_user_count",
-    daily_active_user_count: "daily_active_user_count",
-    daily_adoption_rate: "daily_adoption_rate",
-    ending_at: "ending_at",
-    monthly_active_user_count: "monthly_active_user_count",
-    monthly_adoption_rate: "monthly_adoption_rate",
-    office_agent_daily_active_user_count: "office_agent_daily_active_user_count",
-    office_agent_monthly_active_user_count: "office_agent_monthly_active_user_count",
-    office_agent_weekly_active_user_count: "office_agent_weekly_active_user_count",
-    pending_invite_count: "pending_invite_count",
-    science_daily_active_user_count: "science_daily_active_user_count",
-    science_entitled_user_count: "science_entitled_user_count",
-    science_monthly_active_user_count: "science_monthly_active_user_count",
-    science_weekly_active_user_count: "science_weekly_active_user_count",
-    starting_at: "starting_at",
-    weekly_active_user_count: "weekly_active_user_count",
-    weekly_adoption_rate: "weekly_adoption_rate",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    assigned_seat_count
-    cowork_daily_active_user_count
-    cowork_monthly_active_user_count
-    cowork_weekly_active_user_count
-    daily_active_user_count
-    daily_adoption_rate
-    ending_at
-    monthly_active_user_count
-    monthly_adoption_rate
-    pending_invite_count
-    starting_at
-    weekly_active_user_count
-    weekly_adoption_rate
-  ].freeze
-  DECODERS = {
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    assigned_seat_count
-    daily_adoption_rate
-    monthly_adoption_rate
-    pending_invite_count
-    weekly_adoption_rate
-  ].freeze
-end
-
-# API model for BetaAnalyticsSingleDayActivitySummary.
-# Per-day entry in the /summaries response.
-class BetaAnalyticsSingleDayActivitySummary
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::DECODERS
-
-  # @return [Integer] Number of seats currently assigned to members. Null when the response is scoped to an RBAC group — seat assignment is org-wide and has no per-group analogue.
-  attr_reader :assigned_seat_count
-  # @return [Integer] Number of users with claude.ai (chat) activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :chat_daily_active_user_count
-  # @return [Integer] Number of users with claude.ai (chat) activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :chat_monthly_active_user_count
-  # @return [Integer] Number of users with claude.ai (chat) activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :chat_weekly_active_user_count
-  # @return [Integer] Number of users with Claude Code activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_code_daily_active_user_count
-  # @return [Integer] Number of users with Claude Code activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_code_monthly_active_user_count
-  # @return [Integer] Number of users with Claude Code activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_code_weekly_active_user_count
-  # @return [Integer] Number of users with Claude Design activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_design_daily_active_user_count
-  # @return [Integer] Number of users with Claude Design activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_design_monthly_active_user_count
-  # @return [Integer] Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :claude_design_weekly_active_user_count
-  # @return [Integer] Number of users with Cowork activity on the requested day
-  attr_reader :cowork_daily_active_user_count
-  # @return [Integer] Number of users with Cowork activity in the 30-day rolling window
-  attr_reader :cowork_monthly_active_user_count
-  # @return [Integer] Number of users with Cowork activity in the 7-day rolling window
-  attr_reader :cowork_weekly_active_user_count
-  # @return [Integer] Number of users with token consumption on the requested day
-  attr_reader :daily_active_user_count
-  # @return [Float] Percentage of assigned seats with activity on the requested day (`DAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
-  attr_reader :daily_adoption_rate
-  # @return [String] End of the aggregation period (exclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-16T00:00:00Z`).
-  attr_reader :ending_at
-  # @return [Integer] Number of users with token consumption in the 30-day rolling window
-  attr_reader :monthly_active_user_count
-  # @return [Float] Percentage of assigned seats with activity in the 30-day rolling window (`MAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
-  attr_reader :monthly_adoption_rate
-  # @return [Integer] Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :office_agent_daily_active_user_count
-  # @return [Integer] Number of users with Claude in Office activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :office_agent_monthly_active_user_count
-  # @return [Integer] Number of users with Claude in Office activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :office_agent_weekly_active_user_count
-  # @return [Integer] Number of pending invitations to join the organization. Null when the response is scoped to an RBAC group.
-  attr_reader :pending_invite_count
-  # @return [Integer] Number of users with Claude Science activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :science_daily_active_user_count
-  # @return [Integer] Number of users with a Claude Science seat entitlement (per-seat RBAC) at the time of the daily snapshot. The funnel top; independent of the org-level Claude Science toggle. Null when the response is scoped to an RBAC group — entitlement is org-wide and has no per-group analogue. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :science_entitled_user_count
-  # @return [Integer] Number of users with Claude Science activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :science_monthly_active_user_count
-  # @return [Integer] Number of users with Claude Science activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
-  attr_reader :science_weekly_active_user_count
-  # @return [String] Start of the aggregation period (inclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-15T00:00:00Z`).
-  attr_reader :starting_at
-  # @return [Integer] Number of users with token consumption in the 7-day rolling window
-  attr_reader :weekly_active_user_count
-  # @return [Float] Percentage of assigned seats with activity in the 7-day rolling window (`WAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
-  attr_reader :weekly_adoption_rate
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata
+    FIELDS = {
+      assigned_seat_count: 'assigned_seat_count',
+      chat_daily_active_user_count: 'chat_daily_active_user_count',
+      chat_monthly_active_user_count: 'chat_monthly_active_user_count',
+      chat_weekly_active_user_count: 'chat_weekly_active_user_count',
+      claude_code_daily_active_user_count: 'claude_code_daily_active_user_count',
+      claude_code_monthly_active_user_count: 'claude_code_monthly_active_user_count',
+      claude_code_weekly_active_user_count: 'claude_code_weekly_active_user_count',
+      claude_design_daily_active_user_count: 'claude_design_daily_active_user_count',
+      claude_design_monthly_active_user_count: 'claude_design_monthly_active_user_count',
+      claude_design_weekly_active_user_count: 'claude_design_weekly_active_user_count',
+      cowork_daily_active_user_count: 'cowork_daily_active_user_count',
+      cowork_monthly_active_user_count: 'cowork_monthly_active_user_count',
+      cowork_weekly_active_user_count: 'cowork_weekly_active_user_count',
+      daily_active_user_count: 'daily_active_user_count',
+      daily_adoption_rate: 'daily_adoption_rate',
+      ending_at: 'ending_at',
+      monthly_active_user_count: 'monthly_active_user_count',
+      monthly_adoption_rate: 'monthly_adoption_rate',
+      office_agent_daily_active_user_count: 'office_agent_daily_active_user_count',
+      office_agent_monthly_active_user_count: 'office_agent_monthly_active_user_count',
+      office_agent_weekly_active_user_count: 'office_agent_weekly_active_user_count',
+      pending_invite_count: 'pending_invite_count',
+      science_daily_active_user_count: 'science_daily_active_user_count',
+      science_entitled_user_count: 'science_entitled_user_count',
+      science_monthly_active_user_count: 'science_monthly_active_user_count',
+      science_weekly_active_user_count: 'science_weekly_active_user_count',
+      starting_at: 'starting_at',
+      weekly_active_user_count: 'weekly_active_user_count',
+      weekly_adoption_rate: 'weekly_adoption_rate'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      assigned_seat_count
+      cowork_daily_active_user_count
+      cowork_monthly_active_user_count
+      cowork_weekly_active_user_count
+      daily_active_user_count
+      daily_adoption_rate
+      ending_at
+      monthly_active_user_count
+      monthly_adoption_rate
+      pending_invite_count
+      starting_at
+      weekly_active_user_count
+      weekly_adoption_rate
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      assigned_seat_count
+      daily_adoption_rate
+      monthly_adoption_rate
+      pending_invite_count
+      weekly_adoption_rate
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::NULLABLE_FIELDS)
-  end
+  # API model for BetaAnalyticsSingleDayActivitySummary.
+  # Per-day entry in the /summaries response.
+  class BetaAnalyticsSingleDayActivitySummary
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Integer] Number of seats currently assigned to members. Null when the response is scoped to an RBAC group — seat assignment is org-wide and has no per-group analogue.
+    attr_reader :assigned_seat_count
+    # @return [Integer] Number of users with claude.ai (chat) activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :chat_daily_active_user_count
+    # @return [Integer] Number of users with claude.ai (chat) activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :chat_monthly_active_user_count
+    # @return [Integer] Number of users with claude.ai (chat) activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :chat_weekly_active_user_count
+    # @return [Integer] Number of users with Claude Code activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_code_daily_active_user_count
+    # @return [Integer] Number of users with Claude Code activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_code_monthly_active_user_count
+    # @return [Integer] Number of users with Claude Code activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_code_weekly_active_user_count
+    # @return [Integer] Number of users with Claude Design activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_design_daily_active_user_count
+    # @return [Integer] Number of users with Claude Design activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_design_monthly_active_user_count
+    # @return [Integer] Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :claude_design_weekly_active_user_count
+    # @return [Integer] Number of users with Cowork activity on the requested day
+    attr_reader :cowork_daily_active_user_count
+    # @return [Integer] Number of users with Cowork activity in the 30-day rolling window
+    attr_reader :cowork_monthly_active_user_count
+    # @return [Integer] Number of users with Cowork activity in the 7-day rolling window
+    attr_reader :cowork_weekly_active_user_count
+    # @return [Integer] Number of users with token consumption on the requested day
+    attr_reader :daily_active_user_count
+    # @return [Float] Percentage of assigned seats with activity on the requested day (`DAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+    attr_reader :daily_adoption_rate
+    # @return [String] End of the aggregation period (exclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-16T00:00:00Z`).
+    attr_reader :ending_at
+    # @return [Integer] Number of users with token consumption in the 30-day rolling window
+    attr_reader :monthly_active_user_count
+    # @return [Float] Percentage of assigned seats with activity in the 30-day rolling window (`MAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+    attr_reader :monthly_adoption_rate
+    # @return [Integer] Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :office_agent_daily_active_user_count
+    # @return [Integer] Number of users with Claude in Office activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :office_agent_monthly_active_user_count
+    # @return [Integer] Number of users with Claude in Office activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :office_agent_weekly_active_user_count
+    # @return [Integer] Number of pending invitations to join the organization. Null when the response is scoped to an RBAC group.
+    attr_reader :pending_invite_count
+    # @return [Integer] Number of users with Claude Science activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :science_daily_active_user_count
+    # @return [Integer] Number of users with a Claude Science seat entitlement (per-seat RBAC) at the time of the daily snapshot. The funnel top; independent of the org-level Claude Science toggle. Null when the response is scoped to an RBAC group — entitlement is org-wide and has no per-group analogue. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :science_entitled_user_count
+    # @return [Integer] Number of users with Claude Science activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :science_monthly_active_user_count
+    # @return [Integer] Number of users with Claude Science activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+    attr_reader :science_weekly_active_user_count
+    # @return [String] Start of the aggregation period (inclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-15T00:00:00Z`).
+    attr_reader :starting_at
+    # @return [Integer] Number of users with token consumption in the 7-day rolling window
+    attr_reader :weekly_active_user_count
+    # @return [Float] Percentage of assigned seats with activity in the 7-day rolling window (`WAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+    attr_reader :weekly_adoption_rate
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsSingleDayActivitySummaryMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

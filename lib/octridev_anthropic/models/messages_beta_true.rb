@@ -5,257 +5,257 @@
 
 # messages_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaGetMessagesUsageReportResponseMetadata
-  FIELDS = {
-    data: "data",
-    has_more: "has_more",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    has_more
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaMessagesUsageReportTimeBucket.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
-
-# API model for BetaGetMessagesUsageReportResponse.
-# Typed representation of the `BetaGetMessagesUsageReportResponse` API schema.
-class BetaGetMessagesUsageReportResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaMessagesUsageReportTimeBucket] List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
-  attr_reader :data
-  # @return [Boolean] Indicates if there are more results.
-  attr_reader :has_more
-  # @return [String] Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaGetMessagesUsageReportResponseMetadata
+    FIELDS = {
+      data: 'data',
+      has_more: 'has_more',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      has_more
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaMessagesUsageReportTimeBucket.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaGetMessagesUsageReportResponseMetadata::NULLABLE_FIELDS)
+  # API model for BetaGetMessagesUsageReportResponse.
+  # Typed representation of the `BetaGetMessagesUsageReportResponse` API schema.
+  class BetaGetMessagesUsageReportResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaGetMessagesUsageReportResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaMessagesUsageReportTimeBucket] List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
+    attr_reader :data
+    # @return [Boolean] Indicates if there are more results.
+    attr_reader :has_more
+    # @return [String] Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaGetMessagesUsageReportResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaMessagesUsageReportGroupBy SDK namespace.
-module BetaMessagesUsageReportGroupBy
-  ACCOUNT_ID = 'account_id'
-  API_KEY_ID = 'api_key_id'
-  CONTEXT_WINDOW = 'context_window'
-  INFERENCE_GEO = 'inference_geo'
-  MODEL = 'model'
-  SERVICE_ACCOUNT_ID = 'service_account_id'
-  SERVICE_TIER = 'service_tier'
-  SPEED = 'speed'
-  WORKSPACE_ID = 'workspace_id'
-  VALUES = [
-    'account_id', 'api_key_id', 'context_window', 'inference_geo', 'model', 'service_account_id',
-    'service_tier', 'speed', 'workspace_id'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaMessagesUsageReportItemMetadata
-  FIELDS = {
-    uncached_input_tokens: "uncached_input_tokens",
-    cache_creation: "cache_creation",
-    cache_read_input_tokens: "cache_read_input_tokens",
-    output_tokens: "output_tokens",
-    server_tool_use: "server_tool_use",
-    api_key_id: "api_key_id",
-    workspace_id: "workspace_id",
-    account_id: "account_id",
-    service_account_id: "service_account_id",
-    model: "model",
-    service_tier: "service_tier",
-    context_window: "context_window",
-    inference_geo: "inference_geo",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    uncached_input_tokens
-    cache_creation
-    cache_read_input_tokens
-    output_tokens
-    server_tool_use
-    api_key_id
-    workspace_id
-    account_id
-    service_account_id
-    model
-    service_tier
-    context_window
-    inference_geo
-  ].freeze
-  DECODERS = {
-    cache_creation: lambda do |value|
-      ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
-    end,
-    server_tool_use: lambda do |value|
-      ::OctridevAnthropic::BetaServerToolUse.from_hash(value)
-    end,
-    service_tier: lambda do |value|
-      ::OctridevAnthropic::BetaUsageReportServiceTier.from_value(value)
-    end,
-    context_window: lambda do |value|
-      ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
-    end,
-    inference_geo: lambda do |value|
-      ::OctridevAnthropic::BetaInferenceGeoFilter.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    api_key_id
-    workspace_id
-    account_id
-    service_account_id
-    model
-    service_tier
-    context_window
-    inference_geo
-  ].freeze
-end
-
-# API model for BetaMessagesUsageReportItem.
-# Typed representation of the `BetaMessagesUsageReportItem` API schema.
-class BetaMessagesUsageReportItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMessagesUsageReportItemMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMessagesUsageReportItemMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMessagesUsageReportItemMetadata::DECODERS
-
-  # @return [Integer] The number of uncached input tokens processed.
-  attr_reader :uncached_input_tokens
-  # @return [BetaCacheCreation] The number of input tokens for cache creation.
-  attr_reader :cache_creation
-  # @return [Integer] The number of input tokens read from the cache.
-  attr_reader :cache_read_input_tokens
-  # @return [Integer] The number of output tokens generated.
-  attr_reader :output_tokens
-  # @return [BetaServerToolUse] Server-side tool usage metrics.
-  attr_reader :server_tool_use
-  # @return [String] ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
-  attr_reader :api_key_id
-  # @return [String] ID of the Workspace used. `null` if not grouping by workspace or for the default workspace.
-  attr_reader :workspace_id
-  # @return [String] ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
-  attr_reader :account_id
-  # @return [String] ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
-  attr_reader :service_account_id
-  # @return [String] Model used. `null` if not grouping by model.
-  attr_reader :model
-  # @return [BetaUsageReportServiceTier] Service tier used. `null` if not grouping by service tier.
-  attr_reader :service_tier
-  # @return [BetaMessagesUsageReportContextWindow] Context window used. `null` if not grouping by context window.
-  attr_reader :context_window
-  # @return [BetaInferenceGeoFilter] Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`. For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
-  attr_reader :inference_geo
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaMessagesUsageReportGroupBy SDK namespace.
+  module BetaMessagesUsageReportGroupBy
+    ACCOUNT_ID = 'account_id'
+    API_KEY_ID = 'api_key_id'
+    CONTEXT_WINDOW = 'context_window'
+    INFERENCE_GEO = 'inference_geo'
+    MODEL = 'model'
+    SERVICE_ACCOUNT_ID = 'service_account_id'
+    SERVICE_TIER = 'service_tier'
+    SPEED = 'speed'
+    WORKSPACE_ID = 'workspace_id'
+    VALUES = %w[
+      account_id api_key_id context_window inference_geo model service_account_id
+      service_tier speed workspace_id
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaMessagesUsageReportItemMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaMessagesUsageReportItemMetadata
+    FIELDS = {
+      uncached_input_tokens: 'uncached_input_tokens',
+      cache_creation: 'cache_creation',
+      cache_read_input_tokens: 'cache_read_input_tokens',
+      output_tokens: 'output_tokens',
+      server_tool_use: 'server_tool_use',
+      api_key_id: 'api_key_id',
+      workspace_id: 'workspace_id',
+      account_id: 'account_id',
+      service_account_id: 'service_account_id',
+      model: 'model',
+      service_tier: 'service_tier',
+      context_window: 'context_window',
+      inference_geo: 'inference_geo'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      uncached_input_tokens
+      cache_creation
+      cache_read_input_tokens
+      output_tokens
+      server_tool_use
+      api_key_id
+      workspace_id
+      account_id
+      service_account_id
+      model
+      service_tier
+      context_window
+      inference_geo
+    ].freeze
+    DECODERS = {
+      cache_creation: lambda do |value|
+        ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
+      end,
+      server_tool_use: lambda do |value|
+        ::OctridevAnthropic::BetaServerToolUse.from_hash(value)
+      end,
+      service_tier: lambda do |value|
+        ::OctridevAnthropic::BetaUsageReportServiceTier.from_value(value)
+      end,
+      context_window: lambda do |value|
+        ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
+      end,
+      inference_geo: lambda do |value|
+        ::OctridevAnthropic::BetaInferenceGeoFilter.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      api_key_id
+      workspace_id
+      account_id
+      service_account_id
+      model
+      service_tier
+      context_window
+      inference_geo
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaMessagesUsageReportItem.
+  # Typed representation of the `BetaMessagesUsageReportItem` API schema.
+  class BetaMessagesUsageReportItem
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMessagesUsageReportItemMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMessagesUsageReportItemMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMessagesUsageReportItemMetadata::DECODERS
+
+    # @return [Integer] The number of uncached input tokens processed.
+    attr_reader :uncached_input_tokens
+    # @return [BetaCacheCreation] The number of input tokens for cache creation.
+    attr_reader :cache_creation
+    # @return [Integer] The number of input tokens read from the cache.
+    attr_reader :cache_read_input_tokens
+    # @return [Integer] The number of output tokens generated.
+    attr_reader :output_tokens
+    # @return [BetaServerToolUse] Server-side tool usage metrics.
+    attr_reader :server_tool_use
+    # @return [String] ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
+    attr_reader :api_key_id
+    # @return [String] ID of the Workspace used. `null` if not grouping by workspace or for the default workspace.
+    attr_reader :workspace_id
+    # @return [String] ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
+    attr_reader :account_id
+    # @return [String] ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
+    attr_reader :service_account_id
+    # @return [String] Model used. `null` if not grouping by model.
+    attr_reader :model
+    # @return [BetaUsageReportServiceTier] Service tier used. `null` if not grouping by service tier.
+    attr_reader :service_tier
+    # @return [BetaMessagesUsageReportContextWindow] Context window used. `null` if not grouping by context window.
+    attr_reader :context_window
+    # @return [BetaInferenceGeoFilter] Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`. For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
+    attr_reader :inference_geo
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaMessagesUsageReportItemMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaMessagesUsageReportTimeBucketMetadata
-  FIELDS = {
-    starting_at: "starting_at",
-    ending_at: "ending_at",
-    results: "results",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    starting_at
-    ending_at
-    results
-  ].freeze
-  DECODERS = {
-    results: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaMessagesUsageReportItem.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaMessagesUsageReportTimeBucket.
-# Typed representation of the `BetaMessagesUsageReportTimeBucket` API schema.
-class BetaMessagesUsageReportTimeBucket
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::DECODERS
-
-  # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
-  attr_reader :starting_at
-  # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
-  attr_reader :ending_at
-  # @return [Array_of_BetaMessagesUsageReportItem] List of usage items for this time bucket. There may be multiple items if one or more `group_by[]` parameters are specified.
-  attr_reader :results
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaMessagesUsageReportTimeBucketMetadata
+    FIELDS = {
+      starting_at: 'starting_at',
+      ending_at: 'ending_at',
+      results: 'results'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      starting_at
+      ending_at
+      results
+    ].freeze
+    DECODERS = {
+      results: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaMessagesUsageReportItem.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaMessagesUsageReportTimeBucket.
+  # Typed representation of the `BetaMessagesUsageReportTimeBucket` API schema.
+  class BetaMessagesUsageReportTimeBucket
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMessagesUsageReportTimeBucketMetadata::DECODERS
+
+    # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
+    attr_reader :starting_at
+    # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
+    attr_reader :ending_at
+    # @return [Array_of_BetaMessagesUsageReportItem] List of usage items for this time bucket. There may be multiple items if one or more `group_by[]` parameters are specified.
+    attr_reader :results
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaMessagesUsageReportTimeBucketWidth SDK namespace.
+  module BetaMessagesUsageReportTimeBucketWidth
+    V_1_D = '1d'
+    V_1_H = '1h'
+    V_1_M = '1m'
+    VALUES = %w[1d 1h 1m].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaMessagesUsageReportTimeBucketWidth SDK namespace.
-module BetaMessagesUsageReportTimeBucketWidth
-  V_1_D = '1d'
-  V_1_H = '1h'
-  V_1_M = '1m'
-  VALUES = ['1d', '1h', '1m'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaUsageReportServiceTier SDK namespace.
+  module BetaUsageReportServiceTier
+    BATCH = 'batch'
+    FLEX = 'flex'
+    FLEX_DISCOUNT = 'flex_discount'
+    PRIORITY = 'priority'
+    PRIORITY_ON_DEMAND = 'priority_on_demand'
+    STANDARD = 'standard'
+    VALUES = %w[batch flex flex_discount priority priority_on_demand standard].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
-
-# Defines the BetaUsageReportServiceTier SDK namespace.
-module BetaUsageReportServiceTier
-  BATCH = 'batch'
-  FLEX = 'flex'
-  FLEX_DISCOUNT = 'flex_discount'
-  PRIORITY = 'priority'
-  PRIORITY_ON_DEMAND = 'priority_on_demand'
-  STANDARD = 'standard'
-  VALUES = ['batch', 'flex', 'flex_discount', 'priority', 'priority_on_demand', 'standard'].freeze
-  def self.from_value(value)
-    value
-  end
-end
 end

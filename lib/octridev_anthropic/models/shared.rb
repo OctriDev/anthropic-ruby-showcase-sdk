@@ -5,681 +5,690 @@
 
 # shared domain models
 module OctridevAnthropic
-# Defines the AllowedCaller SDK namespace.
-module AllowedCaller
-  DIRECT = 'direct'
-  CODE_EXECUTION_20250825 = 'code_execution_20250825'
-  CODE_EXECUTION_20260120 = 'code_execution_20260120'
-  CODE_EXECUTION_20260521 = 'code_execution_20260521'
-  VALUES = [
-    'direct', 'code_execution_20250825', 'code_execution_20260120', 'code_execution_20260521'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the AnthropicBeta SDK value decoder.
-module AnthropicBeta
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalAPIErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::APIErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for APIError.
-# Typed representation of the `APIError` API schema.
-class APIError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalAPIErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalAPIErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalAPIErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [APIErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the AllowedCaller SDK namespace.
+  module AllowedCaller
+    DIRECT = 'direct'
+    CODE_EXECUTION_20250825 = 'code_execution_20250825'
+    CODE_EXECUTION_20260120 = 'code_execution_20260120'
+    CODE_EXECUTION_20260521 = 'code_execution_20260521'
+    VALUES = %w[
+      direct code_execution_20250825 code_execution_20260120 code_execution_20260521
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the AnthropicBeta SDK value decoder.
+  module AnthropicBeta
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the APIErrorType SDK namespace.
-module APIErrorType
-  API_ERROR = 'api_error'
-  VALUES = ['api_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('APIErrorType', 'enum', "Unknown APIErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalAuthenticationErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::AuthenticationErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for AuthenticationError.
-# Typed representation of the `AuthenticationError` API schema.
-class AuthenticationError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalAuthenticationErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalAuthenticationErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalAuthenticationErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [AuthenticationErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalAPIErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::APIErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for APIError.
+  # Typed representation of the `APIError` API schema.
+  class APIError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalAPIErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalAPIErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalAPIErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [APIErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the APIErrorType SDK namespace.
+  module APIErrorType
+    API_ERROR = 'api_error'
+    VALUES = ['api_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the AuthenticationErrorType SDK namespace.
-module AuthenticationErrorType
-  AUTHENTICATION_ERROR = 'authentication_error'
-  VALUES = ['authentication_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('AuthenticationErrorType', 'enum', "Unknown AuthenticationErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBillingErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BillingErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BillingError.
-# Typed representation of the `BillingError` API schema.
-class BillingError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBillingErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBillingErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBillingErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [BillingErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('APIErrorType', 'enum', "Unknown APIErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalAuthenticationErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::AuthenticationErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for AuthenticationError.
+  # Typed representation of the `AuthenticationError` API schema.
+  class AuthenticationError
+    include ErrorResponseError
 
-# Defines the BillingErrorType SDK namespace.
-module BillingErrorType
-  BILLING_ERROR = 'billing_error'
-  VALUES = ['billing_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalAuthenticationErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalAuthenticationErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalAuthenticationErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BillingErrorType', 'enum', "Unknown BillingErrorType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [AuthenticationErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalDirectCallerMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::DirectCallerType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for DirectCaller.
-# Tool invocation directly from the model.
-class DirectCaller
-  include ResponseToolUseBlockCaller
-  include ResponseServerToolUseBlockCaller
-  include ResponseWebSearchToolResultBlockCaller
-  include ResponseWebFetchToolResultBlockCaller
-  include RequestToolUseBlockCaller
-  include RequestServerToolUseBlockCaller
-  include RequestWebSearchToolResultBlockCaller
-  include RequestWebFetchToolResultBlockCaller
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalDirectCallerMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalDirectCallerMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalDirectCallerMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [DirectCallerType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the AuthenticationErrorType SDK namespace.
+  module AuthenticationErrorType
+    AUTHENTICATION_ERROR = 'authentication_error'
+    VALUES = ['authentication_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('AuthenticationErrorType', 'enum', "Unknown AuthenticationErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the DirectCallerType SDK namespace.
-module DirectCallerType
-  DIRECT = 'direct'
-  VALUES = ['direct'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('DirectCallerType', 'enum', "Unknown DirectCallerType: #{value}")
-  end
-end
-
-# Defines the EffortLevel SDK namespace.
-module EffortLevel
-  LOW = 'low'
-  MEDIUM = 'medium'
-  HIGH = 'high'
-  XHIGH = 'xhigh'
-  MAX = 'max'
-  VALUES = ['low', 'medium', 'high', 'xhigh', 'max'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalGatewayTimeoutErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::GatewayTimeoutErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for GatewayTimeoutError.
-# Typed representation of the `GatewayTimeoutError` API schema.
-class GatewayTimeoutError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalGatewayTimeoutErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalGatewayTimeoutErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalGatewayTimeoutErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [GatewayTimeoutErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBillingErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BillingErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BillingError.
+  # Typed representation of the `BillingError` API schema.
+  class BillingError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBillingErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBillingErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBillingErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [BillingErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BillingErrorType SDK namespace.
+  module BillingErrorType
+    BILLING_ERROR = 'billing_error'
+    VALUES = ['billing_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the GatewayTimeoutErrorType SDK namespace.
-module GatewayTimeoutErrorType
-  TIMEOUT_ERROR = 'timeout_error'
-  VALUES = ['timeout_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('GatewayTimeoutErrorType', 'enum', "Unknown GatewayTimeoutErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalInvalidRequestErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::InvalidRequestErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for InvalidRequestError.
-# Typed representation of the `InvalidRequestError` API schema.
-class InvalidRequestError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalInvalidRequestErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalInvalidRequestErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalInvalidRequestErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [InvalidRequestErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BillingErrorType', 'enum', "Unknown BillingErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalDirectCallerMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::DirectCallerType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for DirectCaller.
+  # Tool invocation directly from the model.
+  class DirectCaller
+    include ResponseToolUseBlockCaller
+    include ResponseServerToolUseBlockCaller
+    include ResponseWebSearchToolResultBlockCaller
+    include ResponseWebFetchToolResultBlockCaller
+    include RequestToolUseBlockCaller
+    include RequestServerToolUseBlockCaller
+    include RequestWebSearchToolResultBlockCaller
+    include RequestWebFetchToolResultBlockCaller
 
-# Defines the InvalidRequestErrorType SDK namespace.
-module InvalidRequestErrorType
-  INVALID_REQUEST_ERROR = 'invalid_request_error'
-  VALUES = ['invalid_request_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalDirectCallerMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalDirectCallerMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalDirectCallerMetadata::DECODERS
 
-    raise SdkValidationError.new('InvalidRequestErrorType', 'enum', "Unknown InvalidRequestErrorType: #{value}")
-  end
-end
+    # @return [DirectCallerType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalMemoryTool20250818Metadata
-  FIELDS = {
-    allowed_callers: "allowed_callers",
-    cache_control: "cache_control",
-    defer_loading: "defer_loading",
-    input_examples: "input_examples",
-    name: "name",
-    strict: "strict",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-    type
-  ].freeze
-  DECODERS = {
-    allowed_callers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::AllowedCaller.from_value(item) }
-    end,
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::MemoryTool20250818Name.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::MemoryTool20250818Type.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for MemoryTool20250818.
-# Typed representation of the `MemoryTool_20250818` API schema.
-class MemoryTool20250818
-  include CountMessageTokensParamsToolsItem
-  include CreateMessageParamsToolsItem
-  include CreateMessageParamsWithoutStreamToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMemoryTool20250818Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMemoryTool20250818Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMemoryTool20250818Metadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [Array_of_AllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-  attr_reader :allowed_callers
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-  attr_reader :defer_loading
-  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-  attr_reader :input_examples
-  # @return [MemoryTool20250818Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-  attr_reader :name
-  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-  attr_reader :strict
-  # @return [MemoryTool20250818Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the DirectCallerType SDK namespace.
+  module DirectCallerType
+    DIRECT = 'direct'
+    VALUES = ['direct'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('DirectCallerType', 'enum', "Unknown DirectCallerType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the MemoryTool20250818Name SDK namespace.
-module MemoryTool20250818Name
-  MEMORY = 'memory'
-  VALUES = ['memory'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('MemoryTool20250818Name', 'enum', "Unknown MemoryTool20250818Name: #{value}")
-  end
-end
-
-# Defines the MemoryTool20250818Type SDK namespace.
-module MemoryTool20250818Type
-  MEMORY_20250818 = 'memory_20250818'
-  VALUES = ['memory_20250818'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('MemoryTool20250818Type', 'enum', "Unknown MemoryTool20250818Type: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalMetadataMetadata
-  FIELDS = {
-    user_id: "user_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for Metadata.
-# Typed representation of the `Metadata` API schema.
-class Metadata
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMetadataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMetadataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMetadataMetadata::DECODERS
-
-  # @return [String] An external identifier for the user who is associated with the request. This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
-  attr_reader :user_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the EffortLevel SDK namespace.
+  module EffortLevel
+    LOW = 'low'
+    MEDIUM = 'medium'
+    HIGH = 'high'
+    XHIGH = 'xhigh'
+    MAX = 'max'
+    VALUES = %w[low medium high xhigh max].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalGatewayTimeoutErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::GatewayTimeoutErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for GatewayTimeoutError.
+  # Typed representation of the `GatewayTimeoutError` API schema.
+  class GatewayTimeoutError
+    include ErrorResponseError
 
-# Defines the Model SDK namespace.
-module Model
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::String)
-    hash
-  end
-end
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalGatewayTimeoutErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalGatewayTimeoutErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalGatewayTimeoutErrorMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalNotFoundErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::NotFoundErrorType.from_value(value)
-    end,
-  }.freeze
-end
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [GatewayTimeoutErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# API model for NotFoundError.
-# Typed representation of the `NotFoundError` API schema.
-class NotFoundError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalNotFoundErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalNotFoundErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalNotFoundErrorMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [NotFoundErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the GatewayTimeoutErrorType SDK namespace.
+  module GatewayTimeoutErrorType
+    TIMEOUT_ERROR = 'timeout_error'
+    VALUES = ['timeout_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('GatewayTimeoutErrorType', 'enum', "Unknown GatewayTimeoutErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the NotFoundErrorType SDK namespace.
-module NotFoundErrorType
-  NOT_FOUND_ERROR = 'not_found_error'
-  VALUES = ['not_found_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('NotFoundErrorType', 'enum', "Unknown NotFoundErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalOverloadedErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::OverloadedErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for OverloadedError.
-# Typed representation of the `OverloadedError` API schema.
-class OverloadedError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalOverloadedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalOverloadedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalOverloadedErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [OverloadedErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalInvalidRequestErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::InvalidRequestErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for InvalidRequestError.
+  # Typed representation of the `InvalidRequestError` API schema.
+  class InvalidRequestError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalInvalidRequestErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalInvalidRequestErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalInvalidRequestErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [InvalidRequestErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the InvalidRequestErrorType SDK namespace.
+  module InvalidRequestErrorType
+    INVALID_REQUEST_ERROR = 'invalid_request_error'
+    VALUES = ['invalid_request_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the OverloadedErrorType SDK namespace.
-module OverloadedErrorType
-  OVERLOADED_ERROR = 'overloaded_error'
-  VALUES = ['overloaded_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('OverloadedErrorType', 'enum', "Unknown OverloadedErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalPermissionErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::PermissionErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for PermissionError.
-# Typed representation of the `PermissionError` API schema.
-class PermissionError
-  include ErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalPermissionErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalPermissionErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalPermissionErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [PermissionErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('InvalidRequestErrorType', 'enum', "Unknown InvalidRequestErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalMemoryTool20250818Metadata
+    FIELDS = {
+      allowed_callers: 'allowed_callers',
+      cache_control: 'cache_control',
+      defer_loading: 'defer_loading',
+      input_examples: 'input_examples',
+      name: 'name',
+      strict: 'strict',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+      type
+    ].freeze
+    DECODERS = {
+      allowed_callers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::AllowedCaller.from_value(item) }
+      end,
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::MemoryTool20250818Name.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::MemoryTool20250818Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for MemoryTool20250818.
+  # Typed representation of the `MemoryTool_20250818` API schema.
+  class MemoryTool20250818
+    include CountMessageTokensParamsToolsItem
+    include CreateMessageParamsToolsItem
+    include CreateMessageParamsWithoutStreamToolsItem
 
-# Defines the PermissionErrorType SDK namespace.
-module PermissionErrorType
-  PERMISSION_ERROR = 'permission_error'
-  VALUES = ['permission_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMemoryTool20250818Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMemoryTool20250818Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMemoryTool20250818Metadata::DECODERS
 
-    raise SdkValidationError.new('PermissionErrorType', 'enum', "Unknown PermissionErrorType: #{value}")
+    # @return [Array_of_AllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+    attr_reader :allowed_callers
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+    attr_reader :defer_loading
+    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+    attr_reader :input_examples
+    # @return [MemoryTool20250818Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+    attr_reader :name
+    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+    attr_reader :strict
+    # @return [MemoryTool20250818Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the MemoryTool20250818Name SDK namespace.
+  module MemoryTool20250818Name
+    MEMORY = 'memory'
+    VALUES = ['memory'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('MemoryTool20250818Name', 'enum', "Unknown MemoryTool20250818Name: #{value}")
+    end
+  end
+
+  # Defines the MemoryTool20250818Type SDK namespace.
+  module MemoryTool20250818Type
+    MEMORY_20250818 = 'memory_20250818'
+    VALUES = ['memory_20250818'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('MemoryTool20250818Type', 'enum', "Unknown MemoryTool20250818Type: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalMetadataMetadata
+    FIELDS = {
+      user_id: 'user_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
+  end
+
+  # API model for Metadata.
+  # Typed representation of the `Metadata` API schema.
+  class Metadata
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMetadataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMetadataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMetadataMetadata::DECODERS
+
+    # @return [String] An external identifier for the user who is associated with the request. This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+    attr_reader :user_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the Model SDK namespace.
+  module Model
+    def self.from_hash(hash)
+      return hash if hash.is_a?(::String)
+
+      hash
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalNotFoundErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::NotFoundErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for NotFoundError.
+  # Typed representation of the `NotFoundError` API schema.
+  class NotFoundError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalNotFoundErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalNotFoundErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalNotFoundErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [NotFoundErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the NotFoundErrorType SDK namespace.
+  module NotFoundErrorType
+    NOT_FOUND_ERROR = 'not_found_error'
+    VALUES = ['not_found_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('NotFoundErrorType', 'enum', "Unknown NotFoundErrorType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalOverloadedErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::OverloadedErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for OverloadedError.
+  # Typed representation of the `OverloadedError` API schema.
+  class OverloadedError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalOverloadedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalOverloadedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalOverloadedErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [OverloadedErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the OverloadedErrorType SDK namespace.
+  module OverloadedErrorType
+    OVERLOADED_ERROR = 'overloaded_error'
+    VALUES = ['overloaded_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('OverloadedErrorType', 'enum', "Unknown OverloadedErrorType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalPermissionErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::PermissionErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for PermissionError.
+  # Typed representation of the `PermissionError` API schema.
+  class PermissionError
+    include ErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalPermissionErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalPermissionErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalPermissionErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [PermissionErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the PermissionErrorType SDK namespace.
+  module PermissionErrorType
+    PERMISSION_ERROR = 'permission_error'
+    VALUES = ['permission_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('PermissionErrorType', 'enum', "Unknown PermissionErrorType: #{value}")
+    end
+  end
 end

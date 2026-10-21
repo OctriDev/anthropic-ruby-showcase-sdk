@@ -5,50 +5,50 @@
 
 # work_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaSelfHostedWorkListResponseMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaSelfHostedWork.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
-
-# API model for BetaSelfHostedWorkListResponse.
-# Response when listing work items with cursor-based pagination.
-class BetaSelfHostedWorkListResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSelfHostedWorkListResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkListResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSelfHostedWorkListResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaSelfHostedWork] List of work items
-  attr_reader :data
-  # @return [String] Opaque cursor for fetching the next page of results
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaSelfHostedWorkListResponseMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaSelfHostedWork.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkListResponseMetadata::NULLABLE_FIELDS)
-  end
+  # API model for BetaSelfHostedWorkListResponse.
+  # Response when listing work items with cursor-based pagination.
+  class BetaSelfHostedWorkListResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSelfHostedWorkListResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkListResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSelfHostedWorkListResponseMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Array_of_BetaSelfHostedWork] List of work items
+    attr_reader :data
+    # @return [String] Opaque cursor for fetching the next page of results
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaSelfHostedWorkListResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

@@ -5,256 +5,254 @@
 
 # events_beta_true domain models
 module OctridevAnthropic
-# Defines the BetaManagedAgentsEventParams SDK namespace.
-module BetaManagedAgentsEventParams
-  DISCRIMINATOR_MAPPING = {
-    "user.message" => -> { BetaManagedAgentsUserMessageEventParams },
-    "user.interrupt" => -> { BetaManagedAgentsUserInterruptEventParams },
-    "user.tool_confirmation" => -> { BetaManagedAgentsUserToolConfirmationEventParams },
-    "user.custom_tool_result" => -> { BetaManagedAgentsUserCustomToolResultEventParams },
-    "user.define_outcome" => -> { BetaManagedAgentsUserDefineOutcomeEventParams },
-    "user.tool_result" => -> { BetaManagedAgentsUserToolResultEventParams },
-    "system.message" => -> { BetaManagedAgentsSystemMessageEventParams },
-  }.freeze
+  # Defines the BetaManagedAgentsEventParams SDK namespace.
+  module BetaManagedAgentsEventParams
+    DISCRIMINATOR_MAPPING = {
+      'user.message' => -> { BetaManagedAgentsUserMessageEventParams },
+      'user.interrupt' => -> { BetaManagedAgentsUserInterruptEventParams },
+      'user.tool_confirmation' => -> { BetaManagedAgentsUserToolConfirmationEventParams },
+      'user.custom_tool_result' => -> { BetaManagedAgentsUserCustomToolResultEventParams },
+      'user.define_outcome' => -> { BetaManagedAgentsUserDefineOutcomeEventParams },
+      'user.tool_result' => -> { BetaManagedAgentsUserToolResultEventParams },
+      'system.message' => -> { BetaManagedAgentsSystemMessageEventParams }
+    }.freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsEventParams', 'variant', "Unknown BetaManagedAgentsEventParams discriminator: #{hash["type"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Defines the BetaManagedAgentsInputEvent SDK namespace.
-module BetaManagedAgentsInputEvent
-  DISCRIMINATOR_MAPPING = {
-    "user.message" => -> { BetaManagedAgentsUserMessageEvent },
-    "user.interrupt" => -> { BetaManagedAgentsUserInterruptEvent },
-    "user.tool_confirmation" => -> { BetaManagedAgentsUserToolConfirmationEvent },
-    "user.custom_tool_result" => -> { BetaManagedAgentsUserCustomToolResultEvent },
-    "user.define_outcome" => -> { BetaManagedAgentsUserDefineOutcomeEvent },
-    "user.tool_result" => -> { BetaManagedAgentsUserToolResultEvent },
-    "system.message" => -> { BetaManagedAgentsSystemMessageEvent },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsInputEvent', 'variant', "Unknown BetaManagedAgentsInputEvent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsListSessionEventsMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionEvent.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsListSessionEvents.
-# Paginated list of events for a `session`.
-class BetaManagedAgentsListSessionEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsSessionEvent] Events for the session, ordered by `processed_at`.
-  attr_reader :data
-  # @return [String] Opaque cursor for the next page. Null when no more results.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsEventParams', 'variant', "Unknown BetaManagedAgentsEventParams discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsInputEvent SDK namespace.
+  module BetaManagedAgentsInputEvent
+    DISCRIMINATOR_MAPPING = {
+      'user.message' => -> { BetaManagedAgentsUserMessageEvent },
+      'user.interrupt' => -> { BetaManagedAgentsUserInterruptEvent },
+      'user.tool_confirmation' => -> { BetaManagedAgentsUserToolConfirmationEvent },
+      'user.custom_tool_result' => -> { BetaManagedAgentsUserCustomToolResultEvent },
+      'user.define_outcome' => -> { BetaManagedAgentsUserDefineOutcomeEvent },
+      'user.tool_result' => -> { BetaManagedAgentsUserToolResultEvent },
+      'system.message' => -> { BetaManagedAgentsSystemMessageEvent }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsInputEvent', 'variant', "Unknown BetaManagedAgentsInputEvent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionEvent.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsListSessionThreadEvents.
-# Paginated list of events for a single thread within a `session`.
-class BetaManagedAgentsListSessionThreadEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsSessionEvent] Events for the thread, ordered by `processed_at`.
-  attr_reader :data
-  # @return [String] Opaque cursor for the next page. Null when no more results.
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsListSessionEventsMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionEvent.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsListSessionEvents.
+  # Paginated list of events for a `session`.
+  class BetaManagedAgentsListSessionEvents
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsListSessionEventsMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsSessionEvent] Events for the session, ordered by `processed_at`.
+    attr_reader :data
+    # @return [String] Opaque cursor for the next page. Null when no more results.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsSendSessionEventsMetadata
-  FIELDS = {
-    data: "data",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsInputEvent.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsSendSessionEvents.
-# Events that were successfully sent to the session.
-class BetaManagedAgentsSendSessionEvents
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsInputEvent] Sent events
-  attr_reader :data
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsSessionEvent.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsListSessionThreadEvents.
+  # Paginated list of events for a single thread within a `session`.
+  class BetaManagedAgentsListSessionThreadEvents
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsListSessionThreadEventsMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsSessionEvent] Events for the thread, ordered by `processed_at`.
+    attr_reader :data
+    # @return [String] Opaque cursor for the next page. Null when no more results.
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata
-  FIELDS = {
-    events: "events",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    events
-  ].freeze
-  DECODERS = {
-    events: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsEventParams.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsSendSessionEventsParams.
-# Request parameters for sending events to a `session`.
-class BetaManagedAgentsSendSessionEventsParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::DECODERS
-
-  # @return [Array_of_BetaManagedAgentsEventParams] Events to send to the `session`.
-  attr_reader :events
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsSendSessionEventsMetadata
+    FIELDS = {
+      data: 'data'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsInputEvent.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsSendSessionEvents.
+  # Events that were successfully sent to the session.
+  class BetaManagedAgentsSendSessionEvents
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsSendSessionEventsMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsInputEvent] Sent events
+    attr_reader :data
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata
+    FIELDS = {
+      events: 'events'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      events
+    ].freeze
+    DECODERS = {
+      events: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsEventParams.from_hash(item) }
+      end
+    }.freeze
   end
-end
 
-# Defines the BetaManagedAgentsSessionEvent SDK namespace.
-module BetaManagedAgentsSessionEvent
-  DISCRIMINATOR_MAPPING = {
-    "user.message" => -> { BetaManagedAgentsUserMessageEvent },
-    "user.interrupt" => -> { BetaManagedAgentsUserInterruptEvent },
-    "user.tool_confirmation" => -> { BetaManagedAgentsUserToolConfirmationEvent },
-    "user.custom_tool_result" => -> { BetaManagedAgentsUserCustomToolResultEvent },
-    "agent.custom_tool_use" => -> { BetaManagedAgentsAgentCustomToolUseEvent },
-    "agent.message" => -> { BetaManagedAgentsAgentMessageEvent },
-    "agent.thinking" => -> { BetaManagedAgentsAgentThinkingEvent },
-    "agent.mcp_tool_use" => -> { BetaManagedAgentsAgentMcpToolUseEvent },
-    "agent.mcp_tool_result" => -> { BetaManagedAgentsAgentMcpToolResultEvent },
-    "agent.tool_use" => -> { BetaManagedAgentsAgentToolUseEvent },
-    "agent.tool_result" => -> { BetaManagedAgentsAgentToolResultEvent },
-    "agent.thread_message_received" => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
-    "agent.thread_message_sent" => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
-    "agent.thread_context_compacted" => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
-    "session.error" => -> { BetaManagedAgentsSessionErrorEvent },
-    "session.status_rescheduled" => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
-    "session.status_running" => -> { BetaManagedAgentsSessionStatusRunningEvent },
-    "session.status_idle" => -> { BetaManagedAgentsSessionStatusIdleEvent },
-    "session.status_terminated" => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
-    "session.thread_created" => -> { BetaManagedAgentsSessionThreadCreatedEvent },
-    "span.outcome_evaluation_start" => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
-    "span.outcome_evaluation_end" => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
-    "span.model_request_start" => -> { BetaManagedAgentsSpanModelRequestStartEvent },
-    "span.model_request_end" => -> { BetaManagedAgentsSpanModelRequestEndEvent },
-    "span.outcome_evaluation_ongoing" => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
-    "user.define_outcome" => -> { BetaManagedAgentsUserDefineOutcomeEvent },
-    "session.deleted" => -> { BetaManagedAgentsSessionDeletedEvent },
-    "session.thread_status_running" => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
-    "session.thread_status_idle" => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
-    "session.thread_status_terminated" => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
-    "user.tool_result" => -> { BetaManagedAgentsUserToolResultEvent },
-    "session.thread_status_rescheduled" => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
-    "session.updated" => -> { BetaManagedAgentsSessionUpdatedEvent },
-    "system.message" => -> { BetaManagedAgentsSystemMessageEvent },
-    "session.usage" => -> { BetaManagedAgentsSessionUsageEvent },
-  }.freeze
-  UNDECIDED_VARIANTS = (
-    [
+  # API model for BetaManagedAgentsSendSessionEventsParams.
+  # Request parameters for sending events to a `session`.
+  class BetaManagedAgentsSendSessionEventsParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsSendSessionEventsParamsMetadata::DECODERS
+
+    # @return [Array_of_BetaManagedAgentsEventParams] Events to send to the `session`.
+    attr_reader :events
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsSessionEvent SDK namespace.
+  module BetaManagedAgentsSessionEvent
+    DISCRIMINATOR_MAPPING = {
+      'user.message' => -> { BetaManagedAgentsUserMessageEvent },
+      'user.interrupt' => -> { BetaManagedAgentsUserInterruptEvent },
+      'user.tool_confirmation' => -> { BetaManagedAgentsUserToolConfirmationEvent },
+      'user.custom_tool_result' => -> { BetaManagedAgentsUserCustomToolResultEvent },
+      'agent.custom_tool_use' => -> { BetaManagedAgentsAgentCustomToolUseEvent },
+      'agent.message' => -> { BetaManagedAgentsAgentMessageEvent },
+      'agent.thinking' => -> { BetaManagedAgentsAgentThinkingEvent },
+      'agent.mcp_tool_use' => -> { BetaManagedAgentsAgentMcpToolUseEvent },
+      'agent.mcp_tool_result' => -> { BetaManagedAgentsAgentMcpToolResultEvent },
+      'agent.tool_use' => -> { BetaManagedAgentsAgentToolUseEvent },
+      'agent.tool_result' => -> { BetaManagedAgentsAgentToolResultEvent },
+      'agent.thread_message_received' => -> { BetaManagedAgentsAgentThreadMessageReceivedEvent },
+      'agent.thread_message_sent' => -> { BetaManagedAgentsAgentThreadMessageSentEvent },
+      'agent.thread_context_compacted' => -> { BetaManagedAgentsAgentThreadContextCompactedEvent },
+      'session.error' => -> { BetaManagedAgentsSessionErrorEvent },
+      'session.status_rescheduled' => -> { BetaManagedAgentsSessionStatusRescheduledEvent },
+      'session.status_running' => -> { BetaManagedAgentsSessionStatusRunningEvent },
+      'session.status_idle' => -> { BetaManagedAgentsSessionStatusIdleEvent },
+      'session.status_terminated' => -> { BetaManagedAgentsSessionStatusTerminatedEvent },
+      'session.thread_created' => -> { BetaManagedAgentsSessionThreadCreatedEvent },
+      'span.outcome_evaluation_start' => -> { BetaManagedAgentsSpanOutcomeEvaluationStartEvent },
+      'span.outcome_evaluation_end' => -> { BetaManagedAgentsSpanOutcomeEvaluationEndEvent },
+      'span.model_request_start' => -> { BetaManagedAgentsSpanModelRequestStartEvent },
+      'span.model_request_end' => -> { BetaManagedAgentsSpanModelRequestEndEvent },
+      'span.outcome_evaluation_ongoing' => -> { BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent },
+      'user.define_outcome' => -> { BetaManagedAgentsUserDefineOutcomeEvent },
+      'session.deleted' => -> { BetaManagedAgentsSessionDeletedEvent },
+      'session.thread_status_running' => -> { BetaManagedAgentsSessionThreadStatusRunningEvent },
+      'session.thread_status_idle' => -> { BetaManagedAgentsSessionThreadStatusIdleEvent },
+      'session.thread_status_terminated' => -> { BetaManagedAgentsSessionThreadStatusTerminatedEvent },
+      'user.tool_result' => -> { BetaManagedAgentsUserToolResultEvent },
+      'session.thread_status_rescheduled' => -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
+      'session.updated' => -> { BetaManagedAgentsSessionUpdatedEvent },
+      'system.message' => -> { BetaManagedAgentsSystemMessageEvent },
+      'session.usage' => -> { BetaManagedAgentsSessionUsageEvent }
+    }.freeze
+    UNDECIDED_VARIANTS = [
       -> { BetaManagedAgentsUserMessageEvent },
       -> { BetaManagedAgentsUserInterruptEvent },
       -> { BetaManagedAgentsUserToolConfirmationEvent },
@@ -280,269 +278,273 @@ module BetaManagedAgentsSessionEvent
       -> { BetaManagedAgentsSessionThreadStatusRescheduledEvent },
       -> { BetaManagedAgentsSessionUpdatedEvent },
       -> { BetaManagedAgentsSystemMessageEvent },
-      -> { BetaManagedAgentsSessionUsageEvent },
-    ]
-  ).freeze
+      -> { BetaManagedAgentsSessionUsageEvent }
+    ].freeze
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsSessionEvent', 'variant', "Unknown BetaManagedAgentsSessionEvent discriminator: #{hash["type"].inspect}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata
-  FIELDS = {
-    type: "type",
-    custom_tool_use_id: "custom_tool_use_id",
-    content: "content",
-    is_error: "is_error",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    custom_tool_use_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserCustomToolResultEventParamsType.from_value(value)
-    end,
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUserCustomToolResultEventParams.
-# Parameters for providing the result of a custom tool execution.
-class BetaManagedAgentsUserCustomToolResultEventParams
-  include BetaManagedAgentsEventParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsUserCustomToolResultEventParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
-  attr_reader :custom_tool_use_id
-  # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
-  attr_reader :content
-  # @return [Boolean] Whether the tool execution resulted in an error.
-  attr_reader :is_error
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsSessionEvent', 'variant', "Unknown BetaManagedAgentsSessionEvent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata
+    FIELDS = {
+      type: 'type',
+      custom_tool_use_id: 'custom_tool_use_id',
+      content: 'content',
+      is_error: 'is_error'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      custom_tool_use_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserCustomToolResultEventParamsType.from_value(value)
+      end,
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsUserCustomToolResultEventParams.
+  # Parameters for providing the result of a custom tool execution.
+  class BetaManagedAgentsUserCustomToolResultEventParams
+    include BetaManagedAgentsEventParams
 
-# Defines the BetaManagedAgentsUserCustomToolResultEventParamsType SDK namespace.
-module BetaManagedAgentsUserCustomToolResultEventParamsType
-  USER_CUSTOM_TOOL_RESULT = 'user.custom_tool_result'
-  VALUES = ['user.custom_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserCustomToolResultEventParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsUserCustomToolResultEventParamsType', 'enum', "Unknown BetaManagedAgentsUserCustomToolResultEventParamsType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsUserCustomToolResultEventParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
+    attr_reader :custom_tool_use_id
+    # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
+    attr_reader :content
+    # @return [Boolean] Whether the tool execution resulted in an error.
+    attr_reader :is_error
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata
-  FIELDS = {
-    type: "type",
-    session_thread_id: "session_thread_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserInterruptEventParamsType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaManagedAgentsUserInterruptEventParams.
-# Parameters for sending an interrupt to pause the agent.
-class BetaManagedAgentsUserInterruptEventParams
-  include BetaManagedAgentsEventParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [BetaManagedAgentsUserInterruptEventParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-  attr_reader :session_thread_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsUserCustomToolResultEventParamsType SDK namespace.
+  module BetaManagedAgentsUserCustomToolResultEventParamsType
+    USER_CUSTOM_TOOL_RESULT = 'user.custom_tool_result'
+    VALUES = ['user.custom_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsUserCustomToolResultEventParamsType', 'enum', "Unknown BetaManagedAgentsUserCustomToolResultEventParamsType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsUserInterruptEventParamsType SDK namespace.
-module BetaManagedAgentsUserInterruptEventParamsType
-  USER_INTERRUPT = 'user.interrupt'
-  VALUES = ['user.interrupt'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsUserInterruptEventParamsType', 'enum', "Unknown BetaManagedAgentsUserInterruptEventParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata
-  FIELDS = {
-    type: "type",
-    tool_use_id: "tool_use_id",
-    result: "result",
-    deny_message: "deny_message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    tool_use_id
-    result
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserToolConfirmationEventParamsType.from_value(value)
-    end,
-    result: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserToolConfirmationResult.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUserToolConfirmationEventParams.
-# Parameters for confirming or denying a tool execution request.
-class BetaManagedAgentsUserToolConfirmationEventParams
-  include BetaManagedAgentsEventParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsUserToolConfirmationEventParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
-  attr_reader :tool_use_id
-  # @return [BetaManagedAgentsUserToolConfirmationResult] The confirmation result: 'allow' or 'deny'.
-  attr_reader :result
-  # @return [String] Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-  attr_reader :deny_message
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata
+    FIELDS = {
+      type: 'type',
+      session_thread_id: 'session_thread_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserInterruptEventParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsUserInterruptEventParams.
+  # Parameters for sending an interrupt to pause the agent.
+  class BetaManagedAgentsUserInterruptEventParams
+    include BetaManagedAgentsEventParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserInterruptEventParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsUserInterruptEventParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
+    attr_reader :session_thread_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsUserInterruptEventParamsType SDK namespace.
+  module BetaManagedAgentsUserInterruptEventParamsType
+    USER_INTERRUPT = 'user.interrupt'
+    VALUES = ['user.interrupt'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsUserToolConfirmationEventParamsType SDK namespace.
-module BetaManagedAgentsUserToolConfirmationEventParamsType
-  USER_TOOL_CONFIRMATION = 'user.tool_confirmation'
-  VALUES = ['user.tool_confirmation'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsUserToolConfirmationEventParamsType', 'enum', "Unknown BetaManagedAgentsUserToolConfirmationEventParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata
-  FIELDS = {
-    type: "type",
-    tool_use_id: "tool_use_id",
-    content: "content",
-    is_error: "is_error",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    tool_use_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsUserToolResultEventParamsType.from_value(value)
-    end,
-    content: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsUserToolResultEventParams.
-# Parameters for providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
-class BetaManagedAgentsUserToolResultEventParams
-  include BetaManagedAgentsEventParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsUserToolResultEventParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
-  attr_reader :tool_use_id
-  # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
-  attr_reader :content
-  # @return [Boolean] Whether the tool execution resulted in an error.
-  attr_reader :is_error
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsUserInterruptEventParamsType', 'enum', "Unknown BetaManagedAgentsUserInterruptEventParamsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata
+    FIELDS = {
+      type: 'type',
+      tool_use_id: 'tool_use_id',
+      result: 'result',
+      deny_message: 'deny_message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      tool_use_id
+      result
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserToolConfirmationEventParamsType.from_value(value)
+      end,
+      result: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserToolConfirmationResult.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsUserToolConfirmationEventParams.
+  # Parameters for confirming or denying a tool execution request.
+  class BetaManagedAgentsUserToolConfirmationEventParams
+    include BetaManagedAgentsEventParams
 
-# Defines the BetaManagedAgentsUserToolResultEventParamsType SDK namespace.
-module BetaManagedAgentsUserToolResultEventParamsType
-  USER_TOOL_RESULT = 'user.tool_result'
-  VALUES = ['user.tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserToolConfirmationEventParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsUserToolResultEventParamsType', 'enum', "Unknown BetaManagedAgentsUserToolResultEventParamsType: #{value}")
+    # @return [BetaManagedAgentsUserToolConfirmationEventParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
+    attr_reader :tool_use_id
+    # @return [BetaManagedAgentsUserToolConfirmationResult] The confirmation result: 'allow' or 'deny'.
+    attr_reader :result
+    # @return [String] Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+    attr_reader :deny_message
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
+
+  # Defines the BetaManagedAgentsUserToolConfirmationEventParamsType SDK namespace.
+  module BetaManagedAgentsUserToolConfirmationEventParamsType
+    USER_TOOL_CONFIRMATION = 'user.tool_confirmation'
+    VALUES = ['user.tool_confirmation'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsUserToolConfirmationEventParamsType', 'enum', "Unknown BetaManagedAgentsUserToolConfirmationEventParamsType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata
+    FIELDS = {
+      type: 'type',
+      tool_use_id: 'tool_use_id',
+      content: 'content',
+      is_error: 'is_error'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      tool_use_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsUserToolResultEventParamsType.from_value(value)
+      end,
+      content: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsToolResultContentBlock.from_hash(item) }
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsUserToolResultEventParams.
+  # Parameters for providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
+  class BetaManagedAgentsUserToolResultEventParams
+    include BetaManagedAgentsEventParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsUserToolResultEventParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsUserToolResultEventParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` event's `stop_reason.event_ids` field.
+    attr_reader :tool_use_id
+    # @return [Array_of_BetaManagedAgentsToolResultContentBlock] The result content returned by the tool.
+    attr_reader :content
+    # @return [Boolean] Whether the tool execution resulted in an error.
+    attr_reader :is_error
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsUserToolResultEventParamsType SDK namespace.
+  module BetaManagedAgentsUserToolResultEventParamsType
+    USER_TOOL_RESULT = 'user.tool_result'
+    VALUES = ['user.tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsUserToolResultEventParamsType', 'enum', "Unknown BetaManagedAgentsUserToolResultEventParamsType: #{value}")
+    end
+  end
 end

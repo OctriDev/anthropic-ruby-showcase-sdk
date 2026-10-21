@@ -5,211 +5,209 @@
 
 # plugins_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsPluginActivityMetadata
-  FIELDS = {
-    claude_code_metrics: "claude_code_metrics",
-    cowork_metrics: "cowork_metrics",
-    distinct_user_count: "distinct_user_count",
-    install_count: "install_count",
-    invocation_count: "invocation_count",
-    plugin_id: "plugin_id",
-    plugin_name: "plugin_name",
-    product: "product",
-    rbac_group_id: "rbac_group_id",
-    rbac_group_name: "rbac_group_name",
-    user_id: "user_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    claude_code_metrics
-    cowork_metrics
-    distinct_user_count
-    install_count
-    invocation_count
-    plugin_name
-  ].freeze
-  DECODERS = {
-    claude_code_metrics: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsPluginClaudeCodeMetrics.from_hash(value)
-    end,
-    cowork_metrics: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsPluginCoworkMetrics.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    install_count
-  ].freeze
-end
-
-# API model for BetaAnalyticsPluginActivity.
-# Per-plugin install + invocation activity for a given day. With `group_by[]=user_id` / `rbac_group_id` / `product` (`cowork` / `claude_code` only on this endpoint) each row is one (plugin, user), (plugin, group), or (plugin, product) cut: the flat `user_id` / `rbac_group_id` / `product` keys carry the cut and the counts are scoped to it.
-class BetaAnalyticsPluginActivity
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsPluginActivityMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginActivityMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsPluginActivityMetadata::DECODERS
-
-  # @return [BetaAnalyticsPluginClaudeCodeMetrics] Claude Code activity metrics for a single plugin on a given day.
-  attr_reader :claude_code_metrics
-  # @return [BetaAnalyticsPluginCoworkMetrics] Cowork activity metrics for a single plugin on a given day.
-  attr_reader :cowork_metrics
-  # @return [Integer] Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-  attr_reader :distinct_user_count
-  # @return [Integer] Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-  attr_reader :install_count
-  # @return [Integer] Number of plugin invocations on the requested day
-  attr_reader :invocation_count
-  # @return [String] Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
-  attr_reader :plugin_id
-  # @return [String] Name of the plugin
-  attr_reader :plugin_name
-  # @return [String] Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension…
-  attr_reader :product
-  # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
-  attr_reader :rbac_group_id
-  # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-  attr_reader :rbac_group_name
-  # @return [String] Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-  attr_reader :user_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsPluginActivityMetadata
+    FIELDS = {
+      claude_code_metrics: 'claude_code_metrics',
+      cowork_metrics: 'cowork_metrics',
+      distinct_user_count: 'distinct_user_count',
+      install_count: 'install_count',
+      invocation_count: 'invocation_count',
+      plugin_id: 'plugin_id',
+      plugin_name: 'plugin_name',
+      product: 'product',
+      rbac_group_id: 'rbac_group_id',
+      rbac_group_name: 'rbac_group_name',
+      user_id: 'user_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      claude_code_metrics
+      cowork_metrics
+      distinct_user_count
+      install_count
+      invocation_count
+      plugin_name
+    ].freeze
+    DECODERS = {
+      claude_code_metrics: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsPluginClaudeCodeMetrics.from_hash(value)
+      end,
+      cowork_metrics: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsPluginCoworkMetrics.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      install_count
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginActivityMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsPluginActivity.
+  # Per-plugin install + invocation activity for a given day. With `group_by[]=user_id` / `rbac_group_id` / `product` (`cowork` / `claude_code` only on this endpoint) each row is one (plugin, user), (plugin, group), or (plugin, product) cut: the flat `user_id` / `rbac_group_id` / `product` keys carry the cut and the counts are scoped to it.
+  class BetaAnalyticsPluginActivity
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsPluginActivityMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginActivityMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsPluginActivityMetadata::DECODERS
+
+    # @return [BetaAnalyticsPluginClaudeCodeMetrics] Claude Code activity metrics for a single plugin on a given day.
+    attr_reader :claude_code_metrics
+    # @return [BetaAnalyticsPluginCoworkMetrics] Cowork activity metrics for a single plugin on a given day.
+    attr_reader :cowork_metrics
+    # @return [Integer] Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+    attr_reader :distinct_user_count
+    # @return [Integer] Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+    attr_reader :install_count
+    # @return [Integer] Number of plugin invocations on the requested day
+    attr_reader :invocation_count
+    # @return [String] Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+    attr_reader :plugin_id
+    # @return [String] Name of the plugin
+    attr_reader :plugin_name
+    # @return [String] Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension…
+    attr_reader :product
+    # @return [String] Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+    attr_reader :rbac_group_id
+    # @return [String] Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+    attr_reader :rbac_group_name
+    # @return [String] Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+    attr_reader :user_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginActivityMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata
-  FIELDS = {
-    distinct_session_plugin_used_count: "distinct_session_plugin_used_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    distinct_session_plugin_used_count
-  ].freeze
-  DECODERS = {
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    distinct_session_plugin_used_count
-  ].freeze
-end
-
-# API model for BetaAnalyticsPluginClaudeCodeMetrics.
-# Claude Code activity metrics for a single plugin on a given day.
-class BetaAnalyticsPluginClaudeCodeMetrics
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::DECODERS
-
-  # @return [Integer] Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
-  attr_reader :distinct_session_plugin_used_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata
+    FIELDS = {
+      distinct_session_plugin_used_count: 'distinct_session_plugin_used_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      distinct_session_plugin_used_count
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      distinct_session_plugin_used_count
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsPluginClaudeCodeMetrics.
+  # Claude Code activity metrics for a single plugin on a given day.
+  class BetaAnalyticsPluginClaudeCodeMetrics
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::DECODERS
+
+    # @return [Integer] Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+    attr_reader :distinct_session_plugin_used_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginClaudeCodeMetricsMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata
-  FIELDS = {
-    distinct_session_plugin_used_count: "distinct_session_plugin_used_count",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    distinct_session_plugin_used_count
-  ].freeze
-  DECODERS = {
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    distinct_session_plugin_used_count
-  ].freeze
-end
-
-# API model for BetaAnalyticsPluginCoworkMetrics.
-# Cowork activity metrics for a single plugin on a given day.
-class BetaAnalyticsPluginCoworkMetrics
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::DECODERS
-
-  # @return [Integer] Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
-  attr_reader :distinct_session_plugin_used_count
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata
+    FIELDS = {
+      distinct_session_plugin_used_count: 'distinct_session_plugin_used_count'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      distinct_session_plugin_used_count
+    ].freeze
+    DECODERS = {}.freeze
+    NULLABLE_FIELDS = %i[
+      distinct_session_plugin_used_count
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsPluginCoworkMetrics.
+  # Cowork activity metrics for a single plugin on a given day.
+  class BetaAnalyticsPluginCoworkMetrics
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::DECODERS
+
+    # @return [Integer] Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+    attr_reader :distinct_session_plugin_used_count
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginCoworkMetricsMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsPluginsResponseMetadata
-  FIELDS = {
-    data: "data",
-    next_page: "next_page",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    next_page
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsPluginActivity.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    next_page
-  ].freeze
-end
-
-# API model for BetaAnalyticsPluginsResponse.
-# Response for GET /v1/organizations/analytics/plugins.
-class BetaAnalyticsPluginsResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsPluginsResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginsResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsPluginsResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaAnalyticsPluginActivity] Required array value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [String] Opaque cursor for the next page, or null if no more results
-  attr_reader :next_page
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsPluginsResponseMetadata
+    FIELDS = {
+      data: 'data',
+      next_page: 'next_page'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      next_page
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsPluginActivity.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginsResponseMetadata::NULLABLE_FIELDS)
-  end
+  # API model for BetaAnalyticsPluginsResponse.
+  # Response for GET /v1/organizations/analytics/plugins.
+  class BetaAnalyticsPluginsResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsPluginsResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsPluginsResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsPluginsResponseMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [Array_of_BetaAnalyticsPluginActivity] Required array value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [String] Opaque cursor for the next page, or null if no more results
+    attr_reader :next_page
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsPluginsResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

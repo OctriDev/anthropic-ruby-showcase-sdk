@@ -5,680 +5,689 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-# API model for BetaManagedAgentsBashToolConfig.
-# Configuration for the bash tool.
-class BetaManagedAgentsBashToolConfig
-  include BetaManagedAgentsAgentToolConfigUnion
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::DECODERS
+  # API model for BetaManagedAgentsBashToolConfig.
+  # Configuration for the bash tool.
+  class BetaManagedAgentsBashToolConfig
+    include BetaManagedAgentsAgentToolConfigUnion
 
-  # @return [BetaManagedAgentsBashToolConfigType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsBashToolConfigName] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-  attr_reader :permission_policy
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBashToolConfigMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [BetaManagedAgentsBashToolConfigType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsBashToolConfigName] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+    attr_reader :permission_policy
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsBashToolConfigName SDK namespace.
+  module BetaManagedAgentsBashToolConfigName
+    BASH = 'bash'
+    VALUES = ['bash'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsBashToolConfigName', 'enum', "Unknown BetaManagedAgentsBashToolConfigName: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsBashToolConfigType SDK namespace.
+  module BetaManagedAgentsBashToolConfigType
+    BASH = 'bash'
+    VALUES = ['bash'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsBashToolConfigName SDK namespace.
-module BetaManagedAgentsBashToolConfigName
-  BASH = 'bash'
-  VALUES = ['bash'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBashToolConfigName', 'enum', "Unknown BetaManagedAgentsBashToolConfigName: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsBashToolConfigType SDK namespace.
-module BetaManagedAgentsBashToolConfigType
-  BASH = 'bash'
-  VALUES = ['bash'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBashToolConfigType', 'enum', "Unknown BetaManagedAgentsBashToolConfigType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBashToolConfigParamsType.from_value(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBashToolConfigParamsName.from_value(value)
-    end,
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsBashToolConfigParams.
-# Configuration override for the bash tool.
-class BetaManagedAgentsBashToolConfigParams
-  include BetaManagedAgentsAgentToolConfigUnionParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsBashToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsBashToolConfigParamsName] Must be "bash".
-  attr_reader :name
-  # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsBashToolConfigType', 'enum', "Unknown BetaManagedAgentsBashToolConfigType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBashToolConfigParamsType.from_value(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBashToolConfigParamsName.from_value(value)
+      end,
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsBashToolConfigParams.
+  # Configuration override for the bash tool.
+  class BetaManagedAgentsBashToolConfigParams
+    include BetaManagedAgentsAgentToolConfigUnionParams
 
-# Defines the BetaManagedAgentsBashToolConfigParamsName SDK namespace.
-module BetaManagedAgentsBashToolConfigParamsName
-  BASH = 'bash'
-  VALUES = ['bash'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBashToolConfigParamsMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsBashToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsBashToolConfigParamsName: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsBashToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsBashToolConfigParamsName] Must be "bash".
+    attr_reader :name
+    # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
+    attr_reader :permission_policy
 
-# Defines the BetaManagedAgentsBashToolConfigParamsType SDK namespace.
-module BetaManagedAgentsBashToolConfigParamsType
-  BASH = 'bash'
-  VALUES = ['bash'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-    raise SdkValidationError.new('BetaManagedAgentsBashToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsBashToolConfigParamsType: #{value}")
-  end
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBillingErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBillingErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsBillingError.
-# The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
-class BetaManagedAgentsBillingError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBillingErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBillingErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBillingErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsBillingErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsBashToolConfigParamsName SDK namespace.
+  module BetaManagedAgentsBashToolConfigParamsName
+    BASH = 'bash'
+    VALUES = ['bash'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsBashToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsBashToolConfigParamsName: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsBashToolConfigParamsType SDK namespace.
+  module BetaManagedAgentsBashToolConfigParamsType
+    BASH = 'bash'
+    VALUES = ['bash'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsBillingErrorType SDK namespace.
-module BetaManagedAgentsBillingErrorType
-  BILLING_ERROR = 'billing_error'
-  VALUES = ['billing_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBillingErrorType', 'enum', "Unknown BetaManagedAgentsBillingErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBranchCheckoutMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBranchCheckoutType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsBranchCheckout.
-# Typed representation of the `BetaManagedAgentsBranchCheckout` API schema.
-class BetaManagedAgentsBranchCheckout
-  include BetaManagedAgentsRepositoryCheckout
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::DECODERS
-
-  # @return [BetaManagedAgentsBranchCheckoutType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Branch name to check out.
-  attr_reader :name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsBashToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsBashToolConfigParamsType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBillingErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBillingErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsBillingError.
+  # The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
+  class BetaManagedAgentsBillingError
+    include BetaManagedAgentsSessionErrorEventError
 
-# Defines the BetaManagedAgentsBranchCheckoutType SDK namespace.
-module BetaManagedAgentsBranchCheckoutType
-  BRANCH = 'branch'
-  VALUES = ['branch'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBillingErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBillingErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBillingErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaManagedAgentsBranchCheckoutType', 'enum', "Unknown BetaManagedAgentsBranchCheckoutType: #{value}")
-  end
-end
+    # @return [BetaManagedAgentsBillingErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
 
-# Defines the BetaManagedAgentsBudget SDK namespace.
-module BetaManagedAgentsBudget
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "limit" => BetaManagedAgentsBudgetLimit }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    raise SdkValidationError.new('BetaManagedAgentsBudget', 'variant', "Unknown BetaManagedAgentsBudget discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsBudgetLimitMetadata
-  FIELDS = {
-    type: "type",
-    max_list_cost: "max_list_cost",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    max_list_cost
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsBudgetLimitType.from_value(value)
-    end,
-    max_list_cost: lambda do |value|
-      ::OctridevAnthropic::BetaMonetaryAmount.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsBudgetLimit.
-# A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-class BetaManagedAgentsBudgetLimit
-  include BetaManagedAgentsBudget
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::DECODERS
-
-  # @return [BetaManagedAgentsBudgetLimitType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaMonetaryAmount] Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
-  attr_reader :max_list_cost
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsBillingErrorType SDK namespace.
+  module BetaManagedAgentsBillingErrorType
+    BILLING_ERROR = 'billing_error'
+    VALUES = ['billing_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsBillingErrorType', 'enum', "Unknown BetaManagedAgentsBillingErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsBudgetLimitType SDK namespace.
-module BetaManagedAgentsBudgetLimitType
-  LIMIT = 'limit'
-  VALUES = ['limit'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsBudgetLimitType', 'enum', "Unknown BetaManagedAgentsBudgetLimitType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsCacheCreationUsageMetadata
-  FIELDS = {
-    ephemeral1h_input_tokens: "ephemeral_1h_input_tokens",
-    ephemeral5m_input_tokens: "ephemeral_5m_input_tokens",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaManagedAgentsCacheCreationUsage.
-# Prompt-cache creation token usage broken down by cache lifetime.
-class BetaManagedAgentsCacheCreationUsage
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::DECODERS
-
-  # @return [Integer] Tokens used to create 1-hour ephemeral cache entries.
-  attr_reader :ephemeral1h_input_tokens
-  # @return [Integer] Tokens used to create 5-minute ephemeral cache entries.
-  attr_reader :ephemeral5m_input_tokens
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBranchCheckoutMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBranchCheckoutType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsBranchCheckout.
+  # Typed representation of the `BetaManagedAgentsBranchCheckout` API schema.
+  class BetaManagedAgentsBranchCheckout
+    include BetaManagedAgentsRepositoryCheckout
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBranchCheckoutMetadata::DECODERS
+
+    # @return [BetaManagedAgentsBranchCheckoutType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Branch name to check out.
+    attr_reader :name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsBranchCheckoutType SDK namespace.
+  module BetaManagedAgentsBranchCheckoutType
+    BRANCH = 'branch'
+    VALUES = ['branch'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsCommitCheckoutMetadata
-  FIELDS = {
-    type: "type",
-    sha: "sha",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    sha
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCommitCheckoutType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsCommitCheckout.
-# Typed representation of the `BetaManagedAgentsCommitCheckout` API schema.
-class BetaManagedAgentsCommitCheckout
-  include BetaManagedAgentsRepositoryCheckout
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::DECODERS
-
-  # @return [BetaManagedAgentsCommitCheckoutType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Full commit SHA to check out.
-  attr_reader :sha
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsBranchCheckoutType', 'enum', "Unknown BetaManagedAgentsBranchCheckoutType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsBudget SDK namespace.
+  module BetaManagedAgentsBudget
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'limit' => BetaManagedAgentsBudgetLimit }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsBudget', 'variant', "Unknown BetaManagedAgentsBudget discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaManagedAgentsCommitCheckoutType SDK namespace.
-module BetaManagedAgentsCommitCheckoutType
-  COMMIT = 'commit'
-  VALUES = ['commit'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsCommitCheckoutType', 'enum', "Unknown BetaManagedAgentsCommitCheckoutType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsConflictErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsConflictErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsConflictError.
-# Typed representation of the `BetaManagedAgentsConflictError` API schema.
-class BetaManagedAgentsConflictError
-  include BetaManagedAgentsError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsConflictErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsConflictErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsConflictErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsConflictErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Optional `string` value serialized in the `message` wire field.
-  attr_reader :message
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsBudgetLimitMetadata
+    FIELDS = {
+      type: 'type',
+      max_list_cost: 'max_list_cost'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      max_list_cost
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsBudgetLimitType.from_value(value)
+      end,
+      max_list_cost: lambda do |value|
+        ::OctridevAnthropic::BetaMonetaryAmount.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsBudgetLimit.
+  # A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  class BetaManagedAgentsBudgetLimit
+    include BetaManagedAgentsBudget
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsBudgetLimitMetadata::DECODERS
+
+    # @return [BetaManagedAgentsBudgetLimitType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaMonetaryAmount] Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+    attr_reader :max_list_cost
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the BetaManagedAgentsBudgetLimitType SDK namespace.
+  module BetaManagedAgentsBudgetLimitType
+    LIMIT = 'limit'
+    VALUES = ['limit'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsConflictErrorType SDK namespace.
-module BetaManagedAgentsConflictErrorType
-  CONFLICT_ERROR = 'conflict_error'
-  VALUES = ['conflict_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsConflictErrorType', 'enum', "Unknown BetaManagedAgentsConflictErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsCredentialMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    vault_id: "vault_id",
-    display_name: "display_name",
-    metadata: "metadata",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    archived_at: "archived_at",
-    auth: "auth",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    vault_id
-    metadata
-    created_at
-    updated_at
-    archived_at
-    auth
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCredentialType.from_value(value)
-    end,
-    created_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    updated_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    archived_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    auth: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCredentialAuth.from_hash(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    archived_at
-  ].freeze
-end
-
-# API model for BetaManagedAgentsCredential.
-# A credential stored in a vault. Sensitive fields are never returned in responses.
-class BetaManagedAgentsCredential
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsCredentialMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCredentialMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsCredentialMetadata::DECODERS
-
-  # @return [BetaManagedAgentsCredentialType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for the credential.
-  attr_reader :id
-  # @return [String] Identifier of the vault this credential belongs to.
-  attr_reader :vault_id
-  # @return [String] Human-readable name for the credential.
-  attr_reader :display_name
-  # @return [Hash] Arbitrary key-value metadata attached to the credential.
-  attr_reader :metadata
-  # @return [BetaTimestamp] A timestamp in RFC 3339 format
-  attr_reader :created_at
-  # @return [BetaTimestamp] A timestamp in RFC 3339 format
-  attr_reader :updated_at
-  # @return [BetaTimestamp] When the credential was archived. Null if not archived.
-  attr_reader :archived_at
-  # @return [BetaManagedAgentsCredentialAuth] Authentication configuration for this credential.
-  attr_reader :auth
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsBudgetLimitType', 'enum', "Unknown BetaManagedAgentsBudgetLimitType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaManagedAgentsCredentialMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsCacheCreationUsageMetadata
+    FIELDS = {
+      ephemeral1h_input_tokens: 'ephemeral_1h_input_tokens',
+      ephemeral5m_input_tokens: 'ephemeral_5m_input_tokens'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for BetaManagedAgentsCacheCreationUsage.
+  # Prompt-cache creation token usage broken down by cache lifetime.
+  class BetaManagedAgentsCacheCreationUsage
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsCacheCreationUsageMetadata::DECODERS
 
-# Defines the BetaManagedAgentsCredentialType SDK namespace.
-module BetaManagedAgentsCredentialType
-  VAULT_CREDENTIAL = 'vault_credential'
-  VALUES = ['vault_credential'].freeze
-  def self.from_value(value)
-    value
-  end
-end
+    # @return [Integer] Tokens used to create 1-hour ephemeral cache entries.
+    attr_reader :ephemeral1h_input_tokens
+    # @return [Integer] Tokens used to create 5-minute ephemeral cache entries.
+    attr_reader :ephemeral5m_input_tokens
 
-# Defines the BetaManagedAgentsCredentialAuth SDK namespace.
-module BetaManagedAgentsCredentialAuth
-  DISCRIMINATOR_MAPPING = {
-    "mcp_oauth" => -> { BetaManagedAgentsMcpOauthAuthResponse },
-    "static_bearer" => -> { BetaManagedAgentsStaticBearerAuthResponse },
-    "environment_variable" => -> { BetaManagedAgentsEnvironmentVariableAuthResponse },
-  }.freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsCredentialAuth', 'variant', "Unknown BetaManagedAgentsCredentialAuth discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-    vault_id: "vault_id",
-    credential_id: "credential_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-    vault_id
-    credential_id
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsCredentialHostUnreachableErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsCredentialHostUnreachableError.
-# An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
-class BetaManagedAgentsCredentialHostUnreachableError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsCredentialHostUnreachableErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-  # @return [String] ID of the vault containing the affected credential.
-  attr_reader :vault_id
-  # @return [String] ID of the affected credential.
-  attr_reader :credential_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsCommitCheckoutMetadata
+    FIELDS = {
+      type: 'type',
+      sha: 'sha'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      sha
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCommitCheckoutType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsCommitCheckout.
+  # Typed representation of the `BetaManagedAgentsCommitCheckout` API schema.
+  class BetaManagedAgentsCommitCheckout
+    include BetaManagedAgentsRepositoryCheckout
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsCommitCheckoutMetadata::DECODERS
+
+    # @return [BetaManagedAgentsCommitCheckoutType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Full commit SHA to check out.
+    attr_reader :sha
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the BetaManagedAgentsCredentialHostUnreachableErrorType SDK namespace.
-module BetaManagedAgentsCredentialHostUnreachableErrorType
-  CREDENTIAL_HOST_UNREACHABLE_ERROR = 'credential_host_unreachable_error'
-  VALUES = ['credential_host_unreachable_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the BetaManagedAgentsCommitCheckoutType SDK namespace.
+  module BetaManagedAgentsCommitCheckoutType
+    COMMIT = 'commit'
+    VALUES = ['commit'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('BetaManagedAgentsCredentialHostUnreachableErrorType', 'enum', "Unknown BetaManagedAgentsCredentialHostUnreachableErrorType: #{value}")
+      raise SdkValidationError.new('BetaManagedAgentsCommitCheckoutType', 'enum', "Unknown BetaManagedAgentsCommitCheckoutType: #{value}")
+    end
   end
-end
 
-# Defines the BetaManagedAgentsCredentialNetworkingParams SDK namespace.
-module BetaManagedAgentsCredentialNetworkingParams
-  DISCRIMINATOR_MAPPING = {
-    "unrestricted" => -> { BetaManagedAgentsUnrestrictedCredentialNetworkingParams },
-    "limited" => -> { BetaManagedAgentsLimitedCredentialNetworkingParams },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsCredentialNetworkingParams', 'variant', "Unknown BetaManagedAgentsCredentialNetworkingParams discriminator: #{hash["type"].inspect}")
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsConflictErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsConflictErrorType.from_value(value)
+      end
+    }.freeze
   end
-end
+
+  # API model for BetaManagedAgentsConflictError.
+  # Typed representation of the `BetaManagedAgentsConflictError` API schema.
+  class BetaManagedAgentsConflictError
+    include BetaManagedAgentsError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsConflictErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsConflictErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsConflictErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsConflictErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Optional `string` value serialized in the `message` wire field.
+    attr_reader :message
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsConflictErrorType SDK namespace.
+  module BetaManagedAgentsConflictErrorType
+    CONFLICT_ERROR = 'conflict_error'
+    VALUES = ['conflict_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsConflictErrorType', 'enum', "Unknown BetaManagedAgentsConflictErrorType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsCredentialMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      vault_id: 'vault_id',
+      display_name: 'display_name',
+      metadata: 'metadata',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      archived_at: 'archived_at',
+      auth: 'auth'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      vault_id
+      metadata
+      created_at
+      updated_at
+      archived_at
+      auth
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCredentialType.from_value(value)
+      end,
+      created_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      updated_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      archived_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      auth: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCredentialAuth.from_hash(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      archived_at
+    ].freeze
+  end
+
+  # API model for BetaManagedAgentsCredential.
+  # A credential stored in a vault. Sensitive fields are never returned in responses.
+  class BetaManagedAgentsCredential
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsCredentialMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCredentialMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsCredentialMetadata::DECODERS
+
+    # @return [BetaManagedAgentsCredentialType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for the credential.
+    attr_reader :id
+    # @return [String] Identifier of the vault this credential belongs to.
+    attr_reader :vault_id
+    # @return [String] Human-readable name for the credential.
+    attr_reader :display_name
+    # @return [Hash] Arbitrary key-value metadata attached to the credential.
+    attr_reader :metadata
+    # @return [BetaTimestamp] A timestamp in RFC 3339 format
+    attr_reader :created_at
+    # @return [BetaTimestamp] A timestamp in RFC 3339 format
+    attr_reader :updated_at
+    # @return [BetaTimestamp] When the credential was archived. Null if not archived.
+    attr_reader :archived_at
+    # @return [BetaManagedAgentsCredentialAuth] Authentication configuration for this credential.
+    attr_reader :auth
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaManagedAgentsCredentialMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsCredentialType SDK namespace.
+  module BetaManagedAgentsCredentialType
+    VAULT_CREDENTIAL = 'vault_credential'
+    VALUES = ['vault_credential'].freeze
+    def self.from_value(value)
+      value
+    end
+  end
+
+  # Defines the BetaManagedAgentsCredentialAuth SDK namespace.
+  module BetaManagedAgentsCredentialAuth
+    DISCRIMINATOR_MAPPING = {
+      'mcp_oauth' => -> { BetaManagedAgentsMcpOauthAuthResponse },
+      'static_bearer' => -> { BetaManagedAgentsStaticBearerAuthResponse },
+      'environment_variable' => -> { BetaManagedAgentsEnvironmentVariableAuthResponse }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsCredentialAuth', 'variant', "Unknown BetaManagedAgentsCredentialAuth discriminator: #{hash['type'].inspect}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status',
+      vault_id: 'vault_id',
+      credential_id: 'credential_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+      vault_id
+      credential_id
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsCredentialHostUnreachableErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsCredentialHostUnreachableError.
+  # An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
+  class BetaManagedAgentsCredentialHostUnreachableError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsCredentialHostUnreachableErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsCredentialHostUnreachableErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+    # @return [String] ID of the vault containing the affected credential.
+    attr_reader :vault_id
+    # @return [String] ID of the affected credential.
+    attr_reader :credential_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the BetaManagedAgentsCredentialHostUnreachableErrorType SDK namespace.
+  module BetaManagedAgentsCredentialHostUnreachableErrorType
+    CREDENTIAL_HOST_UNREACHABLE_ERROR = 'credential_host_unreachable_error'
+    VALUES = ['credential_host_unreachable_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsCredentialHostUnreachableErrorType', 'enum', "Unknown BetaManagedAgentsCredentialHostUnreachableErrorType: #{value}")
+    end
+  end
+
+  # Defines the BetaManagedAgentsCredentialNetworkingParams SDK namespace.
+  module BetaManagedAgentsCredentialNetworkingParams
+    DISCRIMINATOR_MAPPING = {
+      'unrestricted' => -> { BetaManagedAgentsUnrestrictedCredentialNetworkingParams },
+      'limited' => -> { BetaManagedAgentsLimitedCredentialNetworkingParams }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsCredentialNetworkingParams', 'variant', "Unknown BetaManagedAgentsCredentialNetworkingParams discriminator: #{hash['type'].inspect}")
+    end
+  end
 end

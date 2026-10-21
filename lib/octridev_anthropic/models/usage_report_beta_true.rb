@@ -5,231 +5,231 @@
 
 # usage_report_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsUsageBucketedResponseMetadata
-  FIELDS = {
-    data: "data",
-    data_refreshed_at: "data_refreshed_at",
-    has_more: "has_more",
-    next_page: "next_page",
-    organization_id: "organization_id",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    data_refreshed_at
-    has_more
-    next_page
-    organization_id
-  ].freeze
-  DECODERS = {
-    data: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUsageReportTimeBucket.from_hash(item) }
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    data_refreshed_at
-    next_page
-  ].freeze
-end
-
-# API model for BetaAnalyticsUsageBucketedResponse.
-# Typed representation of the `BetaAnalyticsUsageBucketedResponse` API schema.
-class BetaAnalyticsUsageBucketedResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::DECODERS
-
-  # @return [Array_of_BetaAnalyticsUsageReportTimeBucket] Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
-  attr_reader :data
-  # @return [String] RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
-  attr_reader :data_refreshed_at
-  # @return [Boolean] Whether another page is available. When true, pass `next_page` as the `page` parameter to fetch it.
-  attr_reader :has_more
-  # @return [String] Opaque cursor for the next page, or null when `has_more` is false. Pass it as the `page` parameter, keeping the other parameters unchanged. A cursor can expire after the underlying data refreshes; the request then returns HTTP 410 and pagination must restart from the first page.
-  attr_reader :next_page
-  # @return [String] ID of the Organization.
-  attr_reader :organization_id
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsUsageBucketedResponseMetadata
+    FIELDS = {
+      data: 'data',
+      data_refreshed_at: 'data_refreshed_at',
+      has_more: 'has_more',
+      next_page: 'next_page',
+      organization_id: 'organization_id'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      data_refreshed_at
+      has_more
+      next_page
+      organization_id
+    ].freeze
+    DECODERS = {
+      data: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUsageReportTimeBucket.from_hash(item) }
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      data_refreshed_at
+      next_page
+    ].freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::NULLABLE_FIELDS)
+  # API model for BetaAnalyticsUsageBucketedResponse.
+  # Typed representation of the `BetaAnalyticsUsageBucketedResponse` API schema.
+  class BetaAnalyticsUsageBucketedResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::DECODERS
+
+    # @return [Array_of_BetaAnalyticsUsageReportTimeBucket] Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
+    attr_reader :data
+    # @return [String] RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+    attr_reader :data_refreshed_at
+    # @return [Boolean] Whether another page is available. When true, pass `next_page` as the `page` parameter to fetch it.
+    attr_reader :has_more
+    # @return [String] Opaque cursor for the next page, or null when `has_more` is false. Pass it as the `page` parameter, keeping the other parameters unchanged. A cursor can expire after the underlying data refreshes; the request then returns HTTP 410 and pagination must restart from the first page.
+    attr_reader :next_page
+    # @return [String] ID of the Organization.
+    attr_reader :organization_id
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsageBucketedResponseMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
-
-# Defines the BetaAnalyticsUsageBucketedResultSpeedVariant0 SDK namespace.
-module BetaAnalyticsUsageBucketedResultSpeedVariant0
-  FAST = 'fast'
-  STANDARD = 'standard'
-  VALUES = ['fast', 'standard'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsUsageBucketedResultMetadata
-  FIELDS = {
-    cache_creation: "cache_creation",
-    cache_read_input_tokens: "cache_read_input_tokens",
-    context_window: "context_window",
-    inference_geo: "inference_geo",
-    model: "model",
-    output_tokens: "output_tokens",
-    product: "product",
-    rbac_group_id: "rbac_group_id",
-    requests: "requests",
-    server_tool_use: "server_tool_use",
-    slack_channel_id: "slack_channel_id",
-    speed: "speed",
-    uncached_input_tokens: "uncached_input_tokens",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cache_creation
-    cache_read_input_tokens
-    context_window
-    inference_geo
-    model
-    output_tokens
-    product
-    rbac_group_id
-    requests
-    server_tool_use
-    slack_channel_id
-    speed
-    uncached_input_tokens
-  ].freeze
-  DECODERS = {
-    cache_creation: lambda do |value|
-      ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
-    end,
-    context_window: lambda do |value|
-      ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
-    end,
-    inference_geo: lambda do |value|
-      ::OctridevAnthropic::BetaInferenceGeo.from_value(value)
-    end,
-    server_tool_use: lambda do |value|
-      ::OctridevAnthropic::BetaServerToolUse.from_hash(value)
-    end,
-    speed: lambda do |value|
-      ::OctridevAnthropic::BetaAnalyticsUsageBucketedResultSpeedVariant0.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    context_window
-    inference_geo
-    model
-    product
-    rbac_group_id
-    requests
-    slack_channel_id
-    speed
-  ].freeze
-end
-
-# API model for BetaAnalyticsUsageBucketedResult.
-# Typed representation of the `BetaAnalyticsUsageBucketedResult` API schema.
-class BetaAnalyticsUsageBucketedResult
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::DECODERS
-
-  # @return [BetaCacheCreation] The number of input tokens for cache creation.
-  attr_reader :cache_creation
-  # @return [Integer] The number of input tokens read from the cache.
-  attr_reader :cache_read_input_tokens
-  # @return [BetaMessagesUsageReportContextWindow] Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
-  attr_reader :context_window
-  # @return [BetaInferenceGeo] Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
-  attr_reader :inference_geo
-  # @return [String] Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
-  attr_reader :model
-  # @return [Integer] The number of output tokens generated.
-  attr_reader :output_tokens
-  # @return [String] Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
-  attr_reader :product
-  # @return [String] RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can…
-  attr_reader :rbac_group_id
-  # @return [Integer] Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
-  attr_reader :requests
-  # @return [BetaServerToolUse] Server-side tool usage metrics.
-  attr_reader :server_tool_use
-  # @return [String] Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
-  attr_reader :slack_channel_id
-  # @return [BetaAnalyticsUsageBucketedResultSpeedVariant0] Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
-  attr_reader :speed
-  # @return [Integer] The number of uncached input tokens processed.
-  attr_reader :uncached_input_tokens
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaAnalyticsUsageBucketedResultSpeedVariant0 SDK namespace.
+  module BetaAnalyticsUsageBucketedResultSpeedVariant0
+    FAST = 'fast'
+    STANDARD = 'standard'
+    VALUES = %w[fast standard].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsageBucketedResultMetadata::NULLABLE_FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsUsageBucketedResultMetadata
+    FIELDS = {
+      cache_creation: 'cache_creation',
+      cache_read_input_tokens: 'cache_read_input_tokens',
+      context_window: 'context_window',
+      inference_geo: 'inference_geo',
+      model: 'model',
+      output_tokens: 'output_tokens',
+      product: 'product',
+      rbac_group_id: 'rbac_group_id',
+      requests: 'requests',
+      server_tool_use: 'server_tool_use',
+      slack_channel_id: 'slack_channel_id',
+      speed: 'speed',
+      uncached_input_tokens: 'uncached_input_tokens'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cache_creation
+      cache_read_input_tokens
+      context_window
+      inference_geo
+      model
+      output_tokens
+      product
+      rbac_group_id
+      requests
+      server_tool_use
+      slack_channel_id
+      speed
+      uncached_input_tokens
+    ].freeze
+    DECODERS = {
+      cache_creation: lambda do |value|
+        ::OctridevAnthropic::BetaCacheCreation.from_hash(value)
+      end,
+      context_window: lambda do |value|
+        ::OctridevAnthropic::BetaMessagesUsageReportContextWindow.from_value(value)
+      end,
+      inference_geo: lambda do |value|
+        ::OctridevAnthropic::BetaInferenceGeo.from_value(value)
+      end,
+      server_tool_use: lambda do |value|
+        ::OctridevAnthropic::BetaServerToolUse.from_hash(value)
+      end,
+      speed: lambda do |value|
+        ::OctridevAnthropic::BetaAnalyticsUsageBucketedResultSpeedVariant0.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      context_window
+      inference_geo
+      model
+      product
+      rbac_group_id
+      requests
+      slack_channel_id
+      speed
+    ].freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaAnalyticsUsageBucketedResult.
+  # Typed representation of the `BetaAnalyticsUsageBucketedResult` API schema.
+  class BetaAnalyticsUsageBucketedResult
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsUsageBucketedResultMetadata::DECODERS
+
+    # @return [BetaCacheCreation] The number of input tokens for cache creation.
+    attr_reader :cache_creation
+    # @return [Integer] The number of input tokens read from the cache.
+    attr_reader :cache_read_input_tokens
+    # @return [BetaMessagesUsageReportContextWindow] Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+    attr_reader :context_window
+    # @return [BetaInferenceGeo] Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+    attr_reader :inference_geo
+    # @return [String] Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    attr_reader :model
+    # @return [Integer] The number of output tokens generated.
+    attr_reader :output_tokens
+    # @return [String] Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+    attr_reader :product
+    # @return [String] RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can…
+    attr_reader :rbac_group_id
+    # @return [Integer] Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+    attr_reader :requests
+    # @return [BetaServerToolUse] Server-side tool usage metrics.
+    attr_reader :server_tool_use
+    # @return [String] Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+    attr_reader :slack_channel_id
+    # @return [BetaAnalyticsUsageBucketedResultSpeedVariant0] Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+    attr_reader :speed
+    # @return [Integer] The number of uncached input tokens processed.
+    attr_reader :uncached_input_tokens
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaAnalyticsUsageBucketedResultMetadata::NULLABLE_FIELDS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata
-  FIELDS = {
-    ending_at: "ending_at",
-    results: "results",
-    starting_at: "starting_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    ending_at
-    results
-    starting_at
-  ].freeze
-  DECODERS = {
-    results: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUsageBucketedResult.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaAnalyticsUsageReportTimeBucket.
-# Typed representation of the `BetaAnalyticsUsageReportTimeBucket` API schema.
-class BetaAnalyticsUsageReportTimeBucket
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::DECODERS
-
-  # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
-  attr_reader :ending_at
-  # @return [Array_of_BetaAnalyticsUsageBucketedResult] Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
-  attr_reader :results
-  # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
-  attr_reader :starting_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata
+    FIELDS = {
+      ending_at: 'ending_at',
+      results: 'results',
+      starting_at: 'starting_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      ending_at
+      results
+      starting_at
+    ].freeze
+    DECODERS = {
+      results: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAnalyticsUsageBucketedResult.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BetaAnalyticsUsageReportTimeBucket.
+  # Typed representation of the `BetaAnalyticsUsageReportTimeBucket` API schema.
+  class BetaAnalyticsUsageReportTimeBucket
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaAnalyticsUsageReportTimeBucketMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+    # @return [String] End of the time bucket (exclusive) in RFC 3339 format.
+    attr_reader :ending_at
+    # @return [Array_of_BetaAnalyticsUsageBucketedResult] Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+    attr_reader :results
+    # @return [String] Start of the time bucket (inclusive) in RFC 3339 format.
+    attr_reader :starting_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 end

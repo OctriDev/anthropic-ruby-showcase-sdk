@@ -32,25 +32,24 @@ module OctridevAnthropic
         display_name: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/v1/skills",
+          '/v1/skills',
           config: config,
           body: {
             'files' => SdkClient.upload(files, 'files'),
-            'display_name' => display_name,
+            'display_name' => display_name
           },
           content_type: 'multipart/form-data',
           return_type: ::OctridevAnthropic::Skill,
           decoder: :json,
           operation_id: 'create_skills',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
+                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
         ).data
       end
 
@@ -80,31 +79,30 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(limit) { Validation.validate_range('limit', limit, min: 1, max: 1000) }
 
         SdkClient.request(
           'GET',
-          "/v1/skills",
+          '/v1/skills',
           config: config,
           query: {
             'page' => QueryValue.new(page, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'source' => QueryValue.new(source, style: 'form', explode: true),
+            'source' => QueryValue.new(source, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::ListSkillsResponse,
           decoder: :json,
           operation_id: 'list_skills',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
+                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
         ).data
       end
 
-    ListSkillsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      ListSkillsPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Lists skills available to the authenticated user, with optional pagination and filtering by source. Use `source` to limit results to custom or Anthropic-created skills, and use `page` and `limit` to paginate the results. The response includes a `next_page` cursor when more results are available.
       #
@@ -146,9 +144,11 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -177,10 +177,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListSkillsPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end
@@ -204,11 +206,10 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/v1/skills/",
+            '/v1/skills/',
             SdkClient.encode_path_segment(skill_id)
           ].join,
           config: config,
@@ -216,11 +217,11 @@ module OctridevAnthropic
           decoder: :json,
           operation_id: 'retrieve_skills',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
+                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
         ).data
       end
 
@@ -242,11 +243,10 @@ module OctridevAnthropic
         anthropic_workspace_id: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'DELETE',
           [
-            "/v1/skills/",
+            '/v1/skills/',
             SdkClient.encode_path_segment(skill_id)
           ].join,
           config: config,
@@ -254,11 +254,11 @@ module OctridevAnthropic
           decoder: :json,
           operation_id: 'delete_skills',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-version' => SdkClient.header_value(anthropic_version),
-            'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id),
-          }),
+                                                       'anthropic-version' => SdkClient.header_value(anthropic_version),
+                                                       'anthropic-workspace-id' => SdkClient.header_value(anthropic_workspace_id)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::ErrorResponse, '401' => ::OctridevAnthropic::ErrorResponse, '403' => ::OctridevAnthropic::ErrorResponse, '404' => ::OctridevAnthropic::ErrorResponse, '408' => ::OctridevAnthropic::ErrorResponse, '409' => ::OctridevAnthropic::ErrorResponse, '412' => ::OctridevAnthropic::ErrorResponse, '413' => ::OctridevAnthropic::ErrorResponse, '429' => ::OctridevAnthropic::ErrorResponse, '431' => ::OctridevAnthropic::ErrorResponse, '499' => ::OctridevAnthropic::ErrorResponse, '500' => ::OctridevAnthropic::ErrorResponse, '501' => ::OctridevAnthropic::ErrorResponse, '503' => ::OctridevAnthropic::ErrorResponse, '504' => ::OctridevAnthropic::ErrorResponse, '529' => ::OctridevAnthropic::ErrorResponse }
         ).data
       end
     end

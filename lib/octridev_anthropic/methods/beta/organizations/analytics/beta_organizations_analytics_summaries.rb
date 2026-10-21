@@ -35,25 +35,24 @@ module OctridevAnthropic
         filter: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_date('starting_date', starting_date)
 
         Validation.if_given(filter) { Validation.validate_items('filter[]', filter, max: 100) }
 
         SdkClient.request(
           'GET',
-          "/v1/organizations/analytics/summaries?beta=true",
+          '/v1/organizations/analytics/summaries?beta=true',
           config: config,
           query: {
             'starting_date' => QueryValue.new(starting_date, style: 'form', explode: true),
             'ending_date' => QueryValue.new(ending_date, style: 'form', explode: true),
-            'filter[]' => QueryValue.new(filter, style: 'form', explode: true),
+            'filter[]' => QueryValue.new(filter, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaAnalyticsActivitySummaryResponse,
           decoder: :json,
           operation_id: 'list_beta_organizations_analytics_summaries',
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
         ).data
       end
     end

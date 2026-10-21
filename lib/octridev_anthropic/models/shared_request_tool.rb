@@ -5,464 +5,473 @@
 
 # shared_request_tool domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalRequestToolReferenceBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    tool_name: "tool_name",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    tool_name
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolReferenceBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestToolReferenceBlock.
-# Tool reference block that can be included in tool_result content.
-class RequestToolReferenceBlock
-  include RequestToolResultBlockContentItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolReferenceBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolReferenceBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolReferenceBlockMetadata::DECODERS
-
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [String] Required `string` value serialized in the `tool_name` wire field.
-  attr_reader :tool_name
-  # @return [RequestToolReferenceBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolReferenceBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      tool_name: 'tool_name',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      tool_name
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolReferenceBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for RequestToolReferenceBlock.
+  # Tool reference block that can be included in tool_result content.
+  class RequestToolReferenceBlock
+    include RequestToolResultBlockContentItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolReferenceBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolReferenceBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolReferenceBlockMetadata::DECODERS
+
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [String] Required `string` value serialized in the `tool_name` wire field.
+    attr_reader :tool_name
+    # @return [RequestToolReferenceBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestToolReferenceBlockType SDK namespace.
+  module RequestToolReferenceBlockType
+    TOOL_REFERENCE = 'tool_reference'
+    VALUES = ['tool_reference'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the RequestToolReferenceBlockType SDK namespace.
-module RequestToolReferenceBlockType
-  TOOL_REFERENCE = 'tool_reference'
-  VALUES = ['tool_reference'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('RequestToolReferenceBlockType', 'enum', "Unknown RequestToolReferenceBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestToolResultBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    content: "content",
-    is_error: "is_error",
-    tool_use_id: "tool_use_id",
-    toolset_name: "toolset_name",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestToolResultBlock.
-# Typed representation of the `RequestToolResultBlock` API schema.
-class RequestToolResultBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolResultBlockMetadata::DECODERS
-
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Object] Optional API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
-  attr_reader :is_error
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [String] For a toolset member tool_result, the toolset family of the paired tool_use.
-  attr_reader :toolset_name
-  # @return [RequestToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('RequestToolReferenceBlockType', 'enum', "Unknown RequestToolReferenceBlockType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolResultBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      content: 'content',
+      is_error: 'is_error',
+      tool_use_id: 'tool_use_id',
+      toolset_name: 'toolset_name',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestToolResultBlock.
+  # Typed representation of the `RequestToolResultBlock` API schema.
+  class RequestToolResultBlock
+    include InputContentBlock
 
-# Defines the RequestToolResultBlockType SDK namespace.
-module RequestToolResultBlockType
-  TOOL_RESULT = 'tool_result'
-  VALUES = ['tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('RequestToolResultBlockType', 'enum', "Unknown RequestToolResultBlockType: #{value}")
-  end
-end
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Object] Optional API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [Boolean] Optional `boolean` value serialized in the `is_error` wire field.
+    attr_reader :is_error
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [String] For a toolset member tool_result, the toolset family of the paired tool_use.
+    attr_reader :toolset_name
+    # @return [RequestToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Defines the RequestToolResultBlockContentItem SDK namespace.
-module RequestToolResultBlockContentItem
-  DISCRIMINATOR_MAPPING = {
-    "browser_state" => -> { RequestBrowserStateBlock },
-    "document" => -> { RequestDocumentBlock },
-    "image" => -> { RequestImageBlock },
-    "search_result" => -> { RequestSearchResultBlock },
-    "text" => -> { RequestTextBlock },
-    "tool_reference" => -> { RequestToolReferenceBlock },
-  }.freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('RequestToolResultBlockContentItem', 'variant', "Unknown RequestToolResultBlockContentItem discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestToolSearchToolResultBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    content: lambda do |value|
-      ::OctridevAnthropic::RequestToolSearchToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolSearchToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestToolSearchToolResultBlock.
-# Typed representation of the `RequestToolSearchToolResultBlock` API schema.
-class RequestToolSearchToolResultBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolSearchToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolSearchToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolSearchToolResultBlockMetadata::DECODERS
-
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [RequestToolSearchToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [RequestToolSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the RequestToolResultBlockType SDK namespace.
+  module RequestToolResultBlockType
+    TOOL_RESULT = 'tool_result'
+    VALUES = ['tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestToolResultBlockType', 'enum', "Unknown RequestToolResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestToolResultBlockContentItem SDK namespace.
+  module RequestToolResultBlockContentItem
+    DISCRIMINATOR_MAPPING = {
+      'browser_state' => -> { RequestBrowserStateBlock },
+      'document' => -> { RequestDocumentBlock },
+      'image' => -> { RequestImageBlock },
+      'search_result' => -> { RequestSearchResultBlock },
+      'text' => -> { RequestTextBlock },
+      'tool_reference' => -> { RequestToolReferenceBlock }
+    }.freeze
 
-# Defines the RequestToolSearchToolResultBlockType SDK namespace.
-module RequestToolSearchToolResultBlockType
-  TOOL_SEARCH_TOOL_RESULT = 'tool_search_tool_result'
-  VALUES = ['tool_search_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    raise SdkValidationError.new('RequestToolSearchToolResultBlockType', 'enum', "Unknown RequestToolSearchToolResultBlockType: #{value}")
-  end
-end
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-# Defines the RequestToolSearchToolResultBlockContent SDK namespace.
-module RequestToolSearchToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "tool_search_tool_result_error" => -> { RequestToolSearchToolResultError },
-    "tool_search_tool_search_result" => -> { RequestToolSearchToolSearchResultBlock },
-  }.freeze
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('RequestToolSearchToolResultBlockContent', 'variant', "Unknown RequestToolSearchToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalRequestToolSearchToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    error_message: "error_message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::ToolSearchToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolSearchToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for RequestToolSearchToolResultError.
-# Typed representation of the `RequestToolSearchToolResultError` API schema.
-class RequestToolSearchToolResultError
-  include RequestToolSearchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolSearchToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolSearchToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolSearchToolResultErrorMetadata::DECODERS
-
-  # @return [ToolSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [String] Optional `string` value serialized in the `error_message` wire field.
-  attr_reader :error_message
-  # @return [RequestToolSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('RequestToolResultBlockContentItem', 'variant', "Unknown RequestToolResultBlockContentItem discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolSearchToolResultBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      content: lambda do |value|
+        ::OctridevAnthropic::RequestToolSearchToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolSearchToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # API model for RequestToolSearchToolResultBlock.
+  # Typed representation of the `RequestToolSearchToolResultBlock` API schema.
+  class RequestToolSearchToolResultBlock
+    include InputContentBlock
 
-# Defines the RequestToolSearchToolResultErrorType SDK namespace.
-module RequestToolSearchToolResultErrorType
-  TOOL_SEARCH_TOOL_RESULT_ERROR = 'tool_search_tool_result_error'
-  VALUES = ['tool_search_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolSearchToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolSearchToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolSearchToolResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('RequestToolSearchToolResultErrorType', 'enum', "Unknown RequestToolSearchToolResultErrorType: #{value}")
-  end
-end
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [RequestToolSearchToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [RequestToolSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalRequestToolSearchToolSearchResultBlockMetadata
-  FIELDS = {
-    tool_references: "tool_references",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    tool_references
-    type
-  ].freeze
-  DECODERS = {
-    tool_references: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::RequestToolReferenceBlock.from_hash(item) }
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolSearchToolSearchResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for RequestToolSearchToolSearchResultBlock.
-# Typed representation of the `RequestToolSearchToolSearchResultBlock` API schema.
-class RequestToolSearchToolSearchResultBlock
-  include RequestToolSearchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [Array_of_RequestToolReferenceBlock] Required array value serialized in the `tool_references` wire field.
-  attr_reader :tool_references
-  # @return [RequestToolSearchToolSearchResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the RequestToolSearchToolResultBlockType SDK namespace.
+  module RequestToolSearchToolResultBlockType
+    TOOL_SEARCH_TOOL_RESULT = 'tool_search_tool_result'
+    VALUES = ['tool_search_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestToolSearchToolResultBlockType', 'enum', "Unknown RequestToolSearchToolResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-end
+  # Defines the RequestToolSearchToolResultBlockContent SDK namespace.
+  module RequestToolSearchToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'tool_search_tool_result_error' => -> { RequestToolSearchToolResultError },
+      'tool_search_tool_search_result' => -> { RequestToolSearchToolSearchResultBlock }
+    }.freeze
 
-# Defines the RequestToolSearchToolSearchResultBlockType SDK namespace.
-module RequestToolSearchToolSearchResultBlockType
-  TOOL_SEARCH_TOOL_SEARCH_RESULT = 'tool_search_tool_search_result'
-  VALUES = ['tool_search_tool_search_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    raise SdkValidationError.new('RequestToolSearchToolSearchResultBlockType', 'enum', "Unknown RequestToolSearchToolSearchResultBlockType: #{value}")
-  end
-end
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-# Internal model hydration metadata.
-class SdkInternalRequestToolUseBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    caller: "caller",
-    id: "id",
-    input: "input",
-    name: "name",
-    toolset_name: "toolset_name",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    input
-    name
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
-    end,
-    caller: lambda do |value|
-      ::OctridevAnthropic::RequestToolUseBlockCaller.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::RequestToolUseBlockType.from_value(value)
-    end,
-  }.freeze
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# API model for RequestToolUseBlock.
-# Typed representation of the `RequestToolUseBlock` API schema.
-class RequestToolUseBlock
-  include InputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalRequestToolUseBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalRequestToolUseBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalRequestToolUseBlockMetadata::DECODERS
-
-  # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [RequestToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [String] Required `string` value serialized in the `id` wire field.
-  attr_reader :id
-  # @return [Hash] Required object value serialized in the `input` wire field.
-  attr_reader :input
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [String] For a toolset member tool_use, the toolset family this member belongs to.
-  attr_reader :toolset_name
-  # @return [RequestToolUseBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('RequestToolSearchToolResultBlockContent', 'variant', "Unknown RequestToolSearchToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolSearchToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      error_message: 'error_message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::ToolSearchToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolSearchToolResultErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for RequestToolSearchToolResultError.
+  # Typed representation of the `RequestToolSearchToolResultError` API schema.
+  class RequestToolSearchToolResultError
+    include RequestToolSearchToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolSearchToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolSearchToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolSearchToolResultErrorMetadata::DECODERS
+
+    # @return [ToolSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [String] Optional `string` value serialized in the `error_message` wire field.
+    attr_reader :error_message
+    # @return [RequestToolSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
   end
-end
 
-# Defines the RequestToolUseBlockType SDK namespace.
-module RequestToolUseBlockType
-  TOOL_USE = 'tool_use'
-  VALUES = ['tool_use'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the RequestToolSearchToolResultErrorType SDK namespace.
+  module RequestToolSearchToolResultErrorType
+    TOOL_SEARCH_TOOL_RESULT_ERROR = 'tool_search_tool_result_error'
+    VALUES = ['tool_search_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('RequestToolUseBlockType', 'enum', "Unknown RequestToolUseBlockType: #{value}")
+      raise SdkValidationError.new('RequestToolSearchToolResultErrorType', 'enum', "Unknown RequestToolSearchToolResultErrorType: #{value}")
+    end
   end
-end
 
-# Defines the RequestToolUseBlockCaller SDK namespace.
-module RequestToolUseBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { ServerToolCaller },
-    "code_execution_20260120" => -> { ServerToolCaller20260120 },
-    "direct" => -> { DirectCaller },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('RequestToolUseBlockCaller', 'variant', "Unknown RequestToolUseBlockCaller discriminator: #{hash["type"].inspect}")
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolSearchToolSearchResultBlockMetadata
+    FIELDS = {
+      tool_references: 'tool_references',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      tool_references
+      type
+    ].freeze
+    DECODERS = {
+      tool_references: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::RequestToolReferenceBlock.from_hash(item) }
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolSearchToolSearchResultBlockType.from_value(value)
+      end
+    }.freeze
   end
-end
+
+  # API model for RequestToolSearchToolSearchResultBlock.
+  # Typed representation of the `RequestToolSearchToolSearchResultBlock` API schema.
+  class RequestToolSearchToolSearchResultBlock
+    include RequestToolSearchToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolSearchToolSearchResultBlockMetadata::DECODERS
+
+    # @return [Array_of_RequestToolReferenceBlock] Required array value serialized in the `tool_references` wire field.
+    attr_reader :tool_references
+    # @return [RequestToolSearchToolSearchResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the RequestToolSearchToolSearchResultBlockType SDK namespace.
+  module RequestToolSearchToolSearchResultBlockType
+    TOOL_SEARCH_TOOL_SEARCH_RESULT = 'tool_search_tool_search_result'
+    VALUES = ['tool_search_tool_search_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestToolSearchToolSearchResultBlockType', 'enum', "Unknown RequestToolSearchToolSearchResultBlockType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalRequestToolUseBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      caller: 'caller',
+      id: 'id',
+      input: 'input',
+      name: 'name',
+      toolset_name: 'toolset_name',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      input
+      name
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::CacheControlEphemeral.from_hash(value)
+      end,
+      caller: lambda do |value|
+        ::OctridevAnthropic::RequestToolUseBlockCaller.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::RequestToolUseBlockType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for RequestToolUseBlock.
+  # Typed representation of the `RequestToolUseBlock` API schema.
+  class RequestToolUseBlock
+    include InputContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalRequestToolUseBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalRequestToolUseBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalRequestToolUseBlockMetadata::DECODERS
+
+    # @return [CacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [RequestToolUseBlockCaller] Optional API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [String] Required `string` value serialized in the `id` wire field.
+    attr_reader :id
+    # @return [Hash] Required object value serialized in the `input` wire field.
+    attr_reader :input
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] For a toolset member tool_use, the toolset family this member belongs to.
+    attr_reader :toolset_name
+    # @return [RequestToolUseBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+  end
+
+  # Defines the RequestToolUseBlockType SDK namespace.
+  module RequestToolUseBlockType
+    TOOL_USE = 'tool_use'
+    VALUES = ['tool_use'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('RequestToolUseBlockType', 'enum', "Unknown RequestToolUseBlockType: #{value}")
+    end
+  end
+
+  # Defines the RequestToolUseBlockCaller SDK namespace.
+  module RequestToolUseBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { ServerToolCaller },
+      'code_execution_20260120' => -> { ServerToolCaller20260120 },
+      'direct' => -> { DirectCaller }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('RequestToolUseBlockCaller', 'variant', "Unknown RequestToolUseBlockCaller discriminator: #{hash['type'].inspect}")
+    end
+  end
 end
