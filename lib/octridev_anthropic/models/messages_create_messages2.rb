@@ -5,246 +5,251 @@
 
 # messages domain models
 module OctridevAnthropic
-# API model for MessageStopEvent.
-# Typed representation of the `MessageStopEvent` API schema.
-class MessageStopEvent
-  include MessageStreamEvent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalMessageStopEventMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalMessageStopEventMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalMessageStopEventMetadata::DECODERS
+  # API model for MessageStopEvent.
+  # Typed representation of the `MessageStopEvent` API schema.
+  class MessageStopEvent
+    include MessageStreamEvent
 
-  # @return [MessageStopEventType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalMessageStopEventMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalMessageStopEventMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalMessageStopEventMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [MessageStopEventType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the MessageStopEventType SDK namespace.
+  module MessageStopEventType
+    MESSAGE_STOP = 'message_stop'
+    VALUES = ['message_stop'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('MessageStopEventType', 'enum', "Unknown MessageStopEventType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the MessageStreamEvent SDK namespace.
+  module MessageStreamEvent
+    DISCRIMINATOR_MAPPING = {
+      'content_block_delta' => -> { ContentBlockDeltaEvent },
+      'content_block_start' => -> { ContentBlockStartEvent },
+      'content_block_stop' => -> { ContentBlockStopEvent },
+      'message_delta' => -> { MessageDeltaEvent },
+      'message_start' => -> { MessageStartEvent },
+      'message_stop' => -> { MessageStopEvent }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('MessageStreamEvent', 'variant', "Unknown MessageStreamEvent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the MessageStopEventType SDK namespace.
-module MessageStopEventType
-  MESSAGE_STOP = 'message_stop'
-  VALUES = ['message_stop'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('MessageStopEventType', 'enum', "Unknown MessageStopEventType: #{value}")
-  end
-end
-
-# Defines the MessageStreamEvent SDK namespace.
-module MessageStreamEvent
-  DISCRIMINATOR_MAPPING = {
-    "content_block_delta" => -> { ContentBlockDeltaEvent },
-    "content_block_start" => -> { ContentBlockStartEvent },
-    "content_block_stop" => -> { ContentBlockStopEvent },
-    "message_delta" => -> { MessageDeltaEvent },
-    "message_start" => -> { MessageStartEvent },
-    "message_stop" => -> { MessageStopEvent },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('MessageStreamEvent', 'variant', "Unknown MessageStreamEvent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalSignatureContentBlockDeltaMetadata
-  FIELDS = {
-    signature: "signature",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    signature
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::SignatureContentBlockDeltaType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for SignatureContentBlockDelta.
-# Typed representation of the `SignatureContentBlockDelta` API schema.
-class SignatureContentBlockDelta
-  include ContentBlockDeltaEventDelta
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalSignatureContentBlockDeltaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalSignatureContentBlockDeltaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalSignatureContentBlockDeltaMetadata::DECODERS
-
-  # @return [String] The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
-  attr_reader :signature
-  # @return [SignatureContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalSignatureContentBlockDeltaMetadata
+    FIELDS = {
+      signature: 'signature',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      signature
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::SignatureContentBlockDeltaType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for SignatureContentBlockDelta.
+  # Typed representation of the `SignatureContentBlockDelta` API schema.
+  class SignatureContentBlockDelta
+    include ContentBlockDeltaEventDelta
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalSignatureContentBlockDeltaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalSignatureContentBlockDeltaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalSignatureContentBlockDeltaMetadata::DECODERS
+
+    # @return [String] The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+    attr_reader :signature
+    # @return [SignatureContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the SignatureContentBlockDeltaType SDK namespace.
+  module SignatureContentBlockDeltaType
+    SIGNATURE_DELTA = 'signature_delta'
+    VALUES = ['signature_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('SignatureContentBlockDeltaType', 'enum', "Unknown SignatureContentBlockDeltaType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the SignatureContentBlockDeltaType SDK namespace.
-module SignatureContentBlockDeltaType
-  SIGNATURE_DELTA = 'signature_delta'
-  VALUES = ['signature_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('SignatureContentBlockDeltaType', 'enum', "Unknown SignatureContentBlockDeltaType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalTextContentBlockDeltaMetadata
-  FIELDS = {
-    text: "text",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    text
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::TextContentBlockDeltaType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for TextContentBlockDelta.
-# Typed representation of the `TextContentBlockDelta` API schema.
-class TextContentBlockDelta
-  include ContentBlockDeltaEventDelta
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalTextContentBlockDeltaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalTextContentBlockDeltaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalTextContentBlockDeltaMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `text` wire field.
-  attr_reader :text
-  # @return [TextContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalTextContentBlockDeltaMetadata
+    FIELDS = {
+      text: 'text',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      text
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::TextContentBlockDeltaType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for TextContentBlockDelta.
+  # Typed representation of the `TextContentBlockDelta` API schema.
+  class TextContentBlockDelta
+    include ContentBlockDeltaEventDelta
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalTextContentBlockDeltaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalTextContentBlockDeltaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalTextContentBlockDeltaMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `text` wire field.
+    attr_reader :text
+    # @return [TextContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the TextContentBlockDeltaType SDK namespace.
+  module TextContentBlockDeltaType
+    TEXT_DELTA = 'text_delta'
+    VALUES = ['text_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('TextContentBlockDeltaType', 'enum', "Unknown TextContentBlockDeltaType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the TextContentBlockDeltaType SDK namespace.
-module TextContentBlockDeltaType
-  TEXT_DELTA = 'text_delta'
-  VALUES = ['text_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('TextContentBlockDeltaType', 'enum', "Unknown TextContentBlockDeltaType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalThinkingContentBlockDeltaMetadata
-  FIELDS = {
-    thinking: "thinking",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    thinking
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::ThinkingContentBlockDeltaType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for ThinkingContentBlockDelta.
-# Typed representation of the `ThinkingContentBlockDelta` API schema.
-class ThinkingContentBlockDelta
-  include ContentBlockDeltaEventDelta
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalThinkingContentBlockDeltaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalThinkingContentBlockDeltaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalThinkingContentBlockDeltaMetadata::DECODERS
-
-  # @return [String] The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
-  attr_reader :thinking
-  # @return [ThinkingContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalThinkingContentBlockDeltaMetadata
+    FIELDS = {
+      thinking: 'thinking',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      thinking
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::ThinkingContentBlockDeltaType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for ThinkingContentBlockDelta.
+  # Typed representation of the `ThinkingContentBlockDelta` API schema.
+  class ThinkingContentBlockDelta
+    include ContentBlockDeltaEventDelta
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalThinkingContentBlockDeltaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalThinkingContentBlockDeltaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalThinkingContentBlockDeltaMetadata::DECODERS
+
+    # @return [String] The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+    attr_reader :thinking
+    # @return [ThinkingContentBlockDeltaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
+  # Defines the ThinkingContentBlockDeltaType SDK namespace.
+  module ThinkingContentBlockDeltaType
+    THINKING_DELTA = 'thinking_delta'
+    VALUES = ['thinking_delta'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-  def to_json(*args)
-    to_h.to_json(*args)
+      raise SdkValidationError.new('ThinkingContentBlockDeltaType', 'enum', "Unknown ThinkingContentBlockDeltaType: #{value}")
+    end
   end
-end
-
-# Defines the ThinkingContentBlockDeltaType SDK namespace.
-module ThinkingContentBlockDeltaType
-  THINKING_DELTA = 'thinking_delta'
-  VALUES = ['thinking_delta'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('ThinkingContentBlockDeltaType', 'enum', "Unknown ThinkingContentBlockDeltaType: #{value}")
-  end
-end
 end

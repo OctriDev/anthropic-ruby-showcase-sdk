@@ -5,676 +5,681 @@
 
 # shared_beta domain models
 module OctridevAnthropic
-# API model for BetaNotFoundError.
-# Typed representation of the `BetaNotFoundError` API schema.
-class BetaNotFoundError
-  include BetaManagedAgentsError
-  include BetaDreamingError
-  include BetaErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaNotFoundErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaNotFoundErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaNotFoundErrorMetadata::DECODERS
+  # API model for BetaNotFoundError.
+  # Typed representation of the `BetaNotFoundError` API schema.
+  class BetaNotFoundError
+    include BetaManagedAgentsError
+    include BetaDreamingError
+    include BetaErrorResponseError
 
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [BetaNotFoundErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaNotFoundErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaNotFoundErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaNotFoundErrorMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [BetaNotFoundErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaNotFoundErrorType SDK namespace.
+  module BetaNotFoundErrorType
+    NOT_FOUND_ERROR = 'not_found_error'
+    VALUES = ['not_found_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaNotFoundErrorType', 'enum', "Unknown BetaNotFoundErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaOrgServiceScopeMetadata
+    FIELDS = {
+      service: 'service',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      service
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaOrgServiceScopeType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaOrgServiceScope.
+  # Typed representation of the `BetaOrgServiceScope` API schema.
+  class BetaOrgServiceScope
+    include BetaSpendLimitScope
+    include BetaSpendSummarySource
 
-# Defines the BetaNotFoundErrorType SDK namespace.
-module BetaNotFoundErrorType
-  NOT_FOUND_ERROR = 'not_found_error'
-  VALUES = ['not_found_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaOrgServiceScopeMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaOrgServiceScopeMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaOrgServiceScopeMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaNotFoundErrorType', 'enum', "Unknown BetaNotFoundErrorType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `service` wire field.
+    attr_reader :service
+    # @return [BetaOrgServiceScopeType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaOrgServiceScopeMetadata
-  FIELDS = {
-    service: "service",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    service
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaOrgServiceScopeType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaOrgServiceScope.
-# Typed representation of the `BetaOrgServiceScope` API schema.
-class BetaOrgServiceScope
-  include BetaSpendLimitScope
-  include BetaSpendSummarySource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaOrgServiceScopeMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaOrgServiceScopeMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaOrgServiceScopeMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `service` wire field.
-  attr_reader :service
-  # @return [BetaOrgServiceScopeType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaOrgServiceScopeType SDK namespace.
+  module BetaOrgServiceScopeType
+    ORGANIZATION_SERVICE = 'organization_service'
+    VALUES = ['organization_service'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaOrgServiceScopeType', 'enum', "Unknown BetaOrgServiceScopeType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaOverloadedErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaOverloadedErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaOverloadedError.
+  # Typed representation of the `BetaOverloadedError` API schema.
+  class BetaOverloadedError
+    include BetaManagedAgentsError
+    include BetaDreamingError
+    include BetaErrorResponseError
 
-# Defines the BetaOrgServiceScopeType SDK namespace.
-module BetaOrgServiceScopeType
-  ORGANIZATION_SERVICE = 'organization_service'
-  VALUES = ['organization_service'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaOverloadedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaOverloadedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaOverloadedErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaOrgServiceScopeType', 'enum', "Unknown BetaOrgServiceScopeType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [BetaOverloadedErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaOverloadedErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaOverloadedErrorType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaOverloadedError.
-# Typed representation of the `BetaOverloadedError` API schema.
-class BetaOverloadedError
-  include BetaManagedAgentsError
-  include BetaDreamingError
-  include BetaErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaOverloadedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaOverloadedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaOverloadedErrorMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [BetaOverloadedErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaOverloadedErrorType SDK namespace.
+  module BetaOverloadedErrorType
+    OVERLOADED_ERROR = 'overloaded_error'
+    VALUES = ['overloaded_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaOverloadedErrorType', 'enum', "Unknown BetaOverloadedErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaPermissionErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaPermissionErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaPermissionError.
+  # Typed representation of the `BetaPermissionError` API schema.
+  class BetaPermissionError
+    include BetaManagedAgentsError
+    include BetaDreamingError
+    include BetaErrorResponseError
 
-# Defines the BetaOverloadedErrorType SDK namespace.
-module BetaOverloadedErrorType
-  OVERLOADED_ERROR = 'overloaded_error'
-  VALUES = ['overloaded_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaPermissionErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaPermissionErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaPermissionErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaOverloadedErrorType', 'enum', "Unknown BetaOverloadedErrorType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [BetaPermissionErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaPermissionErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaPermissionErrorType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaPermissionError.
-# Typed representation of the `BetaPermissionError` API schema.
-class BetaPermissionError
-  include BetaManagedAgentsError
-  include BetaDreamingError
-  include BetaErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaPermissionErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaPermissionErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaPermissionErrorMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [BetaPermissionErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaPermissionErrorType SDK namespace.
+  module BetaPermissionErrorType
+    PERMISSION_ERROR = 'permission_error'
+    VALUES = ['permission_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaPermissionErrorType', 'enum', "Unknown BetaPermissionErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaPlainTextSourceMetadata
+    FIELDS = {
+      data: 'data',
+      media_type: 'media_type',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      data
+      media_type
+      type
+    ].freeze
+    DECODERS = {
+      media_type: lambda do |value|
+        ::OctridevAnthropic::BetaPlainTextSourceMediaType.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaPlainTextSourceType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaPlainTextSource.
+  # Typed representation of the `BetaPlainTextSource` API schema.
+  class BetaPlainTextSource
+    include BetaResponseDocumentBlockSource
+    include BetaRequestDocumentBlockSource
 
-# Defines the BetaPermissionErrorType SDK namespace.
-module BetaPermissionErrorType
-  PERMISSION_ERROR = 'permission_error'
-  VALUES = ['permission_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaPlainTextSourceMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaPlainTextSourceMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaPlainTextSourceMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaPermissionErrorType', 'enum', "Unknown BetaPermissionErrorType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `data` wire field.
+    attr_reader :data
+    # @return [BetaPlainTextSourceMediaType] Required `string` value serialized in the `media_type` wire field.
+    attr_reader :media_type
+    # @return [BetaPlainTextSourceType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaPlainTextSourceMetadata
-  FIELDS = {
-    data: "data",
-    media_type: "media_type",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    data
-    media_type
-    type
-  ].freeze
-  DECODERS = {
-    media_type: lambda do |value|
-      ::OctridevAnthropic::BetaPlainTextSourceMediaType.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaPlainTextSourceType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaPlainTextSource.
-# Typed representation of the `BetaPlainTextSource` API schema.
-class BetaPlainTextSource
-  include BetaResponseDocumentBlockSource
-  include BetaRequestDocumentBlockSource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaPlainTextSourceMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaPlainTextSourceMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaPlainTextSourceMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `data` wire field.
-  attr_reader :data
-  # @return [BetaPlainTextSourceMediaType] Required `string` value serialized in the `media_type` wire field.
-  attr_reader :media_type
-  # @return [BetaPlainTextSourceType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaPlainTextSourceMediaType SDK namespace.
+  module BetaPlainTextSourceMediaType
+    TEXT_PLAIN = 'text/plain'
+    VALUES = ['text/plain'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaPlainTextSourceMediaType', 'enum', "Unknown BetaPlainTextSourceMediaType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaPlainTextSourceType SDK namespace.
+  module BetaPlainTextSourceType
+    TEXT = 'text'
+    VALUES = ['text'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaPlainTextSourceType', 'enum', "Unknown BetaPlainTextSourceType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaPlainTextSourceMediaType SDK namespace.
-module BetaPlainTextSourceMediaType
-  TEXT_PLAIN = 'text/plain'
-  VALUES = ['text/plain'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaPlainTextSourceMediaType', 'enum', "Unknown BetaPlainTextSourceMediaType: #{value}")
-  end
-end
-
-# Defines the BetaPlainTextSourceType SDK namespace.
-module BetaPlainTextSourceType
-  TEXT = 'text'
-  VALUES = ['text'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaPlainTextSourceType', 'enum', "Unknown BetaPlainTextSourceType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRateLimitErrorMetadata
-  FIELDS = {
-    message: "message",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    message
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRateLimitErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRateLimitError.
-# Typed representation of the `BetaRateLimitError` API schema.
-class BetaRateLimitError
-  include BetaManagedAgentsError
-  include BetaDreamingError
-  include BetaErrorResponseError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRateLimitErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRateLimitErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRateLimitErrorMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `message` wire field.
-  attr_reader :message
-  # @return [BetaRateLimitErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRateLimitErrorMetadata
+    FIELDS = {
+      message: 'message',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      message
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRateLimitErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRateLimitError.
+  # Typed representation of the `BetaRateLimitError` API schema.
+  class BetaRateLimitError
+    include BetaManagedAgentsError
+    include BetaDreamingError
+    include BetaErrorResponseError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRateLimitErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRateLimitErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRateLimitErrorMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `message` wire field.
+    attr_reader :message
+    # @return [BetaRateLimitErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaRateLimitErrorType SDK namespace.
+  module BetaRateLimitErrorType
+    RATE_LIMIT_ERROR = 'rate_limit_error'
+    VALUES = ['rate_limit_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRateLimitErrorType', 'enum', "Unknown BetaRateLimitErrorType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaRateLimitErrorType SDK namespace.
-module BetaRateLimitErrorType
-  RATE_LIMIT_ERROR = 'rate_limit_error'
-  VALUES = ['rate_limit_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRateLimitErrorType', 'enum', "Unknown BetaRateLimitErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRuleMatchMetadata
-  FIELDS = {
-    audience: "audience",
-    claims: "claims",
-    condition: "condition",
-    subject_prefix: "subject_prefix",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaRuleMatch.
-# Does the incoming JWT qualify? All populated fields must pass; omitted fields are skipped. At least one of `subject_prefix` (other than a wildcard-only value like `*`), `claims`, or `condition` is required; `audience` alone is not sufficient.
-class BetaRuleMatch
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRuleMatchMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRuleMatchMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRuleMatchMetadata::DECODERS
-
-  # @return [String] Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
-  attr_reader :audience
-  # @return [Hash] Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
-  attr_reader :claims
-  # @return [String] CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
-  attr_reader :condition
-  # @return [String] Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
-  attr_reader :subject_prefix
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRuleMatchMetadata
+    FIELDS = {
+      audience: 'audience',
+      claims: 'claims',
+      condition: 'condition',
+      subject_prefix: 'subject_prefix'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRuleMatch.
+  # Does the incoming JWT qualify? All populated fields must pass; omitted fields are skipped. At least one of `subject_prefix` (other than a wildcard-only value like `*`), `claims`, or `condition` is required; `audience` alone is not sufficient.
+  class BetaRuleMatch
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRuleMatchMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRuleMatchMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRuleMatchMetadata::DECODERS
+
+    # @return [String] Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+    attr_reader :audience
+    # @return [Hash] Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+    attr_reader :claims
+    # @return [String] CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+    attr_reader :condition
+    # @return [String] Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+    attr_reader :subject_prefix
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaScopedApiKeyActorSchemaMetadata
+    FIELDS = {
+      scoped_api_key_id: 'scoped_api_key_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      scoped_api_key_id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaScopedApiKeyActorSchemaType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaScopedApiKeyActorSchema.
+  # A scoped Admin API key acting on behalf of the organization.
+  class BetaScopedApiKeyActorSchema
+    include BetaApproveSpendLimitIncreaseRequestResponseResolvedBy
+    include BetaSpendLimitIncreaseRequestSchemaResolvedBy
 
-# Internal model hydration metadata.
-class SdkInternalBetaScopedApiKeyActorSchemaMetadata
-  FIELDS = {
-    scoped_api_key_id: "scoped_api_key_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    scoped_api_key_id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaScopedApiKeyActorSchemaType.from_value(value)
-    end,
-  }.freeze
-end
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::DECODERS
 
-# API model for BetaScopedApiKeyActorSchema.
-# A scoped Admin API key acting on behalf of the organization.
-class BetaScopedApiKeyActorSchema
-  include BetaApproveSpendLimitIncreaseRequestResponseResolvedBy
-  include BetaSpendLimitIncreaseRequestSchemaResolvedBy
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaScopedApiKeyActorSchemaMetadata::DECODERS
+    # @return [String] Required `string` value serialized in the `scoped_api_key_id` wire field.
+    attr_reader :scoped_api_key_id
+    # @return [BetaScopedApiKeyActorSchemaType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-  # @return [String] Required `string` value serialized in the `scoped_api_key_id` wire field.
-  attr_reader :scoped_api_key_id
-  # @return [BetaScopedApiKeyActorSchemaType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaScopedApiKeyActorSchemaType SDK namespace.
+  module BetaScopedApiKeyActorSchemaType
+    SCOPED_API_KEY_ACTOR = 'scoped_api_key_actor'
+    VALUES = ['scoped_api_key_actor'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaScopedApiKeyActorSchemaType', 'enum', "Unknown BetaScopedApiKeyActorSchemaType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaSeatTierScopeMetadata
+    FIELDS = {
+      seat_tier: 'seat_tier',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      seat_tier
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaSeatTierScopeType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaSeatTierScope.
+  # Typed representation of the `BetaSeatTierScope` API schema.
+  class BetaSeatTierScope
+    include BetaSpendLimitScope
+    include BetaSpendSummarySource
 
-# Defines the BetaScopedApiKeyActorSchemaType SDK namespace.
-module BetaScopedApiKeyActorSchemaType
-  SCOPED_API_KEY_ACTOR = 'scoped_api_key_actor'
-  VALUES = ['scoped_api_key_actor'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSeatTierScopeMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSeatTierScopeMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSeatTierScopeMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaScopedApiKeyActorSchemaType', 'enum', "Unknown BetaScopedApiKeyActorSchemaType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `seat_tier` wire field.
+    attr_reader :seat_tier
+    # @return [BetaSeatTierScopeType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaSeatTierScopeMetadata
-  FIELDS = {
-    seat_tier: "seat_tier",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    seat_tier
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaSeatTierScopeType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaSeatTierScope.
-# Typed representation of the `BetaSeatTierScope` API schema.
-class BetaSeatTierScope
-  include BetaSpendLimitScope
-  include BetaSpendSummarySource
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSeatTierScopeMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSeatTierScopeMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSeatTierScopeMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `seat_tier` wire field.
-  attr_reader :seat_tier
-  # @return [BetaSeatTierScopeType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaSeatTierScopeType SDK namespace.
+  module BetaSeatTierScopeType
+    SEAT_TIER = 'seat_tier'
+    VALUES = ['seat_tier'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaSeatTierScopeType', 'enum', "Unknown BetaSeatTierScopeType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaSessionWorkDataMetadata
+    FIELDS = {
+      id: 'id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaSessionWorkDataType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaSessionWorkData.
+  # Work data for session work items. This resource type is used when work represents a session that needs to be executed in a self-hosted environment.
+  class BetaSessionWorkData
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSessionWorkDataMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSessionWorkDataMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSessionWorkDataMetadata::DECODERS
 
-# Defines the BetaSeatTierScopeType SDK namespace.
-module BetaSeatTierScopeType
-  SEAT_TIER = 'seat_tier'
-  VALUES = ['seat_tier'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Session identifier (e.g., 'session_...')
+    attr_reader :id
+    # @return [BetaSessionWorkDataType] Type of work data
+    attr_reader :type
 
-    raise SdkValidationError.new('BetaSeatTierScopeType', 'enum', "Unknown BetaSeatTierScopeType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaSessionWorkDataMetadata
-  FIELDS = {
-    id: "id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaSessionWorkDataType.from_value(value)
-    end,
-  }.freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for BetaSessionWorkData.
-# Work data for session work items. This resource type is used when work represents a session that needs to be executed in a self-hosted environment.
-class BetaSessionWorkData
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSessionWorkDataMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSessionWorkDataMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSessionWorkDataMetadata::DECODERS
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  # @return [String] Session identifier (e.g., 'session_...')
-  attr_reader :id
-  # @return [BetaSessionWorkDataType] Type of work data
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaSessionWorkDataType SDK namespace.
+  module BetaSessionWorkDataType
+    SESSION = 'session'
+    VALUES = ['session'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaSessionWorkDataType', 'enum', "Unknown BetaSessionWorkDataType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaSpeed SDK namespace.
+  module BetaSpeed
+    STANDARD = 'standard'
+    FAST = 'fast'
+    VALUES = %w[standard fast].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaSessionWorkDataType SDK namespace.
-module BetaSessionWorkDataType
-  SESSION = 'session'
-  VALUES = ['session'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaSessionWorkDataType', 'enum', "Unknown BetaSessionWorkDataType: #{value}")
-  end
-end
-
-# Defines the BetaSpeed SDK namespace.
-module BetaSpeed
-  STANDARD = 'standard'
-  FAST = 'fast'
-  VALUES = ['standard', 'fast'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaStopReason SDK namespace.
-module BetaStopReason
-  END_TURN = 'end_turn'
-  MAX_TOKENS = 'max_tokens'
-  STOP_SEQUENCE = 'stop_sequence'
-  TOOL_USE = 'tool_use'
-  PAUSE_TURN = 'pause_turn'
-  COMPACTION = 'compaction'
-  REFUSAL = 'refusal'
-  MODEL_CONTEXT_WINDOW_EXCEEDED = 'model_context_window_exceeded'
-  VALUES = [
-    'end_turn', 'max_tokens', 'stop_sequence', 'tool_use', 'pause_turn', 'compaction', 'refusal',
-    'model_context_window_exceeded'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaSystemMessageOutputConfigMetadata
-  FIELDS = {
-    effort: "effort",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    effort: lambda do |value|
-      ::OctridevAnthropic::BetaEffortLevel.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaSystemMessageOutputConfig.
-# Per-message output configuration on a role:"system" input message. Fields here apply per-turn; ``format`` remains top-level only. An empty ``{}`` is accepted on a message that carries content; a message with neither content nor output_config fields is rejected.
-class BetaSystemMessageOutputConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSystemMessageOutputConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSystemMessageOutputConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSystemMessageOutputConfigMetadata::DECODERS
-
-  # @return [BetaEffortLevel] How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
-  attr_reader :effort
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaStopReason SDK namespace.
+  module BetaStopReason
+    END_TURN = 'end_turn'
+    MAX_TOKENS = 'max_tokens'
+    STOP_SEQUENCE = 'stop_sequence'
+    TOOL_USE = 'tool_use'
+    PAUSE_TURN = 'pause_turn'
+    COMPACTION = 'compaction'
+    REFUSAL = 'refusal'
+    MODEL_CONTEXT_WINDOW_EXCEEDED = 'model_context_window_exceeded'
+    VALUES = %w[
+      end_turn max_tokens stop_sequence tool_use pause_turn compaction refusal
+      model_context_window_exceeded
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaSystemMessageOutputConfigMetadata
+    FIELDS = {
+      effort: 'effort'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      effort: lambda do |value|
+        ::OctridevAnthropic::BetaEffortLevel.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
+  # API model for BetaSystemMessageOutputConfig.
+  # Per-message output configuration on a role:"system" input message. Fields here apply per-turn; ``format`` remains top-level only. An empty ``{}`` is accepted on a message that carries content; a message with neither content nor output_config fields is rejected.
+  class BetaSystemMessageOutputConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSystemMessageOutputConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSystemMessageOutputConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSystemMessageOutputConfigMetadata::DECODERS
 
-  def to_json(*args)
-    to_h.to_json(*args)
+    # @return [BetaEffortLevel] How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
+    attr_reader :effort
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
 end

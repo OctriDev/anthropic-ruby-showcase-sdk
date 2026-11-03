@@ -5,676 +5,691 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-# Defines the BetaManagedAgentsMemoryView SDK namespace.
-module BetaManagedAgentsMemoryView
-  BASIC = 'basic'
-  FULL = 'full'
-  VALUES = ['basic', 'full'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaManagedAgentsModel SDK namespace.
-module BetaManagedAgentsModel
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::String)
-    hash
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsModelConfigMetadata
-  FIELDS = {
-    id: "id",
-    speed: "speed",
-    effort: "effort",
-    inference_geo: "inference_geo",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-  ].freeze
-  DECODERS = {
-    id: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModel.from_hash(value)
-    end,
-    speed: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
-    end,
-    effort: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEffort.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsModelConfig.
-# Model identifier and configuration.
-class BetaManagedAgentsModelConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsModelConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsModelConfigMetadata::DECODERS
-
-  # @return [BetaManagedAgentsModel] The model that will power your agent. See models for additional details and options.
-  attr_reader :id
-  # @return [BetaManagedAgentsSpeed] Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-  attr_reader :speed
-  # @return [BetaManagedAgentsEffort] How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-  attr_reader :effort
-  # @return [String] Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-  attr_reader :inference_geo
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaManagedAgentsMemoryView SDK namespace.
+  module BetaManagedAgentsMemoryView
+    BASIC = 'basic'
+    FULL = 'full'
+    VALUES = %w[basic full].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsModel SDK namespace.
+  module BetaManagedAgentsModel
+    def self.from_hash(hash)
+      return hash if hash.is_a?(::String)
+
+      hash
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsModelConfigMetadata
+    FIELDS = {
+      id: 'id',
+      speed: 'speed',
+      effort: 'effort',
+      inference_geo: 'inference_geo'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+    ].freeze
+    DECODERS = {
+      id: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModel.from_hash(value)
+      end,
+      speed: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
+      end,
+      effort: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEffort.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaManagedAgentsModelConfig.
+  # Model identifier and configuration.
+  class BetaManagedAgentsModelConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsModelConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsModelConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsModelConfigParamsMetadata
-  FIELDS = {
-    id: "id",
-    speed: "speed",
-    effort: "effort",
-    inference_geo: "inference_geo",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    id
-  ].freeze
-  DECODERS = {
-    id: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModel.from_hash(value)
-    end,
-    speed: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
-    end,
-    effort: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsEffortParams.from_hash(value)
-    end,
-  }.freeze
-end
+    # @return [BetaManagedAgentsModel] The model that will power your agent. See models for additional details and options.
+    attr_reader :id
+    # @return [BetaManagedAgentsSpeed] Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+    attr_reader :speed
+    # @return [BetaManagedAgentsEffort] How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+    attr_reader :effort
+    # @return [String] Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+    attr_reader :inference_geo
 
-# API model for BetaManagedAgentsModelConfigParams.
-# An object that defines additional configuration control over model use
-class BetaManagedAgentsModelConfigParams
-  include BetaManagedAgentsModelParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [BetaManagedAgentsModel] The model that will power your agent. See models for additional details and options.
-  attr_reader :id
-  # @return [BetaManagedAgentsSpeed] Inference speed mode. Defaults to `standard`.
-  attr_reader :speed
-  # @return [BetaManagedAgentsEffortParams] How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
-  attr_reader :effort
-  # @return [String] Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
-  attr_reader :inference_geo
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsModelConfigParamsMetadata
+    FIELDS = {
+      id: 'id',
+      speed: 'speed',
+      effort: 'effort',
+      inference_geo: 'inference_geo'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      id
+    ].freeze
+    DECODERS = {
+      id: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModel.from_hash(value)
+      end,
+      speed: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsSpeed.from_value(value)
+      end,
+      effort: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsEffortParams.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsModelConfigParams.
+  # An object that defines additional configuration control over model use
+  class BetaManagedAgentsModelConfigParams
+    include BetaManagedAgentsModelParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsModelConfigParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsModel] The model that will power your agent. See models for additional details and options.
+    attr_reader :id
+    # @return [BetaManagedAgentsSpeed] Inference speed mode. Defaults to `standard`.
+    attr_reader :speed
+    # @return [BetaManagedAgentsEffortParams] How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
+    attr_reader :effort
+    # @return [String] Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
+    attr_reader :inference_geo
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModelOverloadedErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsModelOverloadedError.
-# The model is currently overloaded. Emitted after automatic retries are exhausted.
-class BetaManagedAgentsModelOverloadedError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsModelOverloadedErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModelOverloadedErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsModelOverloadedError.
+  # The model is currently overloaded. Emitted after automatic retries are exhausted.
+  class BetaManagedAgentsModelOverloadedError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsModelOverloadedErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsModelOverloadedErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsModelOverloadedErrorType SDK namespace.
+  module BetaManagedAgentsModelOverloadedErrorType
+    MODEL_OVERLOADED_ERROR = 'model_overloaded_error'
+    VALUES = ['model_overloaded_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsModelOverloadedErrorType', 'enum', "Unknown BetaManagedAgentsModelOverloadedErrorType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsModelParams SDK namespace.
+  module BetaManagedAgentsModelParams
+    def self.from_hash(hash)
+      shape_mapping = {
+        'id' => BetaManagedAgentsModelConfigParams
+      }
+      type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
+      decoded = type&.from_hash(hash)
+      return decoded unless type.nil?
 
-# Defines the BetaManagedAgentsModelOverloadedErrorType SDK namespace.
-module BetaManagedAgentsModelOverloadedErrorType
-  MODEL_OVERLOADED_ERROR = 'model_overloaded_error'
-  VALUES = ['model_overloaded_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsModelOverloadedErrorType', 'enum', "Unknown BetaManagedAgentsModelOverloadedErrorType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsModelParams SDK namespace.
-module BetaManagedAgentsModelParams
-  def self.from_hash(hash)
-    shape_mapping = {
-      "id" => BetaManagedAgentsModelConfigParams,
-    }
-    type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
-    decoded = type&.from_hash(hash)
-    return decoded unless type.nil?
-    return BetaManagedAgentsModel.from_hash(hash)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModelRateLimitedErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsModelRateLimitedError.
-# The model request was rate-limited.
-class BetaManagedAgentsModelRateLimitedError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsModelRateLimitedErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      BetaManagedAgentsModel.from_hash(hash)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModelRateLimitedErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsModelRateLimitedError.
+  # The model request was rate-limited.
+  class BetaManagedAgentsModelRateLimitedError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsModelRateLimitedErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsModelRateLimitedErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsModelRateLimitedErrorType SDK namespace.
+  module BetaManagedAgentsModelRateLimitedErrorType
+    MODEL_RATE_LIMITED_ERROR = 'model_rate_limited_error'
+    VALUES = ['model_rate_limited_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsModelRateLimitedErrorType SDK namespace.
-module BetaManagedAgentsModelRateLimitedErrorType
-  MODEL_RATE_LIMITED_ERROR = 'model_rate_limited_error'
-  VALUES = ['model_rate_limited_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsModelRateLimitedErrorType', 'enum', "Unknown BetaManagedAgentsModelRateLimitedErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsModelRequestFailedErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsModelRequestFailedError.
-# A model request failed for a reason other than overload or rate-limiting.
-class BetaManagedAgentsModelRequestFailedError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsModelRequestFailedErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsModelRateLimitedErrorType', 'enum', "Unknown BetaManagedAgentsModelRateLimitedErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsModelRequestFailedErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsModelRequestFailedError.
+  # A model request failed for a reason other than overload or rate-limiting.
+  class BetaManagedAgentsModelRequestFailedError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsModelRequestFailedErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsModelRequestFailedErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsModelRequestFailedErrorType SDK namespace.
+  module BetaManagedAgentsModelRequestFailedErrorType
+    MODEL_REQUEST_FAILED_ERROR = 'model_request_failed_error'
+    VALUES = ['model_request_failed_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsModelRequestFailedErrorType SDK namespace.
-module BetaManagedAgentsModelRequestFailedErrorType
-  MODEL_REQUEST_FAILED_ERROR = 'model_request_failed_error'
-  VALUES = ['model_request_failed_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsModelRequestFailedErrorType', 'enum', "Unknown BetaManagedAgentsModelRequestFailedErrorType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsMountMode SDK namespace.
-module BetaManagedAgentsMountMode
-  READ_WRITE = 'read_write'
-  READ_ONLY = 'read_only'
-  VALUES = ['read_write', 'read_only'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagent SDK namespace.
-module BetaManagedAgentsMultiagent
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "coordinator" => BetaManagedAgentsMultiagentCoordinator }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMultiagent', 'variant', "Unknown BetaManagedAgentsMultiagent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata
-  FIELDS = {
-    type: "type",
-    agents: "agents",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    agents
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMultiagentCoordinatorType.from_value(value)
-    end,
-    agents: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMultiagentRosterEntry.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMultiagentCoordinator.
-# Resolved coordinator topology with a concrete agent roster.
-class BetaManagedAgentsMultiagentCoordinator
-  include BetaManagedAgentsMultiagent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMultiagentCoordinatorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Array_of_BetaManagedAgentsMultiagentRosterEntry] Agents the coordinator may spawn as session threads, each resolved to a specific version.
-  attr_reader :agents
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsModelRequestFailedErrorType', 'enum', "Unknown BetaManagedAgentsModelRequestFailedErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsMountMode SDK namespace.
+  module BetaManagedAgentsMountMode
+    READ_WRITE = 'read_write'
+    READ_ONLY = 'read_only'
+    VALUES = %w[read_write read_only].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMultiagent SDK namespace.
+  module BetaManagedAgentsMultiagent
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'coordinator' => BetaManagedAgentsMultiagentCoordinator }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsMultiagent', 'variant', "Unknown BetaManagedAgentsMultiagent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagentCoordinatorType SDK namespace.
-module BetaManagedAgentsMultiagentCoordinatorType
-  COORDINATOR = 'coordinator'
-  VALUES = ['coordinator'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMultiagentCoordinatorType', 'enum', "Unknown BetaManagedAgentsMultiagentCoordinatorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata
-  FIELDS = {
-    type: "type",
-    agents: "agents",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    agents
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMultiagentCoordinatorParamsType.from_value(value)
-    end,
-    agents: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMultiagentRosterEntryParams.from_hash(item) }
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMultiagentCoordinatorParams.
-# A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
-class BetaManagedAgentsMultiagentCoordinatorParams
-  include BetaManagedAgentsMultiagentParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMultiagentCoordinatorParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Array_of_BetaManagedAgentsMultiagentRosterEntryParams] Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
-  attr_reader :agents
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata
+    FIELDS = {
+      type: 'type',
+      agents: 'agents'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      agents
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMultiagentCoordinatorType.from_value(value)
+      end,
+      agents: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMultiagentRosterEntry.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMultiagentCoordinator.
+  # Resolved coordinator topology with a concrete agent roster.
+  class BetaManagedAgentsMultiagentCoordinator
+    include BetaManagedAgentsMultiagent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMultiagentCoordinatorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMultiagentCoordinatorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Array_of_BetaManagedAgentsMultiagentRosterEntry] Agents the coordinator may spawn as session threads, each resolved to a specific version.
+    attr_reader :agents
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMultiagentCoordinatorType SDK namespace.
+  module BetaManagedAgentsMultiagentCoordinatorType
+    COORDINATOR = 'coordinator'
+    VALUES = ['coordinator'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsMultiagentCoordinatorType', 'enum', "Unknown BetaManagedAgentsMultiagentCoordinatorType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagentCoordinatorParamsType SDK namespace.
-module BetaManagedAgentsMultiagentCoordinatorParamsType
-  COORDINATOR = 'coordinator'
-  VALUES = ['coordinator'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMultiagentCoordinatorParamsType', 'enum', "Unknown BetaManagedAgentsMultiagentCoordinatorParamsType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagentParams SDK namespace.
-module BetaManagedAgentsMultiagentParams
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "coordinator" => BetaManagedAgentsMultiagentCoordinatorParams }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMultiagentParams', 'variant', "Unknown BetaManagedAgentsMultiagentParams discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagentRosterEntry SDK namespace.
-module BetaManagedAgentsMultiagentRosterEntry
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "agent" => BetaManagedAgentsAgentReference, "advisor" => BetaManagedAgentsAdvisor }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMultiagentRosterEntry', 'variant', "Unknown BetaManagedAgentsMultiagentRosterEntry discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsMultiagentRosterEntryParams SDK namespace.
-module BetaManagedAgentsMultiagentRosterEntryParams
-  def self.from_hash(hash)
-    return hash if hash.is_a?(::String)
-    shape_mapping = {
-      "id" => BetaManagedAgentsAgentParams,
-      "model" => BetaManagedAgentsAdvisorParams,
-    }
-    type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
-    decoded = type&.from_hash(hash)
-    return decoded unless type.nil?
-    return BetaManagedAgentsMultiagentSelfParams.from_hash(hash)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMultiagentSelfParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMultiagentSelfParams.
-# Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
-class BetaManagedAgentsMultiagentSelfParams
-  include BetaManagedAgentsMultiagentRosterEntryParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMultiagentSelfParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata
+    FIELDS = {
+      type: 'type',
+      agents: 'agents'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      agents
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMultiagentCoordinatorParamsType.from_value(value)
+      end,
+      agents: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMultiagentRosterEntryParams.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMultiagentCoordinatorParams.
+  # A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  class BetaManagedAgentsMultiagentCoordinatorParams
+    include BetaManagedAgentsMultiagentParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMultiagentCoordinatorParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMultiagentCoordinatorParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Array_of_BetaManagedAgentsMultiagentRosterEntryParams] Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
+    attr_reader :agents
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMultiagentCoordinatorParamsType SDK namespace.
+  module BetaManagedAgentsMultiagentCoordinatorParamsType
+    COORDINATOR = 'coordinator'
+    VALUES = ['coordinator'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsMultiagentCoordinatorParamsType', 'enum', "Unknown BetaManagedAgentsMultiagentCoordinatorParamsType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMultiagentParams SDK namespace.
+  module BetaManagedAgentsMultiagentParams
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-# Defines the BetaManagedAgentsMultiagentSelfParamsType SDK namespace.
-module BetaManagedAgentsMultiagentSelfParamsType
-  SELF = 'self'
-  VALUES = ['self'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+      mapping = { 'coordinator' => BetaManagedAgentsMultiagentCoordinatorParams }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
 
-    raise SdkValidationError.new('BetaManagedAgentsMultiagentSelfParamsType', 'enum', "Unknown BetaManagedAgentsMultiagentSelfParamsType: #{value}")
-  end
-end
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError.
-# The deployment's organization is disabled.
-class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError
-  include BetaManagedAgentsDeploymentPausedReasonError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMultiagentParams', 'variant', "Unknown BetaManagedAgentsMultiagentParams discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsMultiagentRosterEntry SDK namespace.
+  module BetaManagedAgentsMultiagentRosterEntry
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'agent' => BetaManagedAgentsAgentReference, 'advisor' => BetaManagedAgentsAdvisor }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsMultiagentRosterEntry', 'variant', "Unknown BetaManagedAgentsMultiagentRosterEntry discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMultiagentRosterEntryParams SDK namespace.
+  module BetaManagedAgentsMultiagentRosterEntryParams
+    def self.from_hash(hash)
+      return hash if hash.is_a?(::String)
+
+      shape_mapping = {
+        'id' => BetaManagedAgentsAgentParams,
+        'model' => BetaManagedAgentsAdvisorParams
+      }
+      type = shape_mapping.find { |required, _type| hash.is_a?(::Hash) && hash.key?(required) }&.last
+      decoded = type&.from_hash(hash)
+      return decoded unless type.nil?
+
+      BetaManagedAgentsMultiagentSelfParams.from_hash(hash)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMultiagentSelfParamsType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Defines the BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType SDK namespace.
-module BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType
-  ORGANIZATION_DISABLED_ERROR = 'organization_disabled_error'
-  VALUES = ['organization_disabled_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # API model for BetaManagedAgentsMultiagentSelfParams.
+  # Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+  class BetaManagedAgentsMultiagentSelfParams
+    include BetaManagedAgentsMultiagentRosterEntryParams
 
-    raise SdkValidationError.new('BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType: #{value}")
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMultiagentSelfParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMultiagentSelfParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsOrganizationDisabledRunErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsOrganizationDisabledRunErrorType.from_value(value)
-    end,
-  }.freeze
-end
+  # Defines the BetaManagedAgentsMultiagentSelfParamsType SDK namespace.
+  module BetaManagedAgentsMultiagentSelfParamsType
+    SELF = 'self'
+    VALUES = ['self'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsMultiagentSelfParamsType', 'enum', "Unknown BetaManagedAgentsMultiagentSelfParamsType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType.from_value(value)
+      end
+    }.freeze
+  end
+
+  # API model for BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError.
+  # The deployment's organization is disabled.
+  class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError
+    include BetaManagedAgentsDeploymentPausedReasonError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
+  end
+
+  # Defines the BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType SDK namespace.
+  module BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType
+    ORGANIZATION_DISABLED_ERROR = 'organization_disabled_error'
+    VALUES = ['organization_disabled_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType: #{value}")
+    end
+  end
+
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsOrganizationDisabledRunErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsOrganizationDisabledRunErrorType.from_value(value)
+      end
+    }.freeze
+  end
 end

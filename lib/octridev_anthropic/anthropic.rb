@@ -179,7 +179,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the MessagesNamespace SDK type.
@@ -322,7 +321,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the CompletionsNamespace SDK type.
@@ -364,7 +362,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the ModelsNamespace SDK type.
@@ -410,7 +407,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the FilesNamespace SDK type.
@@ -508,7 +504,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SkillsVersionsNamespace SDK type.
@@ -596,7 +591,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the SkillsNamespace SDK type.
@@ -683,7 +677,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaMessagesBatchesNamespace SDK type.
@@ -795,7 +788,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaMessagesNamespace SDK type.
@@ -914,7 +906,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaModelsNamespace SDK type.
@@ -960,7 +951,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaFilesNamespace SDK type.
@@ -1072,7 +1062,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSkillsVersionsNamespace SDK type.
@@ -1187,7 +1176,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSkillsNamespace SDK type.
@@ -1283,7 +1271,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaEnvironmentsWorkNamespace SDK type.
@@ -1484,7 +1471,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaEnvironmentsNamespace SDK type.
@@ -1640,7 +1626,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSessionsEventsNamespace SDK type.
@@ -1737,7 +1722,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSessionsThreadsEventsNamespace SDK type.
@@ -1783,7 +1767,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSessionsThreadsNamespace SDK type.
@@ -1885,7 +1868,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSessionsResourcesNamespace SDK type.
@@ -2002,7 +1984,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaSessionsNamespace SDK type.
@@ -2184,7 +2165,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaAgentsVersionsNamespace SDK type.
@@ -2227,7 +2207,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaAgentsNamespace SDK type.
@@ -2381,7 +2360,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaDeploymentsNamespace SDK type.
@@ -2586,7 +2564,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaDeploymentRunsNamespace SDK type.
@@ -2663,7 +2640,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaVaultsCredentialsNamespace SDK type.
@@ -2827,7 +2803,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaVaultsNamespace SDK type.
@@ -2959,7 +2934,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaMemoryStoresMemoriesNamespace SDK type.
@@ -3099,7 +3073,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaMemoryStoresMemoryVersionsNamespace SDK type.
@@ -3204,7 +3177,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaMemoryStoresNamespace SDK type.
@@ -3347,7 +3319,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaUserProfilesNamespace SDK type.
@@ -3464,7 +3435,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaTunnelsCertificatesNamespace SDK type.
@@ -3574,7 +3544,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaTunnelsNamespace SDK type.
@@ -3716,7 +3685,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaDreamsNamespace SDK type.
@@ -3838,7 +3806,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsInvitesNamespace SDK type.
@@ -3916,7 +3883,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsUsersNamespace SDK type.
@@ -3992,7 +3958,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsWorkspacesMembersNamespace SDK type.
@@ -4080,7 +4045,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsWorkspacesRateLimitsNamespace SDK type.
@@ -4120,7 +4084,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsWorkspacesServiceAccountsNamespace SDK type.
@@ -4228,7 +4191,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsWorkspacesNamespace SDK type.
@@ -4329,7 +4291,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsApiKeysNamespace SDK type.
@@ -4389,7 +4350,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsUsageReportMessagesNamespace SDK type.
@@ -4465,7 +4425,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsUsageReportClaudeCodeNamespace SDK type.
@@ -4502,7 +4461,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsUsageReportNamespace SDK type.
@@ -4513,7 +4471,6 @@ module OctridevAnthropic
       @messages = BetaOrganizationsUsageReportMessagesNamespace.new(config)
       @claude_code = BetaOrganizationsUsageReportClaudeCodeNamespace.new(config)
     end
-
   end
 
   # Defines the BetaOrganizationsCostReportNamespace SDK type.
@@ -4562,7 +4519,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsMeNamespace SDK type.
@@ -4580,7 +4536,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsExternalKeysNamespace SDK type.
@@ -4684,7 +4639,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsComplianceSettingsNamespace SDK type.
@@ -4714,7 +4668,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsRateLimitsNamespace SDK type.
@@ -4754,7 +4707,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsSpendLimitsEffectiveNamespace SDK type.
@@ -4794,7 +4746,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsSpendLimitsNamespace SDK type.
@@ -4851,7 +4802,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsServiceAccountsWorkspacesNamespace SDK type.
@@ -4925,7 +4875,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsServiceAccountsNamespace SDK type.
@@ -5032,7 +4981,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsFederationIssuersNamespace SDK type.
@@ -5148,7 +5096,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsFederationRulesWorkspacesNamespace SDK type.
@@ -5220,7 +5167,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsFederationRulesNamespace SDK type.
@@ -5358,7 +5304,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsSpendLimitIncreaseRequestsNamespace SDK type.
@@ -5450,7 +5395,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsTunnelsCertificatesNamespace SDK type.
@@ -5551,7 +5495,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsTunnelsNamespace SDK type.
@@ -5669,7 +5612,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsRbacGroupsMembersNamespace SDK type.
@@ -5734,7 +5676,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsRbacGroupsNamespace SDK type.
@@ -5821,7 +5762,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsRbacRolesNamespace SDK type.
@@ -5894,7 +5834,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsUserUsageReportNamespace SDK type.
@@ -5973,7 +5912,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsUserCostReportNamespace SDK type.
@@ -6052,7 +5990,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsUsageReportNamespace SDK type.
@@ -6122,7 +6059,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsCostReportNamespace SDK type.
@@ -6192,7 +6128,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsSummariesNamespace SDK type.
@@ -6218,7 +6153,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsUsersNamespace SDK type.
@@ -6273,7 +6207,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsAppsChatProjectsNamespace SDK type.
@@ -6328,7 +6261,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsAppsChatNamespace SDK type.
@@ -6338,7 +6270,6 @@ module OctridevAnthropic
     def initialize(config)
       @projects = BetaOrganizationsAnalyticsAppsChatProjectsNamespace.new(config)
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsAppsNamespace SDK type.
@@ -6348,7 +6279,6 @@ module OctridevAnthropic
     def initialize(config)
       @chat = BetaOrganizationsAnalyticsAppsChatNamespace.new(config)
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsSkillsNamespace SDK type.
@@ -6403,7 +6333,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsConnectorsNamespace SDK type.
@@ -6458,7 +6387,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsPluginsNamespace SDK type.
@@ -6513,7 +6441,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsArtifactsNamespace SDK type.
@@ -6556,7 +6483,6 @@ module OctridevAnthropic
         request_options: request_options
       )
     end
-
   end
 
   # Defines the BetaOrganizationsAnalyticsNamespace SDK type.
@@ -6577,7 +6503,6 @@ module OctridevAnthropic
       @plugins = BetaOrganizationsAnalyticsPluginsNamespace.new(config)
       @artifacts = BetaOrganizationsAnalyticsArtifactsNamespace.new(config)
     end
-
   end
 
   # Defines the BetaOrganizationsNamespace SDK type.
@@ -6606,7 +6531,7 @@ module OctridevAnthropic
       tunnels: BetaOrganizationsTunnelsNamespace,
       rbac_groups: BetaOrganizationsRbacGroupsNamespace,
       rbac_roles: BetaOrganizationsRbacRolesNamespace,
-      analytics: BetaOrganizationsAnalyticsNamespace,
+      analytics: BetaOrganizationsAnalyticsNamespace
     }.freeze
     private_constant :SUB_NAMESPACES
 
@@ -6615,7 +6540,6 @@ module OctridevAnthropic
         instance_variable_set(:"@#{accessor}", namespace.new(config))
       end
     end
-
   end
 
   # Defines the BetaNamespace SDK type.
@@ -6639,7 +6563,7 @@ module OctridevAnthropic
       user_profiles: BetaUserProfilesNamespace,
       tunnels: BetaTunnelsNamespace,
       dreams: BetaDreamsNamespace,
-      organizations: BetaOrganizationsNamespace,
+      organizations: BetaOrganizationsNamespace
     }.freeze
     private_constant :SUB_NAMESPACES
 
@@ -6648,7 +6572,6 @@ module OctridevAnthropic
         instance_variable_set(:"@#{accessor}", namespace.new(config))
       end
     end
-
   end
 
   # Defines the Anthropic SDK type.
@@ -6683,6 +6606,5 @@ module OctridevAnthropic
       end
       logging
     end
-
   end
 end

@@ -5,198 +5,200 @@
 
 # shared_beta_tool domain models
 module OctridevAnthropic
-# API model for BetaToolSearchToolRegex20251119.
-# Typed representation of the `BetaToolSearchToolRegex_20251119` API schema.
-class BetaToolSearchToolRegex20251119
-  include BetaCountMessageTokensParamsToolsItem
-  include BetaCreateMessageParamsToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaToolSearchToolRegex20251119Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaToolSearchToolRegex20251119Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaToolSearchToolRegex20251119Metadata::DECODERS
+  # API model for BetaToolSearchToolRegex20251119.
+  # Typed representation of the `BetaToolSearchToolRegex_20251119` API schema.
+  class BetaToolSearchToolRegex20251119
+    include BetaCountMessageTokensParamsToolsItem
+    include BetaCreateMessageParamsToolsItem
 
-  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-  attr_reader :allowed_callers
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-  attr_reader :defer_loading
-  # @return [BetaToolSearchToolRegex20251119Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-  attr_reader :name
-  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-  attr_reader :strict
-  # @return [BetaToolSearchToolRegex20251119Type] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaToolSearchToolRegex20251119Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaToolSearchToolRegex20251119Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaToolSearchToolRegex20251119Metadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+    attr_reader :allowed_callers
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+    attr_reader :defer_loading
+    # @return [BetaToolSearchToolRegex20251119Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+    attr_reader :name
+    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+    attr_reader :strict
+    # @return [BetaToolSearchToolRegex20251119Type] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaToolSearchToolRegex20251119Name SDK namespace.
+  module BetaToolSearchToolRegex20251119Name
+    TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
+    VALUES = ['tool_search_tool_regex'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaToolSearchToolRegex20251119Name', 'enum', "Unknown BetaToolSearchToolRegex20251119Name: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaToolSearchToolRegex20251119Type SDK namespace.
+  module BetaToolSearchToolRegex20251119Type
+    TOOL_SEARCH_TOOL_REGEX_20251119 = 'tool_search_tool_regex_20251119'
+    TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
+    VALUES = %w[tool_search_tool_regex_20251119 tool_search_tool_regex].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaToolSearchToolRegex20251119Name SDK namespace.
-module BetaToolSearchToolRegex20251119Name
-  TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
-  VALUES = ['tool_search_tool_regex'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaToolSearchToolRegex20251119Name', 'enum', "Unknown BetaToolSearchToolRegex20251119Name: #{value}")
-  end
-end
-
-# Defines the BetaToolSearchToolRegex20251119Type SDK namespace.
-module BetaToolSearchToolRegex20251119Type
-  TOOL_SEARCH_TOOL_REGEX_20251119 = 'tool_search_tool_regex_20251119'
-  TOOL_SEARCH_TOOL_REGEX = 'tool_search_tool_regex'
-  VALUES = ['tool_search_tool_regex_20251119', 'tool_search_tool_regex'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Defines the BetaToolSearchToolResultErrorCode SDK namespace.
-module BetaToolSearchToolResultErrorCode
-  INVALID_TOOL_INPUT = 'invalid_tool_input'
-  UNAVAILABLE = 'unavailable'
-  TOO_MANY_REQUESTS = 'too_many_requests'
-  EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
-  VALUES = [
-    'invalid_tool_input', 'unavailable', 'too_many_requests', 'execution_time_exceeded'
-  ].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaToolUsesKeepMetadata
-  FIELDS = {
-    type: "type",
-    value: "value",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    value
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaToolUsesKeepType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaToolUsesKeep.
-# Typed representation of the `BetaToolUsesKeep` API schema.
-class BetaToolUsesKeep
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaToolUsesKeepMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaToolUsesKeepMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaToolUsesKeepMetadata::DECODERS
-
-  # @return [BetaToolUsesKeepType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Integer] Required `integer` value serialized in the `value` wire field.
-  attr_reader :value
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaToolSearchToolResultErrorCode SDK namespace.
+  module BetaToolSearchToolResultErrorCode
+    INVALID_TOOL_INPUT = 'invalid_tool_input'
+    UNAVAILABLE = 'unavailable'
+    TOO_MANY_REQUESTS = 'too_many_requests'
+    EXECUTION_TIME_EXCEEDED = 'execution_time_exceeded'
+    VALUES = %w[
+      invalid_tool_input unavailable too_many_requests execution_time_exceeded
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaToolUsesKeepMetadata
+    FIELDS = {
+      type: 'type',
+      value: 'value'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      value
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaToolUsesKeepType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaToolUsesKeep.
+  # Typed representation of the `BetaToolUsesKeep` API schema.
+  class BetaToolUsesKeep
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaToolUsesKeepMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaToolUsesKeepMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaToolUsesKeepMetadata::DECODERS
+
+    # @return [BetaToolUsesKeepType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Integer] Required `integer` value serialized in the `value` wire field.
+    attr_reader :value
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaToolUsesKeepType SDK namespace.
+  module BetaToolUsesKeepType
+    TOOL_USES = 'tool_uses'
+    VALUES = ['tool_uses'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaToolUsesKeepType SDK namespace.
-module BetaToolUsesKeepType
-  TOOL_USES = 'tool_uses'
-  VALUES = ['tool_uses'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaToolUsesKeepType', 'enum', "Unknown BetaToolUsesKeepType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaToolUsesTriggerMetadata
-  FIELDS = {
-    type: "type",
-    value: "value",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    value
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaToolUsesTriggerType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaToolUsesTrigger.
-# Typed representation of the `BetaToolUsesTrigger` API schema.
-class BetaToolUsesTrigger
-  include BetaClearToolUses20250919Trigger
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaToolUsesTriggerMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaToolUsesTriggerMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaToolUsesTriggerMetadata::DECODERS
-
-  # @return [BetaToolUsesTriggerType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Integer] Required `integer` value serialized in the `value` wire field.
-  attr_reader :value
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaToolUsesKeepType', 'enum', "Unknown BetaToolUsesKeepType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaToolUsesTriggerMetadata
+    FIELDS = {
+      type: 'type',
+      value: 'value'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      value
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaToolUsesTriggerType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaToolUsesTrigger.
+  # Typed representation of the `BetaToolUsesTrigger` API schema.
+  class BetaToolUsesTrigger
+    include BetaClearToolUses20250919Trigger
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaToolUsesTriggerMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaToolUsesTriggerMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaToolUsesTriggerMetadata::DECODERS
+
+    # @return [BetaToolUsesTriggerType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Integer] Required `integer` value serialized in the `value` wire field.
+    attr_reader :value
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaToolUsesTriggerType SDK namespace.
+  module BetaToolUsesTriggerType
+    TOOL_USES = 'tool_uses'
+    VALUES = ['tool_uses'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaToolUsesTriggerType SDK namespace.
-module BetaToolUsesTriggerType
-  TOOL_USES = 'tool_uses'
-  VALUES = ['tool_uses'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaToolUsesTriggerType', 'enum', "Unknown BetaToolUsesTriggerType: #{value}")
+      raise SdkValidationError.new('BetaToolUsesTriggerType', 'enum', "Unknown BetaToolUsesTriggerType: #{value}")
+    end
   end
-end
 end

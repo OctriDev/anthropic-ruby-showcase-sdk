@@ -5,638 +5,632 @@
 
 # shared_beta_computer domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaComputerToolsetConfigsMetadata
-  FIELDS = {
-    cursor_position: "cursor_position",
-    double_click: "double_click",
-    hold_key: "hold_key",
-    key: "key",
-    left_click: "left_click",
-    left_click_drag: "left_click_drag",
-    left_mouse_down: "left_mouse_down",
-    left_mouse_up: "left_mouse_up",
-    middle_click: "middle_click",
-    mouse_move: "mouse_move",
-    right_click: "right_click",
-    screenshot: "screenshot",
-    scroll: "scroll",
-    triple_click: "triple_click",
-    type: "type",
-    wait: "wait",
-    zoom: "zoom",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    cursor_position: lambda do |value|
-      ::OctridevAnthropic::BetaComputerCursorPositionConfig.from_hash(value)
-    end,
-    double_click: lambda do |value|
-      ::OctridevAnthropic::BetaComputerDoubleClickConfig.from_hash(value)
-    end,
-    hold_key: lambda do |value|
-      ::OctridevAnthropic::BetaComputerHoldKeyConfig.from_hash(value)
-    end,
-    key: lambda do |value|
-      ::OctridevAnthropic::BetaComputerKeyConfig.from_hash(value)
-    end,
-    left_click: lambda do |value|
-      ::OctridevAnthropic::BetaComputerLeftClickConfig.from_hash(value)
-    end,
-    left_click_drag: lambda do |value|
-      ::OctridevAnthropic::BetaComputerLeftClickDragConfig.from_hash(value)
-    end,
-    left_mouse_down: lambda do |value|
-      ::OctridevAnthropic::BetaComputerLeftMouseDownConfig.from_hash(value)
-    end,
-    left_mouse_up: lambda do |value|
-      ::OctridevAnthropic::BetaComputerLeftMouseUpConfig.from_hash(value)
-    end,
-    middle_click: lambda do |value|
-      ::OctridevAnthropic::BetaComputerMiddleClickConfig.from_hash(value)
-    end,
-    mouse_move: lambda do |value|
-      ::OctridevAnthropic::BetaComputerMouseMoveConfig.from_hash(value)
-    end,
-    right_click: lambda do |value|
-      ::OctridevAnthropic::BetaComputerRightClickConfig.from_hash(value)
-    end,
-    screenshot: lambda do |value|
-      ::OctridevAnthropic::BetaComputerScreenshotConfig.from_hash(value)
-    end,
-    scroll: lambda do |value|
-      ::OctridevAnthropic::BetaComputerScrollConfig.from_hash(value)
-    end,
-    triple_click: lambda do |value|
-      ::OctridevAnthropic::BetaComputerTripleClickConfig.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComputerTypeConfig.from_hash(value)
-    end,
-    wait: lambda do |value|
-      ::OctridevAnthropic::BetaComputerWaitConfig.from_hash(value)
-    end,
-    zoom: lambda do |value|
-      ::OctridevAnthropic::BetaComputerZoomConfig.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComputerToolsetConfigs.
-# Per-member configuration for ``computer_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
-class BetaComputerToolsetConfigs
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerToolsetConfigsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerToolsetConfigsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerToolsetConfigsMetadata::DECODERS
-
-  # @return [BetaComputerCursorPositionConfig] Optional API value serialized in the `cursor_position` wire field.
-  attr_reader :cursor_position
-  # @return [BetaComputerDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
-  attr_reader :double_click
-  # @return [BetaComputerHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
-  attr_reader :hold_key
-  # @return [BetaComputerKeyConfig] Optional API value serialized in the `key` wire field.
-  attr_reader :key
-  # @return [BetaComputerLeftClickConfig] Optional API value serialized in the `left_click` wire field.
-  attr_reader :left_click
-  # @return [BetaComputerLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
-  attr_reader :left_click_drag
-  # @return [BetaComputerLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
-  attr_reader :left_mouse_down
-  # @return [BetaComputerLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
-  attr_reader :left_mouse_up
-  # @return [BetaComputerMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
-  attr_reader :middle_click
-  # @return [BetaComputerMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
-  attr_reader :mouse_move
-  # @return [BetaComputerRightClickConfig] Optional API value serialized in the `right_click` wire field.
-  attr_reader :right_click
-  # @return [BetaComputerScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
-  attr_reader :screenshot
-  # @return [BetaComputerScrollConfig] Optional API value serialized in the `scroll` wire field.
-  attr_reader :scroll
-  # @return [BetaComputerTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
-  attr_reader :triple_click
-  # @return [BetaComputerTypeConfig] Optional API value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaComputerWaitConfig] Optional API value serialized in the `wait` wire field.
-  attr_reader :wait
-  # @return [BetaComputerZoomConfig] Optional API value serialized in the `zoom` wire field.
-  attr_reader :zoom
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerToolsetConfigsMetadata
+    FIELDS = {
+      cursor_position: 'cursor_position',
+      double_click: 'double_click',
+      hold_key: 'hold_key',
+      key: 'key',
+      left_click: 'left_click',
+      left_click_drag: 'left_click_drag',
+      left_mouse_down: 'left_mouse_down',
+      left_mouse_up: 'left_mouse_up',
+      middle_click: 'middle_click',
+      mouse_move: 'mouse_move',
+      right_click: 'right_click',
+      screenshot: 'screenshot',
+      scroll: 'scroll',
+      triple_click: 'triple_click',
+      type: 'type',
+      wait: 'wait',
+      zoom: 'zoom'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      cursor_position: lambda do |value|
+        ::OctridevAnthropic::BetaComputerCursorPositionConfig.from_hash(value)
+      end,
+      double_click: lambda do |value|
+        ::OctridevAnthropic::BetaComputerDoubleClickConfig.from_hash(value)
+      end,
+      hold_key: lambda do |value|
+        ::OctridevAnthropic::BetaComputerHoldKeyConfig.from_hash(value)
+      end,
+      key: lambda do |value|
+        ::OctridevAnthropic::BetaComputerKeyConfig.from_hash(value)
+      end,
+      left_click: lambda do |value|
+        ::OctridevAnthropic::BetaComputerLeftClickConfig.from_hash(value)
+      end,
+      left_click_drag: lambda do |value|
+        ::OctridevAnthropic::BetaComputerLeftClickDragConfig.from_hash(value)
+      end,
+      left_mouse_down: lambda do |value|
+        ::OctridevAnthropic::BetaComputerLeftMouseDownConfig.from_hash(value)
+      end,
+      left_mouse_up: lambda do |value|
+        ::OctridevAnthropic::BetaComputerLeftMouseUpConfig.from_hash(value)
+      end,
+      middle_click: lambda do |value|
+        ::OctridevAnthropic::BetaComputerMiddleClickConfig.from_hash(value)
+      end,
+      mouse_move: lambda do |value|
+        ::OctridevAnthropic::BetaComputerMouseMoveConfig.from_hash(value)
+      end,
+      right_click: lambda do |value|
+        ::OctridevAnthropic::BetaComputerRightClickConfig.from_hash(value)
+      end,
+      screenshot: lambda do |value|
+        ::OctridevAnthropic::BetaComputerScreenshotConfig.from_hash(value)
+      end,
+      scroll: lambda do |value|
+        ::OctridevAnthropic::BetaComputerScrollConfig.from_hash(value)
+      end,
+      triple_click: lambda do |value|
+        ::OctridevAnthropic::BetaComputerTripleClickConfig.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComputerTypeConfig.from_hash(value)
+      end,
+      wait: lambda do |value|
+        ::OctridevAnthropic::BetaComputerWaitConfig.from_hash(value)
+      end,
+      zoom: lambda do |value|
+        ::OctridevAnthropic::BetaComputerZoomConfig.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaComputerToolsetConfigs.
+  # Per-member configuration for ``computer_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
+  class BetaComputerToolsetConfigs
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerToolsetConfigsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerToolsetConfigsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerToolsetConfigsMetadata::DECODERS
+
+    # @return [BetaComputerCursorPositionConfig] Optional API value serialized in the `cursor_position` wire field.
+    attr_reader :cursor_position
+    # @return [BetaComputerDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
+    attr_reader :double_click
+    # @return [BetaComputerHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
+    attr_reader :hold_key
+    # @return [BetaComputerKeyConfig] Optional API value serialized in the `key` wire field.
+    attr_reader :key
+    # @return [BetaComputerLeftClickConfig] Optional API value serialized in the `left_click` wire field.
+    attr_reader :left_click
+    # @return [BetaComputerLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
+    attr_reader :left_click_drag
+    # @return [BetaComputerLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
+    attr_reader :left_mouse_down
+    # @return [BetaComputerLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
+    attr_reader :left_mouse_up
+    # @return [BetaComputerMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
+    attr_reader :middle_click
+    # @return [BetaComputerMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
+    attr_reader :mouse_move
+    # @return [BetaComputerRightClickConfig] Optional API value serialized in the `right_click` wire field.
+    attr_reader :right_click
+    # @return [BetaComputerScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
+    attr_reader :screenshot
+    # @return [BetaComputerScrollConfig] Optional API value serialized in the `scroll` wire field.
+    attr_reader :scroll
+    # @return [BetaComputerTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
+    attr_reader :triple_click
+    # @return [BetaComputerTypeConfig] Optional API value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaComputerWaitConfig] Optional API value serialized in the `wait` wire field.
+    attr_reader :wait
+    # @return [BetaComputerZoomConfig] Optional API value serialized in the `zoom` wire field.
+    attr_reader :zoom
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerTripleClickConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaComputerTripleClickConfig.
+  # ``triple_click``'s config overrides.
+  class BetaComputerTripleClickConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerTripleClickConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerTripleClickConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerTripleClickConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaComputerTripleClickConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaComputerTripleClickConfig.
-# ``triple_click``'s config overrides.
-class BetaComputerTripleClickConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerTripleClickConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerTripleClickConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerTripleClickConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerTypeConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaComputerTypeConfig.
+  # ``type``'s config overrides.
+  class BetaComputerTypeConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerTypeConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerTypeConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerTypeConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComputerTypeConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaComputerTypeConfig.
-# ``type``'s config overrides.
-class BetaComputerTypeConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerTypeConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerTypeConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerTypeConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerUseTool20241022Metadata
+    FIELDS = {
+      allowed_callers: 'allowed_callers',
+      cache_control: 'cache_control',
+      defer_loading: 'defer_loading',
+      display_height_px: 'display_height_px',
+      display_number: 'display_number',
+      display_width_px: 'display_width_px',
+      input_examples: 'input_examples',
+      name: 'name',
+      strict: 'strict',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      display_height_px
+      display_width_px
+      name
+      type
+    ].freeze
+    DECODERS = {
+      allowed_callers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+      end,
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20241022Name.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20241022Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaComputerUseTool20241022.
+  # Typed representation of the `BetaComputerUseTool_20241022` API schema.
+  class BetaComputerUseTool20241022
+    include BetaCountMessageTokensParamsToolsItem
+    include BetaCreateMessageParamsToolsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerUseTool20241022Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20241022Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerUseTool20241022Metadata::DECODERS
+
+    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+    attr_reader :allowed_callers
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+    attr_reader :defer_loading
+    # @return [Integer] The height of the display in pixels.
+    attr_reader :display_height_px
+    # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
+    attr_reader :display_number
+    # @return [Integer] The width of the display in pixels.
+    attr_reader :display_width_px
+    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+    attr_reader :input_examples
+    # @return [BetaComputerUseTool20241022Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+    attr_reader :name
+    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+    attr_reader :strict
+    # @return [BetaComputerUseTool20241022Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaComputerUseTool20241022Name SDK namespace.
+  module BetaComputerUseTool20241022Name
+    COMPUTER = 'computer'
+    VALUES = ['computer'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Internal model hydration metadata.
-class SdkInternalBetaComputerUseTool20241022Metadata
-  FIELDS = {
-    allowed_callers: "allowed_callers",
-    cache_control: "cache_control",
-    defer_loading: "defer_loading",
-    display_height_px: "display_height_px",
-    display_number: "display_number",
-    display_width_px: "display_width_px",
-    input_examples: "input_examples",
-    name: "name",
-    strict: "strict",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    display_height_px
-    display_width_px
-    name
-    type
-  ].freeze
-  DECODERS = {
-    allowed_callers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-    end,
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20241022Name.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20241022Type.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComputerUseTool20241022.
-# Typed representation of the `BetaComputerUseTool_20241022` API schema.
-class BetaComputerUseTool20241022
-  include BetaCountMessageTokensParamsToolsItem
-  include BetaCreateMessageParamsToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerUseTool20241022Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20241022Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerUseTool20241022Metadata::DECODERS
-
-  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-  attr_reader :allowed_callers
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-  attr_reader :defer_loading
-  # @return [Integer] The height of the display in pixels.
-  attr_reader :display_height_px
-  # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
-  attr_reader :display_number
-  # @return [Integer] The width of the display in pixels.
-  attr_reader :display_width_px
-  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-  attr_reader :input_examples
-  # @return [BetaComputerUseTool20241022Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-  attr_reader :name
-  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-  attr_reader :strict
-  # @return [BetaComputerUseTool20241022Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaComputerUseTool20241022Name', 'enum', "Unknown BetaComputerUseTool20241022Name: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaComputerUseTool20241022Type SDK namespace.
+  module BetaComputerUseTool20241022Type
+    COMPUTER_20241022 = 'computer_20241022'
+    VALUES = ['computer_20241022'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComputerUseTool20241022Type', 'enum', "Unknown BetaComputerUseTool20241022Type: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerUseTool20250124Metadata
+    FIELDS = {
+      allowed_callers: 'allowed_callers',
+      cache_control: 'cache_control',
+      defer_loading: 'defer_loading',
+      display_height_px: 'display_height_px',
+      display_number: 'display_number',
+      display_width_px: 'display_width_px',
+      input_examples: 'input_examples',
+      name: 'name',
+      strict: 'strict',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      display_height_px
+      display_width_px
+      name
+      type
+    ].freeze
+    DECODERS = {
+      allowed_callers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+      end,
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20250124Name.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20250124Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaComputerUseTool20250124.
+  # Typed representation of the `BetaComputerUseTool_20250124` API schema.
+  class BetaComputerUseTool20250124
+    include BetaCountMessageTokensParamsToolsItem
+    include BetaCreateMessageParamsToolsItem
 
-# Defines the BetaComputerUseTool20241022Name SDK namespace.
-module BetaComputerUseTool20241022Name
-  COMPUTER = 'computer'
-  VALUES = ['computer'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerUseTool20250124Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20250124Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerUseTool20250124Metadata::DECODERS
 
-    raise SdkValidationError.new('BetaComputerUseTool20241022Name', 'enum', "Unknown BetaComputerUseTool20241022Name: #{value}")
-  end
-end
+    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+    attr_reader :allowed_callers
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+    attr_reader :defer_loading
+    # @return [Integer] The height of the display in pixels.
+    attr_reader :display_height_px
+    # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
+    attr_reader :display_number
+    # @return [Integer] The width of the display in pixels.
+    attr_reader :display_width_px
+    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+    attr_reader :input_examples
+    # @return [BetaComputerUseTool20250124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+    attr_reader :name
+    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+    attr_reader :strict
+    # @return [BetaComputerUseTool20250124Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Defines the BetaComputerUseTool20241022Type SDK namespace.
-module BetaComputerUseTool20241022Type
-  COMPUTER_20241022 = 'computer_20241022'
-  VALUES = ['computer_20241022'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-    raise SdkValidationError.new('BetaComputerUseTool20241022Type', 'enum', "Unknown BetaComputerUseTool20241022Type: #{value}")
-  end
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaComputerUseTool20250124Metadata
-  FIELDS = {
-    allowed_callers: "allowed_callers",
-    cache_control: "cache_control",
-    defer_loading: "defer_loading",
-    display_height_px: "display_height_px",
-    display_number: "display_number",
-    display_width_px: "display_width_px",
-    input_examples: "input_examples",
-    name: "name",
-    strict: "strict",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    display_height_px
-    display_width_px
-    name
-    type
-  ].freeze
-  DECODERS = {
-    allowed_callers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-    end,
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20250124Name.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20250124Type.from_value(value)
-    end,
-  }.freeze
-end
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-# API model for BetaComputerUseTool20250124.
-# Typed representation of the `BetaComputerUseTool_20250124` API schema.
-class BetaComputerUseTool20250124
-  include BetaCountMessageTokensParamsToolsItem
-  include BetaCreateMessageParamsToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerUseTool20250124Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20250124Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerUseTool20250124Metadata::DECODERS
-
-  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-  attr_reader :allowed_callers
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-  attr_reader :defer_loading
-  # @return [Integer] The height of the display in pixels.
-  attr_reader :display_height_px
-  # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
-  attr_reader :display_number
-  # @return [Integer] The width of the display in pixels.
-  attr_reader :display_width_px
-  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-  attr_reader :input_examples
-  # @return [BetaComputerUseTool20250124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-  attr_reader :name
-  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-  attr_reader :strict
-  # @return [BetaComputerUseTool20250124Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaComputerUseTool20250124Name SDK namespace.
+  module BetaComputerUseTool20250124Name
+    COMPUTER = 'computer'
+    VALUES = ['computer'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComputerUseTool20250124Name', 'enum', "Unknown BetaComputerUseTool20250124Name: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaComputerUseTool20250124Type SDK namespace.
+  module BetaComputerUseTool20250124Type
+    COMPUTER_20250124 = 'computer_20250124'
+    VALUES = ['computer_20250124'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComputerUseTool20250124Type', 'enum', "Unknown BetaComputerUseTool20250124Type: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaComputerUseTool20250124Name SDK namespace.
-module BetaComputerUseTool20250124Name
-  COMPUTER = 'computer'
-  VALUES = ['computer'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComputerUseTool20250124Name', 'enum', "Unknown BetaComputerUseTool20250124Name: #{value}")
-  end
-end
-
-# Defines the BetaComputerUseTool20250124Type SDK namespace.
-module BetaComputerUseTool20250124Type
-  COMPUTER_20250124 = 'computer_20250124'
-  VALUES = ['computer_20250124'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComputerUseTool20250124Type', 'enum', "Unknown BetaComputerUseTool20250124Type: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComputerUseTool20251124Metadata
-  FIELDS = {
-    allowed_callers: "allowed_callers",
-    cache_control: "cache_control",
-    defer_loading: "defer_loading",
-    display_height_px: "display_height_px",
-    display_number: "display_number",
-    display_width_px: "display_width_px",
-    enable_zoom: "enable_zoom",
-    input_examples: "input_examples",
-    name: "name",
-    strict: "strict",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    display_height_px
-    display_width_px
-    name
-    type
-  ].freeze
-  DECODERS = {
-    allowed_callers: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
-    end,
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    name: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20251124Name.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaComputerUseTool20251124Type.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaComputerUseTool20251124.
-# Typed representation of the `BetaComputerUseTool_20251124` API schema.
-class BetaComputerUseTool20251124
-  include BetaCountMessageTokensParamsToolsItem
-  include BetaCreateMessageParamsToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerUseTool20251124Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20251124Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerUseTool20251124Metadata::DECODERS
-
-  # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
-  attr_reader :allowed_callers
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-  attr_reader :defer_loading
-  # @return [Integer] The height of the display in pixels.
-  attr_reader :display_height_px
-  # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
-  attr_reader :display_number
-  # @return [Integer] The width of the display in pixels.
-  attr_reader :display_width_px
-  # @return [Boolean] Whether to enable an action to take a zoomed-in screenshot of the screen.
-  attr_reader :enable_zoom
-  # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
-  attr_reader :input_examples
-  # @return [BetaComputerUseTool20251124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
-  attr_reader :name
-  # @return [Boolean] When true, guarantees schema validation on tool names and inputs
-  attr_reader :strict
-  # @return [BetaComputerUseTool20251124Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerUseTool20251124Metadata
+    FIELDS = {
+      allowed_callers: 'allowed_callers',
+      cache_control: 'cache_control',
+      defer_loading: 'defer_loading',
+      display_height_px: 'display_height_px',
+      display_number: 'display_number',
+      display_width_px: 'display_width_px',
+      enable_zoom: 'enable_zoom',
+      input_examples: 'input_examples',
+      name: 'name',
+      strict: 'strict',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      display_height_px
+      display_width_px
+      name
+      type
+    ].freeze
+    DECODERS = {
+      allowed_callers: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaAllowedCaller.from_value(item) }
+      end,
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      name: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20251124Name.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaComputerUseTool20251124Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaComputerUseTool20251124.
+  # Typed representation of the `BetaComputerUseTool_20251124` API schema.
+  class BetaComputerUseTool20251124
+    include BetaCountMessageTokensParamsToolsItem
+    include BetaCreateMessageParamsToolsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerUseTool20251124Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerUseTool20251124Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerUseTool20251124Metadata::DECODERS
+
+    # @return [Array_of_BetaAllowedCaller] Optional array value serialized in the `allowed_callers` wire field.
+    attr_reader :allowed_callers
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [Boolean] If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+    attr_reader :defer_loading
+    # @return [Integer] The height of the display in pixels.
+    attr_reader :display_height_px
+    # @return [Integer] The X11 display number (e.g. 0, 1) for the display.
+    attr_reader :display_number
+    # @return [Integer] The width of the display in pixels.
+    attr_reader :display_width_px
+    # @return [Boolean] Whether to enable an action to take a zoomed-in screenshot of the screen.
+    attr_reader :enable_zoom
+    # @return [Array_of_Hash] Optional array value serialized in the `input_examples` wire field.
+    attr_reader :input_examples
+    # @return [BetaComputerUseTool20251124Name] Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks.
+    attr_reader :name
+    # @return [Boolean] When true, guarantees schema validation on tool names and inputs
+    attr_reader :strict
+    # @return [BetaComputerUseTool20251124Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaComputerUseTool20251124Name SDK namespace.
+  module BetaComputerUseTool20251124Name
+    COMPUTER = 'computer'
+    VALUES = ['computer'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaComputerUseTool20251124Name', 'enum', "Unknown BetaComputerUseTool20251124Name: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaComputerUseTool20251124Type SDK namespace.
+  module BetaComputerUseTool20251124Type
+    COMPUTER_20251124 = 'computer_20251124'
+    VALUES = ['computer_20251124'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaComputerUseTool20251124Name SDK namespace.
-module BetaComputerUseTool20251124Name
-  COMPUTER = 'computer'
-  VALUES = ['computer'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComputerUseTool20251124Name', 'enum', "Unknown BetaComputerUseTool20251124Name: #{value}")
-  end
-end
-
-# Defines the BetaComputerUseTool20251124Type SDK namespace.
-module BetaComputerUseTool20251124Type
-  COMPUTER_20251124 = 'computer_20251124'
-  VALUES = ['computer_20251124'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaComputerUseTool20251124Type', 'enum', "Unknown BetaComputerUseTool20251124Type: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComputerWaitConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaComputerWaitConfig.
-# ``wait``'s config overrides.
-class BetaComputerWaitConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerWaitConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerWaitConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerWaitConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaComputerUseTool20251124Type', 'enum', "Unknown BetaComputerUseTool20251124Type: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerWaitConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaComputerWaitConfig.
+  # ``wait``'s config overrides.
+  class BetaComputerWaitConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerWaitConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerWaitConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerWaitConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaComputerZoomConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaComputerZoomConfig.
-# ``zoom``'s config overrides.
-class BetaComputerZoomConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaComputerZoomConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaComputerZoomConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaComputerZoomConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaComputerZoomConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BetaComputerZoomConfig.
+  # ``zoom``'s config overrides.
+  class BetaComputerZoomConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaComputerZoomConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaComputerZoomConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaComputerZoomConfigMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-  def to_json(*args)
-    to_h.to_json(*args)
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
 end

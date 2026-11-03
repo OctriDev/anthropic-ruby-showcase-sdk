@@ -5,622 +5,612 @@
 
 # shared_beta_browser domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserStateChangeTabOpenedMetadata
-  FIELDS = {
-    tab_id: "tab_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    tab_id
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserStateChangeTabOpenedType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserStateChangeTabOpened.
-# A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory.
-class BetaBrowserStateChangeTabOpened
-  include BetaRequestBrowserStateBlockStateChangesItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::DECODERS
-
-  # @return [String] The `tab_id` of the opened tab, present in `tabs`.
-  attr_reader :tab_id
-  # @return [BetaBrowserStateChangeTabOpenedType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserStateChangeTabOpenedMetadata
+    FIELDS = {
+      tab_id: 'tab_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      tab_id
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserStateChangeTabOpenedType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserStateChangeTabOpened.
+  # A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory.
+  class BetaBrowserStateChangeTabOpened
+    include BetaRequestBrowserStateBlockStateChangesItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserStateChangeTabOpenedMetadata::DECODERS
+
+    # @return [String] The `tab_id` of the opened tab, present in `tabs`.
+    attr_reader :tab_id
+    # @return [BetaBrowserStateChangeTabOpenedType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaBrowserStateChangeTabOpenedType SDK namespace.
+  module BetaBrowserStateChangeTabOpenedType
+    TAB_OPENED = 'tab_opened'
+    VALUES = ['tab_opened'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaBrowserStateChangeTabOpenedType', 'enum', "Unknown BetaBrowserStateChangeTabOpenedType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaBrowserStateChangeTabOpenedType SDK namespace.
-module BetaBrowserStateChangeTabOpenedType
-  TAB_OPENED = 'tab_opened'
-  VALUES = ['tab_opened'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaBrowserStateChangeTabOpenedType', 'enum', "Unknown BetaBrowserStateChangeTabOpenedType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserStateTabEntryMetadata
-  FIELDS = {
-    active: "active",
-    tab_id: "tab_id",
-    title: "title",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    tab_id
-    title
-    url
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserStateTabEntry.
-# One open browser tab reported in a `browser_state` block's `tabs` inventory. `tab_id` is the caller-assigned identifier for the tab; `title` and `url` describe the page the tab is currently showing and may be empty strings (a blank tab legitimately has both empty). `active` marks the tab that is active after this call; whenever `tabs` is non-empty, exactly one entry is marked.
-class BetaBrowserStateTabEntry
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserStateTabEntryMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserStateTabEntryMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserStateTabEntryMetadata::DECODERS
-
-  # @return [Boolean] Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
-  attr_reader :active
-  # @return [String] The caller-assigned identifier for this tab, unique within the inventory.
-  attr_reader :tab_id
-  # @return [String] The title of the page the tab is showing. May be empty.
-  attr_reader :title
-  # @return [String] The URL of the page the tab is showing. May be empty.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserStateTabEntryMetadata
+    FIELDS = {
+      active: 'active',
+      tab_id: 'tab_id',
+      title: 'title',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      tab_id
+      title
+      url
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserStateTabEntry.
+  # One open browser tab reported in a `browser_state` block's `tabs` inventory. `tab_id` is the caller-assigned identifier for the tab; `title` and `url` describe the page the tab is currently showing and may be empty strings (a blank tab legitimately has both empty). `active` marks the tab that is active after this call; whenever `tabs` is non-empty, exactly one entry is marked.
+  class BetaBrowserStateTabEntry
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserStateTabEntryMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserStateTabEntryMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserStateTabEntryMetadata::DECODERS
+
+    # @return [Boolean] Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+    attr_reader :active
+    # @return [String] The caller-assigned identifier for this tab, unique within the inventory.
+    attr_reader :tab_id
+    # @return [String] The title of the page the tab is showing. May be empty.
+    attr_reader :title
+    # @return [String] The URL of the page the tab is showing. May be empty.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserSwitchTabConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaBrowserSwitchTabConfig.
+  # ``switch_tab``'s config overrides.
+  class BetaBrowserSwitchTabConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserSwitchTabConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserSwitchTabConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserSwitchTabConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserSwitchTabConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaBrowserSwitchTabConfig.
-# ``switch_tab``'s config overrides.
-class BetaBrowserSwitchTabConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserSwitchTabConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserSwitchTabConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserSwitchTabConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserToolset20260801Metadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      configs: 'configs',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      configs: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserToolsetConfigs.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserToolset20260801Type.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserToolset20260801.
+  # The browser toolset: a single ``tools[]`` entry (carrying no ``name``) that declares the browser tool family. The model is served the family's tool with any members disabled via ``configs`` removed from its schema.
+  class BetaBrowserToolset20260801
+    include BetaCountMessageTokensParamsToolsItem
+    include BetaCreateMessageParamsToolsItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserToolset20260801Metadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserToolset20260801Metadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserToolset20260801Metadata::DECODERS
+
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [BetaBrowserToolsetConfigs] Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
+    attr_reader :configs
+    # @return [BetaBrowserToolset20260801Type] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaBrowserToolset20260801Type SDK namespace.
+  module BetaBrowserToolset20260801Type
+    BROWSER_TOOLSET_20260801 = 'browser_toolset_20260801'
+    VALUES = ['browser_toolset_20260801'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserToolset20260801Metadata
-  FIELDS = {
-    cache_control: "cache_control",
-    configs: "configs",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    configs: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserToolsetConfigs.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserToolset20260801Type.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserToolset20260801.
-# The browser toolset: a single ``tools[]`` entry (carrying no ``name``) that declares the browser tool family. The model is served the family's tool with any members disabled via ``configs`` removed from its schema.
-class BetaBrowserToolset20260801
-  include BetaCountMessageTokensParamsToolsItem
-  include BetaCreateMessageParamsToolsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserToolset20260801Metadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserToolset20260801Metadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserToolset20260801Metadata::DECODERS
-
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [BetaBrowserToolsetConfigs] Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
-  attr_reader :configs
-  # @return [BetaBrowserToolset20260801Type] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaBrowserToolset20260801Type', 'enum', "Unknown BetaBrowserToolset20260801Type: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserToolsetConfigsMetadata
+    FIELDS = {
+      close_tab: 'close_tab',
+      double_click: 'double_click',
+      file_upload: 'file_upload',
+      find: 'find',
+      form_input: 'form_input',
+      get_page_text: 'get_page_text',
+      hold_key: 'hold_key',
+      hover: 'hover',
+      javascript_exec: 'javascript_exec',
+      key: 'key',
+      left_click: 'left_click',
+      left_click_drag: 'left_click_drag',
+      left_mouse_down: 'left_mouse_down',
+      left_mouse_up: 'left_mouse_up',
+      list_tabs: 'list_tabs',
+      middle_click: 'middle_click',
+      mouse_move: 'mouse_move',
+      navigate: 'navigate',
+      new_tab: 'new_tab',
+      read_console: 'read_console',
+      read_network: 'read_network',
+      read_page: 'read_page',
+      right_click: 'right_click',
+      screenshot: 'screenshot',
+      scroll: 'scroll',
+      scroll_to: 'scroll_to',
+      switch_tab: 'switch_tab',
+      triple_click: 'triple_click',
+      type: 'type',
+      wait: 'wait',
+      zoom: 'zoom'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      close_tab: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserCloseTabConfig.from_hash(value)
+      end,
+      double_click: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserDoubleClickConfig.from_hash(value)
+      end,
+      file_upload: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserFileUploadConfig.from_hash(value)
+      end,
+      find: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserFindConfig.from_hash(value)
+      end,
+      form_input: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserFormInputConfig.from_hash(value)
+      end,
+      get_page_text: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserGetPageTextConfig.from_hash(value)
+      end,
+      hold_key: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserHoldKeyConfig.from_hash(value)
+      end,
+      hover: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserHoverConfig.from_hash(value)
+      end,
+      javascript_exec: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserJavascriptExecConfig.from_hash(value)
+      end,
+      key: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserKeyConfig.from_hash(value)
+      end,
+      left_click: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserLeftClickConfig.from_hash(value)
+      end,
+      left_click_drag: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserLeftClickDragConfig.from_hash(value)
+      end,
+      left_mouse_down: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserLeftMouseDownConfig.from_hash(value)
+      end,
+      left_mouse_up: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserLeftMouseUpConfig.from_hash(value)
+      end,
+      list_tabs: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserListTabsConfig.from_hash(value)
+      end,
+      middle_click: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserMiddleClickConfig.from_hash(value)
+      end,
+      mouse_move: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserMouseMoveConfig.from_hash(value)
+      end,
+      navigate: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserNavigateConfig.from_hash(value)
+      end,
+      new_tab: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserNewTabConfig.from_hash(value)
+      end,
+      read_console: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserReadConsoleConfig.from_hash(value)
+      end,
+      read_network: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserReadNetworkConfig.from_hash(value)
+      end,
+      read_page: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserReadPageConfig.from_hash(value)
+      end,
+      right_click: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserRightClickConfig.from_hash(value)
+      end,
+      screenshot: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserScreenshotConfig.from_hash(value)
+      end,
+      scroll: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserScrollConfig.from_hash(value)
+      end,
+      scroll_to: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserScrollToConfig.from_hash(value)
+      end,
+      switch_tab: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserSwitchTabConfig.from_hash(value)
+      end,
+      triple_click: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserTripleClickConfig.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserTypeConfig.from_hash(value)
+      end,
+      wait: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserWaitConfig.from_hash(value)
+      end,
+      zoom: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserZoomConfig.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserToolsetConfigs.
+  # Per-member configuration for ``browser_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
+  class BetaBrowserToolsetConfigs
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserToolsetConfigsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserToolsetConfigsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserToolsetConfigsMetadata::DECODERS
+
+    # @return [BetaBrowserCloseTabConfig] Optional API value serialized in the `close_tab` wire field.
+    attr_reader :close_tab
+    # @return [BetaBrowserDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
+    attr_reader :double_click
+    # @return [BetaBrowserFileUploadConfig] Optional API value serialized in the `file_upload` wire field.
+    attr_reader :file_upload
+    # @return [BetaBrowserFindConfig] Optional API value serialized in the `find` wire field.
+    attr_reader :find
+    # @return [BetaBrowserFormInputConfig] Optional API value serialized in the `form_input` wire field.
+    attr_reader :form_input
+    # @return [BetaBrowserGetPageTextConfig] Optional API value serialized in the `get_page_text` wire field.
+    attr_reader :get_page_text
+    # @return [BetaBrowserHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
+    attr_reader :hold_key
+    # @return [BetaBrowserHoverConfig] Optional API value serialized in the `hover` wire field.
+    attr_reader :hover
+    # @return [BetaBrowserJavascriptExecConfig] Optional API value serialized in the `javascript_exec` wire field.
+    attr_reader :javascript_exec
+    # @return [BetaBrowserKeyConfig] Optional API value serialized in the `key` wire field.
+    attr_reader :key
+    # @return [BetaBrowserLeftClickConfig] Optional API value serialized in the `left_click` wire field.
+    attr_reader :left_click
+    # @return [BetaBrowserLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
+    attr_reader :left_click_drag
+    # @return [BetaBrowserLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
+    attr_reader :left_mouse_down
+    # @return [BetaBrowserLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
+    attr_reader :left_mouse_up
+    # @return [BetaBrowserListTabsConfig] Optional API value serialized in the `list_tabs` wire field.
+    attr_reader :list_tabs
+    # @return [BetaBrowserMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
+    attr_reader :middle_click
+    # @return [BetaBrowserMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
+    attr_reader :mouse_move
+    # @return [BetaBrowserNavigateConfig] Optional API value serialized in the `navigate` wire field.
+    attr_reader :navigate
+    # @return [BetaBrowserNewTabConfig] Optional API value serialized in the `new_tab` wire field.
+    attr_reader :new_tab
+    # @return [BetaBrowserReadConsoleConfig] Optional API value serialized in the `read_console` wire field.
+    attr_reader :read_console
+    # @return [BetaBrowserReadNetworkConfig] Optional API value serialized in the `read_network` wire field.
+    attr_reader :read_network
+    # @return [BetaBrowserReadPageConfig] Optional API value serialized in the `read_page` wire field.
+    attr_reader :read_page
+    # @return [BetaBrowserRightClickConfig] Optional API value serialized in the `right_click` wire field.
+    attr_reader :right_click
+    # @return [BetaBrowserScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
+    attr_reader :screenshot
+    # @return [BetaBrowserScrollConfig] Optional API value serialized in the `scroll` wire field.
+    attr_reader :scroll
+    # @return [BetaBrowserScrollToConfig] Optional API value serialized in the `scroll_to` wire field.
+    attr_reader :scroll_to
+    # @return [BetaBrowserSwitchTabConfig] Optional API value serialized in the `switch_tab` wire field.
+    attr_reader :switch_tab
+    # @return [BetaBrowserTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
+    attr_reader :triple_click
+    # @return [BetaBrowserTypeConfig] Optional API value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaBrowserWaitConfig] Optional API value serialized in the `wait` wire field.
+    attr_reader :wait
+    # @return [BetaBrowserZoomConfig] Optional API value serialized in the `zoom` wire field.
+    attr_reader :zoom
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaBrowserToolset20260801Type SDK namespace.
-module BetaBrowserToolset20260801Type
-  BROWSER_TOOLSET_20260801 = 'browser_toolset_20260801'
-  VALUES = ['browser_toolset_20260801'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaBrowserToolset20260801Type', 'enum', "Unknown BetaBrowserToolset20260801Type: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserToolsetConfigsMetadata
-  FIELDS = {
-    close_tab: "close_tab",
-    double_click: "double_click",
-    file_upload: "file_upload",
-    find: "find",
-    form_input: "form_input",
-    get_page_text: "get_page_text",
-    hold_key: "hold_key",
-    hover: "hover",
-    javascript_exec: "javascript_exec",
-    key: "key",
-    left_click: "left_click",
-    left_click_drag: "left_click_drag",
-    left_mouse_down: "left_mouse_down",
-    left_mouse_up: "left_mouse_up",
-    list_tabs: "list_tabs",
-    middle_click: "middle_click",
-    mouse_move: "mouse_move",
-    navigate: "navigate",
-    new_tab: "new_tab",
-    read_console: "read_console",
-    read_network: "read_network",
-    read_page: "read_page",
-    right_click: "right_click",
-    screenshot: "screenshot",
-    scroll: "scroll",
-    scroll_to: "scroll_to",
-    switch_tab: "switch_tab",
-    triple_click: "triple_click",
-    type: "type",
-    wait: "wait",
-    zoom: "zoom",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    close_tab: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserCloseTabConfig.from_hash(value)
-    end,
-    double_click: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserDoubleClickConfig.from_hash(value)
-    end,
-    file_upload: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserFileUploadConfig.from_hash(value)
-    end,
-    find: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserFindConfig.from_hash(value)
-    end,
-    form_input: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserFormInputConfig.from_hash(value)
-    end,
-    get_page_text: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserGetPageTextConfig.from_hash(value)
-    end,
-    hold_key: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserHoldKeyConfig.from_hash(value)
-    end,
-    hover: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserHoverConfig.from_hash(value)
-    end,
-    javascript_exec: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserJavascriptExecConfig.from_hash(value)
-    end,
-    key: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserKeyConfig.from_hash(value)
-    end,
-    left_click: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserLeftClickConfig.from_hash(value)
-    end,
-    left_click_drag: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserLeftClickDragConfig.from_hash(value)
-    end,
-    left_mouse_down: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserLeftMouseDownConfig.from_hash(value)
-    end,
-    left_mouse_up: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserLeftMouseUpConfig.from_hash(value)
-    end,
-    list_tabs: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserListTabsConfig.from_hash(value)
-    end,
-    middle_click: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserMiddleClickConfig.from_hash(value)
-    end,
-    mouse_move: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserMouseMoveConfig.from_hash(value)
-    end,
-    navigate: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserNavigateConfig.from_hash(value)
-    end,
-    new_tab: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserNewTabConfig.from_hash(value)
-    end,
-    read_console: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserReadConsoleConfig.from_hash(value)
-    end,
-    read_network: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserReadNetworkConfig.from_hash(value)
-    end,
-    read_page: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserReadPageConfig.from_hash(value)
-    end,
-    right_click: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserRightClickConfig.from_hash(value)
-    end,
-    screenshot: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserScreenshotConfig.from_hash(value)
-    end,
-    scroll: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserScrollConfig.from_hash(value)
-    end,
-    scroll_to: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserScrollToConfig.from_hash(value)
-    end,
-    switch_tab: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserSwitchTabConfig.from_hash(value)
-    end,
-    triple_click: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserTripleClickConfig.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserTypeConfig.from_hash(value)
-    end,
-    wait: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserWaitConfig.from_hash(value)
-    end,
-    zoom: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserZoomConfig.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserToolsetConfigs.
-# Per-member configuration for ``browser_toolset_20260801``: one optional field per member tool, keyed by the member name — the same name the member's ``tool_use`` blocks carry. Every member is an accepted key, and a member's defaults apply wherever its key is absent. Unknown keys are rejected: the field set is this toolset version's complete member set.
-class BetaBrowserToolsetConfigs
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserToolsetConfigsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserToolsetConfigsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserToolsetConfigsMetadata::DECODERS
-
-  # @return [BetaBrowserCloseTabConfig] Optional API value serialized in the `close_tab` wire field.
-  attr_reader :close_tab
-  # @return [BetaBrowserDoubleClickConfig] Optional API value serialized in the `double_click` wire field.
-  attr_reader :double_click
-  # @return [BetaBrowserFileUploadConfig] Optional API value serialized in the `file_upload` wire field.
-  attr_reader :file_upload
-  # @return [BetaBrowserFindConfig] Optional API value serialized in the `find` wire field.
-  attr_reader :find
-  # @return [BetaBrowserFormInputConfig] Optional API value serialized in the `form_input` wire field.
-  attr_reader :form_input
-  # @return [BetaBrowserGetPageTextConfig] Optional API value serialized in the `get_page_text` wire field.
-  attr_reader :get_page_text
-  # @return [BetaBrowserHoldKeyConfig] Optional API value serialized in the `hold_key` wire field.
-  attr_reader :hold_key
-  # @return [BetaBrowserHoverConfig] Optional API value serialized in the `hover` wire field.
-  attr_reader :hover
-  # @return [BetaBrowserJavascriptExecConfig] Optional API value serialized in the `javascript_exec` wire field.
-  attr_reader :javascript_exec
-  # @return [BetaBrowserKeyConfig] Optional API value serialized in the `key` wire field.
-  attr_reader :key
-  # @return [BetaBrowserLeftClickConfig] Optional API value serialized in the `left_click` wire field.
-  attr_reader :left_click
-  # @return [BetaBrowserLeftClickDragConfig] Optional API value serialized in the `left_click_drag` wire field.
-  attr_reader :left_click_drag
-  # @return [BetaBrowserLeftMouseDownConfig] Optional API value serialized in the `left_mouse_down` wire field.
-  attr_reader :left_mouse_down
-  # @return [BetaBrowserLeftMouseUpConfig] Optional API value serialized in the `left_mouse_up` wire field.
-  attr_reader :left_mouse_up
-  # @return [BetaBrowserListTabsConfig] Optional API value serialized in the `list_tabs` wire field.
-  attr_reader :list_tabs
-  # @return [BetaBrowserMiddleClickConfig] Optional API value serialized in the `middle_click` wire field.
-  attr_reader :middle_click
-  # @return [BetaBrowserMouseMoveConfig] Optional API value serialized in the `mouse_move` wire field.
-  attr_reader :mouse_move
-  # @return [BetaBrowserNavigateConfig] Optional API value serialized in the `navigate` wire field.
-  attr_reader :navigate
-  # @return [BetaBrowserNewTabConfig] Optional API value serialized in the `new_tab` wire field.
-  attr_reader :new_tab
-  # @return [BetaBrowserReadConsoleConfig] Optional API value serialized in the `read_console` wire field.
-  attr_reader :read_console
-  # @return [BetaBrowserReadNetworkConfig] Optional API value serialized in the `read_network` wire field.
-  attr_reader :read_network
-  # @return [BetaBrowserReadPageConfig] Optional API value serialized in the `read_page` wire field.
-  attr_reader :read_page
-  # @return [BetaBrowserRightClickConfig] Optional API value serialized in the `right_click` wire field.
-  attr_reader :right_click
-  # @return [BetaBrowserScreenshotConfig] Optional API value serialized in the `screenshot` wire field.
-  attr_reader :screenshot
-  # @return [BetaBrowserScrollConfig] Optional API value serialized in the `scroll` wire field.
-  attr_reader :scroll
-  # @return [BetaBrowserScrollToConfig] Optional API value serialized in the `scroll_to` wire field.
-  attr_reader :scroll_to
-  # @return [BetaBrowserSwitchTabConfig] Optional API value serialized in the `switch_tab` wire field.
-  attr_reader :switch_tab
-  # @return [BetaBrowserTripleClickConfig] Optional API value serialized in the `triple_click` wire field.
-  attr_reader :triple_click
-  # @return [BetaBrowserTypeConfig] Optional API value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaBrowserWaitConfig] Optional API value serialized in the `wait` wire field.
-  attr_reader :wait
-  # @return [BetaBrowserZoomConfig] Optional API value serialized in the `zoom` wire field.
-  attr_reader :zoom
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserTripleClickConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserTripleClickConfig.
+  # ``triple_click``'s config overrides.
+  class BetaBrowserTripleClickConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserTripleClickConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserTripleClickConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserTripleClickConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserTypeConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaBrowserTypeConfig.
+  # ``type``'s config overrides.
+  class BetaBrowserTypeConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserTypeConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserTypeConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserTypeConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserTripleClickConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaBrowserTripleClickConfig.
-# ``triple_click``'s config overrides.
-class BetaBrowserTripleClickConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserTripleClickConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserTripleClickConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserTripleClickConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserWaitConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserWaitConfig.
+  # ``wait``'s config overrides.
+  class BetaBrowserWaitConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserWaitConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserWaitConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserWaitConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserTypeConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserTypeConfig.
-# ``type``'s config overrides.
-class BetaBrowserTypeConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserTypeConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserTypeConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserTypeConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserZoomConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserZoomConfig.
+  # ``zoom``'s config overrides.
+  class BetaBrowserZoomConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserZoomConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserZoomConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserZoomConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserWaitConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserWaitConfig.
-# ``wait``'s config overrides.
-class BetaBrowserWaitConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserWaitConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserWaitConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserWaitConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserZoomConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserZoomConfig.
-# ``zoom``'s config overrides.
-class BetaBrowserZoomConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserZoomConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserZoomConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserZoomConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
 end

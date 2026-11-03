@@ -5,23 +5,23 @@
 
 # misc domain models
 module OctridevAnthropic
-# Defines the ErrorType SDK namespace.
-module ErrorType
-  INVALID_REQUEST_ERROR = 'invalid_request_error'
-  AUTHENTICATION_ERROR = 'authentication_error'
-  PERMISSION_ERROR = 'permission_error'
-  NOT_FOUND_ERROR = 'not_found_error'
-  RATE_LIMIT_ERROR = 'rate_limit_error'
-  TIMEOUT_ERROR = 'timeout_error'
-  OVERLOADED_ERROR = 'overloaded_error'
-  API_ERROR = 'api_error'
-  BILLING_ERROR = 'billing_error'
-  VALUES = [
-    'invalid_request_error', 'authentication_error', 'permission_error', 'not_found_error',
-    'rate_limit_error', 'timeout_error', 'overloaded_error', 'api_error', 'billing_error'
-  ].freeze
-  def self.from_value(value)
-    value
+  # Defines the ErrorType SDK namespace.
+  module ErrorType
+    INVALID_REQUEST_ERROR = 'invalid_request_error'
+    AUTHENTICATION_ERROR = 'authentication_error'
+    PERMISSION_ERROR = 'permission_error'
+    NOT_FOUND_ERROR = 'not_found_error'
+    RATE_LIMIT_ERROR = 'rate_limit_error'
+    TIMEOUT_ERROR = 'timeout_error'
+    OVERLOADED_ERROR = 'overloaded_error'
+    API_ERROR = 'api_error'
+    BILLING_ERROR = 'billing_error'
+    VALUES = %w[
+      invalid_request_error authentication_error permission_error not_found_error
+      rate_limit_error timeout_error overloaded_error api_error billing_error
+    ].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 end

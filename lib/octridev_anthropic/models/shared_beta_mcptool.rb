@@ -5,89 +5,85 @@
 
 # shared_beta_mcptool domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaMCPToolConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaMCPToolConfig.
-# Configuration for a specific tool in an MCP toolset.
-class BetaMCPToolConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMCPToolConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMCPToolConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMCPToolConfigMetadata::DECODERS
-
-  # @return [Boolean] Optional `boolean` value serialized in the `defer_loading` wire field.
-  attr_reader :defer_loading
-  # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaMCPToolConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaMCPToolConfig.
+  # Configuration for a specific tool in an MCP toolset.
+  class BetaMCPToolConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMCPToolConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMCPToolConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMCPToolConfigMetadata::DECODERS
+
+    # @return [Boolean] Optional `boolean` value serialized in the `defer_loading` wire field.
+    attr_reader :defer_loading
+    # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaMCPToolDefaultConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
+  # API model for BetaMCPToolDefaultConfig.
+  # Default configuration for tools in an MCP toolset.
+  class BetaMCPToolDefaultConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaMCPToolDefaultConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaMCPToolDefaultConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaMCPToolDefaultConfigMetadata::DECODERS
+
+    # @return [Boolean] Optional `boolean` value serialized in the `defer_loading` wire field.
+    attr_reader :defer_loading
+    # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaMCPToolDefaultConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaMCPToolDefaultConfig.
-# Default configuration for tools in an MCP toolset.
-class BetaMCPToolDefaultConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaMCPToolDefaultConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaMCPToolDefaultConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaMCPToolDefaultConfigMetadata::DECODERS
-
-  # @return [Boolean] Optional `boolean` value serialized in the `defer_loading` wire field.
-  attr_reader :defer_loading
-  # @return [Boolean] Optional `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
 end

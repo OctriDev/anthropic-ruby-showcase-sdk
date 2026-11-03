@@ -42,26 +42,25 @@ module OctridevAnthropic
         metadata: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
-          "/v1/user_profiles?beta=true",
+          '/v1/user_profiles?beta=true',
           config: config,
           body: {
             'external_id' => external_id,
             'name' => name,
             'access_type' => access_type,
             'external_user_onboarded_at' => external_user_onboarded_at,
-            'metadata' => metadata,
+            'metadata' => metadata
           },
           return_type: ::OctridevAnthropic::BetaUserProfile,
           decoder: :json,
           operation_id: 'create_beta_user_profiles',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
@@ -80,29 +79,28 @@ module OctridevAnthropic
         anthropic_beta: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
-          "/v1/user_profiles?beta=true",
+          '/v1/user_profiles?beta=true',
           config: config,
           query: {
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
             'page' => QueryValue.new(page, style: 'form', explode: true),
             'order' => QueryValue.new(order, style: 'form', explode: true),
-            'order_by' => QueryValue.new(order_by, style: 'form', explode: true),
+            'order_by' => QueryValue.new(order_by, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaListUserProfilesResponse,
           decoder: :json,
           operation_id: 'list_beta_user_profiles',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
-    ListBetaUserProfilesPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      ListBetaUserProfilesPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Lists user profiles with cursor-based pagination. Use `order` and `order_by` to control result ordering, and pass the returned `next_page` value as `page` to retrieve the next page.
       #
@@ -133,9 +131,11 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -164,10 +164,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << ListBetaUserProfilesPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end
@@ -182,23 +184,22 @@ module OctridevAnthropic
         anthropic_beta: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'GET',
           [
-            "/v1/user_profiles/",
+            '/v1/user_profiles/',
             SdkClient.encode_path_segment(user_profile_id),
-            "?beta=true"
+            '?beta=true'
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::BetaUserProfile,
           decoder: :json,
           operation_id: 'retrieve_beta_user_profiles',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
@@ -233,13 +234,12 @@ module OctridevAnthropic
         external_user_onboarded_at: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/v1/user_profiles/",
+            '/v1/user_profiles/',
             SdkClient.encode_path_segment(user_profile_id),
-            "?beta=true"
+            '?beta=true'
           ].join,
           config: config,
           body: {
@@ -247,16 +247,16 @@ module OctridevAnthropic
             'metadata' => metadata,
             'name' => name,
             'access_type' => access_type,
-            'external_user_onboarded_at' => external_user_onboarded_at,
+            'external_user_onboarded_at' => external_user_onboarded_at
           },
           return_type: ::OctridevAnthropic::BetaUserProfile,
           decoder: :json,
           operation_id: 'update_beta_user_profiles',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
@@ -269,23 +269,22 @@ module OctridevAnthropic
         anthropic_beta: NOT_GIVEN,
         request_options: nil
       )
-
         SdkClient.request(
           'POST',
           [
-            "/v1/user_profiles/",
+            '/v1/user_profiles/',
             SdkClient.encode_path_segment(user_profile_id),
-            "/enrollment_url?beta=true"
+            '/enrollment_url?beta=true'
           ].join,
           config: config,
           return_type: ::OctridevAnthropic::BetaEnrollmentUrl,
           decoder: :json,
           operation_id: 'create_beta_user_profiles_enrollment_url',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
     end

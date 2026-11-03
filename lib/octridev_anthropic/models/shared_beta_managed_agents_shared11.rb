@@ -5,683 +5,690 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-# Defines the BetaManagedAgentsMcpEgressBlockedRunErrorType SDK namespace.
-module BetaManagedAgentsMcpEgressBlockedRunErrorType
-  MCP_EGRESS_BLOCKED_ERROR = 'mcp_egress_blocked_error'
-  VALUES = ['mcp_egress_blocked_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # Defines the BetaManagedAgentsMcpEgressBlockedRunErrorType SDK namespace.
+  module BetaManagedAgentsMcpEgressBlockedRunErrorType
+    MCP_EGRESS_BLOCKED_ERROR = 'mcp_egress_blocked_error'
+    VALUES = ['mcp_egress_blocked_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-    raise SdkValidationError.new('BetaManagedAgentsMcpEgressBlockedRunErrorType', 'enum', "Unknown BetaManagedAgentsMcpEgressBlockedRunErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata
-  FIELDS = {
-    type: "type",
-    mcp_server_url: "mcp_server_url",
-    expires_at: "expires_at",
-    refresh: "refresh",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    mcp_server_url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthAuthResponseType.from_value(value)
-    end,
-    expires_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    refresh: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshResponse.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpOauthAuthResponse.
-# OAuth credential details for an MCP server.
-class BetaManagedAgentsMcpOauthAuthResponse
-  include BetaManagedAgentsCredentialAuth
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpOauthAuthResponseType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] URL of the MCP server this credential authenticates against.
-  attr_reader :mcp_server_url
-  # @return [BetaTimestamp] Optional API value serialized in the `expires_at` wire field.
-  attr_reader :expires_at
-  # @return [BetaManagedAgentsMcpOauthRefreshResponse] Refresh token configuration, if the credential supports token refresh.
-  attr_reader :refresh
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpEgressBlockedRunErrorType', 'enum', "Unknown BetaManagedAgentsMcpEgressBlockedRunErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata
+    FIELDS = {
+      type: 'type',
+      mcp_server_url: 'mcp_server_url',
+      expires_at: 'expires_at',
+      refresh: 'refresh'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      mcp_server_url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthAuthResponseType.from_value(value)
+      end,
+      expires_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      refresh: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshResponse.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMcpOauthAuthResponse.
+  # OAuth credential details for an MCP server.
+  class BetaManagedAgentsMcpOauthAuthResponse
+    include BetaManagedAgentsCredentialAuth
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpOauthAuthResponseMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpOauthAuthResponseType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] URL of the MCP server this credential authenticates against.
+    attr_reader :mcp_server_url
+    # @return [BetaTimestamp] Optional API value serialized in the `expires_at` wire field.
+    attr_reader :expires_at
+    # @return [BetaManagedAgentsMcpOauthRefreshResponse] Refresh token configuration, if the credential supports token refresh.
+    attr_reader :refresh
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMcpOauthAuthResponseType SDK namespace.
+  module BetaManagedAgentsMcpOauthAuthResponseType
+    MCP_OAUTH = 'mcp_oauth'
+    VALUES = ['mcp_oauth'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMcpOauthAuthResponseType SDK namespace.
-module BetaManagedAgentsMcpOauthAuthResponseType
-  MCP_OAUTH = 'mcp_oauth'
-  VALUES = ['mcp_oauth'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpOauthAuthResponseType', 'enum', "Unknown BetaManagedAgentsMcpOauthAuthResponseType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata
-  FIELDS = {
-    token_endpoint: "token_endpoint",
-    client_id: "client_id",
-    resource: "resource",
-    scope: "scope",
-    token_endpoint_auth: "token_endpoint_auth",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    token_endpoint
-    client_id
-    token_endpoint_auth
-  ].freeze
-  DECODERS = {
-    token_endpoint_auth: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpOauthRefreshResponse.
-# OAuth refresh token configuration returned in credential responses.
-class BetaManagedAgentsMcpOauthRefreshResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::DECODERS
-
-  # @return [String] Token endpoint URL used to refresh the access token.
-  attr_reader :token_endpoint
-  # @return [String] OAuth client ID.
-  attr_reader :client_id
-  # @return [String] OAuth resource indicator.
-  attr_reader :resource
-  # @return [String] OAuth scope for the refresh request.
-  attr_reader :scope
-  # @return [BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth] Required object value serialized in the `token_endpoint_auth` wire field.
-  attr_reader :token_endpoint_auth
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpOauthAuthResponseType', 'enum', "Unknown BetaManagedAgentsMcpOauthAuthResponseType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata
+    FIELDS = {
+      token_endpoint: 'token_endpoint',
+      client_id: 'client_id',
+      resource: 'resource',
+      scope: 'scope',
+      token_endpoint_auth: 'token_endpoint_auth'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      token_endpoint
+      client_id
+      token_endpoint_auth
+    ].freeze
+    DECODERS = {
+      token_endpoint_auth: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMcpOauthRefreshResponse.
+  # OAuth refresh token configuration returned in credential responses.
+  class BetaManagedAgentsMcpOauthRefreshResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpOauthRefreshResponseMetadata::DECODERS
+
+    # @return [String] Token endpoint URL used to refresh the access token.
+    attr_reader :token_endpoint
+    # @return [String] OAuth client ID.
+    attr_reader :client_id
+    # @return [String] OAuth resource indicator.
+    attr_reader :resource
+    # @return [String] OAuth scope for the refresh request.
+    attr_reader :scope
+    # @return [BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth] Required object value serialized in the `token_endpoint_auth` wire field.
+    attr_reader :token_endpoint_auth
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth SDK namespace.
+  module BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth
+    DISCRIMINATOR_MAPPING = {
+      'none' => -> { BetaManagedAgentsTokenEndpointAuthNoneResponse },
+      'client_secret_basic' => -> { BetaManagedAgentsTokenEndpointAuthBasicResponse },
+      'client_secret_post' => -> { BetaManagedAgentsTokenEndpointAuthPostResponse }
+    }.freeze
 
-# Defines the BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth SDK namespace.
-module BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth
-  DISCRIMINATOR_MAPPING = {
-    "none" => -> { BetaManagedAgentsTokenEndpointAuthNoneResponse },
-    "client_secret_basic" => -> { BetaManagedAgentsTokenEndpointAuthBasicResponse },
-    "client_secret_post" => -> { BetaManagedAgentsTokenEndpointAuthPostResponse },
-  }.freeze
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-    raise SdkValidationError.new('BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth', 'variant', "Unknown BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsMCPServer SDK namespace.
-module BetaManagedAgentsMCPServer
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "url" => BetaManagedAgentsMCPServerURLDefinition }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMCPServer', 'variant', "Unknown BetaManagedAgentsMCPServer discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaManagedAgentsMCPServerParams SDK namespace.
-module BetaManagedAgentsMCPServerParams
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    mapping = { "url" => BetaManagedAgentsURLMCPServerParams }
-    type = mapping[hash["type"]]
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsMCPServerParams', 'variant', "Unknown BetaManagedAgentsMCPServerParams discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata
-  FIELDS = {
-    type: "type",
-    name: "name",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    name
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMCPServerURLDefinitionType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMCPServerURLDefinition.
-# URL-based MCP server connection as returned in API responses.
-class BetaManagedAgentsMCPServerURLDefinition
-  include BetaManagedAgentsMCPServer
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMCPServerURLDefinitionType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth', 'variant', "Unknown BetaManagedAgentsMcpOauthRefreshResponseTokenEndpointAuth discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsMCPServer SDK namespace.
+  module BetaManagedAgentsMCPServer
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'url' => BetaManagedAgentsMCPServerURLDefinition }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsMCPServer', 'variant', "Unknown BetaManagedAgentsMCPServer discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMCPServerParams SDK namespace.
+  module BetaManagedAgentsMCPServerParams
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      mapping = { 'url' => BetaManagedAgentsURLMCPServerParams }
+      type = mapping[hash['type']]
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaManagedAgentsMCPServerParams', 'variant', "Unknown BetaManagedAgentsMCPServerParams discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsMCPServerURLDefinitionType SDK namespace.
-module BetaManagedAgentsMCPServerURLDefinitionType
-  URL = 'url'
-  VALUES = ['url'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMCPServerURLDefinitionType', 'enum', "Unknown BetaManagedAgentsMCPServerURLDefinitionType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolConfigMetadata
-  FIELDS = {
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMCPToolConfig.
-# Resolved configuration for a specific MCP tool.
-class BetaManagedAgentsMCPToolConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::DECODERS
-
-  # @return [String] Required `string` value serialized in the `name` wire field.
-  attr_reader :name
-  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata
+    FIELDS = {
+      type: 'type',
+      name: 'name',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      name
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMCPServerURLDefinitionType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMCPServerURLDefinition.
+  # URL-based MCP server connection as returned in API responses.
+  class BetaManagedAgentsMCPServerURLDefinition
+    include BetaManagedAgentsMCPServer
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPServerURLDefinitionMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMCPServerURLDefinitionType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsMCPServerURLDefinitionType SDK namespace.
+  module BetaManagedAgentsMCPServerURLDefinitionType
+    URL = 'url'
+    VALUES = ['url'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsMCPServerURLDefinitionType', 'enum', "Unknown BetaManagedAgentsMCPServerURLDefinitionType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata
-  FIELDS = {
-    name: "name",
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    name
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMCPToolConfigParams.
-# Configuration override for a specific MCP tool.
-class BetaManagedAgentsMCPToolConfigParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::DECODERS
-
-  # @return [String] Name of the MCP tool to configure. 1-128 characters.
-  attr_reader :name
-  # @return [Boolean] Whether this tool is enabled. Overrides the `default_config` setting.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Overrides the `default_config` setting.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolConfigMetadata
+    FIELDS = {
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMCPToolConfig.
+  # Resolved configuration for a specific MCP tool.
+  class BetaManagedAgentsMCPToolConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolConfigMetadata::DECODERS
+
+    # @return [String] Required `string` value serialized in the `name` wire field.
+    attr_reader :name
+    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+    attr_reader :permission_policy
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata
+    FIELDS = {
+      name: 'name',
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      name
+    ].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaManagedAgentsMCPToolConfigParams.
+  # Configuration override for a specific MCP tool.
+  class BetaManagedAgentsMCPToolConfigParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolConfigParamsMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolsetMetadata
-  FIELDS = {
-    type: "type",
-    mcp_server_name: "mcp_server_name",
-    default_config: "default_config",
-    configs: "configs",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    mcp_server_name
-    default_config
-    configs
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetType.from_value(value)
-    end,
-    default_config: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfig.from_hash(value)
-    end,
-    configs: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfig.from_hash(item) }
-    end,
-  }.freeze
-end
+    # @return [String] Name of the MCP tool to configure. 1-128 characters.
+    attr_reader :name
+    # @return [Boolean] Whether this tool is enabled. Overrides the `default_config` setting.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Overrides the `default_config` setting.
+    attr_reader :permission_policy
 
-# API model for BetaManagedAgentsMCPToolset.
-# Typed representation of the `BetaManagedAgentsMCPToolset` API schema.
-class BetaManagedAgentsMCPToolset
-  include BetaManagedAgentsAgentTool
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [BetaManagedAgentsMCPToolsetType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `mcp_server_name` wire field.
-  attr_reader :mcp_server_name
-  # @return [BetaManagedAgentsMCPToolsetDefaultConfig] Resolved default configuration for all tools from an MCP server.
-  attr_reader :default_config
-  # @return [Array_of_BetaManagedAgentsMCPToolConfig] Required array value serialized in the `configs` wire field.
-  attr_reader :configs
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolsetMetadata
+    FIELDS = {
+      type: 'type',
+      mcp_server_name: 'mcp_server_name',
+      default_config: 'default_config',
+      configs: 'configs'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      mcp_server_name
+      default_config
+      configs
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetType.from_value(value)
+      end,
+      default_config: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfig.from_hash(value)
+      end,
+      configs: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfig.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMCPToolset.
+  # Typed representation of the `BetaManagedAgentsMCPToolset` API schema.
+  class BetaManagedAgentsMCPToolset
+    include BetaManagedAgentsAgentTool
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMCPToolsetType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `mcp_server_name` wire field.
+    attr_reader :mcp_server_name
+    # @return [BetaManagedAgentsMCPToolsetDefaultConfig] Resolved default configuration for all tools from an MCP server.
+    attr_reader :default_config
+    # @return [Array_of_BetaManagedAgentsMCPToolConfig] Required array value serialized in the `configs` wire field.
+    attr_reader :configs
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMCPToolsetType SDK namespace.
+  module BetaManagedAgentsMCPToolsetType
+    MCP_TOOLSET = 'mcp_toolset'
+    VALUES = ['mcp_toolset'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMCPToolsetType SDK namespace.
-module BetaManagedAgentsMCPToolsetType
-  MCP_TOOLSET = 'mcp_toolset'
-  VALUES = ['mcp_toolset'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMCPToolsetType', 'enum', "Unknown BetaManagedAgentsMCPToolsetType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata
-  FIELDS = {
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    enabled
-    permission_policy
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMCPToolsetDefaultConfig.
-# Resolved default configuration for all tools from an MCP server.
-class BetaManagedAgentsMCPToolsetDefaultConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::DECODERS
-
-  # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMCPToolsetType', 'enum', "Unknown BetaManagedAgentsMCPToolsetType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata
+    FIELDS = {
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      enabled
+      permission_policy
+    ].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMCPToolsetDefaultConfig.
+  # Resolved default configuration for all tools from an MCP server.
+  class BetaManagedAgentsMCPToolsetDefaultConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigMetadata::DECODERS
+
+    # @return [Boolean] Required `boolean` value serialized in the `enabled` wire field.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for tool execution.
+    attr_reader :permission_policy
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata
-  FIELDS = {
-    enabled: "enabled",
-    permission_policy: "permission_policy",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-    permission_policy: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMCPToolsetDefaultConfigParams.
-# Default configuration for all tools from an MCP server.
-class BetaManagedAgentsMCPToolsetDefaultConfigParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::DECODERS
-
-  # @return [Boolean] Whether tools are enabled by default. Defaults to true if not specified.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools from this server.
-  attr_reader :permission_policy
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata
+    FIELDS = {
+      enabled: 'enabled',
+      permission_policy: 'permission_policy'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {
+      permission_policy: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsPermissionPolicy.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsMCPToolsetDefaultConfigParams.
+  # Default configuration for all tools from an MCP server.
+  class BetaManagedAgentsMCPToolsetDefaultConfigParams
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetDefaultConfigParamsMetadata::DECODERS
+
+    # @return [Boolean] Whether tools are enabled by default. Defaults to true if not specified.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Default permission policy for tools from this server.
+    attr_reader :permission_policy
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata
+    FIELDS = {
+      type: 'type',
+      mcp_server_name: 'mcp_server_name',
+      default_config: 'default_config',
+      configs: 'configs'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      mcp_server_name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetParamsType.from_value(value)
+      end,
+      default_config: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfigParams.from_hash(value)
+      end,
+      configs: lambda do |value|
+        value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfigParams.from_hash(item) }
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaManagedAgentsMCPToolsetParams.
+  # Configuration for tools from an MCP server defined in `mcp_servers`.
+  class BetaManagedAgentsMCPToolsetParams
+    include BetaManagedAgentsAgentToolParams
 
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata
-  FIELDS = {
-    type: "type",
-    mcp_server_name: "mcp_server_name",
-    default_config: "default_config",
-    configs: "configs",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    mcp_server_name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetParamsType.from_value(value)
-    end,
-    default_config: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMCPToolsetDefaultConfigParams.from_hash(value)
-    end,
-    configs: lambda do |value|
-      value&.map { |item| ::OctridevAnthropic::BetaManagedAgentsMCPToolConfigParams.from_hash(item) }
-    end,
-  }.freeze
-end
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::DECODERS
 
-# API model for BetaManagedAgentsMCPToolsetParams.
-# Configuration for tools from an MCP server defined in `mcp_servers`.
-class BetaManagedAgentsMCPToolsetParams
-  include BetaManagedAgentsAgentToolParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMCPToolsetParamsMetadata::DECODERS
+    # @return [BetaManagedAgentsMCPToolsetParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+    attr_reader :mcp_server_name
+    # @return [BetaManagedAgentsMCPToolsetDefaultConfigParams] Default configuration for all tools from this server.
+    attr_reader :default_config
+    # @return [Array_of_BetaManagedAgentsMCPToolConfigParams] Per-tool configuration overrides.
+    attr_reader :configs
 
-  # @return [BetaManagedAgentsMCPToolsetParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
-  attr_reader :mcp_server_name
-  # @return [BetaManagedAgentsMCPToolsetDefaultConfigParams] Default configuration for all tools from this server.
-  attr_reader :default_config
-  # @return [Array_of_BetaManagedAgentsMCPToolConfigParams] Per-tool configuration overrides.
-  attr_reader :configs
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsMCPToolsetParamsType SDK namespace.
+  module BetaManagedAgentsMCPToolsetParamsType
+    MCP_TOOLSET = 'mcp_toolset'
+    VALUES = ['mcp_toolset'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsMCPToolsetParamsType', 'enum', "Unknown BetaManagedAgentsMCPToolsetParamsType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMemoryMetadata
+    FIELDS = {
+      type: 'type',
+      id: 'id',
+      memory_store_id: 'memory_store_id',
+      path: 'path',
+      content: 'content',
+      content_size_bytes: 'content_size_bytes',
+      content_sha256: 'content_sha256',
+      memory_version_id: 'memory_version_id',
+      created_at: 'created_at',
+      updated_at: 'updated_at'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      id
+      memory_store_id
+      path
+      content_size_bytes
+      content_sha256
+      memory_version_id
+      created_at
+      updated_at
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMemoryType.from_value(value)
+      end,
+      created_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end,
+      updated_at: lambda do |value|
+        ::OctridevAnthropic::BetaTimestamp.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
+  # API model for BetaManagedAgentsMemory.
+  # A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+  class BetaManagedAgentsMemory
+    include BetaManagedAgentsMemoryListItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMemoryMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMemoryType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
+    attr_reader :id
+    # @return [String] ID of the memory store this memory belongs to (a `memstore_...` value).
+    attr_reader :memory_store_id
+    # @return [String] Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
+    attr_reader :path
+    # @return [String] The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
+    attr_reader :content
+    # @return [Integer] Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
+    attr_reader :content_size_bytes
+    # @return [String] Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
+    attr_reader :content_sha256
+    # @return [String] ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via List memory versions.
+    attr_reader :memory_version_id
+    # @return [BetaTimestamp] When this memory was created, in RFC 3339 format.
+    attr_reader :created_at
+    # @return [BetaTimestamp] When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via List memory versions.
+    attr_reader :updated_at
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
-
-# Defines the BetaManagedAgentsMCPToolsetParamsType SDK namespace.
-module BetaManagedAgentsMCPToolsetParamsType
-  MCP_TOOLSET = 'mcp_toolset'
-  VALUES = ['mcp_toolset'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMCPToolsetParamsType', 'enum', "Unknown BetaManagedAgentsMCPToolsetParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMemoryMetadata
-  FIELDS = {
-    type: "type",
-    id: "id",
-    memory_store_id: "memory_store_id",
-    path: "path",
-    content: "content",
-    content_size_bytes: "content_size_bytes",
-    content_sha256: "content_sha256",
-    memory_version_id: "memory_version_id",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    id
-    memory_store_id
-    path
-    content_size_bytes
-    content_sha256
-    memory_version_id
-    created_at
-    updated_at
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMemoryType.from_value(value)
-    end,
-    created_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-    updated_at: lambda do |value|
-      ::OctridevAnthropic::BetaTimestamp.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMemory.
-# A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
-class BetaManagedAgentsMemory
-  include BetaManagedAgentsMemoryListItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMemoryMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMemoryMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMemoryType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-  attr_reader :id
-  # @return [String] ID of the memory store this memory belongs to (a `memstore_...` value).
-  attr_reader :memory_store_id
-  # @return [String] Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-  attr_reader :path
-  # @return [String] The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-  attr_reader :content
-  # @return [Integer] Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-  attr_reader :content_size_bytes
-  # @return [String] Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-  attr_reader :content_sha256
-  # @return [String] ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via List memory versions.
-  attr_reader :memory_version_id
-  # @return [BetaTimestamp] When this memory was created, in RFC 3339 format.
-  attr_reader :created_at
-  # @return [BetaTimestamp] When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via List memory versions.
-  attr_reader :updated_at
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
 end

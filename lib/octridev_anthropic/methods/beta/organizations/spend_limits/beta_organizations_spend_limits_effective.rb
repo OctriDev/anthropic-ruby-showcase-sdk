@@ -14,7 +14,7 @@ module OctridevAnthropic
         DAILY = 'daily'
         MONTHLY = 'monthly'
         WEEKLY = 'weekly'
-        VALUES = ['daily', 'monthly', 'weekly'].freeze
+        VALUES = %w[daily monthly weekly].freeze
         def self.from_value(value)
           value
         end
@@ -41,7 +41,6 @@ module OctridevAnthropic
         page: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.if_given(user_ids) { Validation.validate_items('user_ids[]', user_ids, max: 100) }
 
         Validation.if_given(period) { Validation.validate_items('period[]', period, max: 3) }
@@ -50,23 +49,23 @@ module OctridevAnthropic
 
         SdkClient.request(
           'GET',
-          "/v1/organizations/spend_limits/effective?beta=true",
+          '/v1/organizations/spend_limits/effective?beta=true',
           config: config,
           query: {
             'user_ids[]' => QueryValue.new(user_ids, style: 'form', explode: true),
             'period[]' => QueryValue.new(period, style: 'form', explode: true),
             'limit' => QueryValue.new(limit, style: 'form', explode: true),
-            'page' => QueryValue.new(page, style: 'form', explode: true),
+            'page' => QueryValue.new(page, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaListEffectiveSpendLimitsResponse,
           decoder: :json,
           operation_id: 'retrieve_beta_organizations_spend_limits_effective',
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
-    RetrieveBetaOrganizationsSpendLimitsEffectivePage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      RetrieveBetaOrganizationsSpendLimitsEffectivePage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # List each member's effective spend limit and period-to-date spend. Returns one row per (member, period) the member resolves a spend limit for, with the `source` scope the spend limit was inherited from. Paginates by member, so a member's periods never split across pages.
       #
@@ -102,9 +101,11 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -131,10 +132,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = !next_cursor.nil?
             y << RetrieveBetaOrganizationsSpendLimitsEffectivePage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end

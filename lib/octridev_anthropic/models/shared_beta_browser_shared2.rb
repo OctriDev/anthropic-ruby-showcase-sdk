@@ -5,665 +5,648 @@
 
 # shared_beta_browser domain models
 module OctridevAnthropic
-# API model for BetaBrowserMiddleClickConfig.
-# ``middle_click``'s config overrides.
-class BetaBrowserMiddleClickConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserMiddleClickConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserMiddleClickConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserMiddleClickConfigMetadata::DECODERS
+  # API model for BetaBrowserMiddleClickConfig.
+  # ``middle_click``'s config overrides.
+  class BetaBrowserMiddleClickConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserMiddleClickConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserMiddleClickConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserMiddleClickConfigMetadata::DECODERS
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserMouseMoveConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserMouseMoveConfig.
+  # ``mouse_move``'s config overrides.
+  class BetaBrowserMouseMoveConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserMouseMoveConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserMouseMoveConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserMouseMoveConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserMouseMoveConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserMouseMoveConfig.
-# ``mouse_move``'s config overrides.
-class BetaBrowserMouseMoveConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserMouseMoveConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserMouseMoveConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserMouseMoveConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserNavigateConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserNavigateConfig.
+  # ``navigate``'s config overrides.
+  class BetaBrowserNavigateConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserNavigateConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserNavigateConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserNavigateConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserNewTabConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaBrowserNewTabConfig.
+  # ``new_tab``'s config overrides.
+  class BetaBrowserNewTabConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserNewTabConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserNewTabConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserNewTabConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserNavigateConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaBrowserNavigateConfig.
-# ``navigate``'s config overrides.
-class BetaBrowserNavigateConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserNavigateConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserNavigateConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserNavigateConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserReadConsoleConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserReadConsoleConfig.
+  # ``read_console``'s config overrides.
+  class BetaBrowserReadConsoleConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserReadConsoleConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserReadConsoleConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserReadConsoleConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserNewTabConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserNewTabConfig.
-# ``new_tab``'s config overrides.
-class BetaBrowserNewTabConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserNewTabConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserNewTabConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserNewTabConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserReadNetworkConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserReadNetworkConfig.
+  # ``read_network``'s config overrides.
+  class BetaBrowserReadNetworkConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserReadNetworkConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserReadNetworkConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserReadNetworkConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserReadPageConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaBrowserReadPageConfig.
+  # ``read_page``'s config overrides.
+  class BetaBrowserReadPageConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserReadPageConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserReadPageConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserReadPageConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserReadConsoleConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaBrowserReadConsoleConfig.
-# ``read_console``'s config overrides.
-class BetaBrowserReadConsoleConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserReadConsoleConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserReadConsoleConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserReadConsoleConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserRightClickConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserRightClickConfig.
+  # ``right_click``'s config overrides.
+  class BetaBrowserRightClickConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserRightClickConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserRightClickConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserRightClickConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserReadNetworkConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserReadNetworkConfig.
-# ``read_network``'s config overrides.
-class BetaBrowserReadNetworkConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserReadNetworkConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserReadNetworkConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserReadNetworkConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserScreenshotConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserScreenshotConfig.
+  # ``screenshot``'s config overrides.
+  class BetaBrowserScreenshotConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserScreenshotConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserScreenshotConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserScreenshotConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserScrollConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaBrowserScrollConfig.
+  # ``scroll``'s config overrides.
+  class BetaBrowserScrollConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserScrollConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserScrollConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserScrollConfigMetadata::DECODERS
 
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserReadPageConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
 
-# API model for BetaBrowserReadPageConfig.
-# ``read_page``'s config overrides.
-class BetaBrowserReadPageConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserReadPageConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserReadPageConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserReadPageConfigMetadata::DECODERS
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserScrollToConfigMetadata
+    FIELDS = {
+      defer_loading: 'defer_loading',
+      enabled: 'enabled'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaBrowserScrollToConfig.
+  # ``scroll_to``'s config overrides.
+  class BetaBrowserScrollToConfig
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserScrollToConfigMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserScrollToConfigMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserScrollToConfigMetadata::DECODERS
+
+    # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+    attr_reader :defer_loading
+    # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+    attr_reader :enabled
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserRightClickConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserRightClickConfig.
-# ``right_click``'s config overrides.
-class BetaBrowserRightClickConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserRightClickConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserRightClickConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserRightClickConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata
+    FIELDS = {
+      download_id: 'download_id',
+      path: 'path',
+      size_bytes: 'size_bytes',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      download_id
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserStateChangeDownloadCompletedType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserStateChangeDownloadCompleted.
+  # A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result).
+  class BetaBrowserStateChangeDownloadCompleted
+    include BetaRequestBrowserStateBlockStateChangesItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::DECODERS
+
+    # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
+    attr_reader :download_id
+    # @return [String] Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+    attr_reader :path
+    # @return [Integer] The completed download's size.
+    attr_reader :size_bytes
+    # @return [BetaBrowserStateChangeDownloadCompletedType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The final post-redirect URL the download was served from.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaBrowserStateChangeDownloadCompletedType SDK namespace.
+  module BetaBrowserStateChangeDownloadCompletedType
+    DOWNLOAD_COMPLETED = 'download_completed'
+    VALUES = ['download_completed'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaBrowserStateChangeDownloadCompletedType', 'enum', "Unknown BetaBrowserStateChangeDownloadCompletedType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserScreenshotConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserScreenshotConfig.
-# ``screenshot``'s config overrides.
-class BetaBrowserScreenshotConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserScreenshotConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserScreenshotConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserScreenshotConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserStateChangeDownloadFailedMetadata
+    FIELDS = {
+      download_id: 'download_id',
+      error: 'error',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      download_id
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserStateChangeDownloadFailedType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserStateChangeDownloadFailed.
+  # A file download that failed — or was cancelled — during this call.
+  class BetaBrowserStateChangeDownloadFailed
+    include BetaRequestBrowserStateBlockStateChangesItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::DECODERS
+
+    # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
+    attr_reader :download_id
+    # @return [String] The failure or cancellation detail, when known.
+    attr_reader :error
+    # @return [BetaBrowserStateChangeDownloadFailedType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The final post-redirect URL the download was served from.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaBrowserStateChangeDownloadFailedType SDK namespace.
+  module BetaBrowserStateChangeDownloadFailedType
+    DOWNLOAD_FAILED = 'download_failed'
+    VALUES = ['download_failed'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaBrowserStateChangeDownloadFailedType', 'enum', "Unknown BetaBrowserStateChangeDownloadFailedType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserScrollConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserScrollConfig.
-# ``scroll``'s config overrides.
-class BetaBrowserScrollConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserScrollConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserScrollConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserScrollConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaBrowserStateChangeDownloadStartedMetadata
+    FIELDS = {
+      download_id: 'download_id',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      download_id
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaBrowserStateChangeDownloadStartedType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaBrowserStateChangeDownloadStarted.
+  # A file download that started during this call.
+  class BetaBrowserStateChangeDownloadStarted
+    include BetaRequestBrowserStateBlockStateChangesItem
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::DECODERS
+
+    # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
+    attr_reader :download_id
+    # @return [BetaBrowserStateChangeDownloadStartedType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] The final post-redirect URL the download was served from.
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaBrowserStateChangeDownloadStartedType SDK namespace.
+  module BetaBrowserStateChangeDownloadStartedType
+    DOWNLOAD_STARTED = 'download_started'
+    VALUES = ['download_started'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaBrowserStateChangeDownloadStartedType', 'enum', "Unknown BetaBrowserStateChangeDownloadStartedType: #{value}")
+    end
   end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserScrollToConfigMetadata
-  FIELDS = {
-    defer_loading: "defer_loading",
-    enabled: "enabled",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaBrowserScrollToConfig.
-# ``scroll_to``'s config overrides.
-class BetaBrowserScrollToConfig
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserScrollToConfigMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserScrollToConfigMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserScrollToConfigMetadata::DECODERS
-
-  # @return [Boolean] Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-  attr_reader :defer_loading
-  # @return [Boolean] Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-  attr_reader :enabled
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata
-  FIELDS = {
-    download_id: "download_id",
-    path: "path",
-    size_bytes: "size_bytes",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    download_id
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserStateChangeDownloadCompletedType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserStateChangeDownloadCompleted.
-# A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result).
-class BetaBrowserStateChangeDownloadCompleted
-  include BetaRequestBrowserStateBlockStateChangesItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserStateChangeDownloadCompletedMetadata::DECODERS
-
-  # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
-  attr_reader :download_id
-  # @return [String] Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
-  attr_reader :path
-  # @return [Integer] The completed download's size.
-  attr_reader :size_bytes
-  # @return [BetaBrowserStateChangeDownloadCompletedType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The final post-redirect URL the download was served from.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaBrowserStateChangeDownloadCompletedType SDK namespace.
-module BetaBrowserStateChangeDownloadCompletedType
-  DOWNLOAD_COMPLETED = 'download_completed'
-  VALUES = ['download_completed'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaBrowserStateChangeDownloadCompletedType', 'enum', "Unknown BetaBrowserStateChangeDownloadCompletedType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserStateChangeDownloadFailedMetadata
-  FIELDS = {
-    download_id: "download_id",
-    error: "error",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    download_id
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserStateChangeDownloadFailedType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserStateChangeDownloadFailed.
-# A file download that failed — or was cancelled — during this call.
-class BetaBrowserStateChangeDownloadFailed
-  include BetaRequestBrowserStateBlockStateChangesItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserStateChangeDownloadFailedMetadata::DECODERS
-
-  # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
-  attr_reader :download_id
-  # @return [String] The failure or cancellation detail, when known.
-  attr_reader :error
-  # @return [BetaBrowserStateChangeDownloadFailedType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The final post-redirect URL the download was served from.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaBrowserStateChangeDownloadFailedType SDK namespace.
-module BetaBrowserStateChangeDownloadFailedType
-  DOWNLOAD_FAILED = 'download_failed'
-  VALUES = ['download_failed'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaBrowserStateChangeDownloadFailedType', 'enum', "Unknown BetaBrowserStateChangeDownloadFailedType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaBrowserStateChangeDownloadStartedMetadata
-  FIELDS = {
-    download_id: "download_id",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    download_id
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaBrowserStateChangeDownloadStartedType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaBrowserStateChangeDownloadStarted.
-# A file download that started during this call.
-class BetaBrowserStateChangeDownloadStarted
-  include BetaRequestBrowserStateBlockStateChangesItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaBrowserStateChangeDownloadStartedMetadata::DECODERS
-
-  # @return [String] The caller-assigned identifier for this download, stable across the state changes reporting it.
-  attr_reader :download_id
-  # @return [BetaBrowserStateChangeDownloadStartedType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] The final post-redirect URL the download was served from.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
-  end
-
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
-
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
-
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaBrowserStateChangeDownloadStartedType SDK namespace.
-module BetaBrowserStateChangeDownloadStartedType
-  DOWNLOAD_STARTED = 'download_started'
-  VALUES = ['download_started'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaBrowserStateChangeDownloadStartedType', 'enum', "Unknown BetaBrowserStateChangeDownloadStartedType: #{value}")
-  end
-end
 end

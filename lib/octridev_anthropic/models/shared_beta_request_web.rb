@@ -5,557 +5,565 @@
 
 # shared_beta_request_web domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebFetchResultBlockMetadata
-  FIELDS = {
-    content: "content",
-    retrieved_at: "retrieved_at",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    type
-    url
-  ].freeze
-  DECODERS = {
-    content: lambda do |value|
-      ::OctridevAnthropic::BetaRequestDocumentBlock.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebFetchResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestWebFetchResultBlock.
-# Typed representation of the `BetaRequestWebFetchResultBlock` API schema.
-class BetaRequestWebFetchResultBlock
-  include BetaRequestWebFetchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebFetchResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebFetchResultBlockMetadata::DECODERS
-
-  # @return [BetaRequestDocumentBlock] Required object value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] ISO 8601 timestamp when the content was retrieved
-  attr_reader :retrieved_at
-  # @return [BetaRequestWebFetchResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Fetched content URL
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebFetchResultBlockMetadata
+    FIELDS = {
+      content: 'content',
+      retrieved_at: 'retrieved_at',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      type
+      url
+    ].freeze
+    DECODERS = {
+      content: lambda do |value|
+        ::OctridevAnthropic::BetaRequestDocumentBlock.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebFetchResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRequestWebFetchResultBlock.
+  # Typed representation of the `BetaRequestWebFetchResultBlock` API schema.
+  class BetaRequestWebFetchResultBlock
+    include BetaRequestWebFetchToolResultBlockContent
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebFetchResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebFetchResultBlockMetadata::DECODERS
+
+    # @return [BetaRequestDocumentBlock] Required object value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] ISO 8601 timestamp when the content was retrieved
+    attr_reader :retrieved_at
+    # @return [BetaRequestWebFetchResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Fetched content URL
+    attr_reader :url
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaRequestWebFetchResultBlockType SDK namespace.
+  module BetaRequestWebFetchResultBlockType
+    WEB_FETCH_RESULT = 'web_fetch_result'
+    VALUES = ['web_fetch_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebFetchResultBlockType', 'enum', "Unknown BetaRequestWebFetchResultBlockType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaRequestWebFetchResultBlockType SDK namespace.
-module BetaRequestWebFetchResultBlockType
-  WEB_FETCH_RESULT = 'web_fetch_result'
-  VALUES = ['web_fetch_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaRequestWebFetchResultBlockType', 'enum', "Unknown BetaRequestWebFetchResultBlockType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebFetchToolResultBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    caller: "caller",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    caller: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockCaller.from_hash(value)
-    end,
-    content: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockContent.from_hash(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestWebFetchToolResultBlock.
-# Typed representation of the `BetaRequestWebFetchToolResultBlock` API schema.
-class BetaRequestWebFetchToolResultBlock
-  include BetaInputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::DECODERS
-
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [BetaRequestWebFetchToolResultBlockCaller] Optional API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [BetaRequestWebFetchToolResultBlockContent] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [BetaRequestWebFetchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebFetchToolResultBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      caller: 'caller',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      caller: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockCaller.from_hash(value)
+      end,
+      content: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockContent.from_hash(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebFetchToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaRequestWebFetchToolResultBlock.
+  # Typed representation of the `BetaRequestWebFetchToolResultBlock` API schema.
+  class BetaRequestWebFetchToolResultBlock
+    include BetaInputContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebFetchToolResultBlockMetadata::DECODERS
+
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [BetaRequestWebFetchToolResultBlockCaller] Optional API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [BetaRequestWebFetchToolResultBlockContent] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [BetaRequestWebFetchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaRequestWebFetchToolResultBlockType SDK namespace.
+  module BetaRequestWebFetchToolResultBlockType
+    WEB_FETCH_TOOL_RESULT = 'web_fetch_tool_result'
+    VALUES = ['web_fetch_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockType', 'enum', "Unknown BetaRequestWebFetchToolResultBlockType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaRequestWebFetchToolResultBlockCaller SDK namespace.
+  module BetaRequestWebFetchToolResultBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { BetaServerToolCaller },
+      'code_execution_20260120' => -> { BetaServerToolCaller20260120 },
+      'direct' => -> { BetaDirectCaller }
+    }.freeze
 
-# Defines the BetaRequestWebFetchToolResultBlockType SDK namespace.
-module BetaRequestWebFetchToolResultBlockType
-  WEB_FETCH_TOOL_RESULT = 'web_fetch_tool_result'
-  VALUES = ['web_fetch_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockType', 'enum', "Unknown BetaRequestWebFetchToolResultBlockType: #{value}")
-  end
-end
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-# Defines the BetaRequestWebFetchToolResultBlockCaller SDK namespace.
-module BetaRequestWebFetchToolResultBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { BetaServerToolCaller },
-    "code_execution_20260120" => -> { BetaServerToolCaller20260120 },
-    "direct" => -> { BetaDirectCaller },
-  }.freeze
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockCaller', 'variant', "Unknown BetaRequestWebFetchToolResultBlockCaller discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Defines the BetaRequestWebFetchToolResultBlockContent SDK namespace.
-module BetaRequestWebFetchToolResultBlockContent
-  DISCRIMINATOR_MAPPING = {
-    "web_fetch_tool_result_error" => -> { BetaRequestWebFetchToolResultError },
-    "web_fetch_result" => -> { BetaRequestWebFetchResultBlock },
-  }.freeze
-
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockContent', 'variant', "Unknown BetaRequestWebFetchToolResultBlockContent discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebFetchToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::BetaWebFetchToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebFetchToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestWebFetchToolResultError.
-# Typed representation of the `BetaRequestWebFetchToolResultError` API schema.
-class BetaRequestWebFetchToolResultError
-  include BetaRequestWebFetchToolResultBlockContent
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::DECODERS
-
-  # @return [BetaWebFetchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [BetaRequestWebFetchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockCaller', 'variant', "Unknown BetaRequestWebFetchToolResultBlockCaller discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRequestWebFetchToolResultBlockContent SDK namespace.
+  module BetaRequestWebFetchToolResultBlockContent
+    DISCRIMINATOR_MAPPING = {
+      'web_fetch_tool_result_error' => -> { BetaRequestWebFetchToolResultError },
+      'web_fetch_result' => -> { BetaRequestWebFetchResultBlock }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaRequestWebFetchToolResultBlockContent', 'variant', "Unknown BetaRequestWebFetchToolResultBlockContent discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebFetchToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::BetaWebFetchToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebFetchToolResultErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaRequestWebFetchToolResultError.
+  # Typed representation of the `BetaRequestWebFetchToolResultError` API schema.
+  class BetaRequestWebFetchToolResultError
+    include BetaRequestWebFetchToolResultBlockContent
 
-# Defines the BetaRequestWebFetchToolResultErrorType SDK namespace.
-module BetaRequestWebFetchToolResultErrorType
-  WEB_FETCH_TOOL_RESULT_ERROR = 'web_fetch_tool_result_error'
-  VALUES = ['web_fetch_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebFetchToolResultErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaRequestWebFetchToolResultErrorType', 'enum', "Unknown BetaRequestWebFetchToolResultErrorType: #{value}")
-  end
-end
+    # @return [BetaWebFetchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [BetaRequestWebFetchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebSearchResultBlockMetadata
-  FIELDS = {
-    encrypted_content: "encrypted_content",
-    page_age: "page_age",
-    title: "title",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    encrypted_content
-    title
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebSearchResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaRequestWebSearchResultBlock.
-# Typed representation of the `BetaRequestWebSearchResultBlock` API schema.
-class BetaRequestWebSearchResultBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebSearchResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebSearchResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-  # @return [String] Required `string` value serialized in the `encrypted_content` wire field.
-  attr_reader :encrypted_content
-  # @return [String] Optional `string` value serialized in the `page_age` wire field.
-  attr_reader :page_age
-  # @return [String] Required `string` value serialized in the `title` wire field.
-  attr_reader :title
-  # @return [BetaRequestWebSearchResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRequestWebFetchToolResultErrorType SDK namespace.
+  module BetaRequestWebFetchToolResultErrorType
+    WEB_FETCH_TOOL_RESULT_ERROR = 'web_fetch_tool_result_error'
+    VALUES = ['web_fetch_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebFetchToolResultErrorType', 'enum', "Unknown BetaRequestWebFetchToolResultErrorType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebSearchResultBlockMetadata
+    FIELDS = {
+      encrypted_content: 'encrypted_content',
+      page_age: 'page_age',
+      title: 'title',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      encrypted_content
+      title
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebSearchResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaRequestWebSearchResultBlock.
+  # Typed representation of the `BetaRequestWebSearchResultBlock` API schema.
+  class BetaRequestWebSearchResultBlock
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebSearchResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebSearchResultBlockMetadata::DECODERS
 
-# Defines the BetaRequestWebSearchResultBlockType SDK namespace.
-module BetaRequestWebSearchResultBlockType
-  WEB_SEARCH_RESULT = 'web_search_result'
-  VALUES = ['web_search_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    # @return [String] Required `string` value serialized in the `encrypted_content` wire field.
+    attr_reader :encrypted_content
+    # @return [String] Optional `string` value serialized in the `page_age` wire field.
+    attr_reader :page_age
+    # @return [String] Required `string` value serialized in the `title` wire field.
+    attr_reader :title
+    # @return [BetaRequestWebSearchResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
 
-    raise SdkValidationError.new('BetaRequestWebSearchResultBlockType', 'enum', "Unknown BetaRequestWebSearchResultBlockType: #{value}")
-  end
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebSearchResultLocationCitationMetadata
-  FIELDS = {
-    cited_text: "cited_text",
-    encrypted_index: "encrypted_index",
-    title: "title",
-    type: "type",
-    url: "url",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    cited_text
-    encrypted_index
-    title
-    type
-    url
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebSearchResultLocationCitationType.from_value(value)
-    end,
-  }.freeze
-  NULLABLE_FIELDS = %i[
-    title
-  ].freeze
-end
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-# API model for BetaRequestWebSearchResultLocationCitation.
-# Typed representation of the `BetaRequestWebSearchResultLocationCitation` API schema.
-class BetaRequestWebSearchResultLocationCitation
-  include BetaRequestTextBlockCitationsItem
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::DECODERS
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  # @return [String] Required `string` value serialized in the `cited_text` wire field.
-  attr_reader :cited_text
-  # @return [String] Required `string` value serialized in the `encrypted_index` wire field.
-  attr_reader :encrypted_index
-  # @return [String] Required API value serialized in the `title` wire field.
-  attr_reader :title
-  # @return [BetaRequestWebSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Required `string` value serialized in the `url` wire field.
-  attr_reader :url
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
+  # Defines the BetaRequestWebSearchResultBlockType SDK namespace.
+  module BetaRequestWebSearchResultBlockType
+    WEB_SEARCH_RESULT = 'web_search_result'
+    VALUES = ['web_search_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebSearchResultBlockType', 'enum', "Unknown BetaRequestWebSearchResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebSearchResultLocationCitationMetadata
+    FIELDS = {
+      cited_text: 'cited_text',
+      encrypted_index: 'encrypted_index',
+      title: 'title',
+      type: 'type',
+      url: 'url'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      cited_text
+      encrypted_index
+      title
+      type
+      url
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebSearchResultLocationCitationType.from_value(value)
+      end
+    }.freeze
+    NULLABLE_FIELDS = %i[
+      title
+    ].freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaRequestWebSearchResultLocationCitation.
+  # Typed representation of the `BetaRequestWebSearchResultLocationCitation` API schema.
+  class BetaRequestWebSearchResultLocationCitation
+    include BetaRequestTextBlockCitationsItem
 
-# Defines the BetaRequestWebSearchResultLocationCitationType SDK namespace.
-module BetaRequestWebSearchResultLocationCitationType
-  WEB_SEARCH_RESULT_LOCATION = 'web_search_result_location'
-  VALUES = ['web_search_result_location'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaRequestWebSearchResultLocationCitationType', 'enum', "Unknown BetaRequestWebSearchResultLocationCitationType: #{value}")
-  end
-end
+    # @return [String] Required `string` value serialized in the `cited_text` wire field.
+    attr_reader :cited_text
+    # @return [String] Required `string` value serialized in the `encrypted_index` wire field.
+    attr_reader :encrypted_index
+    # @return [String] Required API value serialized in the `title` wire field.
+    attr_reader :title
+    # @return [BetaRequestWebSearchResultLocationCitationType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Required `string` value serialized in the `url` wire field.
+    attr_reader :url
 
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebSearchToolResultBlockMetadata
-  FIELDS = {
-    cache_control: "cache_control",
-    caller: "caller",
-    content: "content",
-    tool_use_id: "tool_use_id",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    content
-    tool_use_id
-    type
-  ].freeze
-  DECODERS = {
-    cache_control: lambda do |value|
-      ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
-    end,
-    caller: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebSearchToolResultBlockCaller.from_hash(value)
-    end,
-    content: lambda do |value|
-      SdkModel.union_branch(value, [::OctridevAnthropic::BetaRequestWebSearchToolResultError])
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebSearchToolResultBlockType.from_value(value)
-    end,
-  }.freeze
-end
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-# API model for BetaRequestWebSearchToolResultBlock.
-# Typed representation of the `BetaRequestWebSearchToolResultBlock` API schema.
-class BetaRequestWebSearchToolResultBlock
-  include BetaInputContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::DECODERS
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS, SdkInternalBetaRequestWebSearchResultLocationCitationMetadata::NULLABLE_FIELDS)
+    end
 
-  # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
-  attr_reader :cache_control
-  # @return [BetaRequestWebSearchToolResultBlockCaller] Optional API value serialized in the `caller` wire field.
-  attr_reader :caller
-  # @return [Object] Required API value serialized in the `content` wire field.
-  attr_reader :content
-  # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
-  attr_reader :tool_use_id
-  # @return [BetaRequestWebSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRequestWebSearchResultLocationCitationType SDK namespace.
+  module BetaRequestWebSearchResultLocationCitationType
+    WEB_SEARCH_RESULT_LOCATION = 'web_search_result_location'
+    VALUES = ['web_search_result_location'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebSearchResultLocationCitationType', 'enum', "Unknown BetaRequestWebSearchResultLocationCitationType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebSearchToolResultBlockMetadata
+    FIELDS = {
+      cache_control: 'cache_control',
+      caller: 'caller',
+      content: 'content',
+      tool_use_id: 'tool_use_id',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      content
+      tool_use_id
+      type
+    ].freeze
+    DECODERS = {
+      cache_control: lambda do |value|
+        ::OctridevAnthropic::BetaCacheControlEphemeral.from_hash(value)
+      end,
+      caller: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebSearchToolResultBlockCaller.from_hash(value)
+      end,
+      content: lambda do |value|
+        SdkModel.union_branch(value, [::OctridevAnthropic::BetaRequestWebSearchToolResultError])
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebSearchToolResultBlockType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # API model for BetaRequestWebSearchToolResultBlock.
+  # Typed representation of the `BetaRequestWebSearchToolResultBlock` API schema.
+  class BetaRequestWebSearchToolResultBlock
+    include BetaInputContentBlock
 
-# Defines the BetaRequestWebSearchToolResultBlockType SDK namespace.
-module BetaRequestWebSearchToolResultBlockType
-  WEB_SEARCH_TOOL_RESULT = 'web_search_tool_result'
-  VALUES = ['web_search_tool_result'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebSearchToolResultBlockMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaRequestWebSearchToolResultBlockType', 'enum', "Unknown BetaRequestWebSearchToolResultBlockType: #{value}")
-  end
-end
+    # @return [BetaCacheControlEphemeral] Create a cache control breakpoint at this content block.
+    attr_reader :cache_control
+    # @return [BetaRequestWebSearchToolResultBlockCaller] Optional API value serialized in the `caller` wire field.
+    attr_reader :caller
+    # @return [Object] Required API value serialized in the `content` wire field.
+    attr_reader :content
+    # @return [String] Required `string` value serialized in the `tool_use_id` wire field.
+    attr_reader :tool_use_id
+    # @return [BetaRequestWebSearchToolResultBlockType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
 
-# Defines the BetaRequestWebSearchToolResultBlockCaller SDK namespace.
-module BetaRequestWebSearchToolResultBlockCaller
-  DISCRIMINATOR_MAPPING = {
-    "code_execution_20250825" => -> { BetaServerToolCaller },
-    "code_execution_20260120" => -> { BetaServerToolCaller20260120 },
-    "direct" => -> { BetaDirectCaller },
-  }.freeze
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
 
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
 
-    raise SdkValidationError.new('BetaRequestWebSearchToolResultBlockCaller', 'variant', "Unknown BetaRequestWebSearchToolResultBlockCaller discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaRequestWebSearchToolResultErrorMetadata
-  FIELDS = {
-    error_code: "error_code",
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    error_code
-    type
-  ].freeze
-  DECODERS = {
-    error_code: lambda do |value|
-      ::OctridevAnthropic::BetaWebSearchToolResultErrorCode.from_value(value)
-    end,
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaRequestWebSearchToolResultErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaRequestWebSearchToolResultError.
-# Typed representation of the `BetaRequestWebSearchToolResultError` API schema.
-class BetaRequestWebSearchToolResultError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::DECODERS
-
-  # @return [BetaWebSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
-  attr_reader :error_code
-  # @return [BetaRequestWebSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaRequestWebSearchToolResultBlockType SDK namespace.
+  module BetaRequestWebSearchToolResultBlockType
+    WEB_SEARCH_TOOL_RESULT = 'web_search_tool_result'
+    VALUES = ['web_search_tool_result'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebSearchToolResultBlockType', 'enum', "Unknown BetaRequestWebSearchToolResultBlockType: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaRequestWebSearchToolResultBlockCaller SDK namespace.
+  module BetaRequestWebSearchToolResultBlockCaller
+    DISCRIMINATOR_MAPPING = {
+      'code_execution_20250825' => -> { BetaServerToolCaller },
+      'code_execution_20260120' => -> { BetaServerToolCaller20260120 },
+      'direct' => -> { BetaDirectCaller }
+    }.freeze
+
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
+
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
+
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
+
+      raise SdkValidationError.new('BetaRequestWebSearchToolResultBlockCaller', 'variant', "Unknown BetaRequestWebSearchToolResultBlockCaller discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
+  # Internal model hydration metadata.
+  class SdkInternalBetaRequestWebSearchToolResultErrorMetadata
+    FIELDS = {
+      error_code: 'error_code',
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      error_code
+      type
+    ].freeze
+    DECODERS = {
+      error_code: lambda do |value|
+        ::OctridevAnthropic::BetaWebSearchToolResultErrorCode.from_value(value)
+      end,
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaRequestWebSearchToolResultErrorType.from_value(value)
+      end
+    }.freeze
   end
-end
 
-# Defines the BetaRequestWebSearchToolResultErrorType SDK namespace.
-module BetaRequestWebSearchToolResultErrorType
-  WEB_SEARCH_TOOL_RESULT_ERROR = 'web_search_tool_result_error'
-  VALUES = ['web_search_tool_result_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+  # API model for BetaRequestWebSearchToolResultError.
+  # Typed representation of the `BetaRequestWebSearchToolResultError` API schema.
+  class BetaRequestWebSearchToolResultError
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaRequestWebSearchToolResultErrorMetadata::DECODERS
 
-    raise SdkValidationError.new('BetaRequestWebSearchToolResultErrorType', 'enum', "Unknown BetaRequestWebSearchToolResultErrorType: #{value}")
+    # @return [BetaWebSearchToolResultErrorCode] Required enumerated value serialized in the `error_code` wire field.
+    attr_reader :error_code
+    # @return [BetaRequestWebSearchToolResultErrorType] Required `string` value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
+
+  # Defines the BetaRequestWebSearchToolResultErrorType SDK namespace.
+  module BetaRequestWebSearchToolResultErrorType
+    WEB_SEARCH_TOOL_RESULT_ERROR = 'web_search_tool_result_error'
+    VALUES = ['web_search_tool_result_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaRequestWebSearchToolResultErrorType', 'enum', "Unknown BetaRequestWebSearchToolResultErrorType: #{value}")
+    end
+  end
 end

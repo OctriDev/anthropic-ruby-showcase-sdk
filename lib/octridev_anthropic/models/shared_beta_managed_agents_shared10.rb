@@ -5,678 +5,688 @@
 
 # shared_beta_managed_agents domain models
 module OctridevAnthropic
-# API model for BetaManagedAgentsGrepToolConfigParams.
-# Configuration override for the grep tool.
-class BetaManagedAgentsGrepToolConfigParams
-  include BetaManagedAgentsAgentToolConfigUnionParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::DECODERS
+  # API model for BetaManagedAgentsGrepToolConfigParams.
+  # Configuration override for the grep tool.
+  class BetaManagedAgentsGrepToolConfigParams
+    include BetaManagedAgentsAgentToolConfigUnionParams
 
-  # @return [BetaManagedAgentsGrepToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsGrepToolConfigParamsName] Must be "grep".
-  attr_reader :name
-  # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-  attr_reader :enabled
-  # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
-  attr_reader :permission_policy
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsGrepToolConfigParamsMetadata::DECODERS
 
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+    # @return [BetaManagedAgentsGrepToolConfigParamsType] Optional `string` value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsGrepToolConfigParamsName] Must be "grep".
+    attr_reader :name
+    # @return [Boolean] Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+    attr_reader :enabled
+    # @return [BetaManagedAgentsPermissionPolicy] Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
+    attr_reader :permission_policy
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Defines the BetaManagedAgentsGrepToolConfigParamsName SDK namespace.
+  module BetaManagedAgentsGrepToolConfigParamsName
+    GREP = 'grep'
+    VALUES = ['grep'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsGrepToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsGrepToolConfigParamsName: #{value}")
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsGrepToolConfigParamsType SDK namespace.
+  module BetaManagedAgentsGrepToolConfigParamsType
+    GREP = 'grep'
+    VALUES = ['grep'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsGrepToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsGrepToolConfigParamsType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsGrepToolConfigParamsName SDK namespace.
-module BetaManagedAgentsGrepToolConfigParamsName
-  GREP = 'grep'
-  VALUES = ['grep'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsGrepToolConfigParamsName', 'enum', "Unknown BetaManagedAgentsGrepToolConfigParamsName: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsGrepToolConfigParamsType SDK namespace.
-module BetaManagedAgentsGrepToolConfigParamsType
-  GREP = 'grep'
-  VALUES = ['grep'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsGrepToolConfigParamsType', 'enum', "Unknown BetaManagedAgentsGrepToolConfigParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsImageBlockMetadata
-  FIELDS = {
-    type: "type",
-    source: "source",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    source
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsImageBlockType.from_value(value)
-    end,
-    source: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsImageSource.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsImageBlock.
-# Image content specified directly as base64 data or as a reference via a URL.
-class BetaManagedAgentsImageBlock
-  include BetaManagedAgentsToolResultContentBlock
-  include BetaManagedAgentsUserContentBlock
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsImageBlockMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsImageBlockMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsImageBlockMetadata::DECODERS
-
-  # @return [BetaManagedAgentsImageBlockType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [BetaManagedAgentsImageSource] The source of the image data.
-  attr_reader :source
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsImageBlockMetadata
+    FIELDS = {
+      type: 'type',
+      source: 'source'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      source
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsImageBlockType.from_value(value)
+      end,
+      source: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsImageSource.from_hash(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsImageBlock.
+  # Image content specified directly as base64 data or as a reference via a URL.
+  class BetaManagedAgentsImageBlock
+    include BetaManagedAgentsToolResultContentBlock
+    include BetaManagedAgentsUserContentBlock
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsImageBlockMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsImageBlockMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsImageBlockMetadata::DECODERS
+
+    # @return [BetaManagedAgentsImageBlockType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [BetaManagedAgentsImageSource] The source of the image data.
+    attr_reader :source
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsImageBlockType SDK namespace.
+  module BetaManagedAgentsImageBlockType
+    IMAGE = 'image'
+    VALUES = ['image'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsImageBlockType', 'enum', "Unknown BetaManagedAgentsImageBlockType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsImageSource SDK namespace.
+  module BetaManagedAgentsImageSource
+    DISCRIMINATOR_MAPPING = {
+      'base64' => -> { BetaManagedAgentsBase64ImageSource },
+      'url' => -> { BetaManagedAgentsURLImageSource },
+      'file' => -> { BetaManagedAgentsFileImageSource }
+    }.freeze
 
-# Defines the BetaManagedAgentsImageBlockType SDK namespace.
-module BetaManagedAgentsImageBlockType
-  IMAGE = 'image'
-  VALUES = ['image'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
+    def self.from_hash(hash)
+      return hash unless hash.is_a?(::Hash)
 
-    raise SdkValidationError.new('BetaManagedAgentsImageBlockType', 'enum', "Unknown BetaManagedAgentsImageBlockType: #{value}")
-  end
-end
+      type = DISCRIMINATOR_MAPPING[hash['type']]&.call
+      return type.from_hash(hash) if type
 
-# Defines the BetaManagedAgentsImageSource SDK namespace.
-module BetaManagedAgentsImageSource
-  DISCRIMINATOR_MAPPING = {
-    "base64" => -> { BetaManagedAgentsBase64ImageSource },
-    "url" => -> { BetaManagedAgentsURLImageSource },
-    "file" => -> { BetaManagedAgentsFileImageSource },
-  }.freeze
+      return SdkUnknownMember.new(hash) if hash['type'].is_a?(::String)
 
-  def self.from_hash(hash)
-    return hash unless hash.is_a?(::Hash)
-    type = DISCRIMINATOR_MAPPING[hash["type"]]&.call
-    return type.from_hash(hash) if type
-
-    return SdkUnknownMember.new(hash) if hash["type"].is_a?(::String)
-
-    raise SdkValidationError.new('BetaManagedAgentsImageSource', 'variant', "Unknown BetaManagedAgentsImageSource discriminator: #{hash["type"].inspect}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata
-  FIELDS = {
-    header: "header",
-    body: "body",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    header
-    body
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaManagedAgentsInjectionLocationResponse.
-# Where in the outbound request the secret value is substituted.
-class BetaManagedAgentsInjectionLocationResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::DECODERS
-
-  # @return [Boolean] Whether the placeholder is substituted in request header values.
-  attr_reader :header
-  # @return [Boolean] Whether the placeholder is substituted in the request body.
-  attr_reader :body
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsImageSource', 'variant', "Unknown BetaManagedAgentsImageSource discriminator: #{hash['type'].inspect}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata
+    FIELDS = {
+      header: 'header',
+      body: 'body'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      header
+      body
+    ].freeze
+    DECODERS = {}.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsInjectionLocationResponse.
+  # Where in the outbound request the secret value is substituted.
+  class BetaManagedAgentsInjectionLocationResponse
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsInjectionLocationResponseMetadata::DECODERS
+
+    # @return [Boolean] Whether the placeholder is substituted in request header values.
+    attr_reader :header
+    # @return [Boolean] Whether the placeholder is substituted in the request body.
+    attr_reader :body
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata
-  FIELDS = {
-    type: "type",
-    allowed_hosts: "allowed_hosts",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    allowed_hosts
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsLimitedCredentialNetworkingParamsType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsLimitedCredentialNetworkingParams.
-# Substitute the secret only on requests to the listed hosts.
-class BetaManagedAgentsLimitedCredentialNetworkingParams
-  include BetaManagedAgentsCredentialNetworkingParams
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::DECODERS
-
-  # @return [BetaManagedAgentsLimitedCredentialNetworkingParamsType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Array_of_String] Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-  attr_reader :allowed_hosts
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata
+    FIELDS = {
+      type: 'type',
+      allowed_hosts: 'allowed_hosts'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      allowed_hosts
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsLimitedCredentialNetworkingParamsType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsLimitedCredentialNetworkingParams.
+  # Substitute the secret only on requests to the listed hosts.
+  class BetaManagedAgentsLimitedCredentialNetworkingParams
+    include BetaManagedAgentsCredentialNetworkingParams
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingParamsMetadata::DECODERS
+
+    # @return [BetaManagedAgentsLimitedCredentialNetworkingParamsType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Array_of_String] Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
+    attr_reader :allowed_hosts
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsLimitedCredentialNetworkingParamsType SDK namespace.
+  module BetaManagedAgentsLimitedCredentialNetworkingParamsType
+    LIMITED = 'limited'
+    VALUES = ['limited'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsLimitedCredentialNetworkingParamsType', 'enum', "Unknown BetaManagedAgentsLimitedCredentialNetworkingParamsType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsLimitedCredentialNetworkingParamsType SDK namespace.
-module BetaManagedAgentsLimitedCredentialNetworkingParamsType
-  LIMITED = 'limited'
-  VALUES = ['limited'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsLimitedCredentialNetworkingParamsType', 'enum', "Unknown BetaManagedAgentsLimitedCredentialNetworkingParamsType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata
-  FIELDS = {
-    type: "type",
-    allowed_hosts: "allowed_hosts",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    allowed_hosts
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsLimitedCredentialNetworkingResponseType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsLimitedCredentialNetworkingResponse.
-# The secret is substituted only on requests to the listed hosts.
-class BetaManagedAgentsLimitedCredentialNetworkingResponse
-  include BetaManagedAgentsCredentialNetworkingResponse
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::DECODERS
-
-  # @return [BetaManagedAgentsLimitedCredentialNetworkingResponseType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [Array_of_String] Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
-  attr_reader :allowed_hosts
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata
+    FIELDS = {
+      type: 'type',
+      allowed_hosts: 'allowed_hosts'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      allowed_hosts
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsLimitedCredentialNetworkingResponseType.from_value(value)
+      end
+    }.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # API model for BetaManagedAgentsLimitedCredentialNetworkingResponse.
+  # The secret is substituted only on requests to the listed hosts.
+  class BetaManagedAgentsLimitedCredentialNetworkingResponse
+    include BetaManagedAgentsCredentialNetworkingResponse
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsLimitedCredentialNetworkingResponseMetadata::DECODERS
+
+    # @return [BetaManagedAgentsLimitedCredentialNetworkingResponseType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [Array_of_String] Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+    attr_reader :allowed_hosts
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # Defines the BetaManagedAgentsLimitedCredentialNetworkingResponseType SDK namespace.
+  module BetaManagedAgentsLimitedCredentialNetworkingResponseType
+    LIMITED = 'limited'
+    VALUES = ['limited'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
+
+      raise SdkValidationError.new('BetaManagedAgentsLimitedCredentialNetworkingResponseType', 'enum', "Unknown BetaManagedAgentsLimitedCredentialNetworkingResponseType: #{value}")
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
-
-# Defines the BetaManagedAgentsLimitedCredentialNetworkingResponseType SDK namespace.
-module BetaManagedAgentsLimitedCredentialNetworkingResponseType
-  LIMITED = 'limited'
-  VALUES = ['limited'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsLimitedCredentialNetworkingResponseType', 'enum', "Unknown BetaManagedAgentsLimitedCredentialNetworkingResponseType: #{value}")
-  end
-end
-
-# Defines the BetaManagedAgentsListOrder SDK namespace.
-module BetaManagedAgentsListOrder
-  ASC = 'asc'
-  DESC = 'desc'
-  VALUES = ['asc', 'desc'].freeze
-  def self.from_value(value)
-    value
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsManualDeploymentPausedReasonType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsManualDeploymentPausedReason.
-# The caller invoked the pause endpoint on the deployment.
-class BetaManagedAgentsManualDeploymentPausedReason
-  include BetaManagedAgentsDeploymentPausedReason
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::DECODERS
-
-  # @return [BetaManagedAgentsManualDeploymentPausedReasonType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Defines the BetaManagedAgentsListOrder SDK namespace.
+  module BetaManagedAgentsListOrder
+    ASC = 'asc'
+    DESC = 'desc'
+    VALUES = %w[asc desc].freeze
+    def self.from_value(value)
+      value
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsManualDeploymentPausedReasonType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsManualDeploymentPausedReason.
+  # The caller invoked the pause endpoint on the deployment.
+  class BetaManagedAgentsManualDeploymentPausedReason
+    include BetaManagedAgentsDeploymentPausedReason
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsManualDeploymentPausedReasonMetadata::DECODERS
+
+    # @return [BetaManagedAgentsManualDeploymentPausedReasonType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsManualDeploymentPausedReasonType SDK namespace.
+  module BetaManagedAgentsManualDeploymentPausedReasonType
+    MANUAL = 'manual'
+    VALUES = ['manual'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsManualDeploymentPausedReasonType SDK namespace.
-module BetaManagedAgentsManualDeploymentPausedReasonType
-  MANUAL = 'manual'
-  VALUES = ['manual'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsManualDeploymentPausedReasonType', 'enum', "Unknown BetaManagedAgentsManualDeploymentPausedReasonType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsManualTriggerContextMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsManualTriggerContextType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsManualTriggerContext.
-# The run was started manually by creating a session directly against the deployment.
-class BetaManagedAgentsManualTriggerContext
-  include BetaManagedAgentsTriggerContext
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::DECODERS
-
-  # @return [BetaManagedAgentsManualTriggerContextType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsManualDeploymentPausedReasonType', 'enum', "Unknown BetaManagedAgentsManualDeploymentPausedReasonType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsManualTriggerContextMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsManualTriggerContextType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsManualTriggerContext.
+  # The run was started manually by creating a session directly against the deployment.
+  class BetaManagedAgentsManualTriggerContext
+    include BetaManagedAgentsTriggerContext
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsManualTriggerContextMetadata::DECODERS
+
+    # @return [BetaManagedAgentsManualTriggerContextType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsManualTriggerContextType SDK namespace.
+  module BetaManagedAgentsManualTriggerContextType
+    MANUAL = 'manual'
+    VALUES = ['manual'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsManualTriggerContextType SDK namespace.
-module BetaManagedAgentsManualTriggerContextType
-  MANUAL = 'manual'
-  VALUES = ['manual'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsManualTriggerContextType', 'enum', "Unknown BetaManagedAgentsManualTriggerContextType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-    mcp_server_name: "mcp_server_name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-    mcp_server_name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpAuthenticationFailedErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpAuthenticationFailedError.
-# Authentication to an MCP server failed.
-class BetaManagedAgentsMcpAuthenticationFailedError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpAuthenticationFailedErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-  # @return [String] Name of the MCP server that failed authentication.
-  attr_reader :mcp_server_name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsManualTriggerContextType', 'enum', "Unknown BetaManagedAgentsManualTriggerContextType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status',
+      mcp_server_name: 'mcp_server_name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+      mcp_server_name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpAuthenticationFailedErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMcpAuthenticationFailedError.
+  # Authentication to an MCP server failed.
+  class BetaManagedAgentsMcpAuthenticationFailedError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpAuthenticationFailedErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpAuthenticationFailedErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+    # @return [String] Name of the MCP server that failed authentication.
+    attr_reader :mcp_server_name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMcpAuthenticationFailedErrorType SDK namespace.
+  module BetaManagedAgentsMcpAuthenticationFailedErrorType
+    MCP_AUTHENTICATION_FAILED_ERROR = 'mcp_authentication_failed_error'
+    VALUES = ['mcp_authentication_failed_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMcpAuthenticationFailedErrorType SDK namespace.
-module BetaManagedAgentsMcpAuthenticationFailedErrorType
-  MCP_AUTHENTICATION_FAILED_ERROR = 'mcp_authentication_failed_error'
-  VALUES = ['mcp_authentication_failed_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpAuthenticationFailedErrorType', 'enum', "Unknown BetaManagedAgentsMcpAuthenticationFailedErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-    retry_status: "retry_status",
-    mcp_server_name: "mcp_server_name",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-    retry_status
-    mcp_server_name
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpConnectionFailedErrorType.from_value(value)
-    end,
-    retry_status: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpConnectionFailedError.
-# Failed to connect to an MCP server.
-class BetaManagedAgentsMcpConnectionFailedError
-  include BetaManagedAgentsSessionErrorEventError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpConnectionFailedErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-  # @return [BetaManagedAgentsRetryStatus] What the client should do next.
-  attr_reader :retry_status
-  # @return [String] Name of the MCP server that failed to connect.
-  attr_reader :mcp_server_name
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpAuthenticationFailedErrorType', 'enum', "Unknown BetaManagedAgentsMcpAuthenticationFailedErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message',
+      retry_status: 'retry_status',
+      mcp_server_name: 'mcp_server_name'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+      retry_status
+      mcp_server_name
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpConnectionFailedErrorType.from_value(value)
+      end,
+      retry_status: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsRetryStatus.from_hash(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMcpConnectionFailedError.
+  # Failed to connect to an MCP server.
+  class BetaManagedAgentsMcpConnectionFailedError
+    include BetaManagedAgentsSessionErrorEventError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpConnectionFailedErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpConnectionFailedErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+    # @return [BetaManagedAgentsRetryStatus] What the client should do next.
+    attr_reader :retry_status
+    # @return [String] Name of the MCP server that failed to connect.
+    attr_reader :mcp_server_name
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMcpConnectionFailedErrorType SDK namespace.
+  module BetaManagedAgentsMcpConnectionFailedErrorType
+    MCP_CONNECTION_FAILED_ERROR = 'mcp_connection_failed_error'
+    VALUES = ['mcp_connection_failed_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMcpConnectionFailedErrorType SDK namespace.
-module BetaManagedAgentsMcpConnectionFailedErrorType
-  MCP_CONNECTION_FAILED_ERROR = 'mcp_connection_failed_error'
-  VALUES = ['mcp_connection_failed_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpConnectionFailedErrorType', 'enum', "Unknown BetaManagedAgentsMcpConnectionFailedErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata
-  FIELDS = {
-    type: "type",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError.
-# An MCP server host used by the deployment's agent is blocked by the environment's network policy.
-class BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError
-  include BetaManagedAgentsDeploymentPausedReasonError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpConnectionFailedErrorType', 'enum', "Unknown BetaManagedAgentsMcpConnectionFailedErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata
+    FIELDS = {
+      type: 'type'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
+  # API model for BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError.
+  # An MCP server host used by the deployment's agent is blocked by the environment's network policy.
+  class BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError
+    include BetaManagedAgentsDeploymentPausedReasonError
+
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+  # Defines the BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType SDK namespace.
+  module BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType
+    MCP_EGRESS_BLOCKED_ERROR = 'mcp_egress_blocked_error'
+    VALUES = ['mcp_egress_blocked_error'].freeze
+    def self.from_value(value)
+      return value if VALUES.include?(value)
 
-# Defines the BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType SDK namespace.
-module BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType
-  MCP_EGRESS_BLOCKED_ERROR = 'mcp_egress_blocked_error'
-  VALUES = ['mcp_egress_blocked_error'].freeze
-  def self.from_value(value)
-    return value if VALUES.include?(value)
-
-    raise SdkValidationError.new('BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType: #{value}")
-  end
-end
-
-# Internal model hydration metadata.
-class SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata
-  FIELDS = {
-    type: "type",
-    message: "message",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-    type
-    message
-  ].freeze
-  DECODERS = {
-    type: lambda do |value|
-      ::OctridevAnthropic::BetaManagedAgentsMcpEgressBlockedRunErrorType.from_value(value)
-    end,
-  }.freeze
-end
-
-# API model for BetaManagedAgentsMcpEgressBlockedRunError.
-# An MCP server host used by the deployment's agent is blocked by the environment's network policy.
-class BetaManagedAgentsMcpEgressBlockedRunError
-  include BetaManagedAgentsRunError
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::DECODERS
-
-  # @return [BetaManagedAgentsMcpEgressBlockedRunErrorType] Required enumerated value serialized in the `type` wire field.
-  attr_reader :type
-  # @return [String] Human-readable error description.
-  attr_reader :message
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+      raise SdkValidationError.new('BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType', 'enum', "Unknown BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorType: #{value}")
+    end
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+  # Internal model hydration metadata.
+  class SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata
+    FIELDS = {
+      type: 'type',
+      message: 'message'
+    }.freeze
+    REQUIRED_FIELDS = %i[
+      type
+      message
+    ].freeze
+    DECODERS = {
+      type: lambda do |value|
+        ::OctridevAnthropic::BetaManagedAgentsMcpEgressBlockedRunErrorType.from_value(value)
+      end
+    }.freeze
   end
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
+  # API model for BetaManagedAgentsMcpEgressBlockedRunError.
+  # An MCP server host used by the deployment's agent is blocked by the environment's network policy.
+  class BetaManagedAgentsMcpEgressBlockedRunError
+    include BetaManagedAgentsRunError
 
-  def to_json(*args)
-    to_h.to_json(*args)
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaManagedAgentsMcpEgressBlockedRunErrorMetadata::DECODERS
+
+    # @return [BetaManagedAgentsMcpEgressBlockedRunErrorType] Required enumerated value serialized in the `type` wire field.
+    attr_reader :type
+    # @return [String] Human-readable error description.
+    attr_reader :message
+
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
 end

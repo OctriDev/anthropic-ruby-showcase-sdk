@@ -5,24 +5,24 @@
 
 # shared_beta_inference domain models
 module OctridevAnthropic
-# Defines the BetaInferenceGeo SDK namespace.
-module BetaInferenceGeo
-  GLOBAL = 'global'
-  US = 'us'
-  VALUES = ['global', 'us'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaInferenceGeo SDK namespace.
+  module BetaInferenceGeo
+    GLOBAL = 'global'
+    US = 'us'
+    VALUES = %w[global us].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 
-# Defines the BetaInferenceGeoFilter SDK namespace.
-module BetaInferenceGeoFilter
-  GLOBAL = 'global'
-  NOT_AVAILABLE = 'not_available'
-  US = 'us'
-  VALUES = ['global', 'not_available', 'us'].freeze
-  def self.from_value(value)
-    value
+  # Defines the BetaInferenceGeoFilter SDK namespace.
+  module BetaInferenceGeoFilter
+    GLOBAL = 'global'
+    NOT_AVAILABLE = 'not_available'
+    US = 'us'
+    VALUES = %w[global not_available us].freeze
+    def self.from_value(value)
+      value
+    end
   end
-end
 end

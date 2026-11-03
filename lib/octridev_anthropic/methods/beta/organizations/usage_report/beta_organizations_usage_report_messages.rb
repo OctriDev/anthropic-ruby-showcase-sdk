@@ -71,12 +71,11 @@ module OctridevAnthropic
         anthropic_beta: NOT_GIVEN,
         request_options: nil
       )
-
         Validation.validate_date_time('starting_at', starting_at)
 
         SdkClient.request(
           'GET',
-          "/v1/organizations/usage_report/messages?beta=true",
+          '/v1/organizations/usage_report/messages?beta=true',
           config: config,
           query: {
             'starting_at' => QueryValue.new(starting_at, style: 'form', explode: true),
@@ -93,20 +92,20 @@ module OctridevAnthropic
             'inference_geos[]' => QueryValue.new(inference_geos, style: 'form', explode: true),
             'speeds[]' => QueryValue.new(speeds, style: 'form', explode: true),
             'group_by[]' => QueryValue.new(group_by, style: 'form', explode: true),
-            'bucket_width' => QueryValue.new(bucket_width, style: 'form', explode: true),
+            'bucket_width' => QueryValue.new(bucket_width, style: 'form', explode: true)
           },
           return_type: ::OctridevAnthropic::BetaGetMessagesUsageReportResponse,
           decoder: :json,
           operation_id: 'list_beta_organizations_usage_report_messages',
           extra_headers: SdkClient.serialize_headers({
-            'anthropic-beta' => SdkClient.header_value(anthropic_beta),
-          }),
+                                                       'anthropic-beta' => SdkClient.header_value(anthropic_beta)
+                                                     }),
           request_options: request_options,
-          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse },
+          errors: { '400' => ::OctridevAnthropic::BetaErrorResponse, '401' => ::OctridevAnthropic::BetaErrorResponse, '403' => ::OctridevAnthropic::BetaErrorResponse, '404' => ::OctridevAnthropic::BetaErrorResponse, '408' => ::OctridevAnthropic::BetaErrorResponse, '409' => ::OctridevAnthropic::BetaErrorResponse, '412' => ::OctridevAnthropic::BetaErrorResponse, '413' => ::OctridevAnthropic::BetaErrorResponse, '429' => ::OctridevAnthropic::BetaErrorResponse, '431' => ::OctridevAnthropic::BetaErrorResponse, '499' => ::OctridevAnthropic::BetaErrorResponse, '500' => ::OctridevAnthropic::BetaErrorResponse, '501' => ::OctridevAnthropic::BetaErrorResponse, '503' => ::OctridevAnthropic::BetaErrorResponse, '504' => ::OctridevAnthropic::BetaErrorResponse, '529' => ::OctridevAnthropic::BetaErrorResponse }
         ).result
       end
 
-    ListBetaOrganizationsUsageReportMessagesPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
+      ListBetaOrganizationsUsageReportMessagesPage = ::Struct.new(:data, :items, :has_more, keyword_init: true)
 
       # Retrieves time-bucketed Messages usage data for the organization. Use `starting_at` and optionally `ending_at` to set the RFC 3339 time range, and use `group_by[]` or the filter parameters to narrow or group results. Follow the `next_page` cursor in each response to retrieve additional buckets.
       #
@@ -195,10 +194,13 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             items.each { |item| y << item }
             break unless page.has_more
+
             next_cursor = page.next_page
             break if next_cursor.nil?
+
             cursor = next_cursor
           end
         end
@@ -249,10 +251,12 @@ module OctridevAnthropic
             )
             items = page.data || []
             break if items.empty?
+
             next_cursor = page.next_page
             has_more = page.has_more && !next_cursor.nil?
             y << ListBetaOrganizationsUsageReportMessagesPage.new(data: page, items: items, has_more: has_more)
             break unless has_more
+
             cursor = next_cursor
           end
         end

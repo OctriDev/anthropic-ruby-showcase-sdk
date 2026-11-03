@@ -5,43 +5,41 @@
 
 # stop_beta_true domain models
 module OctridevAnthropic
-# Internal model hydration metadata.
-class SdkInternalBetaSelfHostedWorkStopRequestMetadata
-  FIELDS = {
-    force: "force",
-  }.freeze
-  REQUIRED_FIELDS = %i[
-  ].freeze
-  DECODERS = {
-  }.freeze
-end
-
-# API model for BetaSelfHostedWorkStopRequest.
-# Request to stop a work item.
-class BetaSelfHostedWorkStopRequest
-  CONSTRUCTION_SURFACE = :named
-  FIELDS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::FIELDS
-  REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::REQUIRED_FIELDS
-  DECODERS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::DECODERS
-
-  # @return [Boolean] If true, immediately stop work without graceful shutdown
-  attr_reader :force
-
-  def initialize(**attributes)
-    SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
-    freeze
+  # Internal model hydration metadata.
+  class SdkInternalBetaSelfHostedWorkStopRequestMetadata
+    FIELDS = {
+      force: 'force'
+    }.freeze
+    REQUIRED_FIELDS = %i[].freeze
+    DECODERS = {}.freeze
   end
 
-  def self.from_hash(data)
-    SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
-  end
+  # API model for BetaSelfHostedWorkStopRequest.
+  # Request to stop a work item.
+  class BetaSelfHostedWorkStopRequest
+    CONSTRUCTION_SURFACE = :named
+    FIELDS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::FIELDS
+    REQUIRED_FIELDS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::REQUIRED_FIELDS
+    DECODERS = SdkInternalBetaSelfHostedWorkStopRequestMetadata::DECODERS
 
-  def to_h
-    SdkModel.to_h(self, FIELDS)
-  end
+    # @return [Boolean] If true, immediately stop work without graceful shutdown
+    attr_reader :force
 
-  def to_json(*args)
-    to_h.to_json(*args)
+    def initialize(**attributes)
+      SdkModel.assign(self, attributes, FIELDS, REQUIRED_FIELDS)
+      freeze
+    end
+
+    def self.from_hash(data)
+      SdkModel.from_hash(self, data, FIELDS, REQUIRED_FIELDS, DECODERS)
+    end
+
+    def to_h
+      SdkModel.to_h(self, FIELDS)
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
-end
 end
